@@ -9,8 +9,7 @@ require('events').EventEmitter.prototype._maxListeners = 300;
 const sql = require("sqlite");
 "use strict";
 const { hangman } = require('reconlx')
-const thing = require('mathjs')
-const maths = thing.parser()
+const math = require('mathjs')
 const started = Date()
 const Canvas = require('canvas')
 const NSFW = require("discord-nsfw");
@@ -20,7 +19,7 @@ const client = new Discord.Client()
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 const lyricsFinder = require("lyrics-finder");
-const prefix = "m?";
+const { prefix } = require('./config.json')
 const configg = require('./config/bot.js')
 const queues = {}
 const search = require('youtube-search')
@@ -40,7 +39,7 @@ const Enmap = require('enmap')
 let cooldown = new Set()
 client.on("ready", async () => {
   //client.user.setPresence({ activity: { name: 'm?help/m?commands', type: 'PLAYING' }});
-  client.user.setPresence({ activity: { name: 'm?help/m?commands', type: 'PLAYING' }, status: 'dnd' })
+  client.user.setPresence({ activity: { name: config.text, type: config.activity }, status: config.status })
     .then(console.log)
     .catch(console.error);
   console.log("bot lancé");
@@ -339,11 +338,11 @@ client.on('message', message => {
     }
   }
 });
-client.on('message', message =>{
+client.on('message', message => {
   const owner = client.user.tag
   if (message.author.bot) return;
   if (message.content == `${prefix}test`)
-  message.reply(owner)
+    message.reply(owner)
 })
 client.on("message", async message => {
   if (message.author.bot) return;
@@ -438,7 +437,6 @@ client.on('message', async message => {
     message.channel.send(embed);
   }
 });
-
 // Kiss
 client.on('message', async message => {
   if (!message.guild) return;
@@ -1553,6 +1551,7 @@ client.on('message', message => {
       .addField('Date d\'arrivée sur le serveur', moment(member.joinedAt).format('[Le] DD/MM/YYYY [à] HH:mm:ss'), true)
       .addField('Date de début de boost', member.premiumSince ? moment(member.premiumSince).format('[Le] DD/MM/YYYY [à] HH:mm:ss') : 'Ne boost pas', true)
       .addField('Infractions', client.db.warns[member.id] ? client.db.warns[member.id].length : 'Aucune', true)
+      .addField(`Roles`, member.roles.cache.size, true)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .setFooter(`ID : ${member.id}`)
     message.channel.send(embeduser)
@@ -2195,7 +2194,7 @@ client.on('message', async message => {
 })
 client.on('message', async message => {
   if (message.author.bot) return;
-  if (message.content.startsWith(prefix + '3000y')) {
+  if (message.content.toLowerCase().startsWith(prefix + '3000y')) {
     const AmeClient = require('amethyste-api');
     const AmeAPI = new AmeClient('666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139'); {
 
@@ -2211,7 +2210,7 @@ client.on('message', async message => {
 })
 client.on('message', async message => {
   if (message.author.bot) return;
-  if (message.content.startsWith(prefix + 'badge')) {
+  if (message.content.toLowerCase().startsWith(prefix + 'badge')) {
     const AmeClient = require('amethyste-api');
     const AmeAPI = new AmeClient('666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139'); {
 
@@ -2227,14 +2226,14 @@ client.on('message', async message => {
 })
 client.on('message', async message => {
   if (message.author.bot) return;
-  if (message.content.startsWith(prefix + 'facebook')) {
+  if (message.content.toLowerCase().startsWith(prefix + 'facebook')) {
     const AmeClient = require('amethyste-api');
     const AmeAPI = new AmeClient('666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139'); {
 
       const args = message.content.trim().split(/ +/g)
       const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase().includes() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase().includes() === args.join(' ').toLocaleLowerCase())
         || message.member; let m = await message.channel.send("**Please Wait...**");
-      const buffer = await AmeAPI.generate("facebook", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }) });
+      const buffer = await AmeAPI.generate("facebook", { url: User.user.displayAvatarURL({ format: "png", size: 2048, dynamic: true }) });
       const attachment = new Discord.MessageAttachment(buffer, "facebook.png");
       m.delete({ timeout: 5000 });
       message.channel.send(attachment);
@@ -2243,7 +2242,7 @@ client.on('message', async message => {
 })
 client.on('message', async message => {
   if (message.author.bot) return;
-  if (message.content.startsWith(prefix + 'ps4')) {
+  if (message.content.toLowerCase().startsWith(prefix + 'ps4')) {
     const AmeClient = require('amethyste-api');
     const AmeAPI = new AmeClient('666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139'); {
 
@@ -2438,15 +2437,31 @@ client.on('message', message => {
 })
 const { gifu } = require("gifu");
 
-// client.on('message', message => {
-// const args = message.content.trim().split(/ +/g)
-// if (!args[1]) {
-//   return message.channel.send("S'il te plaît spécifie un gif !");
-
-// }
-// gifu("bite")
-//   .then(result => console.log(result))
-// })
+client.on('message', message => {
+  //const args = message.content.trim().split(/ +/g)
+  if (message.author.bot) return;
+  if (message.content.toLowerCase().endsWith(prefix + 'blush')) {
+    // if (!args[1]) {
+    //   return message.channel.send("S'il te plaît spécifie un gif !");
+    const result = gifu("blush")
+    const blushembed = new Discord.MessageEmbed()
+      .setColor('#202225')
+      .setTitle(`${message.author.tag} is blushing`)
+      .setImage(result)
+    message.channel.send(blushembed)
+  }
+});
+client.on('message', message => {
+  if (message.author.bot) return;
+  if (message.content.toLowerCase().endsWith(prefix + 'cry')) {
+    const result = gifu("cry")
+    const shyembed = new Discord.MessageEmbed()
+      .setColor('#202225')
+      .setTitle(`${message.author.tag} is crying`)
+      .setImage(result)
+    message.channel.send(shyembed)
+  }
+});
 
 
 // client.on('message', async message => {
@@ -2625,15 +2640,22 @@ client.on('message', async message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   if (message.content.startsWith(prefix + 'avatar')) {
 
-    let user = !message.mentions.users.first() ? message.author : message.mentions.users.first()
 
-    let embed = new Discord.MessageEmbed()
-      .setTitle(`Avatar de ${user.username}!`)
-      //.setDescription(/*`[Click here if the image didn't load](${user.displayAvatarURL})`*/user.avatarURL)
-      .setImage(user.avatarURL({ size: 2048, dynamic: true, format: "png" }))
-      .setColor("RANDOM");
-    message.channel.send(embed);
+    try {
+      let user = !message.mentions.users.first() ? message.author : message.mentions.users.first()
+
+      let embed = new Discord.MessageEmbed()
+        .setTitle(`Avatar de ${user.username}!`)
+        //.setDescription(`Avatar of **${user.username}#${user.discriminator}**\nIf the image is not displayed, [click here](${user.avatarURL})`)
+        .setImage(user.avatarURL({ size: 2048, dynamic: true, format: "png" }))
+        .setColor(0xFFFFFF)
+        .setURL(`${user.displayAvatarURL}`)
+      message.channel.send(embed);
+    } catch (err) {
+      message.channel.send(err)
+    }
   }
+
 });
 
 // client.on('message', async message => {
@@ -3021,95 +3043,9 @@ client.on('message', async message => {
 //   }
 
 // })
-const config = require('./config.json')
-// client.on('message', async message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'lyrics')) {
-//     const genius = require('genius-lyrics') 
-//     const G = new genius.Client(config.genius)
+const config = require('./config.json');
+const { error } = require('console');
 
-//     G.songs.search(message.content.split(' ').slice(1).join(' '), {limit: 1}).then((results) => {
-//       const song = results[1]
-//       message.channel.send(`**${song.artist.name} - ${song.title}**\n<${song.url}>`)
-//     }).catch((err) => message.reply(`Erreur : ${err}`))
-
-//   }
-//});
-// client.on('message', async message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'lyrics')) {
-//     const genius = require('genius-lyrics')
-//     const G = new genius.Client(config.genius)
-//     const getArtistTitle = require('get-artist-title');
-//     const axios = require('axios');
-//     const cheerio = require('cheerio');
-//     const args = message.content.slice(prefix.length + 'lyrics').trim().split(/ +/g);
-
-//     const baseURL = `https://api.genius.com/search?access_token=${config.genius}`;
-//     let playlist;
-
-//     const scrapeLyrics = path => {
-//       return axios.get(path)
-//         .then(response => {
-//           let $ = cheerio.load(response.data);
-//           return [$('.header_with_cover_art-primary_info-title').text().trim(), $('.lyrics').text().trim()];
-//         })
-//         .catch(err => {
-//           console.warn(err);
-//         });
-//     };
-
-//     const searchLyrics = url => {
-//       return Promise.resolve(axios.get(url, { 'Authorization': `Bearer ${config.genius}` })
-//         //.then(response => checkSpotify(response.data.response.hits))
-//         .then(path => scrapeLyrics(path))
-//         .catch(err => {
-//           console.warn(err);
-//         })
-//       );
-//     };
-
-//     // const checkSpotify = hits => {
-//     //   return hits[0].result.primary_artist.name === 'Spotify' ? hits[1].result.url : hits[0].result.url;
-//     // };
-
-//     const createQuery = arg => {
-//       if (arg === 'np') {
-//         const query = [artist, title] = getArtistTitle(playlist.current, {
-//           defaultArtist: ' '
-//         });
-//         console.log(query)
-//         return query.join(' ')
-//       } else return args.slice(1).join(' ');
-//     };
-
-//     playlist = client.playlist;
-
-//     if (!args[0]) return message.reply(`Chanson non définie`);
-
-//     const query = createQuery(args[0]);
-//     searchLyrics(`${baseURL}&q=${encodeURIComponent(query)}`)
-//       .then(songData => {
-//         const embed = new Discord.MessageEmbed()
-//           .setColor(0x00AE86)
-//           .setTitle(`Lyrics for: ${/*songData[0]*/query}`)
-//           .setDescription(songData[1]);
-//         return message.channel.send({ embed });
-//       })
-//       .catch(err => {
-//         message.channel.send(`No lyrics found for: ${query} 🙁`, { code: 'asciidoc' });
-//         console.warn(err);
-//       });
-//   }
-
-// });
-// client.on('message', async message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'lyrics')) {
-//     const music = require('telk-music');
-
-//   }
-// });
 client.on('message', async message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   if (message.content.startsWith(prefix + 'lyrics')) {
@@ -3133,123 +3069,6 @@ client.on('message', async message => {
     }
   }
 });
-// client.on('message', async message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'lyrics')) {
-//     const Color = `RANDOM`; const Genius = new (require("genius-lyrics")).Client(config.genius);
-//     const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
-//     if (!args[0]) return message.channel.send(`Please Give Me A Song Name!`); 
-//      let Name = args.join(" ");
-//     Genius.tracks.search(Name).then(results => { 
-//       const song = results[0]; song.lyrics().then(lyrics => { message.channel.send(new MessageEmbed()
-//         .setColor(Color)
-//         .setTitle(`${song.title} Lyrics`)
-//         .setDescription(lyrics.length > 1900 ? `${lyrics.substr(0, 1900)}...` : lyrics)
-//         .setFooter(`Song Creator : ${song.artist.name}`)
-//         .setThumbnail(song.humbnail)
-//         .setTimestamp()); })
-//         .catch(err => console.error(err)) });
-//   }
-// });
-// client.on('message', message => {
-//   const randomPuppy = require('random-puppy');
-//   var subreddits = [
-//     'NSFW_Wallpapers',
-//     'SexyWallpapers',
-//     'HighResNSFW',
-//     'nsfw_hd',
-//     'UHDnsfw'
-//   ]
-//   var sub = subreddits[Math.round(Math.random() * (subreddits.length - 1))];
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + '4knsfw')) {
-
-//     randomPuppy(sub)
-//       .then(url => {
-//         const embed = new Discord.MessageEmbed()
-//           .setFooter(`4kNSFW`)
-//           .setDescription(`[Image URL](${url})`)
-//           .setImage(url)
-//           .setColor('#A187E0');
-//         return message.channel.send({ embed });
-//       })
-//   }
-// });
-// client.on('message', message => {
-//   const randomPuppy = require('random-puppy');
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'cosplay')) {
-//     const subreddits = [
-//       'nsfwcosplay',
-//       'cosplayonoff',
-//       'cosporn',
-//       'cosplayboobs'
-//     ]
-
-//     const sub = subreddits[Math.round(Math.random() * (subreddits.length - 1))];
-
-//     randomPuppy(sub)
-//       .then(url => {
-//         const embed = new Discord.MessageEmbed()
-//           .setFooter('cosplay')
-//           .setDescription(`[Image URL](${url})`)
-//           .setImage(url)
-//           .setColor('#A187E0');
-//         return message.channel.send({ embed });
-//       })
-//   }
-// });
-// client.on('message', async message => {
-//   var superagent = require("superagent");
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.endsWith(prefix + '4k')) {
-//     if (!message.channel.nsfw)
-//       return message.channel.send(
-//         ":underage:  This Command Is Only Allowed In NSFW Channels Only!"
-//       );
-//     var lo = new Discord.MessageEmbed()
-//       .setDescription(`🔃 Loading...`)
-//       .setTimestamp();
-
-//     message.channel.send(lo).then((m) => {
-//       superagent
-//         .get("https://nekobot.xyz/api/image")
-//         .query({ type: "4k" })
-//         .end((err, response) => {
-//           var embed_nsfw = new Discord.MessageEmbed()
-//             .setURL(`${response.body.message}`)
-//             .setImage(response.body.message);
-
-//           m.edit(embed_nsfw);
-//         });
-//     });
-
-//   }
-// });
-// client.on('message', async message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + '4knsfw')) {
-//     if (!message.channel.nsfw)
-//       return message.channel.send(
-//         ":underage:  This Command Is Only Allowed In NSFW Channels Only!"
-//       );
-//       const image = await nsfw.fourk();
-//       const embed = new Discord.MessageEmbed()
-//           .setTitle(`Pussy Image`)
-//           .setColor("GREEN")
-//           .setImage(image);
-//       message.channel.send(embed);
-//   }
-// });
-// const Lolibooru = require("node-lolibooru");
-// const loli = new Lolibooru();
-
-// client.on('message', message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'loli')) {
-//   loli.getLoli(1, 1, "1girl").then((data) => { console.log(data)/*message.channel.send(data)*/ })
-//   }
-// });
 // client.on('message', message => {
 //   if (!message.content.startsWith(prefix) || message.author.bot) return;
 //   if (message.content.startsWith(prefix + 'test')) {
@@ -3264,20 +3083,342 @@ client.on('message', async message => {
 // client.on('messageReactionRemove', (reaction, user) => {
 //   console.log('réaction retirée !')
 // })
-fs.readdirSync('./src').forEach(dirs => {
-  const commandss = fs.readdirSync(`./src/${dirs}`).filter(files => files.endsWith('.js'));
+// fs.readdirSync('./src').forEach(dirs => {
+//   const commandss = fs.readdirSync(`./src/${dirs}`).filter(files => files.endsWith('.js'));
 
-  for (const file of commandss) {
-    const commands = require(`./src/${dirs}/${file}`);
-    console.log(`Loading command ${file}`);
-    var test = commands.name.toLowerCase();
-    client.commands.set(test, commands);
-  };
-  for (const file of commandss) {
-    const commands = require(`./src/commands/misc/Botinfocommand`);
-    console.log(`Loading command ${commands.name}`);
-    var test = commands.name.toLowerCase();
-    client.commands.set(test, commands);
-  };
+//   for (const file of commandss) {
+//     const commands = require(`./src/${dirs}/${file}`);
+//     console.log(`Loading command ${file}`);
+//     var test = commands.name.toLowerCase();
+//     client.commands.set(test, commands);
+//   };
+//   for (const file of commandss) {
+//     const commands = require(`./src/commands/misc/Botinfocommand`);
+//     console.log(`Loading command ${commands.name}`);
+//     var test = commands.name.toLowerCase();
+//     client.commands.set(test, commands);
+//   };
+// });
+client.on('message', async message => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (message.content.startsWith(prefix + 'firstmessage')) {
+    const fetchMessages = await message.channel.messages.fetch({ after: 1, limit: 1 });
+    const msg = fetchMessages.first();
+
+    const embed = new Discord.MessageEmbed()
+      .setTitle(`First message in ${message.channel.name}`)
+      .setURL(msg.url)
+      .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
+      .setDescription(`Content ` + msg.content)
+      .addField(`Author`, msg.author, true)
+      .addField(`Message ID:`, msg.id, true)
+      .addField(`Created at:`, msg.createdAt.toLocaleDateString(), true)
+    message.channel.send(embed)
+
+
+  }
 });
+// client.on('message', async message => {
+//   if (!message.members.hasPermission('ADMINISTRATOR')) return message.channel.send(`You don't have the permission !`)
+//   if (!message.content.startsWith(prefix) || message.author.bot) return;
+//   const target = message.mentions.members.first()
+//   const role = message.mentions.roles.first()
+//   if (message.content.startsWith(prefix + 'addrole')) {
+//     if (!target) return message.channel.send(`No member specified!`)
+//     if (!role) return message.channel.send(`No role specified!`)
+//     await target.roles.add(role)
+//     message.channel.send(`${target.user.username} has obtained the ${role} role!`)
+//       .catch(error => {
+//         return message.channel.send(error)
+//       });
+
+//   }
+//});
+// client.on('message', async message => {
+//   if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(`You don't have the permission !`)
+//   if (!message.content.startsWith(prefix) || message.author.bot) return;
+//   const target = message.mentions.members.first()
+//   const role = message.mentions.roles.first()
+//   if (message.content.startsWith(prefix + 'delrole')) {
+//     if (!target) return message.channel.send(`No member specified!`)
+//     if (!role) return message.channel.send(`No role specified!`)
+//     await target.roles.remove(role)
+//     message.channel.send(`${target.user.username} has been removed of ${role} role!`)
+//       .catch(error => {
+//         return message.channel.send(error)
+//       });
+//   }
+// });
+client.on('message', async message => {
+  const args = message.content.slice(prefix.length + (7)).trim().split(/ +/g);
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  const weather = require('weather-js');
+  if (message.content.startsWith(prefix + 'weather')) {
+
+    weather.find({ search: args.join(" "), degreeType: 'C' }, function (error, result) {
+      // 'C' can be changed to 'F' for farneheit results
+      if (error) return message.channel.send(error);
+      if (!args[0]) return message.channel.send('Please specify a location')
+
+      if (result === undefined || result.length === 0) return message.channel.send('**Invalid** location');
+
+      var current = result[0].current;
+      var location = result[0].location;
+
+      const weatherinfo = new Discord.MessageEmbed()
+        .setDescription(`**${current.skytext}**`)
+        .setAuthor(`Weather forecast for ${current.observationpoint}`)
+        .setThumbnail(current.imageUrl)
+        .setColor(0x111111)
+        .addField('Timezone', `UTC${location.timezone}`, true)
+        .addField('Degree Type', 'Celsius', true)
+        .addField('Temperature', `${current.temperature}°`, true)
+        .addField('Wind', current.winddisplay, true)
+        .addField('Feels like', `${current.feelslike}°`, true)
+        .addField('Humidity', `${current.humidity}%`, true)
+
+
+      message.channel.send(weatherinfo)
+    })
+  }
+});
+// client.on('message', message => {
+//   if (!message.content.startsWith(prefix) || message.author.bot) return;
+//   if (message.content.startsWith(prefix + 'nickname')) {
+//     const target = message.mentions.users.first()
+//     const member = message.guild.members.cache.get(target.members.id)
+//     const args = message.content.slice(prefix.length + (8) + member).trim().split(/ +/g);
+
+//     args.shift()
+//     const nickname = args.join(' ')
+
+//     member.setNickname(nickname)
+
+//     message.reply(`You changed the nickname to **${nickname}**!`)
+//   }
+// });
+// client.on('message', async message => {
+//   const fetch = require("node-fetch");
+//   const atob = require('atob')
+//   if (!message.content.startsWith(prefix) || message.author.bot) return;
+//   if (message.content.startsWith(prefix + 'trivia')) {
+//     const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
+//     class Game {
+//       constructor(message, args) { // Defining vars and running the game logic
+//         this.message = message
+//         this.args = args
+//         this.player = message.author.id
+//         this.reactions = ['🇦', '🇧', '🇨', '🇩']
+//         this.question
+//         this.init()
+//       }
+//       async init() {
+//         if (!this.args.length) this.get_data()
+//         if (this.args[1] && !this.args[2]) this.get_data(this.args[1])
+//         if (this.args[1] && this.args[2]) this.get_data(this.args[1], this.args[2])// checks what fields have been filled in
+//       }
+//       async get_data(dif, cat) {
+//         if (!dif && !cat) {
+//           let question
+//           await fetch('https://opentdb.com/api.php?amount=1&encode=base64')
+//             .then(response => response.json())
+//             .then(data => question = data);
+//           this.question = question
+//           return this.show_question();
+//         }
+//         if (dif && !cat) {
+//           let question
+//           if (dif.toLowerCase() == 'any') return this.get_data()
+//           if (dif.toLowerCase() != 'easy' && dif.toLowerCase() != 'medium' && dif.toLowerCase() != 'hard') return this.message.channel.send('Please enter a valid Difficulty\nUse .trivia categories to view a list of categories and difficulties');
+//           await fetch('https://opentdb.com/api.php?amount=1&difficulty=' + dif.toLowerCase() + '&encode=base64')
+//             .then(response => response.json())
+//             .then(data => question = data);
+//           this.question = question
+//           return this.show_question();
+//         }
+//         if (dif && cat) {
+//           let question
+//           for (let i in id_list) {
+//             if (id_list[i].name.toLowerCase().replace(' ', '').replace(' ', '').replace(' ', '').replace(' ', '') == cat.toLowerCase()) {
+//               this.question_id = id_list[i].id
+//             }
+//           }
+//           if (dif.toLowerCase() != 'easy' && dif.toLowerCase() != 'medium' && dif.toLowerCase() != 'hard' && dif.toLowerCase() != 'any') return this.message.channel.send('Please enter a valid Difficulty\nUse .trivia categories to view a list of categories and difficulties');
+//           if (!this.question_id) return this.message.channel.send('Please enter a valid Category\nUse .trivia categories to view a list of categories and difficulties');
+//           if (dif.toLowerCase() == 'any') {
+//             await fetch('https://opentdb.com/api.php?amount=1&category=' + this.question_id + '&encode=base64')
+//               .then(response => response.json())
+//               .then(data => question = data);
+//             this.question = question
+//             return this.show_question();
+//           }
+//           await fetch('https://opentdb.com/api.php?amount=1&category=' + this.question_id + '&difficulty=' + dif.toLowerCase() + '&encode=base64')
+//             .then(response => response.json())
+//             .then(data => question = data);
+//           this.question = question
+//           return this.show_question();
+//         }
+//       }
+//       async show_question() {
+//         if (atob(this.question.results[0].type) == 'multiple') {
+//           this.question_length = 3
+//           this.correct_answer = Math.floor((Math.random() * 4) + 1)
+//           if (this.correct_answer == 1) {
+//             this.answer_array = [
+//               'A - ' + atob(this.question.results[0].correct_answer),
+//               'B - ' + atob(this.question.results[0].incorrect_answers[0]),
+//               'C - ' + atob(this.question.results[0].incorrect_answers[1]),
+//               'D - ' + atob(this.question.results[0].incorrect_answers[2])
+//             ]
+//           }
+//           if (this.correct_answer == 2) {
+//             this.answer_array = [
+//               'A - ' + atob(this.question.results[0].incorrect_answers[0]),
+//               'B - ' + atob(this.question.results[0].correct_answer),
+//               'C - ' + atob(this.question.results[0].incorrect_answers[1]),
+//               'D - ' + atob(this.question.results[0].incorrect_answers[2])
+//             ]
+//           }
+//           if (this.correct_answer == 3) {
+//             this.answer_array = [
+//               'A - ' + atob(this.question.results[0].incorrect_answers[0]),
+//               'B - ' + atob(this.question.results[0].incorrect_answers[1]),
+//               'C - ' + atob(this.question.results[0].correct_answer),
+//               'D - ' + atob(this.question.results[0].incorrect_answers[2])
+//             ]
+//           }
+//           if (this.correct_answer == 4) {
+//             this.answer_array = [
+//               'A - ' + atob(this.question.results[0].incorrect_answers[0]),
+//               'B - ' + atob(this.question.results[0].incorrect_answers[1]),
+//               'C - ' + atob(this.question.results[0].incorrect_answers[2]),
+//               'D - ' + atob(this.question.results[0].correct_answer)
+//             ]
+//           }
+//           this.question_embed = new Discord.MessageEmbed()
+//             .setColor('#0099ff')
+//             .setTitle(atob(this.question.results[0].question))
+//             .setDescription(this.answer_array)
+//             .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
+//         }
+//         if (atob(this.question.results[0].type) == 'boolean') {
+//           this.question_length = 1
+//           if (this.question.results[0].correct_answer == 'true') {
+//             this.correct_answer = 1
+//           }
+//           else {
+//             this.correct_answer = 2
+//           }
+//           this.answer_array = [
+//             'A - ' + 'True',
+//             'B - ' + 'False'
+//           ]
+//           this.question_embed = new Discord.MessageEmbed()
+//             .setColor('#0099ff')
+//             .setTitle(atob(this.question.results[0].question))
+//             .setDescription(this.answer_array)
+//             .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
+//         }
+//         this.question_message = await this.message.channel.send(this.question_embed)
+//         let step = -1
+//         while (step < this.question_length) {
+//           step++
+//           await this.question_message.react(this.reactions[step])
+//         }
+//         return this.await_reactions()
+//       }
+//       async await_reactions() {
+//         this.question_message.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🇦' || reaction.emoji.name == '🇧' || reaction.emoji.name == '🇨' || reaction.emoji.name == '🇩'),
+//           { max: 1, time: 30000 }).then(collected => {
+//             this.reaction = collected.first().emoji.name
+//             if (this.reaction == '🇦') this.input_answer = 1
+//             if (this.reaction == '🇧') this.input_answer = 2
+//             if (this.reaction == '🇨') this.input_answer = 3
+//             if (this.reaction == '🇩') this.input_answer = 4
+//             if (this.input_answer == this.correct_answer) {
+//               this.answer_array[this.input_answer - 1] = this.answer_array[this.input_answer - 1] + ' ✅'
+//               this.question_embed = new Discord.MessageEmbed()
+//                 .setColor('#0099ff')
+//                 .setTitle(atob(this.question.results[0].question))
+//                 .setDescription(this.answer_array)
+//                 .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
+//               this.question_message.edit(this.question_embed)
+//               this.question_message.edit('You got it correct! :smile:')
+//               this.end_game()
+//             }
+//             else {
+//               this.answer_array[this.input_answer - 1] = this.answer_array[this.input_answer - 1] + ' ❌'
+//               this.question_embed = new Discord.MessageEmbed()
+//                 .setColor('#0099ff')
+//                 .setTitle(atob(this.question.results[0].question))
+//                 .setDescription(this.answer_array)
+//                 .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
+//               this.question_message.edit(this.question_embed)
+//               this.question_message.edit('You got it wrong. The correct answer was ' + this.reactions[this.correct_answer - 1])
+//               this.end_game()
+//             }
+//           }).catch(() => {
+//             this.question_message.edit('You took to long to answer! Game has timed out. The answer was ' + this.reactions[this.correct_answer - 1])
+//             this.end_game()
+//           })
+//       }
+//       async end_game() {
+//         this.question_message.reactions.removeAll()
+//         game = null
+//       }
+//     }
+//     var game = new Game(message, args)
+//   }
+
+// });
+// client.on('message', async message => {
+//   if (!message.content.startsWith(prefix) || message.author.bot) return;
+//   if (message.content.startsWith(prefix + 'trivia')) {
+//     const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
+//     let questions = [
+
+//     ]
+
+//   }
+// });
+client.on('message', message => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
+  if (message.content.startsWith(prefix + 'calc')) {
+    try {
+      console.log(args);
+      message.channel.send(`The response of ${args} is ${math.evaluate(args)}`);
+    } catch (err) {
+      if (err) message.channel.send(`**${err.message}**`);
+    }
+
+  }
+});
+// client.on('message', message => {
+//   if (!message.content.startsWith(prefix) || message.author.bot) return;
+//   const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
+//   if (message.content.startsWith(prefix + 'flip')) {
+//     const flip = require("flip-text");
+
+//     try {
+//       if
+//       (args) return message.channel.send(flip(args));
+//     } catch (err) {
+//       if (err)message.channel.send(`**${err.message}**`);
+//     }
+//   }
+// });
+client.on('message', message => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
+  if (message.content.startsWith(prefix + 'invite')) {
+    var inviteEmbed = new Discord.MessageEmbed()
+      .setURL("https://discord.com/api/oauth2/authorize?client_id=776825747897319424&permissions=0&scope=bot")
+      .setTitle(`Invite link of Kiwii`)
+      .setColor(0x111111)
+      .setThumbnail('https://cdn.discordapp.com/attachments/772106096713924671/795269602912632852/anime-original-brown-hair-girl-green-eyes-hd-wallpaper-preview.png')
+    message.channel.send(inviteEmbed)
+  }
+});
+
 client.login(config.token);

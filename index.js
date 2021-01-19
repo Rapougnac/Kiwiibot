@@ -2981,68 +2981,7 @@ client.on('message', async message => {
     await message.channel.send(embed);
   }
 })
-// client.on('message', async message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'lyrics')) {
-//     const args = message.content.slice(prefix.length + 'lyrics').trim().split(/ +/g)
-//     // const command = args.shift().toLowerCase();
 
-//     // const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
-//     // if (!cmd) return;
-//     if (args.length < 2)
-//       return message.channel.send("Please enter the artist name first.")
-//     let artist = args.join(' ');
-//     let songName = '';
-//     let pages = [];
-//     let currentPage = 0;
-
-//     const messageFilter = m => m.author.id === message.author.id;
-//     const reactionFilter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && (message.author.id === user.id)
-
-//     message.channel.send('Please enter a song name now')
-//     await message.channel.awaitMessages(messageFilter, { max: 1, time: 15000 }).then(async collected => {
-//       songName = collected.first().content;
-//       await finder(artist, songName, message, pages)
-//     });
-
-//     const lyricsembed = await message.channel.send(`Lyrics pages: ${currentPage + 1}/${pages.length}`, pages[currentPage])
-//     await lyricsembed.react('⬅️');
-//     await lyricsembed.react('➡️');
-
-//     const collector = lyricsembed.createReactionCollector(reactionFilter);
-
-//     collector.on('collect', (reaction, user) => {
-//       if (reaction.emoji.name === '➡️') {
-//         if (currentPage < page.length - 1) {
-//           currentPage + -1
-//           lyricsembed.edit(`Lyrics pages: ${currentPage + 1}/${pages.length}`, pages[currentPage]);
-//         }
-//       }
-//       else if (reaction.emoji.name === '⬅️') {
-//         if (currentPage !== 0) {
-//           currentPage -= 1;
-//           lyricsembed.edit(`Lyrics pages: ${currentPage + 1}/${pages.length}`, pages[currentPage])
-//         }
-//       }
-//     })
-
-//   }
-
-//   async function finder(artist, songName, /*message,*/ pages) {
-//     let fullLyrics = await lyricsFinder(artist, songName) || 'Not found !'
-
-//     for (let i = 0; i < fullLyrics.length; i += 2048) {
-
-//       const lyricss = fullLyrics.substring(i, Math.min(fullLyric.length, i + 2048))
-
-//       const msg = new Discord.MessageEmbed()
-//         .setDescription(lyricss)
-//       pages.push(msg);
-//     }
-
-//   }
-
-// })
 const config = require('./config.json');
 const { error } = require('console');
 
@@ -3050,7 +2989,6 @@ client.on('message', async message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   if (message.content.startsWith(prefix + 'lyrics')) {
     const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
-    //const args = message.content.split(prefix + 'lyrics')[1]
     if (!args[0]) {
       const embed = new Discord.MessageEmbed()
         .setColor('RED')
@@ -3079,25 +3017,6 @@ client.on('message', async message => {
 //   console.log('réaction ajoutée par ! ' + user.username + '\nNom de l\'emoji ' + reaction.emoji.name + ` c'est la ${reaction.count}ème réaction !`);
 
 //   reaction.users.remove(user.id );
-// })
-// client.on('messageReactionRemove', (reaction, user) => {
-//   console.log('réaction retirée !')
-// })
-// fs.readdirSync('./src').forEach(dirs => {
-//   const commandss = fs.readdirSync(`./src/${dirs}`).filter(files => files.endsWith('.js'));
-
-//   for (const file of commandss) {
-//     const commands = require(`./src/${dirs}/${file}`);
-//     console.log(`Loading command ${file}`);
-//     var test = commands.name.toLowerCase();
-//     client.commands.set(test, commands);
-//   };
-//   for (const file of commandss) {
-//     const commands = require(`./src/commands/misc/Botinfocommand`);
-//     console.log(`Loading command ${commands.name}`);
-//     var test = commands.name.toLowerCase();
-//     client.commands.set(test, commands);
-//   };
 // });
 client.on('message', async message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -3198,180 +3117,6 @@ client.on('message', async message => {
 //   }
 // });
 // client.on('message', async message => {
-//   const fetch = require("node-fetch");
-//   const atob = require('atob')
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   if (message.content.startsWith(prefix + 'trivia')) {
-//     const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
-//     class Game {
-//       constructor(message, args) { // Defining vars and running the game logic
-//         this.message = message
-//         this.args = args
-//         this.player = message.author.id
-//         this.reactions = ['🇦', '🇧', '🇨', '🇩']
-//         this.question
-//         this.init()
-//       }
-//       async init() {
-//         if (!this.args.length) this.get_data()
-//         if (this.args[1] && !this.args[2]) this.get_data(this.args[1])
-//         if (this.args[1] && this.args[2]) this.get_data(this.args[1], this.args[2])// checks what fields have been filled in
-//       }
-//       async get_data(dif, cat) {
-//         if (!dif && !cat) {
-//           let question
-//           await fetch('https://opentdb.com/api.php?amount=1&encode=base64')
-//             .then(response => response.json())
-//             .then(data => question = data);
-//           this.question = question
-//           return this.show_question();
-//         }
-//         if (dif && !cat) {
-//           let question
-//           if (dif.toLowerCase() == 'any') return this.get_data()
-//           if (dif.toLowerCase() != 'easy' && dif.toLowerCase() != 'medium' && dif.toLowerCase() != 'hard') return this.message.channel.send('Please enter a valid Difficulty\nUse .trivia categories to view a list of categories and difficulties');
-//           await fetch('https://opentdb.com/api.php?amount=1&difficulty=' + dif.toLowerCase() + '&encode=base64')
-//             .then(response => response.json())
-//             .then(data => question = data);
-//           this.question = question
-//           return this.show_question();
-//         }
-//         if (dif && cat) {
-//           let question
-//           for (let i in id_list) {
-//             if (id_list[i].name.toLowerCase().replace(' ', '').replace(' ', '').replace(' ', '').replace(' ', '') == cat.toLowerCase()) {
-//               this.question_id = id_list[i].id
-//             }
-//           }
-//           if (dif.toLowerCase() != 'easy' && dif.toLowerCase() != 'medium' && dif.toLowerCase() != 'hard' && dif.toLowerCase() != 'any') return this.message.channel.send('Please enter a valid Difficulty\nUse .trivia categories to view a list of categories and difficulties');
-//           if (!this.question_id) return this.message.channel.send('Please enter a valid Category\nUse .trivia categories to view a list of categories and difficulties');
-//           if (dif.toLowerCase() == 'any') {
-//             await fetch('https://opentdb.com/api.php?amount=1&category=' + this.question_id + '&encode=base64')
-//               .then(response => response.json())
-//               .then(data => question = data);
-//             this.question = question
-//             return this.show_question();
-//           }
-//           await fetch('https://opentdb.com/api.php?amount=1&category=' + this.question_id + '&difficulty=' + dif.toLowerCase() + '&encode=base64')
-//             .then(response => response.json())
-//             .then(data => question = data);
-//           this.question = question
-//           return this.show_question();
-//         }
-//       }
-//       async show_question() {
-//         if (atob(this.question.results[0].type) == 'multiple') {
-//           this.question_length = 3
-//           this.correct_answer = Math.floor((Math.random() * 4) + 1)
-//           if (this.correct_answer == 1) {
-//             this.answer_array = [
-//               'A - ' + atob(this.question.results[0].correct_answer),
-//               'B - ' + atob(this.question.results[0].incorrect_answers[0]),
-//               'C - ' + atob(this.question.results[0].incorrect_answers[1]),
-//               'D - ' + atob(this.question.results[0].incorrect_answers[2])
-//             ]
-//           }
-//           if (this.correct_answer == 2) {
-//             this.answer_array = [
-//               'A - ' + atob(this.question.results[0].incorrect_answers[0]),
-//               'B - ' + atob(this.question.results[0].correct_answer),
-//               'C - ' + atob(this.question.results[0].incorrect_answers[1]),
-//               'D - ' + atob(this.question.results[0].incorrect_answers[2])
-//             ]
-//           }
-//           if (this.correct_answer == 3) {
-//             this.answer_array = [
-//               'A - ' + atob(this.question.results[0].incorrect_answers[0]),
-//               'B - ' + atob(this.question.results[0].incorrect_answers[1]),
-//               'C - ' + atob(this.question.results[0].correct_answer),
-//               'D - ' + atob(this.question.results[0].incorrect_answers[2])
-//             ]
-//           }
-//           if (this.correct_answer == 4) {
-//             this.answer_array = [
-//               'A - ' + atob(this.question.results[0].incorrect_answers[0]),
-//               'B - ' + atob(this.question.results[0].incorrect_answers[1]),
-//               'C - ' + atob(this.question.results[0].incorrect_answers[2]),
-//               'D - ' + atob(this.question.results[0].correct_answer)
-//             ]
-//           }
-//           this.question_embed = new Discord.MessageEmbed()
-//             .setColor('#0099ff')
-//             .setTitle(atob(this.question.results[0].question))
-//             .setDescription(this.answer_array)
-//             .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
-//         }
-//         if (atob(this.question.results[0].type) == 'boolean') {
-//           this.question_length = 1
-//           if (this.question.results[0].correct_answer == 'true') {
-//             this.correct_answer = 1
-//           }
-//           else {
-//             this.correct_answer = 2
-//           }
-//           this.answer_array = [
-//             'A - ' + 'True',
-//             'B - ' + 'False'
-//           ]
-//           this.question_embed = new Discord.MessageEmbed()
-//             .setColor('#0099ff')
-//             .setTitle(atob(this.question.results[0].question))
-//             .setDescription(this.answer_array)
-//             .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
-//         }
-//         this.question_message = await this.message.channel.send(this.question_embed)
-//         let step = -1
-//         while (step < this.question_length) {
-//           step++
-//           await this.question_message.react(this.reactions[step])
-//         }
-//         return this.await_reactions()
-//       }
-//       async await_reactions() {
-//         this.question_message.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🇦' || reaction.emoji.name == '🇧' || reaction.emoji.name == '🇨' || reaction.emoji.name == '🇩'),
-//           { max: 1, time: 30000 }).then(collected => {
-//             this.reaction = collected.first().emoji.name
-//             if (this.reaction == '🇦') this.input_answer = 1
-//             if (this.reaction == '🇧') this.input_answer = 2
-//             if (this.reaction == '🇨') this.input_answer = 3
-//             if (this.reaction == '🇩') this.input_answer = 4
-//             if (this.input_answer == this.correct_answer) {
-//               this.answer_array[this.input_answer - 1] = this.answer_array[this.input_answer - 1] + ' ✅'
-//               this.question_embed = new Discord.MessageEmbed()
-//                 .setColor('#0099ff')
-//                 .setTitle(atob(this.question.results[0].question))
-//                 .setDescription(this.answer_array)
-//                 .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
-//               this.question_message.edit(this.question_embed)
-//               this.question_message.edit('You got it correct! :smile:')
-//               this.end_game()
-//             }
-//             else {
-//               this.answer_array[this.input_answer - 1] = this.answer_array[this.input_answer - 1] + ' ❌'
-//               this.question_embed = new Discord.MessageEmbed()
-//                 .setColor('#0099ff')
-//                 .setTitle(atob(this.question.results[0].question))
-//                 .setDescription(this.answer_array)
-//                 .setFooter('Category - ' + atob(this.question.results[0].category) + ', Difficulty - ' + atob(this.question.results[0].difficulty))
-//               this.question_message.edit(this.question_embed)
-//               this.question_message.edit('You got it wrong. The correct answer was ' + this.reactions[this.correct_answer - 1])
-//               this.end_game()
-//             }
-//           }).catch(() => {
-//             this.question_message.edit('You took to long to answer! Game has timed out. The answer was ' + this.reactions[this.correct_answer - 1])
-//             this.end_game()
-//           })
-//       }
-//       async end_game() {
-//         this.question_message.reactions.removeAll()
-//         game = null
-//       }
-//     }
-//     var game = new Game(message, args)
-//   }
-
-// });
-// client.on('message', async message => {
 //   if (!message.content.startsWith(prefix) || message.author.bot) return;
 //   if (message.content.startsWith(prefix + 'trivia')) {
 //     const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
@@ -3394,20 +3139,6 @@ client.on('message', message => {
 
   }
 });
-// client.on('message', message => {
-//   if (!message.content.startsWith(prefix) || message.author.bot) return;
-//   const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
-//   if (message.content.startsWith(prefix + 'flip')) {
-//     const flip = require("flip-text");
-
-//     try {
-//       if
-//       (args) return message.channel.send(flip(args));
-//     } catch (err) {
-//       if (err)message.channel.send(`**${err.message}**`);
-//     }
-//   }
-// });
 client.on('message', message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);

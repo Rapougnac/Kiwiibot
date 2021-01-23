@@ -8,7 +8,7 @@ client.login(config.token);
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-
+client.config = require('./config/bot');
 
 //Load the events
 fs.readdir("./events/", (err, files) => {

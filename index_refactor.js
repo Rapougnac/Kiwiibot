@@ -6,6 +6,8 @@ const fs = require("fs")
 client.login(config.token);
 
 client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection();
+
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
@@ -21,6 +23,12 @@ fs.readdir("./command_refactor/", (err, files) => {
   files.filter(file => file.endsWith('.js')).forEach((file) => {
     const command = require(`./command_refactor/${file}`);
     client.commands.set(command.name,command);
+
+    if (command.aliases) {
+      command.aliases.forEach(alias => {
+          client.aliases.set(alias, command);
+      });
+  };
   });
 });
 

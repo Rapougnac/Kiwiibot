@@ -1,6 +1,6 @@
 module.exports = {
     name: 'unmute',
-    aliases: ['p'],
+    aliases: [],
     description: 'Unmute a person',
     category: 'Core',
     utilisation: '{prefix}unmute',

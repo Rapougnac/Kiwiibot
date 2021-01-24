@@ -9,7 +9,7 @@ module.exports = {
         if(args.length >2) return;
         if (!args[0]) {
             const infos = message.client.commands.filter(x => x.category == 'Infos').map((x) => '`' + x.name + '`').join(', ');
-            //const music = message.client.commands.filter(x => x.category == 'Music').map((x) => '`' + x.name + '`').join(', ');
+            const music = message.client.commands.filter(x => x.category == 'Music').map((x) => '`' + x.name + '`').join(', ');
 
             message.channel.send({
                 embed: {
@@ -18,7 +18,7 @@ module.exports = {
                     footer: { text: 'Kiwii est un bot développé et maintenu par Rapougnac#0304' },
                     fields: [
                         { name: 'Bot', value: infos },
-                        //{ name: 'Music', value: music },
+                        { name: 'Music', value: music },
                         { name: 'Filters', value: client.filters.map((x) => '`' + x + '`').join(', ') },
                     ],
                     timestamp: new Date(),

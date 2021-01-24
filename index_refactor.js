@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const config = require('./config.json');
 const glob = require('glob')
+const { Player } = require('discord-player');
+
 
 const client = new Discord.Client();
 const fs = require("fs")
@@ -9,6 +11,9 @@ client.login(config.token);
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.config = require('./config/bot');
+client.emotes = client.config.emojis;
+client.filters = client.config.filters;
+client.player = new Player(client);
 
 //Load the events
 fs.readdir("./events/", (err, files) => {

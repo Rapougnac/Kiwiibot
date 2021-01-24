@@ -8,10 +8,10 @@ module.exports = {
 
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 
-        const args = message.content.trim().split(/ +/g)
+        const arguments = message.content.trim().split(/ +/g)
         let mention = message.mentions.members.first();
         const member = message.mentions.members.first();
-        const reason = args.slice(1).join(' ') || 'Aucune raison fournie'
+        const reason = arguments.slice(1).join(' ') || 'Aucune raison fournie'
         if (mention == undefined) {
             message.reply(" Erreur : mention du membre incomplète ou inexacte.");
         }

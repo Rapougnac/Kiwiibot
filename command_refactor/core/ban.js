@@ -3,8 +3,10 @@ module.exports = {
     aliases: [],
     description: 'Ban a person',
     category: 'Core',
-    utilisation: '{prefix}ban',
+    utilisation: '{prefix}ban <mention> <raison>',
     execute(client, message, args) {
+
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
 
         const args = message.content.trim().split(/ +/g)
         let mention = message.mentions.members.first();

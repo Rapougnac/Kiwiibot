@@ -3,8 +3,11 @@ module.exports = {
     aliases: [],
     description: 'Unmute a person',
     category: 'Core',
-    utilisation: '{prefix}unmute',
+    utilisation: '{prefix}unmute <mention>',
     execute(client, message, args) {
+
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+
         let mention = message.mentions.members.first();
 
         if (mention == undefined) {

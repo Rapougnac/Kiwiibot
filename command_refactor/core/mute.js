@@ -3,8 +3,11 @@ module.exports = {
     aliases: [],
     description: 'Mute a person',
     category: 'Core',
-    utilisation: '{prefix}mute',
+    utilisation: '{prefix}mute <mention>',
     execute(client, message, args) {
+        
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+
         let mention = message.mentions.members.first();
 
         if (mention == undefined) {

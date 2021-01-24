@@ -3,8 +3,11 @@ module.exports = {
     aliases: [],
     description: 'Tempmute a person',
     category: 'Core',
-    utilisation: '{prefix}tempmute',
+    utilisation: '{prefix}tempmute <mention>',
     execute(client, message, args) {
+
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+
         let mention = message.mentions.members.first();
 
         if (mention == undefined) {

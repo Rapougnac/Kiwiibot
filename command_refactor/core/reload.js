@@ -7,6 +7,8 @@ module.exports = {
     category: 'Core',
     utilisation: '{prefix}reload',
     execute(client, message, args) {
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+
         console.clear();
         client.destroy()
         client.login(config.toke);

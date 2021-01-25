@@ -1,8 +1,9 @@
+const Discord = require("discord.js");
 module.exports = {
     name: 'invite',
     aliases: [],
     description: 'Invitation link',
-    category: 'Infos',
+    category: 'Misc',
     utilisation: '{prefix}invite',
     execute(client, message, args) {
         const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
@@ -12,7 +13,7 @@ module.exports = {
                 .setTitle(`Invite link of Kiwii`)
                 .setColor(0x111111)
                 .setThumbnail('https://cdn.discordapp.com/attachments/772106096713924671/795269602912632852/anime-original-brown-hair-girl-green-eyes-hd-wallpaper-preview.png')
-            message.channel.send(inviteEmbed)
+            message.channel.send(inviteEmbed);
         }
     },
 };

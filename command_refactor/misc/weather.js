@@ -33,5 +33,6 @@ module.exports = {
 
 
             message.channel.send(weatherinfo)
-        },
+        });
+    },
 };

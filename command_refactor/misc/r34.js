@@ -1,3 +1,7 @@
+const Booru = require('booru');
+const { BooruError, sites } = require('booru');
+const Discord = require("discord.js");
+
 module.exports = {
     name: 'r34',
     aliases: [],
@@ -21,16 +25,16 @@ module.exports = {
                         .setColor('#FF0000')
                         .setFooter(`Tags: ${query}`)
                         .setURL(image.common.file_url);
-                    return msg.channel.send(embed);
+                    return message.channel.send(embed);
                 }
 
             }).catch(err => {
                 if (err.name === 'booruError') {
-                    return msg.channel.send(`No results found for **${query}**!`);
+                    return message.channel.send(`No results found for **${query}**!`);
                 } else {
-                    return msg.channel.send(`No results found for **${query}**!`);
+                    return message.channel.send(`No results found for **${query}**!`);
                 }
             })
-        if (!query) return msg.channel.send('Please specify at least one tag')
+        if (!query) return message.channel.send('Please specify at least one tag')
     },
 };

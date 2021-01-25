@@ -5,19 +5,18 @@ const { Player } = require('discord-player');
 
 
 const client = new Discord.Client();
-const fs = require("fs")
-client.login(config.token);
+const fs = require("fs");
+client.login(config.discord.token);
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-client.config = require('./config/bot');
+client.config = config;
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
 client.player = new Player(client);
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
-
   files.forEach((file) => {
     const eventHandler = require(`./events/${file}`);
     const eventName = file.split(".")[0];

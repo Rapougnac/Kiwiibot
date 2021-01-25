@@ -1,4 +1,5 @@
 const weather = require('weather-js');
+const Discord = require("discord.js");
 
 module.exports = {
     name: 'weather',

@@ -6,7 +6,7 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}calc',
     execute(client, message, args) {
-        const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
+        //const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
         try {
             console.log(args);
             message.channel.send(`The response of ${args} is ${math.evaluate(args)}`);

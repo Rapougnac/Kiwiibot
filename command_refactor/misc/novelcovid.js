@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 const covid = require('novelcovid');
 module.exports = {
-    name: 'ban',
+    name: 'novelcovid',
     aliases: [],
-    description: 'Ban a person',
-    category: 'Core',
-    utilisation: '{prefix}ban <mention> <raison>',
+    description: '',
+    category: 'Misc',
+    utilisation: '{prefix}novelcovid',
     execute(client, message, args) {
         const covidStats = await covid.all();
 

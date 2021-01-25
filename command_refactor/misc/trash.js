@@ -1,4 +1,5 @@
-const math = require('mathjs');
+const axios = require("axios");
+const Discord = require("discord.js");
 module.exports = {
     name: 'trash',
     aliases: [],

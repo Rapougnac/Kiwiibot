@@ -17,5 +17,6 @@ module.exports = {
             const attachment = new Discord.MessageAttachment(buffer, "ps4.png");
             m.delete({ timeout: 5000 });
             message.channel.send(attachment);
-        },
-    };
+        }
+    },
+};

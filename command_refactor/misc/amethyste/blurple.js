@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const AmeClient = require('amethyste-api');
+const config = require('../../../config.json');
 
 module.exports = {
     name: 'blurple',
@@ -8,7 +9,7 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}blurple',
     execute(client, message, args) {
-        const AmeAPI = new AmeClient('666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139'); {
+        const AmeAPI = new AmeClient(config.amethyste.client); {
 
             //const args = message.content.trim().split(/ +/g);
             const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase().includes() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase().includes() === args.join(' ').toLocaleLowerCase())

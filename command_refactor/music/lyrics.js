@@ -13,7 +13,7 @@ module.exports = {
                 .setTitle(':x: Song title not provided!')
             return message.channel.send(embed)
         }
-        const lyrics = await lyricsFinder(args.join(' ')) || "Not Found!";
+        const lyrics = lyricsFinder(args.join(' ')) || "Not Found!";
         for (let i = 0; i < lyrics.length; i += 2000) {
             const toSend = lyrics.substring(i, Math.min(lyrics.length, i + 2000));
             const embed = new Discord.MessageEmbed()

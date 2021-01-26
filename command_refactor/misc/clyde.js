@@ -12,7 +12,7 @@ module.exports = {
         const text = args.slice(1).join(' ')
         if (!text) return message.reply("Please provide text");
 
-        const data = await fetch(`
+        const data = fetch(`
       https://nekobot.xyz/api/imagegen?type=clyde&text=${text}
     `).then((res) => res.json());
 

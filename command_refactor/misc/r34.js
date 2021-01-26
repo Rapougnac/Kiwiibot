@@ -1,4 +1,4 @@
-const Booru = require('booru');
+const booru = require('booru')
 const { BooruError, sites } = require('booru');
 const Discord = require("discord.js");
 
@@ -11,7 +11,7 @@ module.exports = {
     execute(client, message, args) {
         //const quer = message.content.slice(prefix + 'r34')[1]
         //const que = message.content.split(/\s+/g).slice(1).join(" ");
-        const arg = message.content.slice(prefix.length + 'r34').trim().split(/ +/g).slice(0);
+        const arg = args;
         const query = arg.join(' ');
         //const qu = args.shift().toLowerCase();
 

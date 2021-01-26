@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const Discord = require("discord.js");
 
 module.exports = {
     name: 'eject',
@@ -18,7 +19,7 @@ module.exports = {
             return message.channel.send(`${message.author} Please specify a user to eject by mentioning them!`)
         }
 
-        const data = await fetch(`https://vacefron.nl/api//ejected?name=${user.username}&impostor=${imposter}&crewmate=${crewmate}`)
+        const data = fetch(`https://vacefron.nl/api//ejected?name=${user.username}&impostor=${imposter}&crewmate=${crewmate}`)
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username + "#" + message.author.discriminator, message.author.displayAvatarURL())

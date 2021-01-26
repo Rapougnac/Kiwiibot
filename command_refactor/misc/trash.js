@@ -15,7 +15,7 @@ module.exports = {
 
         let response, data;
         try {
-            response = await axios.get(url);
+            response = axios.get(url);
             data = response.data;
         } catch (e) {
             return message.channel.send(`An error occured!`);
@@ -33,6 +33,6 @@ module.exports = {
                 message.author.displayAvatarURL({ dynamic: true })
             );
 
-        await message.channel.send(embed);
+        message.channel.send(embed);
     },
 };

@@ -10,11 +10,11 @@ module.exports = {
     execute(client, message, args) {
         //const args = message.content.trim().split(/ +/g)
         const avatar = message.author.displayAvatarURL({ dynamic: false, format: "png" });
-    
+
         const image = await canva.Canvas.trigger(avatar);
-    
+
         const triggered = new Discord.MessageAttachment(image, "triggered.gif");
-    
+
         message.channel.send(triggered);
     },
 };

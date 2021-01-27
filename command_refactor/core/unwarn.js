@@ -2,11 +2,11 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 module.exports = {
-    name: 'uwarn',
+    name: 'unwarn',
     aliases: [],
-    description: 'Ban a person',
+    description: 'Unwarn a person',
     category: 'Core',
-    utilisation: '{prefix}uwarn <mention> <raison>',
+    utilisation: '{prefix}unwarn <mention> <raison>',
     execute(client, message, args) {
 
         if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.')

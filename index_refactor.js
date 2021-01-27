@@ -19,6 +19,7 @@ client.db_warns = require('./db_warns.json');
 //Load the events
 fs.readdir("./events/", (err, files) => {
   files.forEach((file) => {
+    console.log(`Loading discord.js event ${file}`);
     const eventHandler = require(`./events/${file}`);
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
@@ -36,6 +37,7 @@ recursive_readdir('command_refactor', function (err, files) {
     console.log('Error', err);
   } else {
     files.filter(file => file.endsWith('.js')).forEach((file) => {
+      console.log(`Loading discord.js command ${file}`);
       const command = require(`./${file}`);
       client.commands.set(command.name, command);
 

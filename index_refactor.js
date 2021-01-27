@@ -47,7 +47,7 @@ var recursive_readdir = function (src, callback) {
 };
 
 //Load the commands
-recursive_readdir('command_refactor', function (err, files) {
+recursive_readdir('commands', function (err, files) {
   if (err) {
     console.log('Error', err);
   } else {

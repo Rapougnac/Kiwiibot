@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const config = require('./config.json');
-const glob = require('glob')
+const glob = require('glob');
 const { Player } = require('discord-player');
 
 

@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}neko',
 	execute(client, message, args) {
-		const GIF = await neko.sfw.neko();
+		const GIF =  neko.sfw.neko();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random neko image`)

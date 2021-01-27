@@ -25,7 +25,7 @@ module.exports = (member) => {
     const memberCount = guild.memberCount;
 
 
-    const background = await Canvas.loadImage(`../bannierew.png`);
+    const background =  Canvas.loadImage(`../bannierew.png`);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     ctx.strokeStyle = '#74037b';
@@ -47,7 +47,7 @@ module.exports = (member) => {
     ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
     ctx.closePath();
     ctx.clip();
-    const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: `jpg` }));
+    const avatar =  Canvas.loadImage(member.user.displayAvatarURL({ format: `jpg` }));
     ctx.drawImage(avatar, 25, 25, 200, 200);
 
     const attachment = new Discord.MessageAttachment(canvas.toBuffer(), './bannierew.png');

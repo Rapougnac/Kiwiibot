@@ -10,7 +10,7 @@ module.exports = {
 	utilisation: '{prefix}tickle',
 	execute(client, message, args) {
 		if (message.mentions.members.size === 0) {
-			const GIF = await neko.sfw.tickle();
+			const GIF =  neko.sfw.tickle();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')
 				.setTitle(`${message.author.tag} tickled themsselves`)
@@ -18,7 +18,7 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		const member = message.mentions.members.first();
-		const GIF = await neko.sfw.tickle();
+		const GIF =  neko.sfw.tickle();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} tickled ${member.user.tag}`)

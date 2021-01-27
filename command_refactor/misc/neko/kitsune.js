@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}kitsune',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.kitsune();
+		const GIF =  neko.nsfw.kitsune();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random kitsune image/gif`)

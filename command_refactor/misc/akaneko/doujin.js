@@ -10,7 +10,7 @@ module.exports = {
 	execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some doujin (hanime is better)`)
-			.setImage(await akaneko.nsfw.doujin());
+			.setImage( akaneko.nsfw.doujin());
 		message.channel.send(emebed);
 	},
 };

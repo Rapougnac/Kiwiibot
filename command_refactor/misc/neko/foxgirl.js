@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}foxgirl',
 	execute(client, message, args) {
-		const GIF = await neko.sfw.foxGirl();
+		const GIF =  neko.sfw.foxGirl();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random foxgirl image/gif`)

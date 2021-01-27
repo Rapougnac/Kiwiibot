@@ -7,11 +7,11 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}daily',
 	execute(client, message, args) {
-		let output = await eco.Daily(message.author.id);
+		let output =  eco.Daily(message.author.id);
 		//output.updated will tell you if the user already claimed his/her daily yes or no.
 
 		if (output.updated) {
-			let profile = await eco.AddToBalance(message.author.id, 100);
+			let profile =  eco.AddToBalance(message.author.id, 100);
 			message.reply(`Tu as réclamé ta récompense quotidienne ! Tu as maintenant ${profile.newbalance} coins.`);
 
 		} else {

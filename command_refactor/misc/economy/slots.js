@@ -11,10 +11,10 @@ module.exports = {
 
     if (!amount) return message.reply('Specifie le montant que tu veux parier !');
 
-    const output = await eco.FetchBalance(message.author.id);
+    const output =  eco.FetchBalance(message.author.id);
     if (output.balance < amount) return message.reply('Tu as moins de coins que le montant à transférer !');
 
-    const gamble = await eco.Slots(message.author.id, amount, {
+    const gamble =  eco.Slots(message.author.id, amount, {
       width: 3,
       height: 1
     }).catch(console.error);

@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}girlsologif',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.kuni();
+		const GIF =  neko.nsfw.kuni();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random kuni image`)

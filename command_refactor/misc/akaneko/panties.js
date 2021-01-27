@@ -10,7 +10,7 @@ module.exports = {
 	execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some panties`)
-			.setImage(await akaneko.nsfw.panties());
+			.setImage( akaneko.nsfw.panties());
 		message.channel.send(emebed);
 	},
 };

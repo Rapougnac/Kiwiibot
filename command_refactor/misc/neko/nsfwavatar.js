@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}nsfwavatar',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.avatar();
+		const GIF =  neko.nsfw.avatar();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random nsfw avatar`)

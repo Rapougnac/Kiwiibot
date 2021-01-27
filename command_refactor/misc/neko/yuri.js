@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}yuri',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.yuri();
+		const GIF =  neko.nsfw.yuri();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random yuri image/gif`)

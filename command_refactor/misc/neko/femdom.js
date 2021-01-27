@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}femdom',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.femdom();
+		const GIF =  neko.nsfw.femdom();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random femdom image/gif`)

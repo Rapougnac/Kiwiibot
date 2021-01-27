@@ -10,7 +10,7 @@ module.exports = {
 	utilisation: '{prefix}feed',
 	execute(client, message, args) {
 		if (message.mentions.members.size === 0) {
-			const GIF = await neko.sfw.feed();
+			const GIF =  neko.sfw.feed();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')
 				.setTitle(`${message.author.tag} feeded themsselves`)
@@ -18,7 +18,7 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		const member = message.mentions.members.first();
-		const GIF = await neko.sfw.feed();
+		const GIF =  neko.sfw.feed();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} feeded ${member.user.tag}`)

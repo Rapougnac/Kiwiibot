@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}fact',
 	execute(client, message, args) {
-		const factTEXT = await neko.sfw.fact();
+		const factTEXT =  neko.sfw.fact();
 		message.channel.send(factTEXT.fact);
 	},
 };

@@ -10,7 +10,7 @@ module.exports = {
 	execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some masturbstion (Solo Queue in CSGO!)`)
-			.setImage(await akaneko.nsfw.masturbation());
+			.setImage( akaneko.nsfw.masturbation());
 		message.channel.send(emebed);
 	},
 };

@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}cat',
 	execute(client, message, args) {
-		const GIF = await neko.sfw.meow();
+		const GIF =  neko.sfw.meow();
 		const embed = new Discord.MessageEmbed()
 		  .setColor('#202225')
 		  .setTitle(`${message.author.tag} here's a random cat image/gif`)

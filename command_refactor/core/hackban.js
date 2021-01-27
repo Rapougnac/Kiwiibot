@@ -33,7 +33,7 @@ module.exports = {
 
         client.users.fetch(userID).then(async user => {
 
-            await message.guild.members.ban(user.id, { reason: reason });
+            message.guild.members.ban(user.id, { reason: reason });
 
             return message.channel.send(`**${user.tag}** a été banni du serveur.`);
 

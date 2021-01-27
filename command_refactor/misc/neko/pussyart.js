@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}pussyart',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.pussyArt();
+		const GIF =  neko.nsfw.pussyArt();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random pussyart image/gif`)

@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}lesbian',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.lesbian();
+		const GIF =  neko.nsfw.lesbian();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random lesbian image/gif`)

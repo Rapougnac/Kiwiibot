@@ -10,7 +10,7 @@ module.exports = {
 	execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some netorare (Wow, I won't even question your fetishes.)`)
-			.setImage(await akaneko.nsfw.netorare());
+			.setImage( akaneko.nsfw.netorare());
 		message.channel.send(emebed);
 	},
 };

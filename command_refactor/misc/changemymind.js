@@ -12,7 +12,7 @@ module.exports = {
         const text =args;
         if (!args[0]) return message.channel.send('Veuillez mettre un texte valide');
 
-        const image = await canva.Canvas.changemymind(text);
+        const image =  canva.Canvas.changemymind(text);
 
         const changeMyMind = new Discord.MessageAttachment(image, "cmm.png");
 

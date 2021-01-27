@@ -10,7 +10,7 @@ module.exports = {
 	utilisation: '{prefix}hug',
 	execute(client, message, args) {
 		if (message.mentions.members.size === 0) {
-			const GIF = await neko.sfw.hug();
+			const GIF =  neko.sfw.hug();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')
 				.setTitle(`${message.author.tag} hugged themselves`)
@@ -18,7 +18,7 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		const member = message.mentions.members.first();
-		const GIF = await neko.sfw.hug();
+		const GIF =  neko.sfw.hug();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} hugged ${member.user.tag}`)

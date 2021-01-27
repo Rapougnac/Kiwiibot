@@ -14,7 +14,7 @@ module.exports = {
 		//If you put a mention behind the command it searches for the mentioned user in database and tells the position.
 		if (message.mentions.users.first()) {
 
-			var output = await eco.Leaderboard({
+			var output =  eco.Leaderboard({
 				filter: x => x.balance > 50,
 				search: message.mentions.users.first().id
 			})
@@ -27,9 +27,9 @@ module.exports = {
 				filter: x => x.balance > 50 //Only allows people with more than 100 balance ( Totally Optional )
 			}).then(async users => { //make sure it is async
 
-				if (users[0]) let firstplace = await client.user.fetch(users[0].userid) //Searches for the user object in discord for first place
-				if (users[1]) let secondplace = await client.user.fetch(users[1].userid) //Searches for the user object in discord for second place
-				if (users[2]) let thirdplace = await client.user.fetch(users[2].userid) //Searches for the user object in discord for third place
+				if (users[0]) let firstplace =  client.user.fetch(users[0].userid) //Searches for the user object in discord for first place
+				if (users[1]) let secondplace =  client.user.fetch(users[1].userid) //Searches for the user object in discord for second place
+				if (users[2]) let thirdplace =  client.user.fetch(users[2].userid) //Searches for the user object in discord for third place
 
 				message.channel.send(`My Global leaderboard:
    

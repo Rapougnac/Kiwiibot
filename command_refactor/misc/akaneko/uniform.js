@@ -10,7 +10,7 @@ module.exports = {
 	execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some uniforms (Military, Konbini, Work, Nurse Uniforms, etc!~ Sexy~)`)
-			.setImage(await akaneko.nsfw.uniform());
+			.setImage( akaneko.nsfw.uniform());
 		message.channel.send(emebed);
 	},
 };

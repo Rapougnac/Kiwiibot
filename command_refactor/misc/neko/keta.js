@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}keta',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.keta();
+		const GIF =  neko.nsfw.keta();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random keta image/gif`)

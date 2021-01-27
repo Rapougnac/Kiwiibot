@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}hentai',
 	execute(client, message, args) {
-		const GIF = await neko.nsfw.hentai();
+		const GIF =  neko.nsfw.hentai();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random hentai image`)

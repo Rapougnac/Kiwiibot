@@ -16,7 +16,7 @@ module.exports = {
 		var output = eco.FetchBalance(message.author.id);
 		if (output.balance < amount) return message.reply('Tu as moins de coins que le montant à transférer !');
 	
-		const gamble = await eco.Dice(message.author.id, roll, amount).catch(console.error);
+		const gamble =  eco.Dice(message.author.id, roll, amount).catch(console.error);
 		message.reply(`The dice rolled ${gamble.dice}. So you ${gamble.output}! New balance: ${gamble.newbalance}`);
 	},
 };

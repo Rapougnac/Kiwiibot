@@ -12,7 +12,7 @@ module.exports = {
         console.clear();
         client.destroy()
         client.login(config.toke);
-        message.channel.send("Reloaded :white_check_mark:");
+        message.channel.send(`Reloaded ${client.config.emojis.success}`);
         return;
     },
 };

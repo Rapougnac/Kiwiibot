@@ -14,6 +14,7 @@ client.config = config;
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
 client.player = new Player(client);
+client.db_warns = require('./db_warns.json');
 
 //Load the events
 fs.readdir("./events/", (err, files) => {

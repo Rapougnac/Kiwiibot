@@ -11,12 +11,11 @@ module.exports = {
 	category: 'Infos',
 	utilisation: '{prefix}infobot',
 	execute(client, message, args) {
-		const client = this.client
-		const guilds = client.guilds.cache.size
-		const users = client.users.cache.size
-		const color = 'DEFAULT'
-		const owner = client.user.tag
-		const duration = moment.duration(client.uptime).format(" dd[d] hh[h] mm[m] ss[s]")
+		const guilds = client.guilds.cache.size;
+		const users = client.users.cache.size;
+		const color = 'DEFAULT';
+		const owner = client.user.tag;
+		const duration = moment.duration(client.uptime).format(" dd[d] hh[h] mm[m] ss[s]");
 		cpuStat.usagePercent(function (err, percent, seconds) {
 			const embed = new Discord.MessageEmbed()
 				.setColor(color)
@@ -38,14 +37,14 @@ module.exports = {
 
 			switch (args[0]) {
 				case "extended": {
-					message.channel.send(statusEmbed)
+					message.channel.send(statusEmbed);
 				}
 					break
 				default: {
 					message.channel.send(embed).then(msg => {
-						msg.react("chino_chibi:574337895838777374")
+						msg.react("chino_chibi:574337895838777374");
 
-						const collector = msg.createReactionCollector((r, u) => (r.emoji.name === "chino_chibi" && (u.id !== client.user.id && u.id === message.author.id)))
+						const collector = msg.createReactionCollector((r, u) => (r.emoji.name === "chino_chibi" && (u.id !== client.user.id && u.id === message.author.id)));
 						collector.on("collect", r => {
 							switch (r.emoji.name) {
 								case "chino_chibi": {

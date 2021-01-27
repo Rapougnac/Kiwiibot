@@ -9,7 +9,7 @@ module.exports = {
     utilisation: '{prefix}meme',
     execute(client, message, args) {
         //const args = message.content.slice(prefix.length).trim().split(/ +/g);
-        const args = message.content.trim().substring(prefix.length).split(/ +/g);
+        //const args = message.content.trim().substring(prefix.length).split(/ +/g);
         const subReddits = ["dankmemes", "meme", "memes"]
         const random = subReddits[Math.floor(Math.random() * subReddits.length)]
 

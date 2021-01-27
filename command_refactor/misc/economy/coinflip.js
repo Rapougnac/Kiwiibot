@@ -7,8 +7,8 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}coinflip',
 	execute(client,message,args) {
-		const flip = args[0] //Heads or Tails
-		const amount = args[1] //Coins to gamble
+		const flip = args[0]; //Heads or Tails
+		const amount = args[1]; //Coins to gamble
 	
 		if (!flip || !['pile', 'face'].includes(flip)) return message.reply('S\'il te plaît choisi entre pile ou face !');
 		if (!amount) return message.reply('Specifie le montant que tu veux parier !');

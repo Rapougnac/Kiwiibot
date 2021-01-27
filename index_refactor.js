@@ -6,11 +6,16 @@ const { Player } = require('discord-player');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
+const { YTSearcher } = require('ytsearcher');
+const searcher = new YTSearcher({
+  key: config.ytsearcher.key,
+  revealed: true
+});
+
 const client = new Discord.Client();
 const fs = require("fs");
 
 //Xp database
-
 const adapters = new FileSync('db_xp.json');
 
 //Client initalization

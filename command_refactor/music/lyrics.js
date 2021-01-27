@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const lyricsFinder = require("lyrics-finder");
+
 module.exports = {
     name: 'lyrics',
     aliases: [],

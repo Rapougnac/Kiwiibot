@@ -7,7 +7,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}balance',
 	execute(client,message,args) {
-		var output = eco.FetchBalance(message.author.id)
+		let output = eco.FetchBalance(message.author.id);
 		message.channel.send(`Hey ${message.author.tag}! Tu as actuellement ${output.balance} coins.`);
 	},
 };

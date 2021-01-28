@@ -31,7 +31,7 @@ module.exports = {
           if (!args) {
             message.channel.send('You must provide some text to emojify!');
           }
-          message.delete();
+          await message.delete();
           message.channel.send(args.join(' ').slice(9).split('').map(c => mapping[c] || c).join(''));
 	},
 };

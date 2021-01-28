@@ -7,12 +7,12 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}cycle',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.trim().split(/ +/g);
         const text = args.slice(1).join(' ')
         if (!text) return message.reply("Please provide text");
 
-        const data = fetch(`
+        const data = await fetch(`
       https://nekobot.xyz/api/imagegen?type=clyde&text=${text}
     `).then((res) => res.json());
 

@@ -6,7 +6,7 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}firstmessage',
     execute(client, message, args) {
-        const fetchMessages = message.channel.messages.fetch({ after: 1, limit: 1 });
+        const fetchMessages = await message.channel.messages.fetch({ after: 1, limit: 1 });
         const msg = fetchMessages.first();
     
         const embed = new Discord.MessageEmbed()

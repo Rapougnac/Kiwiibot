@@ -6,8 +6,8 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}covid',
-    execute(client, message, args) {
-        const covidStats =  covid.all();
+    async execute(client, message, args) {
+        const covidStats = await covid.all();
 
         return message.channel.send(new Discord.MessageEmbed()
             .setTitle('covid19 stats')

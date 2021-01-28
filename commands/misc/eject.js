@@ -7,8 +7,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}eject',
-    execute(client, message, args) {
-        const fetch = require('node-fetch')
+    async execute(client, message, args) {
         const user = message.mentions.users.first()
         const imp = [true, false];
         const imposter = imp[Math.floor(Math.random() * imp.length)];
@@ -19,7 +18,7 @@ module.exports = {
             return message.channel.send(`${message.author} Please specify a user to eject by mentioning them!`)
         }
 
-        const data = fetch(`https://vacefron.nl/api//ejected?name=${user.username}&impostor=${imposter}&crewmate=${crewmate}`)
+        const data = await fetch(`https://vacefron.nl/api//ejected?name=${user.username}&impostor=${imposter}&crewmate=${crewmate}`)
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(message.author.username + "#" + message.author.discriminator, message.author.displayAvatarURL())

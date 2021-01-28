@@ -6,7 +6,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}trash',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         let user =
             message.mentions.members.first() ||
             message.guild.members.cache.get(args[0]) ||
@@ -15,7 +15,7 @@ module.exports = {
 
         let response, data;
         try {
-            response = axios.get(url);
+            response = await axios.get(url);
             data = response.data;
         } catch (e) {
             return message.channel.send(`An error occured!`);

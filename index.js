@@ -51,7 +51,16 @@ recursive_readdir('commands', function (err, files) {
   if (err) {
     console.log('Error', err);
   } else {
-    files.filter(file => file.endsWith('.js')).forEach((file) => {
+    files =files.filter(file => file.endsWith('.js'));
+    if(config.discord.dev.active){
+        if(config.discord.dev.exclude_cmd.length){  
+           files = files.filter(file => file.endsWith(config.discord.dev.include_cmd));
+        }
+        if(config.discord.dev.exclude_cmd.length){
+          files = files.filter( file => !file.endsWith(config.discord.dev.exclude_cmd));
+        }
+    }
+    files.forEach((file) => {
       console.log(`Loading discord.js command ${file}`);
       const command = require(`./${file}`);
       client.commands.set(command.name, command);

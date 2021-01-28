@@ -4,7 +4,7 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}emojify',
-	execute(client,message,args) {
+	async execute(client,message,args) {
 		const mapping = {
             ' ': '   ',
             '0': ':zero:',

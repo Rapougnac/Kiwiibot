@@ -7,7 +7,7 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}maid',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some maids (Maids, Maid Uniforms, etc, you know what maids are :3)`)
 			.setImage(await akaneko.nsfw.maid());

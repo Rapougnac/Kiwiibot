@@ -7,7 +7,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}ps4',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const AmeAPI = new AmeClient('666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139'); {
 
             //const args = message.content.trim().split(/ +/g);

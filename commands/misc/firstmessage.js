@@ -5,7 +5,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}firstmessage',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const fetchMessages = await message.channel.messages.fetch({ after: 1, limit: 1 });
         const msg = fetchMessages.first();
     

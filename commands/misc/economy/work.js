@@ -7,7 +7,7 @@ module.exports = {
 	category: 'Misc',
 	utilisation: '{prefix}work',
 	execute(client, message, args) {
-		const output =  eco.Work(message.author.id, {
+		const output = await  eco.Work(message.author.id, {
 			failurerate: 30,
 			money: Math.floor(Math.random() * 500),
 			jobs: ['caissier(ière)', 'commerçant(e)', 'strip-teaser(euse)', 'manager', 'barman', 'pornstar']

@@ -6,8 +6,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}daily',
-	execute(client, message, args) {
-		let output =  eco.Daily(message.author.id);
+	async execute(client, message, args) {
+		let output = await eco.Daily(message.author.id);
 		//output.updated will tell you if the user already claimed his/her daily yes or no.
 
 		if (output.updated) {

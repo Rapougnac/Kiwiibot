@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}school',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some school uniforms :)`)
-			.setImage( akaneko.nsfw.school());
+			.setImage(await akaneko.nsfw.school());
 		message.channel.send(emebed);
 	},
 };

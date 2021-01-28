@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}netorare',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some netorare (Wow, I won't even question your fetishes.)`)
-			.setImage( akaneko.nsfw.netorare());
+			.setImage(await akaneko.nsfw.netorare());
 		message.channel.send(emebed);
 	},
 };

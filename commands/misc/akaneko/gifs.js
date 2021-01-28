@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}gifs',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some gifs (Basically an animated image, so yes :3)`)
-			.setImage( akaneko.nsfw.gifs());
+			.setImage(await akaneko.nsfw.gifs());
 		message.channel.send(emebed);
 	},
 };

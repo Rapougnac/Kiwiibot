@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}ub',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some ugly bastard (WHYYYY ????)`)
-			.setImage( akaneko.nsfw.uglyBastard());
+			.setImage(await akaneko.nsfw.uglyBastard());
 		message.channel.send(emebed);
 	},
 };

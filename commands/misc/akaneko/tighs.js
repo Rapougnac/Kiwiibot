@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}tighs',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some tighs (this is great)`)
-			.setImage( akaneko.nsfw.thighs());
+			.setImage(await akaneko.nsfw.thighs());
 		message.channel.send(emebed);
 	},
 };

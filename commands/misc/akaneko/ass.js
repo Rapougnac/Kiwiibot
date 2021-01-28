@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}ass',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some ass (T H I C C)`)
-			.setImage(akaneko.nsfw.ass());
+			.setImage(await akaneko.nsfw.ass());
 		message.channel.send(emebed);
 	},
 };

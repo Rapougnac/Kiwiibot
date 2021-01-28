@@ -7,10 +7,10 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}bdsm',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const emebed = new Discord.MessageEmbed()
 			.setTitle(`${message.author.tag} here some bdsm (I will leave you with your weird delusions)`)
-			.setImage( akaneko.nsfw.bdsm());
+			.setImage(await akaneko.nsfw.bdsm());
 		message.channel.send(emebed);
 	},
 };

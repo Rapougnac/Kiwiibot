@@ -7,11 +7,11 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}join',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.trim().split(/ +/g)
         const avatar = message.author.displayAvatarURL({ dynamic: false, format: "png" });
 
-        const image = canva.Canvas.trigger(avatar);
+        const image = await canva.Canvas.trigger(avatar);
 
         const triggered = new Discord.MessageAttachment(image, "triggered.gif");
 

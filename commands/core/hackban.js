@@ -5,7 +5,7 @@ module.exports = {
     description: 'Ban a person',
     category: 'Core',
     utilisation: '{prefix}hackban <mention> <raison>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
 
         if (!message.member.hasPermission("BAN_MEMBERS")) {
 
@@ -33,7 +33,7 @@ module.exports = {
 
         client.users.fetch(userID).then(async user => {
 
-            message.guild.members.ban(user.id, { reason: reason });
+            await message.guild.members.ban(user.id, { reason: reason });
 
             return message.channel.send(`**${user.tag}** a été banni du serveur.`);
 

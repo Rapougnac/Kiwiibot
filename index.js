@@ -69,7 +69,7 @@ recursive_readdir('commands', function (err, files) {
 //Add Xp to user
 client.on('message', message => {
 
-  var msgauthor = message.author.id
+  let msgauthor = message.author.id
 
   if (message.author.bot) return;
 

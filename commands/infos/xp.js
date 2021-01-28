@@ -7,6 +7,7 @@ module.exports = {
 	category: 'Infos',
 	utilisation: '{prefix}xp',
 	execute(client, message, args) {
+		let msgauthor = message.author.id
 		var xp = client.db_xp.get("xp").filter({ user: msgauthor }).find("xp").value();
 		var xpfinal = Object.values(xp);
 		const embed2 = new Discord.MessageEmbed()

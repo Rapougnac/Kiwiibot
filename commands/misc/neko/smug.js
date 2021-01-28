@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}smug',
-	execute(client, message, args) {
-		const GIF =  neko.sfw.smug();
+	async execute(client, message, args) {
+		const GIF = await neko.sfw.smug();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random smug image/gif`)

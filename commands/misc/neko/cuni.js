@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}cuni',
-	execute(client, message, args) {
-		const GIF =  neko.nsfw.girlSolo();
+	async execute(client, message, args) {
+		const GIF = await neko.nsfw.girlSolo();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random solo girl image`)

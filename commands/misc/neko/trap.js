@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}trap',
-	execute(client, message, args) {
-		const GIF =  neko.nsfw.trap();
+	async execute(client, message, args) {
+		const GIF = await neko.nsfw.trap();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random trap image/gif`)

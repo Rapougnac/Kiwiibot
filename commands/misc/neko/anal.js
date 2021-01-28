@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}anal',
-	execute(client, message, args) {
-		const GIF =  neko.nsfw.anal();
+	async execute(client, message, args) {
+		const GIF = await neko.nsfw.anal();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random anal image/gif`)

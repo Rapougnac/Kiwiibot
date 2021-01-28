@@ -8,9 +8,9 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}poke',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		if (message.mentions.members.size === 0) {
-			const GIF =  neko.sfw.poke();
+			const GIF = await neko.sfw.poke();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')
 				.setTitle(`${message.author.tag} poked themsselves`)
@@ -18,7 +18,7 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		const member = message.mentions.members.first();
-		const GIF =  neko.sfw.poke();
+		const GIF = await neko.sfw.poke();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} poked ${member.user.tag}`)

@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}futanari',
-	execute(client, message, args) {
-		const GIF =  neko.nsfw.futanari();
+	async execute(client, message, args) {
+		const GIF = await neko.nsfw.futanari();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random futanari image/gif`)

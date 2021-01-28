@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}why',
-	execute(client, message, args) {
-		const whyTEXT = neko.sfw.why();
+	async execute(client, message, args) {
+		const whyTEXT = await neko.sfw.why();
 		message.channel.send(whyTEXT.why);
 	},
 };

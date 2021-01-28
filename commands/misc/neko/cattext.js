@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}cattext',
-	execute(client, message, args) {
-		const catTEXT =  neko.sfw.catText();
+	async execute(client, message, args) {
+		const catTEXT = await neko.sfw.catText();
 		message.channel.send(catTEXT.cat);
 	},
 };

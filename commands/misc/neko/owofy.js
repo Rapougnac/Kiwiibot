@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}owofy',
-	execute(client, message, args) {
-		const owoTEXT =  neko.sfw.OwOify({ text: message.content.split(' ').slice(1).join(' ') });
+	async execute(client, message, args) {
+		const owoTEXT = await neko.sfw.OwOify({ text: message.content.split(' ').slice(1).join(' ') });
 		message.channel.send(owoTEXT.owo);
 	},
 };

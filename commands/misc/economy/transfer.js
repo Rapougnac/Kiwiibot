@@ -6,7 +6,7 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}transfer',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const user = message.mentions.users.first()
 		const amount = args[1]
 

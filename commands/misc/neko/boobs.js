@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}boobs',
-	execute(client, message, args) {
-		const GIF =  neko.nsfw.boobs();
+	async execute(client, message, args) {
+		const GIF = await neko.nsfw.boobs();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random boobs image/gif`)

@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}waifu',
-	execute(client, message, args) {
-		const GIF =  neko.sfw.waifu();
+	async execute(client, message, args) {
+		const GIF = await neko.sfw.waifu();
 		const embed = new Discord.MessageEmbed()
 		  .setColor('#202225')
 		  .setTitle(`${message.author.tag} here's a random waifu image`)

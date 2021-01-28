@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}hentaigif',
-	execute(client, message, args) {
-		const GIF =  neko.nsfw.randomHentaiGif();
+	async execute(client, message, args) {
+		const GIF = await neko.nsfw.randomHentaiGif();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} here's a random hentai gif`)

@@ -8,9 +8,9 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}baka',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		if (message.mentions.members.size === 0) {
-			const GIF =  neko.sfw.baka();
+			const GIF = await neko.sfw.baka();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')
 				.setTitle(`${message.author.tag} said baka to him/herself`)
@@ -18,7 +18,7 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		const member = message.mentions.members.first();
-		const GIF =  neko.sfw.baka();
+		const GIF = await neko.sfw.baka();
 		const embed = new Discord.MessageEmbed()
 			.setColor('#202225')
 			.setTitle(`${message.author.tag} said baka to ${member.user.tag}`)

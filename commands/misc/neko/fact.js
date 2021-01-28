@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}fact',
-	execute(client, message, args) {
-		const factTEXT =  neko.sfw.fact();
+	async execute(client, message, args) {
+		const factTEXT = await neko.sfw.fact();
 		message.channel.send(factTEXT.fact);
 	},
 };

@@ -8,8 +8,8 @@ module.exports = {
 	description: '',
 	category: 'Misc',
 	utilisation: '{prefix}spoiler',
-	execute(client, message, args) {
-		const spoilerTEXT =  neko.sfw.spoiler({ text: message.content.split(' ').slice(1).join(' ') });
+	async execute(client, message, args) {
+		const spoilerTEXT = await neko.sfw.spoiler({ text: message.content.split(' ').slice(1).join(' ') });
 		message.channel.send(spoilerTEXT.owo);
 	},
 };

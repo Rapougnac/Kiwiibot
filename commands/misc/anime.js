@@ -7,7 +7,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}anime',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.trim().split(/ +/g);
         const kitsu = new Kitsu();
 

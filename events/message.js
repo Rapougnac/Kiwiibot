@@ -1,14 +1,18 @@
+const config = require('../config.json');
+
 module.exports = (client, message) => {
-    if (message.author.bot || message.channel.type === 'dm') return;
+    if (!message.content.startsWith(config.discord.prefix) || message.author.bot) return;
 
-    const prefix = client.config.discord.prefix;
-
-    if (message.content.indexOf(prefix) !== 0) return;
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(config.discord.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
+    if (!client.commands.has(command)&&!client.aliases.has(command)) return;
 
-    if (cmd) cmd.execute(client, message, args);
+    try {
+        const command_to_execute = client.commands.get(command) || client.aliases.get(command);
+        command_to_execute.execute(client, message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('there was an error trying to execute that command!');
+    }
 };

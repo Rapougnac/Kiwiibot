@@ -7,7 +7,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}blush',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const result = gifu("blush");
         const shyembed = new Discord.MessageEmbed()
             .setColor('#202225')

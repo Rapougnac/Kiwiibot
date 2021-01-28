@@ -4,7 +4,7 @@ module.exports = {
     description: 'Mute a person',
     category: 'Core',
     utilisation: '{prefix}mute <mention>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 

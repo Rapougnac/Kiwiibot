@@ -7,7 +7,7 @@ module.exports = {
     description: 'Warn a person',
     category: 'Core',
     utilisation: '{prefix}warn <mention> <raison>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
 
         if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.');
         const member = message.mentions.members.first()

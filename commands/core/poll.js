@@ -5,7 +5,7 @@ module.exports = {
     category: 'Core',
     utilisation: '{prefix}poll <command name>',
 
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const reactions = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱', '🇲', '🇳', '🇴', '🇵', '🇶', '🇷', '🇸', '🇹', '🇺', '🇻']
 
         //const args = message.content.trim().split(/ +/g);

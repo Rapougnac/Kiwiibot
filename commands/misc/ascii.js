@@ -6,7 +6,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}ascii',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.slice(prefix.length).trim().split(/ +/g);
         let text = args.slice(1).join(" ");
 

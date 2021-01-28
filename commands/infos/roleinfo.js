@@ -8,7 +8,7 @@ module.exports = {
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}roleinfo',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const role = message.mentions.roles.first();
 		if (!role) return message.channel.send('Veuillez mentionner le rôle dont vous voulez voir les infos.');
 		message.channel.send(new Discord.MessageEmbed()

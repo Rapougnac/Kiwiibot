@@ -6,7 +6,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}8ball',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.trim().split(/\s+/g);
         const mention = message.mentions.members.first();
         const question = args;

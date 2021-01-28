@@ -5,7 +5,7 @@ module.exports = {
     description: 'Calculate',
     category: 'Misc',
     utilisation: '{prefix}calc',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
         try {
             console.log(args);

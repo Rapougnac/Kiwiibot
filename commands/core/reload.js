@@ -6,7 +6,7 @@ module.exports = {
     description: 'Reload the bot',
     category: 'Core',
     utilisation: '{prefix}reload',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 
         console.clear();

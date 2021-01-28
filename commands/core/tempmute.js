@@ -4,7 +4,7 @@ module.exports = {
     description: 'Tempmute a person',
     category: 'Core',
     utilisation: '{prefix}tempmute <mention>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
 
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 

@@ -6,7 +6,7 @@ module.exports = {
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}commandsnsfw',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const embed3 = new Discord.MessageEmbed()
 			.setColor('#FFC0CB')
 			.setTitle('Not Safe For Work - Commands')

@@ -10,7 +10,7 @@ module.exports = {
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}infobot',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const guilds = client.guilds.cache.size;
 		const users = client.users.cache.size;
 		const color = 'DEFAULT';

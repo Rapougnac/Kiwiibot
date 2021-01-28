@@ -5,7 +5,7 @@ module.exports = {
     description: 'Invitation link',
     category: 'Misc',
     utilisation: '{prefix}invite',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.slice(prefix.length + (4)).trim().split(/ +/g);
         if (message.content.startsWith(prefix + 'invite')) {
             var inviteEmbed = new Discord.MessageEmbed()

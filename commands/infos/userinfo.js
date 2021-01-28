@@ -8,7 +8,7 @@ module.exports = {
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}userinfo',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const embeduser = new Discord.MessageEmbed()
       .addField('Membre', member, true)
       .addField('Tag', member.user.tag, true)

@@ -4,7 +4,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}fake',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         // const args = message.content.trim().split(/ +/g);
         let member = message.mentions.users.first() //|| this.client.users.cache.get(args[0])
         if (!member) return message.channel.send('Utilisateur non défini');

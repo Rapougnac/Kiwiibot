@@ -5,7 +5,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}slowmode <number>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.trim().split(/ +/g)
         const amount = parseInt(args[1])
         if (message.member.hasPermission("MANAGE_CHANNEL"))

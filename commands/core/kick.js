@@ -4,7 +4,7 @@ module.exports = {
     description: 'Kick a person',
     category: 'Core',
     utilisation: '{prefix}kick <mention>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
 
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 

@@ -5,7 +5,7 @@ module.exports = {
     category: 'Core',
     utilisation: '{prefix}help2 <command name>',
 
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const embed = new Discord.MessageEmbed()
             .setColor("#FF0000")
             .setTitle("Commandes disponibles pour le moment :")

@@ -8,7 +8,7 @@ module.exports = {
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}serverinfo',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const embedserv = new Discord.MessageEmbed()
 			.addField('Nom', message.guild.name, true)
 			.addField('Région', message.guild.region, true)

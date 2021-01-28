@@ -8,7 +8,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}r34',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const quer = message.content.slice(prefix + 'r34')[1]
         //const que = message.content.split(/\s+/g).slice(1).join(" ");
         const arg = args;

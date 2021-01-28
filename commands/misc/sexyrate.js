@@ -6,7 +6,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}sexyrate',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const sexyrate = Math.floor(Math.random() * 100);
         const user = !message.mentions.users.first() ? message.author : message.mentions.users.first();
         const embed = new Discord.MessageEmbed();

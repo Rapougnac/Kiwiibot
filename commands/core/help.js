@@ -5,7 +5,7 @@ module.exports = {
     category: 'Core',
     utilisation: '{prefix}help <command name>',
 
-    execute(client, message, args) {
+    async execute(client, message, args) {
         if(args.length >2) return;
         if (!args[0]) {
             const infos = message.client.commands.filter(x => x.category == 'Infos').map((x) => '`' + x.name + '`').join(', ');

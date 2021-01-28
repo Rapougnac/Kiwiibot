@@ -5,7 +5,7 @@ module.exports = {
     description: 'Ban a person',
     category: 'Core',
     utilisation: '{prefix}ban <mention> <raison>',
-    execute(client, message, args) {
+    async execute(client, message, args) {
 
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 

@@ -7,7 +7,7 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}weather',
-    execute(client, message, args) {
+    async execute(client, message, args) {
         //const args = message.content.slice(prefix.length + (7)).trim().split(/ +/g);
         weather.find({ search: args.join(" "), degreeType: 'C' }, function (error, result) {
             // 'C' can be changed to 'F' for farneheit results

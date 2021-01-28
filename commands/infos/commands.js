@@ -6,7 +6,7 @@ module.exports = {
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}commands',
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#00FF00')
 			.setTitle('Safe For Work - Commands')

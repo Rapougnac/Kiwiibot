@@ -1,27 +1,27 @@
 const Discord = require("discord.js");
 const Canvas = require('canvas');
 
-module.exports = async (member) => {
+module.exports = async (member, client) => {
     const applyText = (canvas, text) => {
         const ctx = canvas.getContext('2d');
 
-        // Declare a base size of the font
+        
         let fontSize = 70;
 
         do {
-            // Assign the font to the context and decrement it so it can be measured again
+            
             ctx.font = `${fontSize -= 10}px sans-serif`;
-            // Compare pixel width of the text to the canvas minus the approximate avatar size
+            
         } while (ctx.measureText(text).width > canvas.width - 300);
 
         // Return the result to use in the actual canvas
         return ctx.font;
     };
-    const channel = member.guild.channels.cache.find(ch => ch.name === "welcome-chat");
+    const channel = client.guild.channels.cache.find(ch => ch.name === "général");
     if (!channel) return;
     const canvas = Canvas.createCanvas(700, 250);
     const ctx = canvas.getContext(`2d`);
-    const guild = client.guilds.cache.get("714158237406199899");
+    const guild = client.guilds.cache.find(gu => gu.name === "TEST POUR TOUT ET RIEN");
     const memberCount = guild.memberCount;
 
 

@@ -4,7 +4,7 @@ require("moment-duration-format");
 
 module.exports = {
 	name: 'serverinfo',
-	aliases: [],
+	aliases: ['si'],
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}serverinfo',

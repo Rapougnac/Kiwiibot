@@ -4,11 +4,12 @@ require("moment-duration-format");
 
 module.exports = {
 	name: 'userinfo',
-	aliases: [],
+	aliases: ['ui'],
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}userinfo',
 	async execute(client, message, args) {
+    const member = message.mentions.members.first() || message.member
 		const embeduser = new Discord.MessageEmbed()
       .addField('Membre', member, true)
       .addField('Tag', member.user.tag, true)

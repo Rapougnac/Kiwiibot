@@ -3,6 +3,10 @@ const config = require('./config.json');
 const glob = require('glob');
 const { Player } = require('discord-player');
 
+const ascii = require('ascii-table');
+let table = new ascii("Commands");
+table.setHeading('Command', ' Load status');
+
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
@@ -14,6 +18,7 @@ const searcher = new YTSearcher({
 
 const client = new Discord.Client();
 const fs = require("fs");
+const { re } = require("mathjs");
 
 //Xp database
 const adapters = new FileSync('db_xp.json');
@@ -51,26 +56,34 @@ recursive_readdir('commands', function (err, files) {
   if (err) {
     console.log('Error', err);
   } else {
-    files =files.filter(file => file.endsWith('.js'));
-    if(config.discord.dev.active){
-        if(config.discord.dev.exclude_cmd.length){  
-           files = files.filter(file => file.endsWith(config.discord.dev.include_cmd));
-        }
-        if(config.discord.dev.exclude_cmd.length){
-          files = files.filter( file => !file.endsWith(config.discord.dev.exclude_cmd));
-        }
+    files = files.filter(file => file.endsWith('.js'));
+    if (config.discord.dev.active) {
+      if (config.discord.dev.exclude_cmd.length) {
+        files = files.filter(file => file.endsWith(config.discord.dev.include_cmd));
+      }
+      if (config.discord.dev.exclude_cmd.length) {
+        files = files.filter(file => !file.endsWith(config.discord.dev.exclude_cmd));
+      }
     }
     files.forEach((file) => {
-      console.log(`Loading discord.js command ${file}`);
+      //console.log(`Loading discord.js command ${file}`);
       const command = require(`./${file}`);
-      client.commands.set(command.name, command);
+    
+      if (command.name) {
+        client.commands.set(command.name, command);
+        table.addRow(file, '✅')
+      } else {
+        table.addRow(file, '❌ -> Missing a help.name, or help.name is not a string.')
 
+      }
       if (command.aliases) {
         command.aliases.forEach(alias => {
           client.aliases.set(alias, command);
         });
       }
+
     });
+    console.log(table.toString());
   }
 
 });

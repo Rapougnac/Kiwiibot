@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 module.exports = {
 	name: 'anal',
 	aliases: [],
-	description: '',
+	description: 'Returns a anal image/gif',
 	category: 'Misc',
 	utilisation: '{prefix}anal',
 	async execute(client, message, args) {

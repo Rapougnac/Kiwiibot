@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const AmeClient = require('amethyste-api');
-const config = require('../../../config.json');
+const config = require('../../config.json');
 
 module.exports = {
     name: 'facebook',

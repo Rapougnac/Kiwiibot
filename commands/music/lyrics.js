@@ -8,7 +8,6 @@ module.exports = {
     category: 'Music',
     utilisation: '{prefix}lyrics',
     async execute(client, message, args) {
-        //const args = message.content.slice(prefix.length + (6)).trim().split(/ +/g);
         if (!args[0]) {
             const embed = new Discord.MessageEmbed()
                 .setColor('RED')

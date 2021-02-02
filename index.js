@@ -15,7 +15,6 @@ const searcher = new YTSearcher({
   key: config.ytsearcher.key,
   revealed: true
 });
-
 const client = new Discord.Client();
 const fs = require("fs");
 const { re } = require("mathjs");
@@ -23,7 +22,7 @@ const { re } = require("mathjs");
 //Xp database
 const adapters = new FileSync('db_xp.json');
 
-//Client initalization
+//client initalization
 client.login(config.discord.token);
 
 client.commands = new Discord.Collection();
@@ -38,6 +37,7 @@ client.db_xp.defaults({ histoires: [], xp: [] }).write();
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
+  files = files.filter(file => file.endsWith('.js'));
   files.forEach((file) => {
     console.log(`Loading discord.js event ${file}`);
     const eventHandler = require(`./events/${file}`);
@@ -68,12 +68,12 @@ recursive_readdir('commands', function (err, files) {
     files.forEach((file) => {
       //console.log(`Loading discord.js command ${file}`);
       const command = require(`./${file}`);
-    
+
       if (command.name) {
         client.commands.set(command.name, command);
         table.addRow(file, '✅')
       } else {
-        table.addRow(file, '❌ -> Missing a help.name, or help.name is not a string.')
+        table.addRow(file, '❌ -> Missing a name, or name is not a string.')
 
       }
       if (command.aliases) {
@@ -108,3 +108,21 @@ client.on('message', message => {
 
   }
 });
+client.on(`message`, message => {
+
+  if (message.content === `m?join`)
+    client.emit(`guildMemberAdd`, message.member);
+});
+client.on(`message`, message => {
+
+  if (message.content === `m?leave`)
+    client.emit(`guildMemberRemove`, message.member);
+});
+
+
+client.on(`guildMemberRemove`, async member => {
+  const channel = member.guild.channels.cache.get("779275678519525377");
+  if (!channel) return;
+  channel.send(`**${member.user.tag}** vient de quitter le serveur~ <:facepalm:770056223185567764>`)
+});
+

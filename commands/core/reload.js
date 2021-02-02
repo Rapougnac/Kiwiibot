@@ -11,7 +11,7 @@ module.exports = {
 
         console.clear();
         client.destroy()
-        client.login(config.toke);
+        client.login(config.discord.token);
         message.channel.send(`Reloaded ${client.config.emojis.success}`);
         return;
     },

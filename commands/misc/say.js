@@ -8,7 +8,7 @@ module.exports = {
     utilisation: '{prefix}say',
     async execute(client, message, args) {
         //const args = message.content.trim().substring(prefix.length).split(/ +/g);
-        const botmessage = args.join(" ").slice(0).slice(1).slice(2);
+        const botmessage = args.join(" ");
         message.delete().catch();
         message.channel.send(botmessage);
     },

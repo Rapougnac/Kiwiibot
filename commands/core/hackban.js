@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 module.exports = {
     name: 'hackban',
-    aliases: [],
-    description: 'Ban a person',
+    aliases: ['hb'],
+    description: 'hackban a person',
     category: 'Core',
-    utilisation: '{prefix}hackban <mention> <raison>',
+    utilisation: '{prefix}hackban [id] <reason>',
     async execute(client, message, args) {
 
         if (!message.member.hasPermission("BAN_MEMBERS")) {
@@ -12,11 +12,10 @@ module.exports = {
             return message.channel.send("Quelque chose c'est mal passé tu as besoin de la permission : (BAN_MEMBERS)");
 
         }
-        //const args = message.content.trim().split(/ +/g);
 
-        let userID = args[1];
+        let userID = args[0];
 
-        let reason = args.slice(2).join(" ");
+        let reason = args.slice(1).join(" ");
 
 
         if (!userID) return message.channel.send("Merci de rentrer une id valide");

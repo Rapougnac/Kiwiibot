@@ -4,7 +4,7 @@ require("moment-duration-format");
 
 module.exports = {
 	name: 'roleinfo',
-	aliases: [],
+	aliases: ['ri'],
 	description: '',
 	category: 'Infos',
 	utilisation: '{prefix}roleinfo',

@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
     name: 'poll',
-    aliases: ['h'],
+    aliases: [],
     category: 'Core',
     utilisation: '{prefix}poll <command name>',
 

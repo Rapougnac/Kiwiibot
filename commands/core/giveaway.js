@@ -1,5 +1,5 @@
 let Discord = require('discord.js');
-const  prefix  = "m?"
+const { prefix } = require('../../config.json');
 
 module.exports = {
     name: 'giveaway',
@@ -68,6 +68,7 @@ module.exports = {
                             msg.reactions.cache.get('🎉').users.remove(client.user.id)
                             setTimeout(() => {
                                 let winner = msg.reactions.cache.get('🎉').users.cache.random();
+                                if (winner === message.author.bot) return;
                                 if (msg.reactions.cache.get('🎉').users.cache.size < 1) {
                                     const winner_embed = new Discord.MessageEmbed()
                                     .setTitle(`${prize}`)

@@ -11,7 +11,7 @@ module.exports = {
         //const args = message.content.trim().split(/ +/g);
         const kitsu = new Kitsu();
 
-        if (!args[1]) {
+        if (!args[0]) {
             return message.channel.send("S'il te plaît spécifie un animé !");
 
         }

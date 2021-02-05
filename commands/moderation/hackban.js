@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'hackban',
     aliases: ['hb'],
@@ -12,6 +12,7 @@ module.exports = {
             return message.channel.send("Quelque chose c'est mal passé tu as besoin de la permission : (BAN_MEMBERS)");
 
         }
+
 
         let userID = args[0];
 
@@ -39,5 +40,16 @@ module.exports = {
         }).catch(error => {
             return message.channel.send(`Une erreur est survenue: **${error}**`);
         });
+        client.users.fetch(userID).then(async user => {
+            const embed = new MessageEmbed()
+            .setAuthor(`${user.username} (${user.id})`)
+            .setColor('#dc143c')
+            .setDescription(`**Action**: hackban\n**Raison**: ${reason}`)
+            .setThumbnail(user.avatarURL())
+            .setTimestamp()
+            .setFooter(user.username, user.avatarURL())
+            client.channnels.cache.get('786674142719377408').send(embed)
+        });
+
     },
 };

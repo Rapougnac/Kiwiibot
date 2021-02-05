@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
     name: 'firstmessage',
-    aliases: [],
+    aliases: ['fm'],
     description: '',
     category: 'Misc',
     utilisation: '{prefix}firstmessage',

@@ -14,7 +14,7 @@ module.exports = {
         if (!member) return message.channel.send('Veuillez mentionner le membre à warn.');
         if (member.id === message.guild.ownerID) return message.channel.send('Vous ne pouvez pas warn le propriétaire du serveur.');
         if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('Vous ne pouvez pas warn ce membre.');
-        const reason = message.content.split(prefix + 'warn ' + args[1])[1];
+        const reason = args[1]
         if (!reason) return message.channel.send('Veuillez indiquer une raison.');
         if (!client.db_warns.warns[member.id]) client.db_warns.warns[member.id] = [];
         client.db_warns.warns[member.id].unshift({

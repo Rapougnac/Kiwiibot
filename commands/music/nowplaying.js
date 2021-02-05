@@ -20,7 +20,6 @@ module.exports = {
             embed: {
                 color: 'RED',
                 author: { name: track.title },
-                footer: { text: 'Kiwii est bot développé et maintenu par Rapougnac' },
                 fields: [
                     { name: 'Channel', value: track.author, inline: true },
                     { name: 'Requested by', value: track.requestedBy.username, inline: true },

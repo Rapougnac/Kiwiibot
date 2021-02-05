@@ -8,7 +8,7 @@ module.exports = {
     utilisation: '{prefix}ascii',
     async execute(client, message, args) {
         //const args = message.content.slice(prefix.length).trim().split(/ +/g);
-        let text = args.slice(1).join(" ");
+        let text = args.join(" ");
 
         if (!text) {
             return message.channel.send('Please provide text for the ascii conversion!')

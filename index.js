@@ -19,9 +19,6 @@ const client = new Discord.Client();
 const fs = require("fs");
 const { re } = require("mathjs");
 
-//Xp database
-const adapters = new FileSync('db_xp.json');
-
 //client initalization
 client.login(config.discord.token);
 
@@ -32,8 +29,6 @@ client.emotes = client.config.emojis;
 client.filters = client.config.filters;
 client.player = new Player(client);
 client.db_warns = require('./db_warns.json');
-client.db_xp = low(adapters);
-client.db_xp.defaults({ histoires: [], xp: [] }).write();
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
@@ -41,8 +36,10 @@ fs.readdir("./events/", (err, files) => {
   files.forEach((file) => {
     console.log(`Loading discord.js event ${file}`);
     const eventHandler = require(`./events/${file}`);
+    //const eventsLogs = require(`./events/logs/${file}`);
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
+    //client.on(eventName, (...args) => eventsLogs(client, ...args));
   });
 });
 
@@ -58,7 +55,7 @@ recursive_readdir('commands', function (err, files) {
   } else {
     files = files.filter(file => file.endsWith('.js'));
     if (config.discord.dev.active) {
-      if (config.discord.dev.exclude_cmd.length) {
+      if (config.discord.dev.include_cmd.length) {
         files = files.filter(file => file.endsWith(config.discord.dev.include_cmd));
       }
       if (config.discord.dev.exclude_cmd.length) {
@@ -66,7 +63,6 @@ recursive_readdir('commands', function (err, files) {
       }
     }
     files.forEach((file) => {
-      //console.log(`Loading discord.js command ${file}`);
       const command = require(`./${file}`);
 
       if (command.name) {
@@ -87,27 +83,14 @@ recursive_readdir('commands', function (err, files) {
   }
 
 });
+const player = fs.readdirSync('./events/player').filter(file => file.endsWith('.js'));
 
-//Add Xp to user
-client.on('message', message => {
-
-  let msgauthor = message.author.id
-
-  if (message.author.bot) return;
-
-  if (!client.db_xp.get("xp").find({ user: msgauthor }).value()) {
-    client.db_xp.get("xp").push({ user: msgauthor, xp: 1 }).write();
-  } else {
-    var userxpdb = client.db_xp.get("xp").filter({ user: msgauthor }).find("xp").value();
-    console.log(userxpdb)
-    var userxp = Object.values(userxpdb)
-    console.log(userxp)
-    console.log(`Nombre d'xp: ${userxp[1]}`)
-
-    client.db_xp.get("xp").find({ user: msgauthor }).assign({ user: msgauthor, xp: userxp[1] += 1 }).write();
-
-  }
-});
+//Loading the player events
+for (const file of player) {
+  console.log(`Loading discord-player event ${file}`);
+  const event = require(`./events/player/${file}`);
+  client.player.on(file.split(".")[0], event.bind(null, client));
+};
 client.on(`message`, message => {
 
   if (message.content === `m?join`)
@@ -125,4 +108,3 @@ client.on(`guildMemberRemove`, async member => {
   if (!channel) return;
   channel.send(`**${member.user.tag}** vient de quitter le serveur~ <:facepalm:770056223185567764>`)
 });
-

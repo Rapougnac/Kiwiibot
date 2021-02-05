@@ -23,7 +23,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Kiwii est un bot développé et maintenu par Rapougnac#0304' },
+                        footer: { text: 'Page 1/4' },
                         description: `To use filters, ${client.config.discord.prefix}filter (the filter). Example : ${client.config.discord.prefix}filter 8D.`,
                         fields: [
                             
@@ -46,7 +46,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Kiwii est un bot développé et maintenu par Rapougnac#0304' },
+                        footer: { text: 'Page 2/4' },
                         description: `To use filters, ${client.config.discord.prefix}filter (the filter). Example : ${client.config.discord.prefix}filter 8D.`,
                         fields: [
 
@@ -65,7 +65,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Kiwii est un bot développé et maintenu par Rapougnac#0304' },
+                        footer: { text: 'Page 3/4' },
                         description: `To use filters, ${client.config.discord.prefix}filter (the filter). Example : ${client.config.discord.prefix}filter 8D.`,
                         fields: [
                             
@@ -84,7 +84,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Kiwii est un bot développé et maintenu par Rapougnac#0304' },
+                        footer: { text: 'Page 4/4' },
                         description: `To use filters, ${client.config.discord.prefix}filter (the filter). Example : ${client.config.discord.prefix}filter 8D.`,
                         fields: [
                             

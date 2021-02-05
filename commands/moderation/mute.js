@@ -9,6 +9,7 @@ module.exports = {
         if (!message.member.hasPermission("ADMINISTRATOR")) return;
 
         let mention = message.mentions.members.first();
+        let reason = args.join(' ').slice(mention);
 
         if (mention == undefined) {
             message.reply("Erreur : mention du membre incomplète ou inexacte.");
@@ -16,7 +17,7 @@ module.exports = {
         else {
             mention.roles.add("773948291091922955");
             mention.roles.remove("714160630264889436");
-            message.reply(mention.displayName + " a été(e) mute avec succès !");
+            message.channel.send(mention.displayName + ` a été(e) mute avec succès ! Pour raison ${reason}`);
         }
     },
 };

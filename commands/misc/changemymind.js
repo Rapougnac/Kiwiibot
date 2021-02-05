@@ -4,13 +4,14 @@ const { changemymind } = require('canvacord');
 
 module.exports = {
     name: 'changemymind',
-    aliases: [],
+    aliases: ['cmm'],
     description: '',
     category: 'Misc',
     utilisation: '{prefix}changemymind',
     async execute(client, message, args) {
-        const text =args;
         if (!args[0]) return message.channel.send('Veuillez mettre un texte valide');
+
+        const text = args.join(" ");
 
         const image = await canva.Canvas.changemymind(text);
 

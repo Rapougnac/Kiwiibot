@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const moment = require('moment');
+require("moment-duration-format");
 
 module.exports = {
     name: 'infractions',
-    aliases: [],
-    description: '',
+    aliases: ['inf'],
+    description: 'See the infractions of a user',
     category: 'Core',
     utilisation: '{prefix}infractions',
     async execute(client, message, args) {

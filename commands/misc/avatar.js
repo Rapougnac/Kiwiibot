@@ -13,9 +13,9 @@ module.exports = {
             let embed = new Discord.MessageEmbed()
                 .setTitle(`Avatar de ${user.username}!`)
                 //.setDescription(`Avatar of **${user.username}#${user.discriminator}**\nIf the image is not displayed, [click here](${user.avatarURL})`)
-                .setImage(user.avatarURL({ size: 2048, dynamic: true, format: "png" }))
+                .setImage(user.displayAvatarURL({ size: 2048, dynamic: true, format: "png" }))
                 .setColor(0xFFFFFF)
-                .setURL(`${user.displayAvatarURL}`)
+                //.setURL(`${user.displayAvatarURL}`)
             message.channel.send(embed);
         } catch (err) {
             message.channel.send(err);

@@ -13,6 +13,7 @@ module.exports = {
 		if (!role) return message.channel.send('Veuillez mentionner le rôle dont vous voulez voir les infos.');
 		message.channel.send(new Discord.MessageEmbed()
 			.addField('Rôle', role, true)
+			.addField('Nom du rôle', role.name)
 			.addField('Membres le possédant', role.members.size, true)
 			.addField('Couleur', role.hexColor, true)
 			.addField('Date de création', moment(role.createdAt).format('[Le] DD/MM/YYYY [à] HH:mm:ss'), true)

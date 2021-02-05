@@ -50,7 +50,7 @@ module.exports = async (client, member) => {
   const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: `jpg` }));
   ctx.drawImage(avatar, 25, 25, 200, 200);
 
-  const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'bannierew.png');
+  const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
 
   channel.send(`Hey ${member} ! Bienvenue dans le serveur Discord d'Akane-Nightcore ! Merci d'avoir rejoint ce serveur, n'oublie pas de valider le règlement mais n'oublie surtout pas de t'amuser ! <:Akanechan_happy:769227329184333824> !`, attachment);
 };

@@ -1,37 +1,29 @@
 const fs = require("fs");
 const glob = require('glob');
-var recursive_readdir = function (src, callback) {
-    glob(src + '/**/*', callback);
-};
+
 module.exports = {
     name: "code",
     description: "Display the code of the specified command.",
     category: "Core",
-    async execute(message, args) {
+    async execute(client, message, args) {
 
-        const client = message.client;
         let code;
+        let files = client.list_cmd;
+        files = files.filter(file => file.split('/').slice(-1)==`${args[0]}.js`);
         try {
-            code = recursive_readdir(`./commands/${args[0]}.js`).toString();
+            code = fs.readFileSync(`./${files}`, "utf-8");
+            const options = {
+                method: "POST",
+                body: code,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
+            message.channel.send(`Here is the code for the ${args[0]} command:\n\`\`\`js\n${code.substr(0, 1900)}\`\`\``);
+
         } catch (error) {
             return message.channel.send(`I couldn't find a command called \`${args[0]}\`` + error);
         }
 
-        try {
-            if (args[0]) {
-                const options = {
-                    method: "POST",
-                    body: code,
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                };
-                message.channel.send(`Here is the code for the ${args[0]} command:\n\`\`\`js\n${code.substr(0, 1900)}\`\`\``);
-            }
-        } catch (e) {
-            return message.channel.send(
-                "There was an error displaying the command's code."
-            );
-        }
     },
 };

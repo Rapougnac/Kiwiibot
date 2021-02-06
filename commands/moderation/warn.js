@@ -6,7 +6,7 @@ module.exports = {
     aliases: [],
     description: 'Warn a person',
     category: 'Core',
-    utilisation: '{prefix}warn <mention> <raison>',
+    utilisation: '{prefix}warn [mention] [raison]',
     async execute(client, message, args) {
 
         if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.');
@@ -22,9 +22,9 @@ module.exports = {
             date: Date.now(),
             mod: message.author.id
         })
-        fs.writeFileSync('../../db_warns.json', JSON.stringify(client.db_warns))
+        fs.writeFileSync('./db_warns.json', JSON.stringify(client.db_warns))
         const embedwar = new Discord.MessageEmbed()
-            .setTitle(`**${member.user.tag}**`)
+            .setTitle(`**Warn**`)
             .addField(`**Utilisateur**`, `${member}`, true)
             .addField(`**Mod**`, `${message.author}`, true)
             .addField(`**Raison**`, `${reason}`, true)

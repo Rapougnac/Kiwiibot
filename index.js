@@ -17,7 +17,6 @@ const searcher = new YTSearcher({
 });
 const client = new Discord.Client();
 const fs = require("fs");
-const { re } = require("mathjs");
 
 //client initalization
 client.login(config.discord.token);
@@ -62,6 +61,7 @@ recursive_readdir('commands', function (err, files) {
         files = files.filter(file => !file.endsWith(config.discord.dev.exclude_cmd));
       }
     }
+    client.list_cmd=files;
     files.forEach((file) => {
       const command = require(`./${file}`);
 

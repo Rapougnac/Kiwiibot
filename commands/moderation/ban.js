@@ -52,5 +52,12 @@ module.exports = {
         return member.ban({ reason: `${reason || 'Unspecified'}` })
             .then(_member => message.channel.send(`Successfully banned **${_member.user.tag}**`))
             .catch(() => message.channel.send(`Failed to ban **${member.user.tag}**!`));
+
+            // message.guild.channels.cache.get(config.logs).send(new Discord.MessageEmbed()
+            // .setAuthor(`[BAN] ${member.user.tag}`, member.user.displayAvatarURL())
+            // .addField('Utilisateur', member, true)
+            // .addField('Modérateur', message.author, true)
+            // .addField('Raison', reason, true)
+            // .addField('Durée', '∞', true))
     },
 };

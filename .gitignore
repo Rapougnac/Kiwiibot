@@ -4,6 +4,7 @@ package-lock.json
 database.sqlite
 db_warns.json
 
+audio/
 # Logs
 logs
 *.log

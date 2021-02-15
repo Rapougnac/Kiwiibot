@@ -2,14 +2,14 @@ const fetch = require("node-fetch");
 const Discord = require("discord.js");
 
 module.exports = {
-    name: 'cycle',
-    aliases: [],
+    name: 'clyde',
+    aliases: ['cly'],
     description: '',
     category: 'Misc',
     utilisation: '{prefix}cycle',
     async execute(client, message, args) {
         //const args = message.content.trim().split(/ +/g);
-        const text = args.slice(1).join(' ')
+        const text = args.join(' ')
         if (!text) return message.reply("Please provide text");
 
         const data = await fetch(`

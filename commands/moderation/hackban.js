@@ -2,14 +2,14 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'hackban',
     aliases: ['hb'],
-    description: 'hackban a person',
+    description: 'hackban somebody',
     category: 'Core',
     utilisation: '{prefix}hackban [id] <reason>',
     async execute(client, message, args) {
 
         if (!message.member.hasPermission("BAN_MEMBERS")) {
 
-            return message.channel.send("Quelque chose c'est mal passé tu as besoin de la permission : (BAN_MEMBERS)");
+            return message.channel.send("Something went wrong, you need the (BAN_MEMBERS) permission");
 
         }
 
@@ -19,13 +19,13 @@ module.exports = {
         let reason = args.slice(1).join(" ");
 
 
-        if (!userID) return message.channel.send("Merci de rentrer une id valide");
+        if (!userID) return message.channel.send("Please give me a valid id");
 
-        if (isNaN(userID)) return message.channel.send("L'id doit être un nombre");
+        if (isNaN(userID)) return message.channel.send("id must be a number");
 
-        if (userID === message.author.id) return message.channel.send("Vous ne pouvez pas vous bannir vous même.");
+        if (userID === message.author.id) return message.channel.send("You can't ban yourself");
 
-        if (userID === client.user.id) return message.channel.send("Tu ne peux pas me bannir.. en plus pourquoi le ferais-tu ?");
+        if (userID === client.user.id) return message.channel.send("You can't ban me");
 
 
         if (!reason) reason = "No reason provided";
@@ -35,10 +35,10 @@ module.exports = {
 
             await message.guild.members.ban(user.id, { reason: reason });
 
-            return message.channel.send(`**${user.tag}** a été banni du serveur.`);
+            return message.channel.send(`**${user.tag}** has been hackbanned`);
 
         }).catch(error => {
-            return message.channel.send(`Une erreur est survenue: **${error}**`);
+            return message.channel.send(`Something went wrong: **${error}**`);
         });
         client.users.fetch(userID).then(async user => {
             const embed = new MessageEmbed()

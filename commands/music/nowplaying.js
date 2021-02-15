@@ -30,7 +30,7 @@ module.exports = {
                     { name: 'Filters activated', value: filters.length + '/' + client.filters.length, inline: true },
 
                     { name: 'Volume', value: client.player.getQueue(message).volume, inline: true },
-                    { name: 'Repeat mode', value: client.player.getQueue(message).repeatMode ? 'Yes' : 'No', inline: true },
+                    { name: 'Loop mode', value: client.player.getQueue(message).repeatMode ? 'Yes' : 'No', inline: true },
                     { name: 'Currently paused', value: client.player.getQueue(message).paused ? 'Yes' : 'No', inline: true },
 
                     { name: 'Progress bar', value: client.player.createProgressBar(message, { timecodes: true }), inline: true }

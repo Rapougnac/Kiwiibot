@@ -2,6 +2,7 @@ module.exports = {
     name: 'loop',
     aliases: ['lp', 'l'],
     category: 'Music',
+    description: 'enable or disable loop mode for the server (play the song again and again)',
     utilisation: '{prefix}loop',
 
     async execute(client, message,args) {
@@ -13,10 +14,10 @@ module.exports = {
 
         if (client.player.getQueue(message).repeatMode) {
             client.player.setRepeatMode(message, false);
-            return message.channel.send(`${client.emotes.success} - Repeat mode **disabled** !`);
+            return message.channel.send(`${client.emotes.success} - Loop mode **disabled** !`);
         } else {
             client.player.setRepeatMode(message, true);
-            return message.channel.send(`${client.emotes.success} - Repeat mode **enabled** !`);
+            return message.channel.send(`${client.emotes.success} - Loop mode **enabled** !`);
         };
     },
 };

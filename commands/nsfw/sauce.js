@@ -8,7 +8,7 @@ module.exports = {
     name: 'sauce',
     category: 'Nsfw',
     aliases: ['gimmesauce', 'finddoujin', 'doujin', 'nhentai', 'saucefor'],
-    description: 'Fetch doujin information from <:nhentai:767062351169323039> [nHentai](https://nhentai.net "nHentai Homepage")',
+    description: 'Fetch doujin information from <:nhentai:808384048635445278> [nHentai](https://nhentai.net "nHentai Homepage")',
      async execute(client, message, [id]) {
 
         if (isNaN(id)) {

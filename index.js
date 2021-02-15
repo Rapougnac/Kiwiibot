@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const config = require('./config.json');
 const glob = require('glob');
 const { Player } = require('discord-player');
+const db = require('quick.db');
 
 const ascii = require('ascii-table');
 let table = new ascii("Commands");
@@ -17,11 +18,14 @@ const searcher = new YTSearcher({
 });
 const client = new Discord.Client();
 const fs = require("fs");
+const { re } = require("mathjs");
+const { NoUnusedVariablesRule } = require("graphql");
 
 //client initalization
 client.login(config.discord.token);
 
 client.commands = new Discord.Collection();
+client.commands_path = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.config = config;
 client.emotes = client.config.emojis;
@@ -61,15 +65,15 @@ recursive_readdir('commands', function (err, files) {
         files = files.filter(file => !file.endsWith(config.discord.dev.exclude_cmd));
       }
     }
-    client.list_cmd=files;
     files.forEach((file) => {
       const command = require(`./${file}`);
 
       if (command.name) {
         client.commands.set(command.name, command);
+        client.commands_path.set(command.name, file);
         table.addRow(file, '✅')
       } else {
-        table.addRow(file, '❌ -> Missing a name, or name is not a string.')
+        table.addRow(file, '❌ -> Missing a help name, or help name is not a string.')
 
       }
       if (command.aliases) {

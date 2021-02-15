@@ -3,22 +3,11 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 
 const text = require('../../util/string');
-
 module.exports = {
   name: 'malprofile',
   aliases: [ 'mal-of', 'malof', 'malstat', 'maluser' ],
-  cooldown: { time: 10000 },
-  clientPermissions: [ 'EMBED_LINKS' ],
-  group: 'anime',
+  category: 'anime',
   description: 'Finds user profile on myanimelist based on the provided query.',
-  parameters: [ 'Myanimelist Username' ],
-  examples: [
-    'malprofile sakurajimai-san',
-    'mal-of sakurajimai-san',
-    'malof sakurajimai-san',
-    'malstat sakurajimai-san',
-    'maluser sakurajimai-san'
-  ],
    async execute (client, message, args ){
 
     const query = args.join(' ');

@@ -10,9 +10,10 @@ const MemoryLimit = 512;  //If one day the bot is on heroku
 
 module.exports = {
   name: 'stats',
-  aliases: ['status', 'botstatus'],
+  aliases: ['status', 'botstatus', 'botinfo', 'botinf'],
   category: 'bot',
   description: 'Displays the status of the current bot instance.',
+  utilisation: '{prefix}stats',
   async execute(client, message) {
 
     const { heapUsed, heapTotal } = process.memoryUsage();
@@ -107,7 +108,7 @@ module.exports = {
     ctx.fillText('Commands', 200, 200, 100);
     ctx.font = 'bold 13px sans-serif';
     ctx.fillStyle = 'rgba(48, 4, 110, 0.9)';
-    ctx.fillText('m?', 200, 125, 100);
+    ctx.fillText(text.commatize(client.config.discord.default_prefix), 200, 125, 100);
     ctx.fillText(text.commatize(totalCores), 200, 155, 100);
     ctx.fillText(text.commatize(client.guilds.cache.size), 200, 185, 100);
     ctx.fillText(text.commatize(client.commands.size), 200, 215, 100);
@@ -186,7 +187,7 @@ module.exports = {
     return message.channel.send('Bot Stats for Nerds', {
       embed: {
         color: 3146862,
-        description: `[Github](https://github.com/Rapougnac/Kiwiibot)(repository in private)\u2000\u2000|\u2000\u2000[Website](Currently no website)`
+        description: `[Github](https://github.com/Rapougnac/Kiwiibot)(repository in private)\u2000\u2000|\u2000\u2000[Website](https://service-4880.something.gg/)`
       },
       files: [{ attachment, name }]
     });

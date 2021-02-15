@@ -5,9 +5,9 @@ require("moment-duration-format");
 module.exports = {
 	name: 'roleinfo',
 	aliases: ['ri'],
-	description: '',
+	description: 'Shows informations about the mentionned role',
 	category: 'Infos',
-	utilisation: '{prefix}roleinfo',
+	utilisation: '{prefix}roleinfo [role]',
 	async execute(client, message, args) {
 		const role = message.mentions.roles.first();
 		if (!role) return message.channel.send('Veuillez mentionner le rôle dont vous voulez voir les infos.');

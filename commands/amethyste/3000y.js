@@ -5,7 +5,7 @@ const config = require('../../config.json');
 module.exports = {
     name: '3000y',
     aliases: [],
-    description: '',
+    description: 'Sends your avatar with the 3000y meme',
     category: 'Misc',
     utilisation: '{prefix}3000y',
     async execute(client, message, args) {

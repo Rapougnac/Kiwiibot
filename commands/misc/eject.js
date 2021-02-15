@@ -8,7 +8,7 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}eject',
     async execute(client, message, args) {
-        const user = message.mentions.users.first()
+        const user = message.mentions.users.first() || message.author
         const imp = [true, false];
         const imposter = imp[Math.floor(Math.random() * imp.length)];
         const crew = ["black", "blue", "brown", "cyan", "darkgreen", "lime", "orange", "pink", "purple", "red", "white", "yellow"]

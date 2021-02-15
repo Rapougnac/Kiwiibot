@@ -1,4 +1,4 @@
-const figlet = require("figlet"); // MAKE SURE TO INSTALL FIGLET PACKAGE OR CODE WONT WORK
+const figlet = require("figlet");
 
 module.exports = {
     name: 'ascii',
@@ -7,7 +7,6 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}ascii',
     async execute(client, message, args) {
-        //const args = message.content.slice(prefix.length).trim().split(/ +/g);
         let text = args.join(" ");
 
         if (!text) {
@@ -17,7 +16,6 @@ module.exports = {
         if (text.length > 20) {
             return message.channel.send("Please put text that has 20 characters or less because the conversion won't be good!")
         }
-        // AGAIN, MAKE SURE TO INSTALL FIGLET PACKAGE!
         figlet(text, function (err, data) {
             message.channel.send(data, {
                 code: 'AsciiArt'

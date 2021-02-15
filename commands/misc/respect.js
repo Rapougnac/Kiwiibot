@@ -5,6 +5,7 @@ module.exports = {
   aliases: [ 'f', 'rp', '+rp' ],
   group: 'Misc',
   description: 'Show thy respect. Accepts arguments.',
+  utilisation: '{prefix}respect',
   async execute(client, message, args) {
 
     const rep = await message.channel.send(

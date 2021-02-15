@@ -5,7 +5,7 @@ const config = require('../../config.json');
 module.exports = {
     name: 'approved',
     aliases: [],
-    description: '',
+    description: 'If your approuved that\'s very cool',
     category: 'Misc',
     utilisation: '{prefix}approved',
     async execute(client, message, args) {

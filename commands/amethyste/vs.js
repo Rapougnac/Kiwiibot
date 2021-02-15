@@ -3,11 +3,11 @@ const AmeClient = require('amethyste-api');
 const config = require('../../config.json');
 
 module.exports = {
-    name: 'badge',
+    name: 'vs',
     aliases: [],
     description: '',
     category: 'Misc',
-    utilisation: '{prefix}badge',
+    utilisation: '{prefix}vs [user]',
     async execute(client, message, args) {
         const AmeAPI = new AmeClient(config.amethyste.client); {
     
@@ -15,10 +15,12 @@ module.exports = {
           const User = await  message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase().includes() === args.join(' ').toLocaleLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase().includes() === args.join(' ').toLocaleLowerCase())
             || message.member; 
           let m = await  message.channel.send("**Please Wait...**");
-          const buffer =  await AmeAPI.generate("badge", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }) });
-          const attachment = new Discord.MessageAttachment(buffer, "badge.png");
+            const buffer =  await AmeAPI.generate("vs", { url: message.author.displayAvatarURL({ format: "png", size: 2048 }), avatar: User.user.displayAvatarURL({ format: "png", size: 2048 })});
+          const attachment = new Discord.MessageAttachment(buffer, "vs.png");
           m.delete({ timeout: 5000 });
           message.channel.send(attachment);
+          //client.guilds.cache.size} servers`,
+          //${client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0
         }
     },
 };

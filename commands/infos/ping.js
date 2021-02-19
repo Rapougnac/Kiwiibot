@@ -5,6 +5,8 @@ module.exports = {
 	category: 'Infos',
 	utilisation: '{prefix}ping',
 	async execute(client,message,args) {
-		message.channel.send(`🏓Pong : **${client.ws.ping}ms** !`);
+		const msg = await message.channel.send(`🏓 Pinging....`); 
+        //editing it to the actual latency
+        msg.edit(`🏓 Pong! Ping is **${Math.round(client.ws.ping)}ms**`);
 	},
 };

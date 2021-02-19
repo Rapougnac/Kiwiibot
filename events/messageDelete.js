@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client, message) => {
+    if(message.guild.id !== "714158237406199899") return;
     if(message.member.id === '253554702858452992') return;
     if(message.member.id === '257196097494188032') return;
     if(message.member.id === '605783492269309995') return;

@@ -2,14 +2,16 @@ const Discord = require("discord.js");
 const config = require('./config.json');
 const glob = require('glob');
 const { Player } = require('discord-player');
-const db = require('quick.db');
+//const db = require('quick.db');
 
 const ascii = require('ascii-table');
 let table = new ascii("Commands");
+let table2 = new ascii("Events");
 table.setHeading('Command', ' Load status');
+table2.setHeading("Events", "Load status");
 
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
+// const low = require('lowdb');
+// const FileSync = require('lowdb/adapters/FileSync');
 
 const { YTSearcher } = require('ytsearcher');
 const searcher = new YTSearcher({
@@ -43,7 +45,15 @@ fs.readdir("./events/", (err, files) => {
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
     //client.on(eventName, (...args) => eventsLogs(client, ...args));
+    if (file) {
+      table2.addRow(file, 'Ready')
+    } else {
+      table2.addRow(file, '❌')
+
+    }
   });
+  console.log(table2.toString()); //showing the table
+  console.log("Logging into the BOT..."); //showing loading status")
 });
 
 //Function for get all files into directory

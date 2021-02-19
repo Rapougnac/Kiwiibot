@@ -9,7 +9,7 @@ module.exports = {
     description: "Returns the duration on how long the Bot is online", //the description of the command
 
     //running the command with the parameters: client, message, args, user, text, prefix
-    run: async (client, message, args, user, text, prefix) => {
+    async execute(client, message, args, user, text, prefix) {
         // a sub function to get the time    
         function duration(ms) { 
             const sec = Math.floor(ms / 1000 % 60).toString();

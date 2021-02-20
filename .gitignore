@@ -1,13 +1,13 @@
 .vscode/
-config.json
 package-lock.json
-database.sqlite
 db_warns.json
 audio/
 bannierew.png:Zone.Identifier
 build/
 assets/
-struct/ChessGame.js
+struct/
+util/constant.js
+util/string.js
 # Logs
 logs
 *.log

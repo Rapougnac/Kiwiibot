@@ -1,12 +1,12 @@
 .vscode/
 package-lock.json
 db_warns.json
+config.json
 audio/
-bannierew.png:Zone.Identifier
 build/
 assets/
 struct/
-util/constant.js
+util/constants.js
 util/string.js
 # Logs
 logs

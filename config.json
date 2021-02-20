@@ -1,7 +1,10 @@
 {
   "discord":{
-      "token":"TOKEN_HERE",
-      "default_prefix":"PREFIX_HERE",
+      "token":"Nzc2ODI1NzQ3ODk3MzE5NDI0.X66hWw.2ntzeEcelErqsAVy_3gampZn0C0",
+      "default_prefix":"m?",
+      "text":"m?help/m?commands",
+      "activity": "WATCHING",
+      "status": "dnd",
       "dev":{
           "include_cmd":[],
           "exclude_cmd":["inrole.js"],
@@ -16,10 +19,10 @@
       "success":":white_check_mark:"
   },
   "ytsearcher":{
-      "key":"YT_KEY_HERE"
+      "key":"AIzaSyCl4x1A_TgDtP2zdmWYvtUHu_DsYbysF88"
   },
   "amethyste":{
-      "client":"AMETHYSTE_KEY_HERE"
+      "client":"666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139"
   },
   "filters": ["8D", "gate", "haas", "phaser", "treble", "tremolo", "vibrato", "reverse", "karaoke", "flanger", "mcompand", "pulsator", "subboost", "bassboost", "vaporwave", "nightcore", "normalizer", "surrounding"]
 }

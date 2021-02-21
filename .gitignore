@@ -5,7 +5,7 @@ config.json
 audio/
 build/
 assets/
-struct/
+struct/SnakeGame.js
 util/constants.js
 util/string.js
 # Logs

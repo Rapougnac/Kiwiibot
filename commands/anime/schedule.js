@@ -21,8 +21,7 @@ module.exports = {
     const embed = new MessageEmbed()
     .setColor('YELLOW')
     .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-    .setDescription(`\u200B\n Fetching **${day}** anime schedules from <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'MyAnimeList Homepage').\n\u200B`)
-    .setFooter(`Schedule Query with MAL | \©️${new Date().getFullYear()} Kiwii`)
+    .setDescription(`\u200B\n Fetching **${day}** anime schedules from <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net 'MyAnimeList Homepage').\n\u200B`)
 
     let msg = await message.channel.send(embed)
 
@@ -59,7 +58,6 @@ module.exports = {
         .setFooter([
           `Search duration: ${Math.abs(elapsed / 1000).toFixed(2)} seconds`,
           `Page ${pages.size === null ? 1 : pages.size + 1} of ${res[day].length}`,
-          `Schedule Query with MAL | \©️${new Date().getFullYear()} Kiwii`
         ].join('\u2000\u2000•\u2000\u2000'))
         .addFields([
           { name: 'Type',      value: info.type || 'Unknown', inline: true },

@@ -10,31 +10,16 @@ const badge = '<:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net \
 module.exports = {
   name: 'character',
   aliases: [ 'anichar' , 'char' , 'c' ],
-  cooldown: {
-    time: 10000,
-    message: 'You are going too fast. Please slow down to avoid getting rate-limited!'
-  },
-  clientPermissions: [ 'EMBED_LINKS' ],
-  group: 'anime',
-  description: 'Searches for a character in <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net "Homepage"), or Mai\'s character information if no query is provided.',
-  parameters: [ 'Search Query' ],
-  examples: [
-    'character',
-    'anichar Mai',
-    'anichar Sakuta Azusagawa',
-    'char Rio Futaba',
-    'c Kaede Azusagawa'
-  ],
+  category: 'anime',
+  description: 'Searches for a character in <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net "Homepage")',
   async execute(client, message, args) {
 
-    const query = args.join(' ') || 'Mai Sakurajima';
+    const query = args.join(' ');
 
     const embed = new MessageEmbed()
-    .setColor('YELLOW')
-    .setDescription(`Searching for character named **${query}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net 'Homepage').`)
-    .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-    .setFooter(`Character Query with MAL | \©️${new Date().getFullYear()}`);
-
+      .setColor('YELLOW')
+      .setDescription(`Searching for character named **${query}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+      .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
     const msg = await message.channel.send(embed);
 
     let data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(query)}&page=1`).then(res => res.json());
@@ -81,7 +66,6 @@ module.exports = {
     .setThumbnail(res.image_url)
     .setColor('GREY')
     .setDescription(text.truncate(res.about.replace(/\\n/g,''),500,`... [Read More](${res.url})`))
-    .setFooter(  `Character Query with MAL | \©️${new Date().getFullYear()} Mai`)
     .addFields([
       ...['Anime', 'Manga'].map(media => {
         const store = mediastore[media.toLowerCase()];
@@ -95,12 +79,11 @@ module.exports = {
           inline: true,
           name: index === 0 ? `Seiyuu (${res.voice_actors.length})` : '\u200b',
           value: va_arr.map((va, i) => {
-            const flag = client.anischedule.info.langflags
-            .find(m => m.lang === va.language)?.flag;
+            //const flag = client.anischedule.info.langflags.find(m => m.lang === va.language)?.flag;
             if (index === 2 && i === 2){
               return `...and ${res.voice_actors.length - 8} more!`;
             } else {
-              return `${flag || va.language} [${va.name}](${va.url})`;
+              return `${/*flag || */va.language} [${va.name}](${va.url})`;
             };
           }).join('\n') || '\u200b'
         };

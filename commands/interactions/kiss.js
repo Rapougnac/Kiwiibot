@@ -9,7 +9,8 @@ module.exports = {
 	category: 'Interactions',
 	utilisation: '{prefix}kiss',
 	async execute(client, message, args) {
-		if (message.mentions.members.size === 0) {
+		const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
+		if (!member) {
 			const GIF = await neko.sfw.kiss();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')
@@ -18,7 +19,6 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		else {
-			const member = message.mentions.members.first();
 			const GIF = await neko.sfw.kiss();
 			const embed = new Discord.MessageEmbed()
 				.setColor('#202225')

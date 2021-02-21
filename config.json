@@ -7,7 +7,7 @@
       "status": "dnd",
       "dev":{
           "include_cmd":[],
-          "exclude_cmd":["inrole.js"],
+          "exclude_cmd":["inrole.js", "watch.js"],
           "active":true
       }
   },
@@ -24,5 +24,6 @@
   "amethyste":{
       "client":"666703a31e32bb7b294a531293711476c207b7b9949aa1cc5c8892fc2475dfb8f521d832e47974d4f7c0e83bebaaadc3ad351c3e1ec8837fab4b3cecccf0b139"
   },
-  "filters": ["8D", "gate", "haas", "phaser", "treble", "tremolo", "vibrato", "reverse", "karaoke", "flanger", "mcompand", "pulsator", "subboost", "bassboost", "vaporwave", "nightcore", "normalizer", "surrounding"]
+  "filters": ["8D", "gate", "haas", "phaser", "treble", "tremolo", "vibrato", "reverse", "karaoke", "flanger", "mcompand", "pulsator", "subboost", "bassboost", "vaporwave", "nightcore", "normalizer", "surrounding"],
+  "mongoPath": "mongodb://localhost:27017"
 }

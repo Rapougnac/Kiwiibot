@@ -24,7 +24,7 @@ And change the following values:
       "token":"TOKEN_HERE",
       "default_prefix":"PREFIX_HERE",
       "dev":{
-          "include_cmd":[],
+          "include_cmd":[""],
           "exclude_cmd":[""],
           "active":true
       }

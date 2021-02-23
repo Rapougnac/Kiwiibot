@@ -1,7 +1,7 @@
 {
   "name": "kiwiibot",
   "version": "3.2.6",
-  "description": "Very simple Nekos.life bot using the Nekos.life wrapper and discord.js",
+  "description": "Bot written in discord.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

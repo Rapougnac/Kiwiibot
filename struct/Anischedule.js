@@ -23,7 +23,7 @@ module.exports = class Anischedule{
     /**
      * The client that instantiated this Scheduler
      * @name Anischedule#client
-     * @type {MaiClient}
+     * @type {KiwiiClient}
      * @readonly
      */
     Object.defineProperty(this, 'client', { value: client })
@@ -98,7 +98,7 @@ module.exports = class Anischedule{
     return new MessageEmbed()
     .setColor(entry.media.coverImage.color || 'GREY')
     .setThumbnail(entry.media.coverImage.large)
-    .setAuthor('Mai Anischedule')
+    .setAuthor('Anischedule')
     .setTimestamp(date)
     .setDescription([
       `Episode **${entry.episode}** of **[${entry.media.title.romaji}](${entry.media.siteUrl})**`,

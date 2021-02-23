@@ -3,11 +3,6 @@ package-lock.json
 db_warns.json
 config.json
 audio/
-build/
-assets/
-struct/SnakeGame.js
-util/constants.js
-util/string.js
 # Logs
 logs
 *.log

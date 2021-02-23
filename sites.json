@@ -1,10 +1,7 @@
 {
-  "rule34.xxx" : {
+  "rule34.xxx": {
     "domain": "rule34.xxx",
-    "aliases": [
-      "r34",
-      "rule34"
-    ],
+    "aliases": ["r34", "rule34"],
     "nsfw": true,
     "api": {
       "search": "/index.php?page=dapi&s=post&q=index&json=1&",

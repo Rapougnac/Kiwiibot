@@ -3,13 +3,10 @@ const config = require("./config.json");
 const glob = require("glob");
 const { Player } = require("discord-player");
 //const db = require('quick.db');
-const mongo = require('./mongo');
-
+const consoleUtil = require(`${process.cwd()}/util/console`);
 const ascii = require("ascii-table");
-let table = new ascii("Commands");
 let table2 = new ascii("Events");
 let table3 = new ascii("PLayer Events");
-table.setHeading("Command", " Load status");
 table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
 
@@ -23,8 +20,6 @@ const searcher = new YTSearcher({
 });
 const client = new Discord.Client();
 const fs = require("fs");
-const { re } = require("mathjs");
-const { NoUnusedVariablesRule } = require("graphql");
 
 //client initalization
 client.login(config.discord.token);
@@ -45,27 +40,29 @@ fs.readdir("./events/", (err, files) => {
     const eventHandler = require(`./events/${file}`);
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
-    if(eventName){
-      table2.addRow(eventName ,"Ready")
-    }else {
-      table2.addRow(eventName, "Error")
+    if (eventName) {
+      table2.addRow(eventName, '\x1b[32mReady\x1b[0m');
+    } else {
+      table2.addRow(eventName, '\x1b[31mERR!\x1b[0m');
     }
   });
   console.log(table2.toString()); //showing the table
 });
-const player = fs.readdirSync("./events/player").filter((file) => file.endsWith(".js"));
+const player = fs
+  .readdirSync("./events/player")
+  .filter((file) => file.endsWith(".js"));
 
 //Loading the player events
 for (const file of player) {
   const event = require(`./events/player/${file}`);
   const eventName = file.split(".")[0];
   client.player.on(eventName, event.bind(null, client));
-  if(eventName){
-    table3.addRow(eventName, "Ready");
-  }else{
-    table3.addRow(eventName, "Error");
+  if (eventName) {
+    table3.addRow(eventName, "\x1b[32mReady\x1b[0m");
+  } else {
+    table3.addRow(eventName, '\x1b[31mERR!\x1b[0m');
   }
-};
+}
 console.log(table3.toString());
 
 //Function for get all files into directory
@@ -93,37 +90,16 @@ recursive_readdir("commands", function (err, files) {
     }
     files.forEach((file) => {
       const command = require(`./${file}`);
-
-      if (command.name) {
-        client.commands.set(command.name, command);
-        client.commands_path.set(command.name, file);
-        table.addRow(file, "✅");
-      } else {
-        table.addRow(file, "❌ -> Missing a help name, or help name is not a string.");
-      }
+      client.commands.set(command.name, command);
       if (command.aliases) {
         command.aliases.forEach((alias) => {
           client.aliases.set(alias, command);
         });
       }
     });
-    console.log(table.toString());
+    consoleUtil.success(`Loaded ${files.size} commands`)
   }
 });
-client.on("message", (message) => {
-  if(message.content.startsWith("m?reload")) {
-    console.clear();
-    client.destroy()
-    client.login('Nzc2ODI1NzQ3ODk3MzE5NDI0.X66hWw.2ntzeEcelErqsAVy_3gampZn0C0');
-    message.channel.send("Reloaded :white_check_mark:");
-    console.log(table,toString());
-    console.log(table2,toString());
-    console.log(table3,toString());
-    return;
-  }
-})
-
-
 
 // client.on('ready', async () => {
 //   await mongo().then((mongoose) => {
@@ -137,3 +113,34 @@ client.on("message", (message) => {
 //     }
 //   });
 // });
+require("dotenv").config();
+
+
+const Client = require(`${process.cwd()}/struct/Client`);
+const configg = require(`${process.cwd()}/configg`);
+
+const clientt = new Client(configg);
+clientt.database?.init();
+const options = {
+  bypass: true,
+  log: true,
+  paths: [
+    "amethyste",
+    "anime",
+    "bot",
+    "core",
+    "info",
+    "infos",
+    "interactions",
+    "misc",
+    "moderation",
+    "music",
+    //"owner",
+    "neko",
+    "nsfw",
+  ],
+};
+
+
+//clientt.loadCommands({ parent: "commands", ...options });
+client.login();

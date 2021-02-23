@@ -1,4 +1,5 @@
 const config = require('../config.json');
+const chatbot = require(`${process.cwd()}/util/chatbot`);
 
 module.exports = (client, message) => {
     const prefix = config.discord.default_prefix.toLowerCase();
@@ -15,4 +16,11 @@ module.exports = (client, message) => {
         console.error(error);
         message.reply('There was an error trying to execute that command!' + error);
     }
+    /*===================CHATBOT FUNCTIONALITY======================*/
+  // When bot is mentioned or ?replied to, reply to user with a
+  // human precise response possible using external api
+  // if chatbot is used, use chatbot_successful as parameter
+  // to disable xp gaining and command execution
+  const { success: chatbot_successful } = chatbot(message);
+  /*===========================================================*/
 };

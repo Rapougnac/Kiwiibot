@@ -19,12 +19,12 @@ When you see all Github files in your folder you installed the bot succesfully.
 Open config.json
 And change the following values:
 
-```
+```json
 "discord":{
       "token":"TOKEN_HERE",
       "default_prefix":"PREFIX_HERE",
       "dev":{
-          "include_cmd":[],
+          "include_cmd":[""],
           "exclude_cmd":[""],
           "active":true
       }

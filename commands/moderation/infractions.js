@@ -16,7 +16,7 @@ module.exports = {
         if (!member) return message.channel.send('Veuillez mentionner le membre dont voir les warns.');
         if (!client.db_warns.warns[member.id]) return message.channel.send('Ce membre n\'a aucun warn.');
         const embedinf = new Discord.MessageEmbed()
-          .setDescription(`**Total de warns :** ${client.db_warns.warns[member.id].length}\n\n__**10 derniers warns**__\n\n${client.db_warns.warns[member.id].slice(0, 10).map((warn, i) => `**${i + 1}.** ${warn.reason}\nSanctionné ${moment(warn.date).fromNow()} par <@!${warn.mod}>`).join('\n\n')}`)
+          .setDescription(`**Total de warns :** ${client.db_warns.warns[member.id].length}\n\n__**10 derniers warns**__\n\n${client.db_warns.warns[member.id].slice(0, 10).map((warn, i) => `**${i + 1}.** ${warn.reason}\nSanctionné ${moment(warn.date).fromNow()} par <@!${warn.mod}> dans le serveur ${warn.guild}`).join('\n\n')}`)
         message.channel.send(embedinf);
     },
 };

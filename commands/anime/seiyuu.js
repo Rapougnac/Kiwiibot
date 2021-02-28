@@ -9,11 +9,12 @@ module.exports = {
   name: 'seiyuu',
   aliases: ['voice', 'va'],
   category: 'anime',
-  description: 'Search for seiyuu\'s on your favorite anime characters, or Mai\'s seiyuu if no query is provided!',
+  description: 'Search for seiyuu\'s on your favorite anime characters',
   async execute(client, message, args) {
+    if(!seiyuu) return message.channel.send('doijcof')
     try {
 
-      const search = args.join(' ') || 'Seto Asami';
+      const search = args.join(' ');
 
       const embed = new MessageEmbed().setColor('YELLOW')
         .setFooter(`Seiyuu Query with AL | \©️${new Date().getFullYear()} Kiwii`)

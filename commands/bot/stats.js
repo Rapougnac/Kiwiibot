@@ -7,6 +7,10 @@ var cpuStat = require('cpu-stat');
 
 const text = require(`${process.cwd()}/util/string`);
 const MemoryLimit = 512;  //If one day the bot is on heroku
+/**
+ * Display the stats of the bot
+ * @param { client } 
+ */
 
 module.exports = {
   name: 'stats',

@@ -8,7 +8,6 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}weather',
     async execute(client, message, args) {
-        //const args = message.content.slice(prefix.length + (7)).trim().split(/ +/g);
         weather.find({ search: args.join(" "), degreeType: 'C' }, function (error, result) {
             // 'C' can be changed to 'F' for farneheit results
             if (error) return message.channel.send(error);
@@ -30,8 +29,9 @@ module.exports = {
                 .addField('Wind', current.winddisplay, true)
                 .addField('Feels like', `${current.feelslike}°`, true)
                 .addField('Humidity', `${current.humidity}%`, true)
-
-
+                .addField(`Lat`, location.lat, true)
+                .addField(`Long`, location.long, true)
+                .addField(`Day`, current.day, true);
             message.channel.send(weatherinfo)
         });
     },

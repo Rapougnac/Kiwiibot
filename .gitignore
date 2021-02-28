@@ -1,9 +1,9 @@
 .vscode/
-config.json
 package-lock.json
-database.sqlite
 db_warns.json
+config.json
 audio/
+db_xp.json
 # Logs
 logs
 *.log

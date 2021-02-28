@@ -15,5 +15,6 @@ module.exports = {
 			.setTitle(`${message.author.tag} here's a random feet gif`)
 			.setImage(GIF.url)
 		message.channel.send(embed);
+		
 	},
 };

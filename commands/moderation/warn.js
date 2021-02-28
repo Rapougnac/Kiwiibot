@@ -8,6 +8,7 @@ module.exports = {
     category: 'Core',
     utilisation: '{prefix}warn [mention] [raison]',
     async execute(client, message, args) {
+        let { guild } = message;
 
         if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.');
         const member = message.mentions.members.first()
@@ -20,10 +21,12 @@ module.exports = {
         client.db_warns.warns[member.id].unshift({
             reason,
             date: Date.now(),
-            mod: message.author.id
+            mod: message.author.id,
+            guild: guild.name
         })
         fs.writeFileSync('./db_warns.json', JSON.stringify(client.db_warns))
         const embedwar = new Discord.MessageEmbed()
+            .setColor(`YELLOW`)
             .setTitle(`**Warn**`)
             .addField(`**Utilisateur**`, `${member}`, true)
             .addField(`**Mod**`, `${message.author}`, true)

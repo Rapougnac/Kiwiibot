@@ -1,25 +1,30 @@
 const Discord = require("discord.js");
-const config = require('./config.json');
-const glob = require('glob');
-const { Player } = require('discord-player');
-const db = require('quick.db');
+const config = require("./config.json");
+const glob = require("glob");
+const { Player } = require("discord-player");
+//const db = require('quick.db');
+const consoleUtil = require(`${process.cwd()}/util/console`);
+const ascii = require("ascii-table");
+let table2 = new ascii("Events");
+let table3 = new ascii("PLayer Events");
+table2.setHeading("Events", "Load status");
+table3.setHeading("Player Events", "Load status");
+const Anischedule = require(`./struct/Anischedule`);
 
-const ascii = require('ascii-table');
-let table = new ascii("Commands");
-table.setHeading('Command', ' Load status');
+// const low = require('lowdb');
+// const FileSync = require('lowdb/adapters/FileSync');
 
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-
-const { YTSearcher } = require('ytsearcher');
+const { YTSearcher } = require("ytsearcher");
 const searcher = new YTSearcher({
   key: config.ytsearcher.key,
-  revealed: true
+  revealed: true,
 });
 const client = new Discord.Client();
 const fs = require("fs");
-const { re } = require("mathjs");
-const { NoUnusedVariablesRule } = require("graphql");
+
+
+//Xp database
+// const adapters = new FileSync('db_xp.json');
 
 //client initalization
 client.login(config.discord.token);
@@ -31,84 +36,145 @@ client.config = config;
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
 client.player = new Player(client);
-client.db_warns = require('./db_warns.json');
+client.db_warns = require("./db_warns.json");
+client.config.features = client.config.allowedFeatures;
+// client.db_xp = low(adapters);
+// client.db_xp.defaults({ histoires: [], xp: [] }).write();
+client.anischedule = new Anischedule(client);
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
-  files = files.filter(file => file.endsWith('.js'));
+  files = files.filter((file) => file.endsWith(".js"));
   files.forEach((file) => {
-    console.log(`Loading discord.js event ${file}`);
     const eventHandler = require(`./events/${file}`);
-    //const eventsLogs = require(`./events/logs/${file}`);
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
-    //client.on(eventName, (...args) => eventsLogs(client, ...args));
+    if (eventName) {
+      table2.addRow(eventName, '\x1b[32mReady\x1b[0m');
+    } else {
+      table2.addRow(eventName, '\x1b[31mERR!\x1b[0m');
+    }
   });
+  console.log(table2.toString()); //showing the table
 });
+const player = fs
+  .readdirSync("./events/player")
+  .filter((file) => file.endsWith(".js"));
+
+//Loading the player events
+for (const file of player) {
+  const event = require(`./events/player/${file}`);
+  const eventName = file.split(".")[0];
+  client.player.on(eventName, event.bind(null, client));
+  if (eventName) {
+    table3.addRow(eventName, "\x1b[32mReady\x1b[0m");
+  } else {
+    table3.addRow(eventName, '\x1b[31mERR!\x1b[0m');
+  }
+}
+console.log(table3.toString());
 
 //Function for get all files into directory
 var recursive_readdir = function (src, callback) {
-  glob(src + '/**/*', callback);
+  glob(src + "/**/*", callback);
 };
 
 //Load the commands
-recursive_readdir('commands', function (err, files) {
+recursive_readdir("commands", function (err, files) {
   if (err) {
-    console.log('Error', err);
+    console.log("Error", err);
   } else {
-    files = files.filter(file => file.endsWith('.js'));
+    files = files.filter((file) => file.endsWith(".js"));
     if (config.discord.dev.active) {
       if (config.discord.dev.include_cmd.length) {
-        files = files.filter(file => file.endsWith(config.discord.dev.include_cmd));
+        files = files.filter((file) =>
+          file.endsWith(config.discord.dev.include_cmd)
+        );
       }
       if (config.discord.dev.exclude_cmd.length) {
-        files = files.filter(file => !file.endsWith(config.discord.dev.exclude_cmd));
+        files = files.filter(
+          (file) => !file.endsWith(config.discord.dev.exclude_cmd)
+        );
       }
     }
     files.forEach((file) => {
       const command = require(`./${file}`);
-
-      if (command.name) {
-        client.commands.set(command.name, command);
-        client.commands_path.set(command.name, file);
-        table.addRow(file, '✅')
-      } else {
-        table.addRow(file, '❌ -> Missing a help name, or help name is not a string.')
-
-      }
+      client.commands.set(command.name, command);
       if (command.aliases) {
-        command.aliases.forEach(alias => {
+        command.aliases.forEach((alias) => {
           client.aliases.set(alias, command);
         });
       }
-
     });
-    console.log(table.toString());
+    consoleUtil.success(`Loaded ${files.length} commands`)
   }
-
 });
-const player = fs.readdirSync('./events/player').filter(file => file.endsWith('.js'));
 
-//Loading the player events
-for (const file of player) {
-  console.log(`Loading discord-player event ${file}`);
-  const event = require(`./events/player/${file}`);
-  client.player.on(file.split(".")[0], event.bind(null, client));
+// client.on('ready', async () => {
+//   await mongo().then((mongoose) => {
+//     try{
+//       console.log('Connected to mongo!')
+//     } catch(e){
+
+//     }
+//     finally{
+//       mongoose.connection.close();
+//     }
+//   });
+// });
+require("dotenv").config();
+
+
+const Client = require(`${process.cwd()}/struct/Client`);
+const configg = require(`${process.cwd()}/configg`);
+
+const clientt = new Client(configg);
+clientt.database?.init();
+const options = {
+  bypass: true,
+  log: true,
+  paths: [
+    "amethyste",
+    "anime",
+    "bot",
+    "core",
+    "info",
+    "infos",
+    "interactions",
+    "misc",
+    "moderation",
+    "music",
+    //"owner",
+    "neko",
+    "nsfw",
+  ],
 };
-client.on(`message`, message => {
-
-  if (message.content === `m?join`)
-    client.emit(`guildMemberAdd`, message.member);
-});
-client.on(`message`, message => {
-
-  if (message.content === `m?leave`)
-    client.emit(`guildMemberRemove`, message.member);
-});
 
 
-client.on(`guildMemberRemove`, async member => {
-  const channel = member.guild.channels.cache.get("779275678519525377");
-  if (!channel) return;
-  channel.send(`**${member.user.tag}** vient de quitter le serveur~ <:facepalm:770056223185567764>`)
-});
+//clientt.loadCommands({ parent: "commands", ...options });
+client.login();
+//Add Xp to user
+// client.on('message', message => {
+
+//   let msgauthor = message.author.id
+
+//   if (message.author.bot) return;
+
+//   if (!client.db_xp.get("xp").find({ user: msgauthor }).value()) {
+//     client.db_xp.get("xp").push({ user: msgauthor, xp: 1 }).write();
+//   } else {
+//     var userxpdb = client.db_xp.get("xp").filter({ user: msgauthor }).find("xp").value();
+//     console.log(userxpdb)
+//     var userxp = Object.values(userxpdb)
+//     console.log(userxp)
+//     console.log(`Nombre d'xp: ${userxp[1]}`)
+
+//     client.db_xp.get("xp").find({ user: msgauthor }).assign({ user: msgauthor, xp: userxp[1] += 1 }).write();
+
+//   }
+// });
+// let xp = require("./db_xp.json");
+// client.on("message", (message) => {
+//   let msgauthor = message.author.id
+//   let xpAdd = Math.floor(Math.random() * 7) + 8;
+// })

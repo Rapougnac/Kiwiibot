@@ -68,7 +68,6 @@ module.exports = {
             .setColor(res.sort((A, B) => B.id - A.id)[0].coverImage.color)
             .setThumbnail(res.sort((A, B) => B.id - A.id)[0].coverImage.large)
             .setAuthor('Adding to watchlist')
-            .setFooter(`Watch | \©️${new Date().getFullYear()} Mai`)
             .addFields(res.splice(0, 25).sort((A, B) => B.id - A.id).map(entry => {
               const filter = ['HIATUS', 'RELEASING', 'NOT_YET_RELEASED'].includes(entry.status)
                 && !existing.includes(entry.id);

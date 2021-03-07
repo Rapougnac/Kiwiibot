@@ -12,6 +12,7 @@ function stringifyPropsInOrder(obj) {
 }
 
 module.exports = async (client, oldChannel, newChannel) => {
+    if (oldChannel.guild.id !== "714158237406199899") return;
 
 
 

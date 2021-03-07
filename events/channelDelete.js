@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client, channel) => {
+    if (channel.guild.id !== "714158237406199899") return;
 
     const fetchGuildAuditLogs = await channel.guild.fetchAuditLogs({
         limit: 1,

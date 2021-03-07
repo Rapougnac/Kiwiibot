@@ -24,12 +24,12 @@ module.exports = {
     };
 
     if (doc.channelID === null){
-      return message.channel.send(`\\❌ Anischedule is already disabled on this server! You may enable it again through \`${client.prefix}setanischedch\``)
+      return message.channel.send(`\\❌ Anischedule is already disabled on this server! You may enable it again through \`${client.config.discord.default_prefix}setanischedch\``)
     };
 
     doc.channelID = null;
     return doc.save()
-    .then(() =>  message.channel.send(`\\✔️ Successfully disabled the Anisched feature! You may enable it again through \`${client.prefix}setanischedch\``))
+    .then(() =>  message.channel.send(`\\✔️ Successfully disabled the Anisched feature! You may enable it again through \`${client.config.discord.default_prefix}setanischedch\``))
     .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
   });
 }

@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const Canvas = require('canvas');
 
 module.exports = async (client, member) => {
+  if (member.guild.id !== "714158237406199899") return;
     const applyText = (canvas, text) => {
     const ctx = canvas.getContext('2d');
 

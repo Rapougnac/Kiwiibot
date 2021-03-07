@@ -26,7 +26,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: `${currentPage+1}/${pages.length}`},
+                        footer: { text: `1/5`},
                         description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
                         fields: [
                             
@@ -40,7 +40,7 @@ module.exports = {
                     }),
                     reactions: {
                         '◀️': 'main',
-                        '🔄': 'main',
+                        //'🔄': 'main',
                         '▶️': 'extra',
                     },
                 },
@@ -49,7 +49,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Page 2/4' },
+                        footer: { text: 'Page 2/5' },
                         description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
                         fields: [
 
@@ -60,7 +60,7 @@ module.exports = {
                     }),
                     reactions: {
                         '◀️': 'main',
-                        '🔄': 'main',
+                        //'🔄': 'main',
                         '▶️': 'nsfw',
                     },
                 },
@@ -69,7 +69,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Page 3/4' },
+                        footer: { text: 'Page 3/5' },
                         description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
                         fields: [
                             
@@ -80,7 +80,7 @@ module.exports = {
                     }),
                     reactions: {
                         '◀️': 'extra',
-                        '🔄': 'main',
+                        //'🔄': 'main',
                         '▶️': 'interactions',
                     },
                 },
@@ -89,7 +89,7 @@ module.exports = {
                     content: new MessageEmbed({
                         color: 'ORANGE',
                         title: 'Help pannel',
-                        footer: { text: 'Page 4/4' },
+                        footer: { text: 'Page 4/5' },
                         description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
                         fields: [
                             
@@ -100,10 +100,30 @@ module.exports = {
                     }),
                     reactions: {
                         '◀️': 'nsfw',
-                        '🔄': 'main',
-                        '▶️': 'interactions',
+                        //'🔄': 'main',
+                        '▶️': 'misc',
                     },
-                }
+                },
+                {
+                    name: 'misc',
+                    content: new MessageEmbed({
+                        color: 'ORANGE',
+                        title: 'Help pannel',
+                        footer: { text: 'Page 5/5' },
+                        description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
+                        fields: [
+                            
+                            { name: 'Misc', value: misc },
+                
+                        ],
+                        timestamp: new Date(),
+                    }),
+                    reactions: {
+                        '◀️': 'nsfw',
+                        //'🔄': 'main',
+                        '▶️': 'misc',
+                    },
+                },
             ], 300000);
             helpMenu.start();
         } else {
@@ -129,3 +149,4 @@ module.exports = {
         };
     },
 };
+

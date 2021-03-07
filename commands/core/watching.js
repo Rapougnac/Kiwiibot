@@ -10,18 +10,9 @@ module.exports = {
   name: 'watching',
   aliases: [ 'watchlist', 'list' ],
   guildOnly: true,
-  cooldown: {
-    time: 60000,
-  },
-  group: 'core',
+  category: 'Core',
   description: 'View list of anime this server is subscribed to.',
   requiresDatabase: true,
-  clientPermissions: [ 'EMBED_LINKS', 'MANAGE_MESSAGES' ],
-  examples: [
-    'watching',
-    'watchlist',
-    'list'
-  ],
   execute(client, message)  { list.findById(message.guild.id, async (err, doc) => {
 
     if (err){
@@ -86,9 +77,9 @@ module.exports = {
           `Page ${i + 1} of ${descriptions.length}`,
         ].join('\u2000\u2000•\u2000\u2000'))
         .addField('Tips', [
-          `- Use [\`${client.config.default_prefix}watch\`]to add subscription`,
-          `- Use \`${client.config.default_prefix}unwatch\` to remove subscription`,
-          `- Use \`${client.config.default_prefix}nextep <anime title>\` to check episode countdown`
+          `- Use [\`${client.config.discord.default_prefix}watch\`]to add subscription`,
+          `- Use \`${client.config.discord.default_prefix}unwatch\` to remove subscription`,
+          `- Use \`${client.config.discord.default_prefix}nextep <anime title>\` to check episode countdown`
         ].join('\n'))
       }));
 

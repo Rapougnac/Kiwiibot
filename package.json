@@ -46,6 +46,7 @@
     "ejs": "^3.1.6",
     "enmap": "^5.8.2",
     "express": "^4.17.1",
+    "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
     "figlet": "^1.5.0",
     "flip-text": "^1.1.0",
@@ -91,7 +92,7 @@
     "youtube-search": "^1.1.4",
     "youtube-sr": "^2.0.5",
     "ytdl": "^1.4.1",
-    "ytdl-core": "^4.4.5",
+    "ytdl-core": "^4.5.0",
     "ytpl": "^2.0.3",
     "ytsearcher": "^1.2.3"
   }

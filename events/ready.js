@@ -6,8 +6,14 @@ const { version, author } = require('../package.json');
 const { performance } = require('perf_hooks');
 const bootTime = Math.round(performance.now());
 // const { logs } = require("config.json");
+const GuildProfilesManager = require("../struct/guilds/ProfileManager")
 
 module.exports = async (client) => {
+      /**
+     * The Guild Profiles manager of the client
+     * @type {GuildProfilesManager}
+     */
+    client.guildProfiles = new GuildProfilesManager(client);
   const statuses = [
     `m?help | Currently on ${client.guilds.cache.size} servers`,
     `m?help | Serving ${client.guilds.cache.reduce((acc, gluid) => acc + gluid.memberCount, 0)} users`,
@@ -24,6 +30,7 @@ module.exports = async (client) => {
     await client.user.setPresence({ activity: { name: i, type: 'PLAYING' }, status: 'dnd' })
     .catch(console.error)
   }, 1e4)
+  client.guildProfiles.load();
   consoleUtil.success(`Ready on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.reduce((acc, gluid) => acc + gluid.memberCount, 0)} users`)
 
   consoleUtil.success(`${client.user.username} is now Online! (Loaded in ${bootTime} ms)\n\n`);

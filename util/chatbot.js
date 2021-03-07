@@ -1,13 +1,12 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
 const { chatbot_id, chatbot_key } = process.env;
-const allowedFeatures =  ["ANISCHEDULE", "CHATBOT", "EXPERIENCE_POINTS"]
 
 module.exports = async (message) => {
 
   const mentionregexp = new RegExp(`<@!?${message.client.user.id}>`);
   // Check if this instance allows the chatbot feature
-  if (!allowedFeatures.includes("CHATBOT")){
+  if (!message.client.config.allowedFeatures.includes("CHATBOT")){
     return Promise.resolve({ success: false });
   };
 

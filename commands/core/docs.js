@@ -3,6 +3,8 @@ const axios = require("axios");
 module.exports = {
     name: "djs",
     aliases: ["docs"],
+    category: "Core",
+    
     /**
      * @param {Client} client
      * @param {Message} message

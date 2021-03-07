@@ -10,16 +10,17 @@ let table3 = new ascii("PLayer Events");
 table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
 const Anischedule = require(`./struct/Anischedule`);
-
-// const low = require('lowdb');
-// const FileSync = require('lowdb/adapters/FileSync');
+const Mongoose = require("./struct/Mongoose");
 
 const { YTSearcher } = require("ytsearcher");
 const searcher = new YTSearcher({
   key: config.ytsearcher.key,
   revealed: true,
 });
-const client = new Discord.Client();
+const client = new Discord.Client({
+  disableEveryone: true,  //disables, that the bot is able to send @everyone
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'] //creating the client with partials, so you can fetch OLD messages);
+});
 const fs = require("fs");
 
 
@@ -40,7 +41,13 @@ client.db_warns = require("./db_warns.json");
 client.config.features = client.config.allowedFeatures;
 // client.db_xp = low(adapters);
 // client.db_xp.defaults({ histoires: [], xp: [] }).write();
+client.cooldowns = new Discord.Collection(); //an collection for cooldown commands of each user
 client.anischedule = new Anischedule(client);
+client.database = null;
+
+if(config.database?.enable === true){
+  client.database = new Mongoose(client, config.database)
+}
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
@@ -130,29 +137,29 @@ const configg = require(`${process.cwd()}/configg`);
 
 const clientt = new Client(configg);
 clientt.database?.init();
-const options = {
-  bypass: true,
-  log: true,
-  paths: [
-    "amethyste",
-    "anime",
-    "bot",
-    "core",
-    "info",
-    "infos",
-    "interactions",
-    "misc",
-    "moderation",
-    "music",
-    //"owner",
-    "neko",
-    "nsfw",
-  ],
-};
+// const options = {
+//   bypass: true,
+//   log: true,
+//   paths: [
+//     "amethyste",
+//     "anime",
+//     "bot",
+//     "core",
+//     "info",
+//     "infos",
+//     "interactions",
+//     "misc",
+//     "moderation",
+//     "music",
+//     //"owner",
+//     "neko",
+//     "nsfw",
+//   ],
+// };
 
 
 //clientt.loadCommands({ parent: "commands", ...options });
-client.login();
+//client.login();
 //Add Xp to user
 // client.on('message', message => {
 
@@ -173,8 +180,18 @@ client.login();
 
 //   }
 // });
-// let xp = require("./db_xp.json");
-// client.on("message", (message) => {
-//   let msgauthor = message.author.id
-//   let xpAdd = Math.floor(Math.random() * 7) + 8;
-// })
+/**
+* Counter for messages received and sent by the bot
+* @type {?MessageCount}
+*/
+client.messages = { received: 0, sent: 0 };
+client.on("message", message => {
+
+    if (message.author.id === client.user.id){
+      return client.messages.sent++;
+    } else {
+      return client.messages.received++;
+    };
+});
+
+

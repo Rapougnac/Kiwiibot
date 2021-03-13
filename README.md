@@ -1,3 +1,5 @@
+<h1 align="center"> <img src = 'https://cdn.discordapp.com/attachments/772106096713924671/807975843548626944/anime-original-brown-hair-girl-green-eyes-hd-wallpaper-preview.png' height='50'> Kiwii</h1>
+
 ## Kiwiibot
 > A SIMPle bot who's not very useful
 

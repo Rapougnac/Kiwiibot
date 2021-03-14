@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 const config = require("./config.json");
 const glob = require("glob");
 const { Player } = require("discord-player");
-//const db = require('quick.db');
 const consoleUtil = require(`${process.cwd()}/util/console`);
 const ascii = require("ascii-table");
 let table2 = new ascii("Events");
@@ -11,6 +10,7 @@ table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
 const Anischedule = require(`./struct/Anischedule`);
 const Mongoose = require("./struct/Mongoose");
+const colors = require("colors");
 
 const { YTSearcher } = require("ytsearcher");
 const searcher = new YTSearcher({
@@ -33,6 +33,7 @@ client.login(config.discord.token);
 client.commands = new Discord.Collection();
 client.commands_path = new Discord.Collection();
 client.aliases = new Discord.Collection();
+client.cooldowns = new Discord.Collection();
 client.config = config;
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
@@ -41,11 +42,10 @@ client.db_warns = require("./db_warns.json");
 client.config.features = client.config.allowedFeatures;
 // client.db_xp = low(adapters);
 // client.db_xp.defaults({ histoires: [], xp: [] }).write();
-client.cooldowns = new Discord.Collection(); //an collection for cooldown commands of each user
 client.anischedule = new Anischedule(client);
 client.database = null;
 
-if(config.database?.enable === true){
+if (config.database?.enable === true) {
   client.database = new Mongoose(client, config.database)
 }
 
@@ -57,16 +57,16 @@ fs.readdir("./events/", (err, files) => {
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
     if (eventName) {
-      table2.addRow(eventName, '\x1b[32mReady\x1b[0m');
+      table2.addRow(eventName, /*'\x1b[32mReady\x1b[0m'*/'Ready'.trap);
     } else {
       table2.addRow(eventName, '\x1b[31mERR!\x1b[0m');
     }
   });
-  console.log(table2.toString()); //showing the table
+  console.log(
+    table2.toString()
+  ); //showing the table
 });
-const player = fs
-  .readdirSync("./events/player")
-  .filter((file) => file.endsWith(".js"));
+const player = fs.readdirSync("./events/player").filter((file) => file.endsWith(".js"));
 
 //Loading the player events
 for (const file of player) {
@@ -74,7 +74,7 @@ for (const file of player) {
   const eventName = file.split(".")[0];
   client.player.on(eventName, event.bind(null, client));
   if (eventName) {
-    table3.addRow(eventName, "\x1b[32mReady\x1b[0m");
+    table3.addRow(eventName, /*"\x1b[32mReady\x1b[0m"*/ "Ready".trap);
   } else {
     table3.addRow(eventName, '\x1b[31mERR!\x1b[0m');
   }
@@ -94,24 +94,16 @@ recursive_readdir("commands", function (err, files) {
     files = files.filter((file) => file.endsWith(".js"));
     if (config.discord.dev.active) {
       if (config.discord.dev.include_cmd.length) {
-        files = files.filter((file) =>
-          file.endsWith(config.discord.dev.include_cmd)
-        );
+        files = files.filter((file) => file.endsWith(config.discord.dev.include_cmd) );
       }
       if (config.discord.dev.exclude_cmd.length) {
-        files = files.filter(
-          (file) => !file.endsWith(config.discord.dev.exclude_cmd)
-        );
+        files = files.filter((file) => !file.endsWith(config.discord.dev.exclude_cmd));
       }
     }
     files.forEach((file) => {
       const command = require(`./${file}`);
       client.commands.set(command.name, command);
-      if (command.aliases) {
-        command.aliases.forEach((alias) => {
-          client.aliases.set(alias, command);
-        });
-      }
+      if (command.aliases) { command.aliases.forEach((alias) => { client.aliases.set(alias, command); }); }
     });
     consoleUtil.success(`Loaded ${files.length} commands`)
   }
@@ -129,14 +121,14 @@ recursive_readdir("commands", function (err, files) {
 //     }
 //   });
 // });
-require("dotenv").config();
+//require("dotenv").config();
 
 
-const Client = require(`${process.cwd()}/struct/Client`);
-const configg = require(`${process.cwd()}/configg`);
+// const Client = require(`${process.cwd()}/struct/Client`);
+// const configg = require(`${process.cwd()}/configg`);
 
-const clientt = new Client(configg);
-clientt.database?.init();
+// const clientt = new Client(configg);
+// clientt.database?.init();
 // const options = {
 //   bypass: true,
 //   log: true,
@@ -187,11 +179,11 @@ clientt.database?.init();
 client.messages = { received: 0, sent: 0 };
 client.on("message", message => {
 
-    if (message.author.id === client.user.id){
-      return client.messages.sent++;
-    } else {
-      return client.messages.received++;
-    };
+  if (message.author.id === client.user.id) {
+    return client.messages.sent++;
+  } else {
+    return client.messages.received++;
+  };
 });
 
 

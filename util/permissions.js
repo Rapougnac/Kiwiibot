@@ -53,7 +53,7 @@ function check(message, command){
     if (Array.isArray(command.clientPermissions)){
       if (!message.channel.permissionsFor(message.guild.me).has(command.clientPermissions)){
         reasons.push([
-          '**No Necessary Permissions (Mai)** - ',
+          '**No Necessary Permissions** - ',
           'I need the following permission(s):\n\u2000\u2000- ',
           Object.entries(message.channel.permissionsFor(message.guild.me).serialize())
           .filter(p => command.clientPermissions.includes(p[0]) && !p[1])

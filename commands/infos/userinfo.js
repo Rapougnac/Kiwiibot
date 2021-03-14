@@ -17,6 +17,7 @@ module.exports = {
     if(message.guild){
     const member = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || args[0] || message.member;
     const user = member.user;
+    
     const userFlags = await user.fetchFlags()
     .then(flags => Promise.resolve(Object.entries(flags.serialize()).filter(([_, val]) => !!val)))
     .then(flags => flags.map(([key, _]) => client.emojis.cache.find(x => x.name === key)?.toString() || key))

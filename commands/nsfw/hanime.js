@@ -13,6 +13,7 @@ module.exports = {
   category: 'Nsfw',
   description: 'Queries hanime.tv for a specific hentai. Returns a maximum of 10 results',
   async execute (client, message, args){
+    if(message.channel.nsfw){
 
     const query = args.join(' ');
 
@@ -99,7 +100,11 @@ module.exports = {
     });
 
   collector.on('end', async () => await msg.reactions.removeAll());
-
+    }
+    else{
+      let m = await message.channel.send("**Warning** this command cannot be used in non-nsfw channels!");
+		  m.delete({ timeout: 10000 })
+    } 
   }
 };
 

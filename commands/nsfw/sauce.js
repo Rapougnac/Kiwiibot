@@ -10,6 +10,7 @@ module.exports = {
     aliases: ['gimmesauce', 'finddoujin', 'doujin', 'nhentai', 'saucefor'],
     description: 'Fetch doujin information from <:nhentai:808384048635445278> [nHentai](https://nhentai.net "nHentai Homepage")',
      async execute(client, message, [id]) {
+         if(message.channel.nsfw){
 
         if (isNaN(id)) {
             client.commands.cooldowns.get(this.name).users.delete(message.author.id);
@@ -65,5 +66,9 @@ module.exports = {
             ]);
 
         return await msg.edit(embed).catch(() => null) || message.channel.send(embed);
+         }else {
+            let m = await message.channel.send("**Warning** this command cannot be used in non-nsfw channels!");
+            m.delete({ timeout: 10000 })
+         }
     }
 }

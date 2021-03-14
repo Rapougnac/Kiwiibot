@@ -8,6 +8,7 @@ module.exports = {
   description: "Scrap all images of the r34",
   category: "Nsfw",
   utilisation: "{prefix}r34",
+  cooldown: 5,
   async execute(client, message, args) {
     const query = args.join(" ")
     if (message.channel.nsfw) {

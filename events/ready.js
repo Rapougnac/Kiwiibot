@@ -55,42 +55,42 @@ module.exports = async (client) => {
      that the bot has rebooted
   ======================================================*/
 
-  // const bot = client.user.username
-  // const icon = "<a:gears_turning:813402972557410305>"
-  // const servers = text.commatize(client.guilds.cache.size)
-  // const members = text.commatize(
-  //   client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)
-  // )
-  // const commands = client.commands.size
-  // const boot = bootTime
-  // const message = `${icon} \`[ ${version} ]\` **REBOOT**`
-  // const embed = {
-  //   color: "GREY",
-  //   description: [
-  //     "```properties",
-  //     `Bot: ${bot}`,
-  //     `Servers: ${servers}`,
-  //     `Members: ${members}`,
-  //     `Command: ${commands}`,
-  //     `Boot: ${boot}ms`,
-  //     "```",
-  //   ].join("\n"),
-  // }
-  // const channel = client.channels.cache.get(client.config.channels.logs)
-  // await channel
-  //   .createWebhook(bot, {
-  //     avatar: client.user.displayAvatarURL({
-  //       format: "png",
-  //       dynamic: true,
-  //       size: 128,
-  //     }),
-  //     reason: "**REBOOT**",
-  //   })
-  //   .then((webhook) =>
-  //     Promise.all([webhook.send(message, { embeds: [embed] }), webhook])
-  //   )
-  //   .then(([_, webhook]) => webhook.delete())
-  //   .catch(() => {})
+  const bot = client.user.username
+  const icon = "<a:gears_turning:813402972557410305>"
+  const servers = text.commatize(client.guilds.cache.size)
+  const members = text.commatize(
+    client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)
+  )
+  const commands = client.commands.size
+  const boot = bootTime
+  const message = `${icon} \`[ ${version} ]\` **REBOOT**`
+  const embed = {
+    color: "GREY",
+    description: [
+      "```properties",
+      `Bot: ${bot}`,
+      `Servers: ${servers}`,
+      `Members: ${members}`,
+      `Command: ${commands}`,
+      `Boot: ${boot}ms`,
+      "```",
+    ].join("\n"),
+  }
+  const channel = client.channels.cache.get(client.config.channels.logs)
+  await channel
+    .createWebhook(bot, {
+      avatar: client.user.displayAvatarURL({
+        format: "png",
+        dynamic: true,
+        size: 128,
+      }),
+      reason: "**REBOOT**",
+    })
+    .then((webhook) =>
+      Promise.all([webhook.send(message, { embeds: [embed] }), webhook])
+    )
+    .then(([_, webhook]) => webhook.delete())
+    .catch(() => {})
 
   //express section------------------------------
 

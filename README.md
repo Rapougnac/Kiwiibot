@@ -1,3 +1,5 @@
+<h1 align="center"> <img src = 'https://cdn.discordapp.com/attachments/772106096713924671/807975843548626944/anime-original-brown-hair-girl-green-eyes-hd-wallpaper-preview.png' height='50'> Kiwii</h1>
+
 ## Kiwiibot
 > A SIMPle bot who's not very useful
 
@@ -24,8 +26,8 @@ And change the following values:
       "token":"TOKEN_HERE",
       "default_prefix":"PREFIX_HERE",
       "dev":{
-          "include_cmd":[""],
-          "exclude_cmd":[""],
+          "include_cmd":[],
+          "exclude_cmd":[],
           "active":true
       }
   },

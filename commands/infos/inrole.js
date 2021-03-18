@@ -9,9 +9,9 @@ module.exports = {
     category: 'Infos',
     utilisation: '{prefix}inrole <role>',
     async execute(client, message, args) {
-        const role = message.mentions.roles.first();
+        const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]) || message.guild.roles.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase())
 
-        const allMembers = message.members.cache.map(m => {
+        const allMembers = message.guild.members.cache.map(m => {
             return `${m.user.tag}${(m.user.bot ? ' [BOT]' : '')}`
         }).sort((a, b) => a.localeCompare(b)).join(', ')
 

@@ -12,7 +12,6 @@ module.exports = (client, message) => {
   if (!client.commands.has(command) && !client.aliases.has(command)) return
   const command_to_execute =
     client.commands.get(command) || client.aliases.get(command)
-
   if (command_to_execute) {
     const now = Date.now() //get the current time
     const cooldownAmount = (command_to_execute.cooldown || 1) * 1000 //get the cooldownamount of the command, if there is no cooldown there will be automatically 1 sec cooldown, so you cannot spam it ^^

@@ -1,2 +1,0 @@
-node-gyp rebuild --GTK_Root=D:\GTK --jpeg_root=D:\jpeg-9a
-node-gyp build --GTK_Root=D:\GTK

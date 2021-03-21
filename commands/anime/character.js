@@ -1,25 +1,21 @@
 const { MessageEmbed } = require('discord.js');
 const _ = require('lodash');
 const fetch = require('node-fetch');
-const { __esModule } = require('ytsearcher/lib/struct/YTSearcher');
 
 const text = require('../../util/string');
 
-const badge = '<:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net \'Homepage\')';
+const badge = '<:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)';
 
 module.exports = {
   name: 'character',
-  aliases: [ 'anichar' , 'char' , 'c' ],
-  category: 'anime',
-  description: 'Searches for a character in <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net "Homepage")',
+  aliases: ["char"],
+  category: 'Anime',
+  description: 'Searches for a character in <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)',
   async execute(client, message, args) {
 
     const query = args.join(' ');
 
-    const embed = new MessageEmbed()
-      .setColor('YELLOW')
-      .setDescription(`Searching for character named **${query}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net 'Homepage').`)
-      .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+    const embed = new MessageEmbed({ color: "YELLOW", description: "(`Searching for character named **${query}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)`", thumbnail: "https://cdn.discordapp.com/attachments/494469722826604546/822838565842583582/tenor.gif"});
     const msg = await message.channel.send(embed);
 
     let data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(query)}&page=1`).then(res => res.json());
@@ -31,7 +27,8 @@ module.exports = {
       "503": `Could not access ${badge}. The site might be currently down at the moment`,
     }
 
-    embed.setColor('RED')
+    embed
+    .setColor('RED')
     .setAuthor(data.status == 404 ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setDescription(`**${message.member.displayName}**, ${errstatus[data.status] || `${badge} responded with HTTP error code ${data.status}`}`)
     .setThumbnail('https://i.imgur.com/qkBQB8V.png');

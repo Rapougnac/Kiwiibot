@@ -7,7 +7,6 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}say',
     async execute(client, message, args) {
-        //const args = message.content.trim().substring(prefix.length).split(/ +/g);
         const botmessage = args.join(" ");
         message.delete().catch();
         message.channel.send(botmessage);

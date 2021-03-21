@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const AmeClient = require('amethyste-api');
 const config = require('../../config.json');
+const { Anime } = require("kitsu.js");
 
 module.exports = {
     name: 'house',
@@ -15,9 +16,11 @@ module.exports = {
             .then(flags => Promise.resolve(Object.entries(flags.serialize()).filter(([_, val]) => !!val)))
             .then(flags => flags.map(([key, _]) => key))
             .catch(() => []);
+            if(!zz[0]) return message.channel.send("You need to have a house!");
             const house = zz[0].replace('HOUSE_', "")
+            let nameHouseAPI = house.slice(0, 1) + house.slice(1).toLowerCase()
             let m = await message.channel.send("**Please Wait...**");
-            const buffer = await AmeAPI.generate("discordhouse", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), house: house});
+            const buffer = await AmeAPI.generate("discordhouse", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), house: nameHouseAPI});
             const attachment = new Discord.MessageAttachment(buffer, "discordhouse.png");
             m.delete({ timeout: 5000 });
             message.channel.send(attachment);

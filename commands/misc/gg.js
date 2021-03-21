@@ -1,5 +1,5 @@
 module.exports = {
-    name:"testnsfw",
+    name:"gg",
     async execute(client, message, args) {
         if (message.channel.nsfw) {
             message.channel.send("This channel is NSFW.");

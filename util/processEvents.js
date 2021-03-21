@@ -8,7 +8,7 @@ const consoleUtil = require(`${process.cwd()}/util/console`);
  */
 function unhandledRejection([ error, ...args], client){
 
-  const channel = client.channels.cache.get(client.config.channels.debug);
+  const channel = client.channels.cache.get("819628139071668274");
   const timezone = 9;
   const offset = 60000 * (new Date().getTimezoneOffset() - (-timezone * 60));
   const time = parseDate(new Date(Date.now() + offset).toLocaleString('ja-JP',{ timezone: 'Asia/Tokyo'}).split(/:|\s|\//));
@@ -32,7 +32,7 @@ function unhandledRejection([ error, ...args], client){
  * @returns {Promise<Message|undefined>}
  */
 function uncaughtException([ error, ...args ], client){
-  const channel = client.channels.cache.get(client.config.channels.debug);
+  const channel = client.channels.cache.get("819628139071668274");
   const timezone = 9;
   const offset = 60000 * (new Date().getTimezoneOffset() - (-timezone * 60));
   const time = parseDate(new Date(Date.now() + offset).toLocaleString('ja-JP',{ timezone: 'Asia/Tokyo'}).split(/:|\s|\//));

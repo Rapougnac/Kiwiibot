@@ -16,6 +16,8 @@ module.exports = {
                 .setImage(member.displayAvatarURL({ size: 2048, dynamic: true, format: "png" }))
                 .setColor(member.displayHexColor)
             message.channel.send(embed);
+
+            
         } catch (err) {
             message.channel.send(err);
         }

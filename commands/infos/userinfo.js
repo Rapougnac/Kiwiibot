@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
 require("moment-duration-format");
+//const { desktop, mobile, web } = require("../../config.json")
 
 module.exports = {
 	name: 'userinfo',
@@ -23,6 +24,11 @@ module.exports = {
     .then(flags => Promise.resolve(Object.entries(flags.serialize()).filter(([_, val]) => !!val)))
     .then(flags => flags.map(([key, _]) => client.emojis.cache.find(x => x.name === key)?.toString() || key))
     .catch(() => []);
+    let Plateforme = user.presence.clientStatus;
+    let device = Object.getOwnPropertyNames(Plateforme || {});
+    if(Plateforme === null){
+      device[0] = "N/A"
+    }
     if (message.guild.ownerID === user.id){
       userFlags.push('<:GUILD_OWNER:812992729797230592>')
     };
@@ -38,6 +44,20 @@ module.exports = {
   if (presence === "idle") {
       presence = "Idle <:inactif:820758854375571496>"
   }
+  if(device[0] === "web"){
+    device[0] = "Web "+client.config.clientMap.web
+  }
+  if(device[0] === "desktop"){
+    device[0] = "Desktop "+client.config.clientMap.desktop
+  }
+  if(device[0] === "mobile"){
+    device[0] = "Mobile "+client.config.clientMap.mobile
+  }
+  const perms =  member.permissions.serialize();
+  const waouh = Object.keys(perms).map(perm =>[ perms[perm] ? '✔️ |' : '❌', perm.split('_').map(x => x[0] + x.slice(1).toLowerCase()).join(' ')].join(' '));
+
+  const memberPermissions = member.permissions.toArray();
+  console.log(memberPermissions)
     const embeduser = new MessageEmbed()
       .setAuthor(`Discord user ${user.tag}`, null, 'https://discord.com/')
       .setDescription(userFlags.join(" "))
@@ -47,12 +67,12 @@ module.exports = {
       .addField('Date de création du compte', moment(member.user.createdAt).format('[Le] DD/MM/YYYY [à] HH:mm:ss'), true)
       .addField('Date d\'arrivée sur le serveur', moment(member.joinedAt).format('[Le] DD/MM/YYYY [à] HH:mm:ss'), true)
       .addField('Date de début de boost', member.premiumSince ? moment(member.premiumSince).format('[Le] DD/MM/YYYY [à] HH:mm:ss') : 'Ne boost pas', true)
-      .addField('Infractions', client.db_warns.warns[member.id] ? client.db_warns.warns[member.id].length : 'Aucune', true)
       .addField('Presence', presence, true)
+      .addField("Plateforme", device[0], true)
+      .addField("Permissions",waouh, true)
       .addField('Type', member.user.bot ? 'Bot' : 'User', true )
       .addField(`Rôles [${member.roles.cache.size - 1}]`, member.roles.cache.filter(r => r.id !== message.guild.id).sort((A,B) => B.rawPosition - A.rawPosition).map(x => `${x}`).splice(0,50).join(' | ') || '\u200b')
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-      .addField (`Rôle le plus haut`, `${member.roles.highest.name !== '@everyone' ? `${member.roles.highest.name}` : 'None'}`, true)
       .setFooter(`ID : ${member.id}`)
       .setColor(member.displayHexColor || 'GREY')
     message.channel.send(embeduser);
@@ -63,6 +83,8 @@ module.exports = {
       userFlags.push('<:GUILD_OWNER:812992729797230592>')
     };
     let presence = user.presence.status;
+    let Plateforme = user.presence.clientStatus;
+    let device = Object.getOwnPropertyNames(Plateforme || {});
     if (presence === "dnd") {
       presence = "Do Not Disturb <:ne_pas_deranger:812015381223964733>"
     }
@@ -74,6 +96,15 @@ module.exports = {
   }
   if (presence === "idle") {
       presence = "Idle <:inactif:820758854375571496>"
+  }
+  if(device[0] === "web"){
+    device[0] = "Web "+client.config.clientMap.web
+  }
+  if(device[0] === "desktop"){
+    device[0] = "Desktop "+client.config.clientMap.desktop
+  }
+  if(device[0] === "mobile"){
+    device[0] = "Mobile "+client.config.clientMap.mobile
   }
     const userFlags = await user.fetchFlags()
     .then(flags => Promise.resolve(Object.entries(flags.serialize()).filter(([_, val]) => !!val)))

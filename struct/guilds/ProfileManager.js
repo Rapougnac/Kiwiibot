@@ -3,7 +3,6 @@ const { Collection } = require('discord.js');
 const GuildProfile = require(`./Profile`);
 
 const profile = require(`${process.cwd()}/models/GuildProfile`);
-const list = require(`${process.cwd()}/models/GuildWatchlist`);
 
 module.exports = class GuildProfileManager{
     constructor(client){

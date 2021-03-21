@@ -40,7 +40,6 @@ module.exports = {
                     }),
                     reactions: {
                         '◀️': 'main',
-                        //'🔄': 'main',
                         '▶️': 'extra',
                     },
                 },

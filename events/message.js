@@ -1,9 +1,13 @@
 const config = require("../config.json")
 const chatbot = require(`${process.cwd()}/util/chatbot`)
 const { Collection } = require("discord.js")
-
+//const prefix = require("../models/PrefixSchema");
+const moment = require("moment");
 module.exports = (client, message) => {
-  const prefix = config.discord.default_prefix.toLowerCase()
+  // const data = await prefix.findOne({
+  //   GuildID: message.guild.id
+  // });
+  const prefix = config.discord.default_prefix.toLowerCase();
   if (!message.content.toLowerCase().startsWith(prefix) || message.author.bot)
     return
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
@@ -38,13 +42,7 @@ module.exports = (client, message) => {
       if (now < expirationTime) {
         //if they're still on cooldonw
         const timeLeft = (expirationTime - now) / 1000 //get the lefttime
-        return message.reply(
-          `Please wait ${timeLeft.toFixed(
-            1
-          )} more second(s) before reusing the \`${
-            command_to_execute.name
-          }\` command.`
-        )
+        return message.reply(`Please wait ${format(timeLeft.toFixed(1))} before reusing the \`${command_to_execute.name}\` command.`)
       } else {
         //client.cooldowns.delete(message.author.id)
         try {
@@ -58,6 +56,19 @@ module.exports = (client, message) => {
       }
     }
   }
+  function format(time) {   
+    var hrs = ~~(time / 3600);
+    var mins = ~~((time % 3600) / 60);
+    var secs = ~~time % 60;
+  
+    var ret = "";
+    if (hrs > 0) {
+      ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return `\`${ret}\``;
+  }
   /*===================CHATBOT FUNCTIONALITY======================*/
   // When bot is mentioned or ?replied to, reply to user with a
   // human precise response possible using external api
@@ -65,4 +76,9 @@ module.exports = (client, message) => {
   // to disable xp gaining and command execution
   const { success: chatbot_successful } = chatbot(message)
   /*===========================================================*/
+  const serverprefix = client.guildProfiles.get(message.guild?.id)?.prefix || 'Not set'
+
+  if (message.content.toLowerCase() === 'prefix'){
+    return message.channel.send(`${message.author}, My prefix is \`${client.config.discord.default_prefix}\`, The custom prefix is \`${serverprefix}\`.`)
+  }
 }

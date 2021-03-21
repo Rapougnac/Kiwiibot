@@ -1,11 +1,11 @@
 const Color = "RANDOM", AnimeFacts = require("anime-facts");
 
 module.exports = {
-    name: "animefact",
+    name: "animefacts",
     aliases: ["af"],
     category: "Anime",
     description: "Return an Anime Fact!",
-    usage: "Animefact",
+    utilisation: "{prefix}animefacts",
     async execute(client, message, args) {
         const Data = await AnimeFacts.facts();
         return message.channel.send({ embed: { color: Color, description: Data, timestamp: new Date() } });

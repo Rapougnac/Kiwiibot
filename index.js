@@ -8,7 +8,7 @@ let table2 = new ascii("Events");
 let table3 = new ascii("PLayer Events");
 table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
-const Anischedule = require(`./struct/Anischedule`);
+//const Anischedule = require(`./struct/Anischedule`);
 const Mongoose = require("./struct/Mongoose");
 const colors = require("colors");
 
@@ -22,6 +22,7 @@ const client = new Discord.Client({
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'] //creating the client with partials, so you can fetch OLD messages);
 });
 const fs = require("fs");
+const mongoose = require("mongoose");
 
 
 //Xp database
@@ -42,12 +43,12 @@ client.db_warns = require("./db_warns.json");
 client.config.features = client.config.allowedFeatures;
 // client.db_xp = low(adapters);
 // client.db_xp.defaults({ histoires: [], xp: [] }).write();
-client.anischedule = new Anischedule(client);
+//client.anischedule = new Anischedule(client);
 client.database = null;
 
-if (config.database?.enable === true) {
-  client.database = new Mongoose(client, config.database)
-}
+// if (config.database?.enable === true) {
+//   client.database = new Mongoose(client, config.database)
+// }
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
@@ -124,11 +125,11 @@ recursive_readdir("commands", function (err, files) {
 //require("dotenv").config();
 
 
-// const Client = require(`${process.cwd()}/struct/Client`);
-// const configg = require(`${process.cwd()}/configg`);
+const Client = require(`${process.cwd()}/struct/Client`);
+ const configg = require(`${process.cwd()}/configg`);
 
-// const clientt = new Client(configg);
-// clientt.database?.init();
+const CLIENT = new Client(configg);
+CLIENT.database?.init();
 // const options = {
 //   bypass: true,
 //   log: true,
@@ -185,5 +186,20 @@ client.on("message", message => {
     return client.messages.received++;
   };
 });
+
+//Mongo database
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+// client.database = null;
+
+//     if (settings.database?.enable === true){
+//       client.database = new Mongoose(this, settings.database);
+//     } else {
+//       // Do nothing..
+//   };
+
+
 
 

@@ -1,8 +1,14 @@
-let Discord = require('discord.js');
+const { MessageEmbed, Message, Client } = require('discord.js');
 const { prefix } = require('../../config.json');
 
 module.exports = {
     name: 'giveaway',
+        /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     execute(client, message){
         if (!message.guild) return;
         async function giveaway() {
@@ -56,7 +62,7 @@ module.exports = {
                     const prize = message.content.split(' ').slice(2).join(' ');
                     if (prize === '') return message.channel.send('You have to enter a prize.');
                     if (stated_duration_hours3 !== '0') {
-                        const embed = new Discord.MessageEmbed()
+                        const embed = new MessageEmbed()
                         .setTitle(`${prize}`)
                         .setColor('36393F')
                         .setDescription(`React with 🎉 to enter!\nTime duration: **${stated_duration_hours3}** ${time2}${time3}\nHosted by: ${message.author}`)
@@ -70,7 +76,7 @@ module.exports = {
                                 let winner = msg.reactions.cache.get('🎉').users.cache.random();
                                 if (winner === message.author.bot) return;
                                 if (msg.reactions.cache.get('🎉').users.cache.size < 1) {
-                                    const winner_embed = new Discord.MessageEmbed()
+                                    const winner_embed = new MessageEmbed()
                                     .setTitle(`${prize}`)
                                     .setColor('36393F')
                                     .setDescription(`Winner:\nNo one entered the giveaway.\nHosted by: ${message.author}`)
@@ -79,7 +85,7 @@ module.exports = {
                                     msg.edit(':tada: **GIVEAWAY ENDED** :tada:', winner_embed);
                                 }
                                 if (!msg.reactions.cache.get('🎉').users.cache.size < 1) {
-                                    const winner_embed = new Discord.MessageEmbed()
+                                    const winner_embed = new MessageEmbed()
                                     .setTitle(`${prize}`)
                                     .setColor('36393F')
                                     .setDescription(`Winner:\n${winner}\nHosted by: ${message.author}`)

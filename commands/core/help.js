@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Client } = require("discord.js");
 const { Menu } = require('discord.js-menu');
 module.exports = {
     name: 'help',
@@ -6,7 +6,13 @@ module.exports = {
     category: 'Core',
     description:'Shows the help pannel or the function of a command',
     utilisation: '{prefix}help <command name>',
-
+    cooldown: 10,
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
         if (args.length > 2) return;
         if (!args[0]) {

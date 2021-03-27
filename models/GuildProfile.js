@@ -6,6 +6,10 @@ module.exports = model('server_profiles', Schema({
   roles: {
     muted: { type: String, default: null }
   },
+  channels: {
+    suggest: { type: String, default: null }
+  }
 }, {
   versionKey: false
 }));
+

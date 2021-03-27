@@ -1,14 +1,8 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
-const { chatbot_id, chatbot_key } = process.env;
-
+const config = require("../config.json");
 module.exports = async (message) => {
-
   const mentionregexp = new RegExp(`<@!?${message.client.user.id}>`);
-  // Check if this instance allows the chatbot feature
-  if (!message.client.config.allowedFeatures.includes("CHATBOT")){
-    return Promise.resolve({ success: false });
-  };
 
   // Check the message if the bot's mention was the first on content
   // or the message was a reply from the bot's previous cached message
@@ -24,7 +18,7 @@ module.exports = async (message) => {
 
   // Check if the user has input other than mention
   if (!input.split(/ +/).filter(Boolean).length){
-    return message.channel.send(`How may i help you?`, { replyTo: message })
+    return message.channel.send(`How may I help you?`, { replyTo: message })
     .then(() => { return { success: true }; })
     .catch(() => { return { success: false }; });
   };
@@ -33,7 +27,7 @@ module.exports = async (message) => {
   message.channel.startTyping();
 
   // Get a response from the bot via api
-  const res = await fetch(`http://api.brainshop.ai/get?bid=${chatbot_id}&key=${chatbot_key}&uid=${message.author.id}&msg=${encodeURIComponent(input)}`)
+  const res = await fetch(`http://api.brainshop.ai/get?bid=${config.chatbot.id}&key=${config.chatbot.key}&uid=${message.author.id}&msg=${encodeURIComponent(input)}`)
     .then(res => res.json())
     .catch(() => {});
 

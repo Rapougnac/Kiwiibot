@@ -1,39 +1,44 @@
-const Discord = require('discord.js');
-const fs = require('fs');
-const guilds = require("../../models/GuildProfile")
+const PrefixSchema = require("../../models/PrefixSchema")
+const { Message, Client } = require("discord.js")
+
 module.exports = {
-    name: "customprefix",
-    aliases: ["cp", 'custp'],
-    category: "Core",
-    utilisation: "{prefix}customprefix [prefix]",
-    description: "Change the prefix",
-    async execute(client, message, [prefix]) { guilds.findById(message.guild.id, (err, doc) => {
-        if (!prefix){
-            return message.channel.send(`\\❌ **${message.author.tag}**, No new prefix detected! Please type the new prefix.`);
-          } else if (prefix.length > 5){
-            return message.channel.send(`\\❌ **${message.author.tag}**, Invalid prefix. Prefixes cannot be longer than 5 characters!`);
-          } else {
-      
-            if (err){
-              return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name} ${err}`);
-            } else if (!doc){
-              doc = new guilds({ _id: message.guild.id });
-            };
-      
-            doc.prefix = [prefix, null][Number(!!prefix.match(/clear|reset/i))];
-      
-            return doc.save()
-            .then(() => {
-              client.guildProfiles.get(message.guild.id).prefix = doc.prefix;
-              return message.channel.send([
-                `\\✔️ **${message.author.tag}**, Successfully`,
-                [
-                  'removed this server\'s prefix!\nTo add prefix, simply pass the desired prefix as parameter.',
-                  `set this server's prefix to \` ${doc.prefix} \`!\nTo remove the prefix, just pass in \`reset\` or \`clear\` as parameter.`
-                ][Number(!!doc.prefix)]
-              ].join(' '));
-            }).catch(()=> message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
-          };
-        })
+  name: "customprefix",
+  aliases: ["cp", "custp", "cprefix"],
+  category: "Core",
+  utilisation: "{prefix}customprefix [prefix]",
+  description: "Change the prefix to a new prefix\n⚠️The default prefix is no longer usable!",
+  cooldown: 5,
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  async execute(client, message, args) {
+    if(message.member.id !== "767809929011658763" || !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You need the `ADMINISTRATOR` permission to use this command!")
+    if (!args[0]) {
+      return message.channel.send("Please specify a prefix!")
+    } else if (args[0].length > 5) {
+      return message.channel.send("Error, my prefix cannot be longer than 5 characters!" )
     }
-};
+
+    PrefixSchema.findOne({ GuildID: message.guild.id }, async (err, data) => {
+      if (err) return message.channel.send(`⚠️[DATABASE ERROR] The database responded with the following error: ${err.name} \n${err}`)
+      if (data) {
+       await PrefixSchema.findOneAndDelete({ GuildID: message.guild.id })
+        data = new PrefixSchema({
+          GuildID: message.guild.id,
+          Prefix: args[0],
+        })
+        data.save()
+        message.channel.send(`Your prefix has been updated to **${args[0]}**`)
+      } else {
+        data = new PrefixSchema({
+          GuildID: message.guild.id,
+          Prefix: args[0],
+        })
+        data.save()
+        message.channel.send(`Custom prefix in this server is now set to **${args[0]}**`)
+      }
+    })
+  },
+}

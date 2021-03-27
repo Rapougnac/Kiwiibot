@@ -44,7 +44,7 @@ client.config.features = client.config.allowedFeatures;
 // client.db_xp = low(adapters);
 // client.db_xp.defaults({ histoires: [], xp: [] }).write();
 //client.anischedule = new Anischedule(client);
-client.database = null;
+// client.database = null;
 
 // if (config.database?.enable === true) {
 //   client.database = new Mongoose(client, config.database)
@@ -90,7 +90,7 @@ var recursive_readdir = function (src, callback) {
 //Load the commands
 recursive_readdir("commands", function (err, files) {
   if (err) {
-    console.log("Error", err);
+    consoleUtil.error("Error", err);
   } else {
     files = files.filter((file) => file.endsWith(".js"));
     if (config.discord.dev.active) {
@@ -110,96 +110,52 @@ recursive_readdir("commands", function (err, files) {
   }
 });
 
-// client.on('ready', async () => {
-//   await mongo().then((mongoose) => {
-//     try{
-//       console.log('Connected to mongo!')
-//     } catch(e){
+// const ExtendedClient = require(`./struct/Client`);
+// //const ExtendedClient = require(`${process.cwd()}/struct/Client`)
+// const configuration = require(`./config`);
+// const Client = new ExtendedClient(configuration);
+// Client.database?.init();
 
-//     }
-//     finally{
-//       mongoose.connection.close();
-//     }
-//   });
-// });
-//require("dotenv").config();
+//Mongodb
+if(config.database?.enable) {
+  mongoose.connect(config.database.URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    autoIndex: false,
+    poolSize: 5,
+    connectTimeoutMS: 10000,
+    family: 4,
+  }).then( () =>{
+    consoleUtil.success("Connected to Mongodb");
+  }).catch(err => {
+    consoleUtil.error("Failed to connect to MongoDB " + err);
+  })
+} else {
+  consoleUtil.warn("Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!");
+};
 
+const PrefixSchema = require("./models/PrefixSchema");
 
-const Client = require(`${process.cwd()}/struct/Client`);
- const configg = require(`${process.cwd()}/configg`);
-
-const CLIENT = new Client(configg);
-CLIENT.database?.init();
-// const options = {
-//   bypass: true,
-//   log: true,
-//   paths: [
-//     "amethyste",
-//     "anime",
-//     "bot",
-//     "core",
-//     "info",
-//     "infos",
-//     "interactions",
-//     "misc",
-//     "moderation",
-//     "music",
-//     //"owner",
-//     "neko",
-//     "nsfw",
-//   ],
-// };
+client.prefix = async function(message){
+  let  customprefix;
 
 
-//clientt.loadCommands({ parent: "commands", ...options });
-//client.login();
-//Add Xp to user
-// client.on('message', message => {
+  const data = await PrefixSchema.findOne({ GuildID: message.guild.id })
+    .catch((error) => console.log(error));
 
-//   let msgauthor = message.author.id
+    if(data){
+      customprefix = data.Prefix;
+    }else {
+      customprefix = config.discord.default_prefix.toLowerCase();
+    };
+    return customprefix;
+};
 
-//   if (message.author.bot) return;
-
-//   if (!client.db_xp.get("xp").find({ user: msgauthor }).value()) {
-//     client.db_xp.get("xp").push({ user: msgauthor, xp: 1 }).write();
-//   } else {
-//     var userxpdb = client.db_xp.get("xp").filter({ user: msgauthor }).find("xp").value();
-//     console.log(userxpdb)
-//     var userxp = Object.values(userxpdb)
-//     console.log(userxp)
-//     console.log(`Nombre d'xp: ${userxp[1]}`)
-
-//     client.db_xp.get("xp").find({ user: msgauthor }).assign({ user: msgauthor, xp: userxp[1] += 1 }).write();
-
-//   }
-// });
-/**
-* Counter for messages received and sent by the bot
-* @type {?MessageCount}
-*/
-client.messages = { received: 0, sent: 0 };
-client.on("message", message => {
-
-  if (message.author.id === client.user.id) {
-    return client.messages.sent++;
-  } else {
-    return client.messages.received++;
-  };
-});
-
-//Mongo database
-// mongoose.connect(process.env.MONGO_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-// client.database = null;
-
-//     if (settings.database?.enable === true){
-//       client.database = new Mongoose(this, settings.database);
-//     } else {
-//       // Do nothing..
-//   };
-
-
-
-
+client.on('guildDelete', async (guild) => {
+  PrefixSchema.findOne({ GuildID: guild.id }, async (err, data) => {
+      if (err) throw err;
+      if (data) {
+          PrefixSchema.findOneAndDelete({ GuildID: guild.id }).then(consoleUtil.success('deleted data.'))
+      }
+  })
+})

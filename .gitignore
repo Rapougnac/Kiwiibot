@@ -1,5 +1,4 @@
 .vscode/
-package-lock.json
 db_warns.json
 config.json
 audio/

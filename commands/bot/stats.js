@@ -3,7 +3,6 @@ const { version, author } = require('../../package.json');
 const { createCanvas, loadImage } = require('canvas');
 const { release, cpus } = require('os');
 const moment = require('moment');
-var cpuStat = require('cpu-stat');
 
 const text = require(`${process.cwd()}/util/string`);
 const MemoryLimit = 512;  //If one day the bot is on heroku
@@ -15,8 +14,8 @@ const MemoryLimit = 512;  //If one day the bot is on heroku
 module.exports = {
   name: 'stats',
   aliases: ['status', 'botstatus', 'botinfo', 'botinf'],
-  category: 'bot',
-  description: 'Displays the status of the current bot instance.',
+  category: 'Bot',
+  description: 'Displays the status of the bot instance.',
   utilisation: '{prefix}stats',
   async execute(client, message) {
 
@@ -90,10 +89,6 @@ module.exports = {
     ctx.fill();
 
 
-    var totalCores = cpuStat.totalCores();
-    console.log(totalCores);
-
-
     ctx.beginPath();
     ctx.moveTo(150, 100);
     ctx.lineTo(250, 100);
@@ -106,14 +101,14 @@ module.exports = {
     ctx.fillStyle = 'rgba(0,0,0,0.6)'
     ctx.font = '10px sans-serif'
     ctx.textAlign = 'center';
-    ctx.fillText('Prefix', 200, 110, 100);
-    ctx.fillText('Cores', 200, 140, 100);
+    ctx.fillText('Messages sent', 200, 110, 100);
+    ctx.fillText('Messages recevied', 200, 140, 100);
     ctx.fillText('Server Count', 200, 170, 100);
     ctx.fillText('Commands', 200, 200, 100);
     ctx.font = 'bold 13px sans-serif';
     ctx.fillStyle = 'rgba(48, 4, 110, 0.9)';
-    ctx.fillText(text.commatize(client.config.discord.default_prefix), 200, 125, 100);
-    ctx.fillText(text.commatize(totalCores), 200, 155, 100);
+    ctx.fillText(text.commatize(client.messages.sent), 200, 125, 100);
+    ctx.fillText(text.commatize(client.messages.recevied), 200, 155, 100);
     ctx.fillText(text.commatize(client.guilds.cache.size), 200, 185, 100);
     ctx.fillText(text.commatize(client.commands.size), 200, 215, 100);
 

@@ -3,7 +3,8 @@ module.exports = {
     name: 'poll',
     aliases: [],
     category: 'Core',
-    utilisation: '{prefix}poll <command name>',
+    utilisation: '{prefix}poll [question]',
+    cooldown: 5,
 
     async execute(client, message, args) {
         const reactions = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱', '🇲', '🇳', '🇴', '🇵', '🇶', '🇷', '🇸', '🇹', '🇺', '🇻']

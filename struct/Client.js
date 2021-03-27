@@ -5,10 +5,15 @@ const { performance } = require('perf_hooks');
 const { readdirSync } = require('fs');
 const { join } = require('path');
 
-
+//const Anischedule = require(`./Anischedule`);
+//const CommandManager = require(`./commands/Manager`);
 const GuildProfilesManager = require(`./guilds/ProfileManager`);
+//const Collections = require(`./Collections`);
 const Mongoose = require(`./Mongoose`);
+//const Music = require('./Music');
 const PingManager = require(`./PingManager`);
+// const ImageManager = require(`./Images`);
+// const VoteManager = require(`./votes/VoteManager`);
 
 const consoleUtil = require(`../util/console`);
 const processEvents = require(`../util/processEvents`);
@@ -33,7 +38,7 @@ module.exports = class MaiClient extends Client{
      * @type {?string}
      */
     if (typeof settings.prefix !== 'string'){
-      settings.prefix = 'm!';
+      settings.prefix = 'm?';
     };
 
     if (!this.token && 'TOKEN' in process.env){
@@ -111,7 +116,7 @@ module.exports = class MaiClient extends Client{
      * @type {ClientConfig}
      */
     this.config = {
-      prefix: settings.prefix || 'm!',
+      prefix: settings.prefix || 'm?',
       features: [],
       owners: [],
       channels: { debug: null, uploads: null, logs: null },
@@ -183,11 +188,11 @@ module.exports = class MaiClient extends Client{
       // Do nothing
     };
 
-    // /**
-    //  * Anime Scheduler for the bot.
-    //  * @type {?Anischedule}
-    //  */
-    // this.anischedule = new Anischedule(this);
+    /**
+     * Anime Scheduler for the bot.
+     * @type {?Anischedule}
+     */
+    this.anischedule = new Anischedule(this);
 
     /**
      * The manager for pings the bot has been monitoring to.
@@ -225,22 +230,6 @@ module.exports = class MaiClient extends Client{
     });
   };
 
-  // /**
-  //  * Bulk add collections to the collection manager
-  //  * @param {...CollectionName} string The name of collections to add
-  //  * @returns {MaiClient}
-  //  */
-  // defineCollections(collection = []){
-  //   if (!Array.isArray(collection)){
-  //     throw new TypeError(`Client#defineCollections parameter expected type Array, received ${typeof collection}`);
-  //   };
-
-  //   for (const col of collection){
-  //     this.collections.add(col);
-  //   };
-
-  //   return this;
-  // };
 
   /**
    * Attach a listener for process events.
@@ -265,116 +254,6 @@ module.exports = class MaiClient extends Client{
           return processEvents(event, args, this);
         };
       });
-    };
-  };
-
-  /**
-   * Load command files to this client instance.
-   * @param {LoadCommandSettings} settings The settings for loading the commands
-   * @returns {void}
-   */
-  loadCommands(settings = {}){
-
-    let log = true;
-    const bypass = Boolean(settings.bypass);
-
-    if (typeof settings.log === 'boolean'){
-      log = settings.log;
-    };
-
-    function check(){
-      if (!bypass){ process.exit(); } else { return true; };
-    };
-
-    if (typeof settings.parent !== 'string'){
-      if (log) consoleUtil.warn('Command parent folder not set, reverting to default directory \'commands\'', '[BOT WARN]');
-      settings.parent = 'commands';
-    };
-
-    this.commands.parent = settings.parent;
-
-    if (!settings.paths?.length){
-      settings['paths'] = ['']
-    };
-
-    if (!Array.isArray(settings.paths)){
-      if (log) { consoleUtil.error(`INVALID_COMMAND_PATH: No Paths to load commands from.`, 'path'); };
-      if (check()) return;
-    };
-
-    // if (!(this.commands instanceof CommandManager)){
-    //   this.commands = new CommandManager({ groups: settings.groups });
-    // };
-
-    for (let dir of settings.paths){
-      if (Array.isArray(dir)){
-        dir = join(...dir);
-      };
-
-      let files = null;
-
-      try {
-        files = readdirSync(join(process.cwd(), settings.parent, dir))
-        .filter(f => f.split('.').pop() === 'js');
-      } catch {
-        if (log){
-          consoleUtil.error(`DIR_NOT_FOUND: Cannot resolve path '${join(process.cwd(), settings.parent, dir)}'`, 'dir');
-        };
-        if (check()) continue;
-      };
-
-      for (const file of files){
-        this.commands.add(require(join(process.cwd(), settings.parent, dir, file)), { log, bypass });
-      };
-    };
-
-    if (log){
-      consoleUtil.success(`Loaded ${this.commands.size} commands!`)
-    };
-  };
-
-  /**
-   * Load event files to this client instance
-   * @param {LoadEventSettings} settings The settings for loading the events
-   * @returns {void}
-   */
-  loadEvents(settings = {}){
-
-    const log = settings.log && typeof settings.log === 'boolean';
-    const bypass = settings.bypass && typeof settings.bypass === 'boolean';
-
-    function check(){
-      if (!bypass){ process.exit(); } else { return true; };
-    };
-
-    if (typeof settings.parent !== 'string'){
-      if (log){
-         consoleUtil.warn('Events parent folder not set, reverting to default directory \'events\'');
-      } else {
-        // Do nothing...
-      };
-      settings.parent = 'events';
-    };
-
-    let files = null;
-
-    try {
-      files = readdirSync(join(process.cwd(), settings.parent)).filter(f => f.split('.').pop() === 'js');
-    } catch {
-      if (log) {
-        consoleUtil.error(`DIR_NOT_FOUND: Cannot resolve path '${join(process.cwd(),settings.parent)}'`, 'dir');
-      } else {
-        // Do nothing...
-      };
-      if (check()) { return; };
-    };
-
-    for (const event of files){
-      this.on(event.split('.')[0], require(join(process.cwd(), settings.parent, event)).bind(null, this));
-    };
-
-    if (log){
-      consoleUtil.success(`Loaded ${files.length} event files!`)
     };
   };
 

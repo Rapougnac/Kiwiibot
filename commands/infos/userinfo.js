@@ -29,11 +29,14 @@ module.exports = {
     if(Plateforme === null){
       device[0] = "N/A"
     }
+    if(Plateforme === undefined){
+      device[0] = "N/A"
+    }
     if (message.guild.ownerID === user.id){
       userFlags.push('<:GUILD_OWNER:812992729797230592>')
     };
     if (presence === "dnd") {
-      presence = "Do Not Disturb <:ne_pas_deranger:812015381223964733>"
+      presence = "Do Not Disturb <:ne_pas_deranger:820758788381999115>"
     }
     if (presence === "online") {
       presence = "Online <:en_ligne:820758911975424021>"
@@ -57,7 +60,7 @@ module.exports = {
   const waouh = Object.keys(perms).map(perm =>[ perms[perm] ? '✔️ |' : '❌', perm.split('_').map(x => x[0] + x.slice(1).toLowerCase()).join(' ')].join(' '));
 
   const memberPermissions = member.permissions.toArray();
-  console.log(memberPermissions)
+  //console.log(memberPermissions)
     const embeduser = new MessageEmbed()
       .setAuthor(`Discord user ${user.tag}`, null, 'https://discord.com/')
       .setDescription(userFlags.join(" "))

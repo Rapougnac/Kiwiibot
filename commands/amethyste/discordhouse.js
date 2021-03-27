@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const AmeClient = require('amethyste-api');
 const config = require('../../config.json');
-const { Anime } = require("kitsu.js");
 
 module.exports = {
     name: 'house',

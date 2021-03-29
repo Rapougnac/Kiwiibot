@@ -1,9 +1,15 @@
+const { Client, Message } = require("discord.js");
 module.exports = {
     name: 'nuke',
     aliases: [ 'clearall' ],
     category: 'Core',
     description: 'Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)',
-    async execute(client, message) {
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
+    async execute(client, message, args) {
   
       await message.channel.send(`This will remove all conversation in this channel and may cause conflict for bots using ID to track channels. Continue?`);
   

@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
+
 const AmeClient = require('amethyste-api');
 const config = require('../../config.json');
+const { MessageAttachment, Message, Client } = require("discord.js")
 
 module.exports = {
     name: 'pixelize',
@@ -8,16 +9,36 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}pixelize',
+    /**
+     * @param {Client} client
+     * @param {Message} message
+     * @param {String[]} args
+     */
     async execute(client, message, args) {
         const AmeAPI = new AmeClient(config.amethyste.client); {
-    
-          //const args = message.content.trim().split(/ +/g);
-          const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
-          let m =  await message.channel.send("**Please Wait...**");
-          const buffer = await  AmeAPI.generate("pixelize", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), pixelize: 50 });
-          const attachment = new Discord.MessageAttachment(buffer, "pixelize.png");
+
+          const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
+          if(User){
+            const number = parseInt(args[1])
+            if(isNaN(number)) return message.channel.send("It doesn't seem to be valid number");
+            if(number < 1 ) return message.channel.send("Please insert a valid number between 1 to 50");
+            if(number > 50 ) return message.channel.send("Please insert a valid number between 1 to 50");
+            let m =  await message.channel.send("**Please Wait...**");
+          const buffer = await  AmeAPI.generate("pixelize", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), pixelize: number });
+          const attachment = new MessageAttachment(buffer, "pixelize.png");
           m.delete({ timeout: 5000 });
           message.channel.send(attachment);
+          } else {
+            const number = parseInt(args[0])
+            if(isNaN(number)) return message.channel.send("It doesn't seem to be valid number");
+            if(number < 1 ) return message.channel.send("Please insert a valid number between 1 to 50");
+            if(number > 50 ) return message.channel.send("Please insert a valid number between 1 to 50");
+            let m =  await message.channel.send("**Please Wait...**");
+          const buffer = await  AmeAPI.generate("pixelize", { url: message.author.displayAvatarURL({ format: "png", size: 2048 }), pixelize: number });
+          const attachment = new MessageAttachment(buffer, "pixelize.png");
+          m.delete({ timeout: 5000 });
+          message.channel.send(attachment);
+          }
         }
     },
 };

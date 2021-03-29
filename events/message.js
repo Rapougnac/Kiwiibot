@@ -1,26 +1,34 @@
 const chatbot = require(`${process.cwd()}/util/chatbot`)
 const config = require("../config.json")
-const { Collection, Message, Client } = require("discord.js")
+const { Collection, Message, Client, MessageEmbed } = require("discord.js")
 //const prefix = require("../models/PrefixSchema");
 const PrefixSchema = require("../models/PrefixSchema")
 const moment = require("moment")
 const fetch = require("node-fetch")
-
-prefix = async function (message, config) {
-  let customprefix
+const ownerOnly = Boolean(config.discord.owner)
+/**
+ * @param {Message} message
+ * @param {config} config
+ */
+prefix = async function(message, config) {
+  let customprefix;
 
   const data = await PrefixSchema.findOne({
     GuildID: message.guild.id,
   }).catch((error) => console.log(error))
 
   if (data) {
-    customprefix = data.Prefix || config.discord.default_prefix.toLowerCase() || "n?";
+    customprefix = data.Prefix;
   }else if (data){
     customprefix = config.discord.default_prefix.toLowerCase() || data.Prefix;
   }
-   else {
-    customprefix = config.discord.default_prefix.toLowerCase()
-  }
+  else if (message.content.startsWith('n?')){
+    customprefix = 'n?'
+  } else if (message.content.startsWith(config.discord.default_prefix)){
+    customprefix = config.discord.default_prefix;
+  } //else if (data.Prefix && message.content.startsWith(data.Prefix)){
+  //   customprefix = data.Prefix;
+  // };
   return customprefix;
 }
 
@@ -28,22 +36,101 @@ prefix = async function (message, config) {
  * @param {Message} message
  * @param {Client} client
  * @param {String[]} args
+ * @param {config} config
  */
 module.exports = async (client, message) => {
+  //check(message, client)
   const p = await prefix(message, client.config)
-  if(message.mentions.members.first()) {
-    if(message.mentions.members.first().id === client.user.id) return message.channel.send(`My prefix in ${message.guild.name} is ${p}`)
+  if(message.content.startsWith(`<@!${client.user.id}>`)) {
+    return message.channel.send(`My prefix in ${message.guild.name} is ${p}`)
   }
   if (!message.content.toLowerCase().startsWith(p) || message.author.bot) return
-  //if (message.author.bot) return
   const args = message.content.slice(p.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
 
-  let command_to_execute = undefined
-  //if (!client.commands.has(command) && !client.aliases.has(command)) return
-  if (message.content.toLowerCase().startsWith(p)) {
-    command_to_execute =
-      client.commands.get(command) || client.aliases.get(command)
+  if (!client.commands.has(command) && !client.aliases.has(command)) return;
+  const command_to_execute = client.commands.get(command) || client.aliases.get(command)
+  // if(command_to_execute.ownerOnly && ownerOnly === true){
+  //   return message.channel.send("Owner only")
+  // }
+  const reasons = [];
+
+  if (command_to_execute.guildOnly){
+    if (message.channel.type === 'dm'){
+      reasons.push([
+        '**Command is unavailable on DM**',
+        'This command can only be used inside servers.'
+      ].join(' - '));
+    } else {
+      // Do nothing..
+    };
+  };
+
+  if (message.channel.type !== 'dm'){
+    if (command_to_execute.ownerOnly){
+      if (!client.config.discord.owner.includes(message.author.id)){
+        reasons.push([
+          '**Limited to Devs**',
+          'This command can only be used by my developers.'
+        ].join(' - '));
+      } else {
+        // Do nothing..
+      };
+    };
+    if (command_to_execute.adminOnly){
+      if (!message.member.hasPermission('ADMINISTRATOR')){
+        reasons.push([
+          '**Limited to Admins**',
+          'This command can only be used by server administrators.'
+        ].join(' - '))
+      } else {
+        // Do nothing..
+      };
+    };
+    if (Array.isArray(command_to_execute.permissions)){
+      if (!message.channel.permissionsFor(message.member).has(command_to_execute.permissions)){
+        reasons.push([
+          '****⚠️[Error] You don\'t have enough permissions** - ',
+          'You need the following permission(s):\n\u2000\u2000- ',
+          Object.entries(message.channel.permissionsFor(message.member).serialize())
+          .filter( p => command_to_execute.permissions.includes(p[0]) && !p[1])
+          .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
+          .join('\n\u2000\u2000- ')
+        ].join(''))
+      } else {
+        // Do nothing..
+      };
+    };
+    if (Array.isArray(command_to_execute.clientPermissions)){
+      if (!message.channel.permissionsFor(message.guild.me).has(command_to_execute.clientPermissions)){
+        reasons.push([
+          '**⚠️[Error] I don\'t have enough permissions** - ',
+          'I need the following permission(s):\n\u2000\u2000- ',
+          Object.entries(message.channel.permissionsFor(message.guild.me).serialize())
+          .filter(p => command_to_execute.clientPermissions.includes(p[0]) && !p[1])
+          .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
+          .join('\n\u2000\u2000- ')
+        ].join(''))
+      } else {
+        // Do nothing..
+      };
+    };
+
+  if (command_to_execute.nsfw) {
+    if (!message.channel.nsfw){
+      reasons.push([
+        '**NSFW Command**',
+        'You can only use this command on a nsfw channel.'
+      ].join(' - '))
+    };
+  };
+
+  const embed = new MessageEmbed()
+  .setAuthor('Command Execution Blocked!')
+  .setColor('ORANGE')
+  .setDescription(`Reasons:\n\n${reasons.map(reason => '• ' + reason).join('\n')}`);
+
+  return { accept: !reasons.length, embed };
   }
   if (command_to_execute) {
     const now = Date.now() //get the current time
@@ -88,95 +175,11 @@ module.exports = async (client, message) => {
         }
       }
     }
+  } else {
+    return;
   }
-
-  // When bot is mentioned or ?replied to, reply to user with a
-  // human precise response possible using external api
-  // if chatbot is used, use chatbot_successful as parameter
-  // to disable xp gaining and command execution
-//   const { success: chatbot_successful } = chatbot(message)
-
-//   const user = message.mentions.members.first()
-
-//   const mentionregexp = new RegExp(`<@[!?]${client.user.id}>`)
-
-//   // Check the message if the bot's mention was the first on content
-//   // or the message was a reply from the bot's previous cached message
-//   if (!mentionregexp.test(message.content.split(/ +/).filter(Boolean)[0])){
-//     const ref_id = message.reference?.messageID;
-//     const ref_msg = message.channel.messages.cache.get(ref_id);
-//     if (ref_msg?.author.id !== client.user.id){
-//       return Promise.resolve({ success: false });
-//     };
-//   };
-
-//   const input = message.content.replace(mentionregexp, "")
-
-//   // Check if the user has input other than mention
-//   if (message.mentions.members.has(client.user.id)) {
-//     return message.channel
-//       .send(`How may I help you?`, { replyTo: message })
-//       .then(() => {
-//         return { success: true }
-//       })
-//       .catch(() => {
-//         return { success: false }
-//       })
-//   }
-
-
-//   // if (!input.split(/ +/).filter(Boolean).length) {
-//   //   return message.channel
-//   //     .send(`How may I help you?`, { replyTo: message })
-//   //     .then(() => {
-//   //       return { success: true }
-//   //     })
-//   //     .catch(() => {
-//   //       return { success: false }
-//   //     })
-//   // }
-
-//   // Start typing
-//   message.channel.startTyping()
-
-//   // Get a response from the bot via api
-//   const res = await fetch(
-//     `http://api.brainshop.ai/get?bid=${config.chatbot.id}&key=${
-//       config.chatbot.key
-//     }&uid=${message.author.id}&msg=${encodeURIComponent(input)}`
-//   )
-//     .then((res) => res.json())
-//     .catch(() => {})
-
-//   // Add a 3s delay
-//   await new Promise((_) => setTimeout(() => _(), 3000))
-
-//   // check if we get proper response
-//   if (typeof res.cnt !== "string") {
-//     return message.channel
-//       .send("???", { replyTo: message })
-//       .then(() => {
-//         message.channel.stopTyping()
-//         return { success: true }
-//       })
-//       .catch(() => {
-//         message.channel.stopTyping()
-//         return { success: false }
-//       })
-//   }
-
-//   // send the response
-//   return message.channel
-//     .send(res.cnt, { replyTo: message })
-//     .then(() => {
-//       message.channel.stopTyping()
-//       return { success: true }
-//     })
-//     .catch(() => {
-//       message.channel.stopTyping()
-//       return { success: false }
-//     })
 }
+
 
 function format(time) {
   var hrs = ~~(time / 3600)
@@ -191,3 +194,85 @@ function format(time) {
   ret += "" + secs
   return `\`${ret}\``
 }
+
+// function check(message, client){
+//   const reasons = [];
+
+//   if (client.commands.guildOnly){
+//     if (message.channel.type === 'dm'){
+//       reasons.push([
+//         '**Command is unavailable on DM**',
+//         'This command can only be used inside servers.'
+//       ].join(' - '));
+//     } else {
+//       // Do nothing..
+//     };
+//   };
+
+//   if (message.channel.type !== 'dm'){
+//     if (client.commands.ownerOnly){
+//       if (!message.client.config.discord.owner.includes(message.author.id)){
+//         reasons.push([
+//           '**Limited to Devs**',
+//           'This command can only be used by my developers.'
+//         ].join(' - '));
+//       } else {
+//         // Do nothing..
+//       };
+//     };
+//     if (client.commands.adminOnly){
+//       if (!message.member.hasPermission('ADMINISTRATOR')){
+//         reasons.push([
+//           '**Limited to Admins**',
+//           'This command can only be used by server administrators.'
+//         ].join(' - '))
+//       } else {
+//         // Do nothing..
+//       };
+//     };
+//     if (Array.isArray(client.commands.permissions)){
+//       if (!message.channel.permissionsFor(message.member).has(client.commands.permissions)){
+//         reasons.push([
+//           '****⚠️[Error] You don\'t have enough permissions** - ',
+//           'You need the following permission(s):\n\u2000\u2000- ',
+//           Object.entries(message.channel.permissionsFor(message.member).serialize())
+//           .filter( p => client.commands.permissions.includes(p[0]) && !p[1])
+//           .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
+//           .join('\n\u2000\u2000- ')
+//         ].join(''))
+//       } else {
+//         // Do nothing..
+//       };
+//     };
+//     if (Array.isArray(client.commands.clientPermissions)){
+//       if (!message.channel.permissionsFor(message.guild.me).has(command_to_execute.clientPermissions)){
+//         reasons.push([
+//           '**⚠️[Error] I don\'t have enough permissions** - ',
+//           'I need the following permission(s):\n\u2000\u2000- ',
+//           Object.entries(message.channel.permissionsFor(message.guild.me).serialize())
+//           .filter(p => client.commands.clientPermissions.includes(p[0]) && !p[1])
+//           .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
+//           .join('\n\u2000\u2000- ')
+//         ].join(''))
+//       } else {
+//         // Do nothing..
+//       };
+//     };
+
+//   if (client.commands.nsfw) {
+//     if (!message.channel.nsfw){
+//       reasons.push([
+//         '**NSFW Command**',
+//         'You can only use this command on a nsfw channel.'
+//       ].join(' - '))
+//     };
+//   };
+
+//   const embed = new MessageEmbed()
+//   .setAuthor('Command Execution Blocked!')
+//   .setColor('ORANGE')
+//   .setDescription(`Reasons:\n\n${reasons.map(reason => '• ' + reason).join('\n')}`);
+
+//   return { accept: !reasons.length, embed };
+//   }
+// };

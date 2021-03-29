@@ -1,6 +1,5 @@
-const Discord = require("discord.js");
-const AmeClient = require('amethyste-api');
-const config = require('../../config.json');
+const { MessageAttachment, Message, Client } = require("discord.js"),
+AmeClient = require('amethyste-api');
 
 module.exports = {
     name: 'beautiful',
@@ -8,14 +7,18 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}beautiful',
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
-        const AmeAPI = new AmeClient(config.amethyste.client); {
-
-            //const args = message.content.trim().split(/ +/g);
+        const AmeAPI = new AmeClient(client.config.amethyste.client); {
             const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
             let m = await message.channel.send("**Please Wait...**");
             const buffer = await AmeAPI.generate("beautiful", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }) });
-            const attachment = new Discord.MessageAttachment(buffer, "beautiful.png");
+            const attachment = new MessageAttachment(buffer, "beautiful.png");
             m.delete({ timeout: 5000 });
             message.channel.send(attachment);
         }

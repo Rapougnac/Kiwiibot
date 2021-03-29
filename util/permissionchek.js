@@ -1,10 +1,9 @@
 const { MessageEmbed } = require('discord.js');
-
-function check(message, command){
+//const { command_to_execute } = require
+function check(message, command_to_execute){
   const reasons = [];
-  const guildProfile = message.client.guildProfiles.get(message.guild?.id);
 
-  if (command.guildOnly){
+  if (command_to_execute.guildOnly){
     if (message.channel.type === 'dm'){
       reasons.push([
         '**Command is unavailable on DM**',
@@ -16,8 +15,8 @@ function check(message, command){
   };
 
   if (message.channel.type !== 'dm'){
-    if (command.ownerOnly){
-      if (!message.client.owners.includes(message.author.id)){
+    if (command_to_execute.ownerOnly){
+      if (!message.client.config.discord.owner.includes(message.author.id)){
         reasons.push([
           '**Limited to Devs**',
           'This command can only be used by my developers.'
@@ -26,7 +25,7 @@ function check(message, command){
         // Do nothing..
       };
     };
-    if (command.adminOnly){
+    if (command_to_execute.adminOnly){
       if (!message.member.hasPermission('ADMINISTRATOR')){
         reasons.push([
           '**Limited to Admins**',
@@ -36,13 +35,13 @@ function check(message, command){
         // Do nothing..
       };
     };
-    if (Array.isArray(command.permissions)){
-      if (!message.channel.permissionsFor(message.member).has(command.permissions)){
+    if (Array.isArray(command_to_execute.permissions)){
+      if (!message.channel.permissionsFor(message.member).has(command_to_execute.permissions)){
         reasons.push([
-          '**No Necessary Permissions (User)** - ',
+          '****⚠️[Error] You don\'t have enough permissions** - ',
           'You need the following permission(s):\n\u2000\u2000- ',
           Object.entries(message.channel.permissionsFor(message.member).serialize())
-          .filter( p => command.permissions.includes(p[0]) && !p[1])
+          .filter( p => command_to_execute.permissions.includes(p[0]) && !p[1])
           .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
           .join('\n\u2000\u2000- ')
         ].join(''))
@@ -50,13 +49,13 @@ function check(message, command){
         // Do nothing..
       };
     };
-    if (Array.isArray(command.clientPermissions)){
-      if (!message.channel.permissionsFor(message.guild.me).has(command.clientPermissions)){
+    if (Array.isArray(command_to_execute.clientPermissions)){
+      if (!message.channel.permissionsFor(message.guild.me).has(command_to_execute.clientPermissions)){
         reasons.push([
-          '**No Necessary Permissions** - ',
+          '**⚠️[Error] I don\'t have enough permissions** - ',
           'I need the following permission(s):\n\u2000\u2000- ',
           Object.entries(message.channel.permissionsFor(message.guild.me).serialize())
-          .filter(p => command.clientPermissions.includes(p[0]) && !p[1])
+          .filter(p => command_to_execute.clientPermissions.includes(p[0]) && !p[1])
           .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
           .join('\n\u2000\u2000- ')
         ].join(''))
@@ -64,32 +63,12 @@ function check(message, command){
         // Do nothing..
       };
     };
-    if (command.rankcommand){
-      if (!guildProfile.xp.isActive || guildProfile.xp.exceptions.includes(message.channel.id)){
-        reasons.push([
-          !guildProfile.xp.isActive ? '**Disabled XP**' : '**Disabled XP on Channel**',
-          !guildProfile.xp.isActive ? 'XP is currently disabled in this server.' : ' XP is currently disabled in this channel.'
-        ].join(' - '))
-      } else {
-        //Do nothing
-      };
-    };
-  };
 
-  if (command.nsfw) {
+  if (command_to_execute.nsfw) {
     if (!message.channel.nsfw){
       reasons.push([
         '**NSFW Command**',
         'You can only use this command on a nsfw channel.'
-      ].join(' - '))
-    };
-  };
-
-  if (command.requiresDatabase){
-    if (!message.client.database?.connected){
-      reasons.push([
-        '**Cannot connect to Database**',
-        'This command requires a database connection.'
       ].join(' - '))
     };
   };
@@ -99,19 +78,8 @@ function check(message, command){
   .setColor('ORANGE')
   .setDescription(`Reasons:\n\n${reasons.map(reason => '• ' + reason).join('\n')}`);
 
-  if (reasons.some(str => str.startsWith('**Disabled XP on Channel'))){
-    embed.addField('\u200b',`If you are a server administrator, you may reallow it by typing **${message.client.config.prefix}xpenable ${message.channel}**`);
-  } else {
-    // Do nothing..
-  };
-
-  if (reasons.some(str => str.startsWith('**Disabled XP**'))){
-    embed.addField('\u200b',`If you are a server administrator, you may reenable it by typing \`${message.client.config.prefix}xptoggle\` command`);
-  } else {
-    // Do nothing..
-  };
-
   return { accept: !reasons.length, embed };
+  }
 };
 
 module.exports = { check };

@@ -12,6 +12,9 @@ module.exports = {
 	category: 'Infos',
 	cooldown: 5,
 	utilisation: '{prefix}ping',
+	ownerOnly: false,
+	guildOnly: false,
+	adminOnly: false,
 	async execute(client,message,args) {
 		const msg = await message.channel.send(`🏓 Pinging....`); 
 		const ping = Math.round(msg.createdTimestamp - message.createdTimestamp);

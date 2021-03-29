@@ -1,9 +1,16 @@
+const { Client, Message } = require("discord.js");
 module.exports = {
     name: 'purge',
     aliases: [],
     description: '',
     category: 'core',
     utilisation: '{prefix}purge  <number of messages you want to delete',
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
         const amount = args.join(' ');
         if (message.member.hasPermission("MANAGE_MESSAGES")) {

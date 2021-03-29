@@ -14,7 +14,7 @@ module.exports = {
    * @param {String[]} args
    */
   async execute(client, message, args) {
-    if(message.member.id !== "767809929011658763" || !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You need the `ADMINISTRATOR` permission to use this command!")
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You need the `ADMINISTRATOR` permission to use this command!")
     if (!args[0]) {
       return message.channel.send("Please specify a prefix!")
     } else if (args[0].length > 5) {

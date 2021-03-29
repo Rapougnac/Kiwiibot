@@ -1,9 +1,17 @@
+const { Client, Message } = require("discord.js");
+
 module.exports = {
     name: 'mute',
     aliases: [],
     description: 'Mute a person',
     category: 'Core',
     utilisation: '{prefix}mute <mention>',
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     * @returns client message args
+     */
     async execute(client, message, args) {
         
         if (!message.member.hasPermission("ADMINISTRATOR")) return;

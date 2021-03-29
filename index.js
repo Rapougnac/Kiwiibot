@@ -11,6 +11,7 @@ table3.setHeading("Player Events", "Load status");
 //const Anischedule = require(`./struct/Anischedule`);
 const Mongoose = require("./struct/Mongoose");
 const colors = require("colors");
+const permscheck = require("./util/permissionchek")
 
 const { YTSearcher } = require("ytsearcher");
 const searcher = new YTSearcher({
@@ -19,7 +20,7 @@ const searcher = new YTSearcher({
 });
 const client = new Discord.Client({
   disableEveryone: true,  //disables, that the bot is able to send @everyone
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION'] //creating the client with partials, so you can fetch OLD messages);
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'] //creating the client with partials, so you can fetch OLD messages;
 });
 const fs = require("fs");
 const mongoose = require("mongoose");
@@ -41,6 +42,7 @@ client.filters = client.config.filters;
 client.player = new Player(client);
 client.db_warns = require("./db_warns.json");
 client.config.features = client.config.allowedFeatures;
+client.ownerOnly = Boolean
 // client.db_xp = low(adapters);
 // client.db_xp.defaults({ histoires: [], xp: [] }).write();
 //client.anischedule = new Anischedule(client);
@@ -49,6 +51,7 @@ client.config.features = client.config.allowedFeatures;
 // if (config.database?.enable === true) {
 //   client.database = new Mongoose(client, config.database)
 // }
+
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
@@ -117,13 +120,13 @@ recursive_readdir("commands", function (err, files) {
 // Client.database?.init();
 
 //Mongodb
-if(config.database?.enable) {
+if(config.database.enable) {
   mongoose.connect(config.database.URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     autoIndex: false,
     poolSize: 5,
-    connectTimeoutMS: 10000,
+    //connectTimeoutMS: 10000,
     family: 4,
   }).then( () =>{
     consoleUtil.success("Connected to Mongodb");
@@ -131,6 +134,7 @@ if(config.database?.enable) {
     consoleUtil.error("Failed to connect to MongoDB " + err);
   })
 } else {
+  mongoose.disconnect();
   consoleUtil.warn("Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!");
 };
 

@@ -1,12 +1,16 @@
-const Discord = require("discord.js");
+const { Client, Message } = require("discord.js");
 module.exports = {
     name: 'slowmode',
     aliases: ['sm'],
     description: '',
     category: 'Core',
     utilisation: '{prefix}slowmode <number>',
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
-        //const args = message.content.trim().split(/ +/g)
         const amount = parseInt(args[1])
         if (message.member.hasPermission("MANAGE_CHANNEL"))
             if (isNaN(amount)) return message.channel.send("It doesn't seem to be valid number")

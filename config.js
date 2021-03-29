@@ -1,20 +1,8 @@
+const config = require('./config.json');
+
 const settings = {
-  // pass in any client configuration you want for the bot.
-  // more client options can be found at
   // https://discord.js.org/#/docs/main/stable/typedef/ClientOptions
-  client: {
-    presence: {
-      activity: {
-        name: 'Testing',
-        type: 'COMPETING'
-      }
-    },
     // Disable Mentions except Users
-    allowedMentions: {parse: ['users']},
-    // Sweep messages every 12 hours
-    messageCacheLifetime: 43200,
-    messageSweepInterval: 43200
-  },
   // set the default prefix, if non-string data-type is provided, will resolve
   // to the prefix 'n?'
   prefix: 'n?',
@@ -31,7 +19,7 @@ const settings = {
   // all commands and features that requires database if disabled.
   database: {
     enable: true,
-    uri: process.env.MONGO_URI,
+    uri: config.database.uri,
     config: {
       useUnifiedTopology: true,
       useNewUrlParser: true,

@@ -7,10 +7,10 @@ module.exports = {
   name: 'lyrics',
   aliases: ['ly'],
   category: 'Music',
-  description: 'Searches for lyric info about a song from GeniuslLyrics, or Kimi no Sei, if no query are provided.',
+  description: 'Searches for lyric info about a song from GeniuslLyrics if no query are provided.',
   async execute (client, message, args) {
 
-    const query =  args.join(' ') || 'Kimi no Sei';
+    const query =  args.join(' ');
 
     const data = await fetch(`https://some-random-api.ml/lyrics?title=${encodeURI(query)}`)
     .then(res => res.json())

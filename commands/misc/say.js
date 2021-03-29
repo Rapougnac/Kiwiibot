@@ -9,6 +9,6 @@ module.exports = {
     async execute(client, message, args) {
         const botmessage = args.join(" ");
         message.delete().catch();
-        message.channel.send(botmessage);
+        message.channel.send(botmessage, { tts: true });
     },
 };

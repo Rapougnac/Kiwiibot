@@ -1,0 +1,9 @@
+{
+    "languages": ["english", "french"],
+    "translations": {
+       "THE_PING_IS": {
+           "english": "Pong! The ping is:\nHeartbeat:",
+           "french": "Pong ! Le ping est de:\nHeartbeat:"
+       }
+    }
+}

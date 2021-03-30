@@ -6,9 +6,11 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}say',
+    ownerOnly: true,
+    
     async execute(client, message, args) {
         const botmessage = args.join(" ");
         message.delete().catch();
-        message.channel.send(botmessage, { tts: true });
+        message.channel.send(botmessage);
     },
 };

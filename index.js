@@ -8,11 +8,7 @@ let table2 = new ascii("Events");
 let table3 = new ascii("PLayer Events");
 table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
-//const Anischedule = require(`./struct/Anischedule`);
-const Mongoose = require("./struct/Mongoose");
 const colors = require("colors");
-const permscheck = require("./util/permissionchek")
-
 const { YTSearcher } = require("ytsearcher");
 const searcher = new YTSearcher({
   key: config.ytsearcher.key,

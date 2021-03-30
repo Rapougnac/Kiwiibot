@@ -6,8 +6,8 @@ const { version, author } = require("../package.json")
 const { performance } = require("perf_hooks")
 const bootTime = Math.round(performance.now())
 // const { logs } = require("config.json");
-const GuildProfilesManager = require("../struct/guilds/ProfileManager")
-
+//const GuildProfilesManager = require("../struct/guilds/ProfileManager")
+const { loadLanguages } = require("../language");
 
 module.exports = async (client) => {
   /**
@@ -15,7 +15,8 @@ module.exports = async (client) => {
    * @type {GuildProfilesManager}
    */
 
-  client.guildProfiles = new GuildProfilesManager(client)
+  //client.guildProfiles = new GuildProfilesManager(client)
+  loadLanguages(client);
   const statuses = [
     `m?help | Currently on ${client.guilds.cache.size} servers`,
     `m?help | Serving ${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} users`,
@@ -31,7 +32,7 @@ module.exports = async (client) => {
     const i = statuses[Math.floor(Math.random() * statuses.length)]
     await client.user.setPresence({ activity: { name: i, type: "PLAYING" }, status: "dnd" }).catch(console.error)
   }, 1e4)
-  client.guildProfiles.load();
+  //client.guildProfiles.load();
   consoleUtil.success(
     `Ready on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} users`
   )

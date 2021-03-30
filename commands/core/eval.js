@@ -1,4 +1,3 @@
-// const ownerID = "253554702858452992";
 const { Client, Message, MessageEmbed, DiscordAPIError } = require('discord.js');
 
 module.exports = {
@@ -10,6 +9,10 @@ module.exports = {
     cooldown: 5,
     nsfw: false,
     ownerOnly: true,
+    adminOnly: false,
+    guildOnly: false,
+    permissions: [],
+    clientPermissions: [],
     /** 
      * @param {Client} client 
      * @param {Message} message 

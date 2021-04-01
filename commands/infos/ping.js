@@ -5,6 +5,7 @@ function formatNumber(number, minimumFractionDigits = 0) {
 		maximumFractionDigits: 2
 	});
 }
+
 module.exports = {
     name: 'ping',
     aliases: ['p'],
@@ -15,10 +16,13 @@ module.exports = {
 	ownerOnly: false,
 	guildOnly: false,
 	adminOnly: false,
+	string: [],
 	async execute(client,message,args) {
-		const msg = await message.channel.send(`🏓 Pinging....`); 
-		const ping = Math.round(msg.createdTimestamp - message.createdTimestamp);
+
+		const msg = await message.channel.send(`🏓 Pinging....`);
+		const ping = /*Math.round*/(msg.createdTimestamp - message.createdTimestamp);
+		const string = this.string[0].format(ping, formatNumber((client.ws.ping)));
         //editing it to the actual latency
-        msg.edit(stripIndents`🏓 Po${''.repeat(Math.min(Math.round(ping / 100), 1500))}ng! \n Ping is \`${formatNumber(ping)}ms\` \n Heartbeat: \`${formatNumber(Math.round(client.ws.ping))}ms\``);
+        msg.edit(stripIndents`${string}`);
 	},
 };

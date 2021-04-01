@@ -3,11 +3,15 @@ const Discord = require("discord.js");
 module.exports = {
     name: 'say',
     aliases: [],
-    description: '',
+    description: 'Say the text of the message sent by the author',
     category: 'Misc',
     utilisation: '{prefix}say',
     ownerOnly: true,
-    
+    adminOnly: false,
+    guildOnly: false,
+    permissions: ["ATTACH_FILES"],
+    clientPermissions: [],
+
     async execute(client, message, args) {
         const botmessage = args.join(" ");
         message.delete().catch();

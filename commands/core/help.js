@@ -146,7 +146,12 @@ module.exports = {
                         { name: 'Aliase(s)', value: command.aliases.length < 1 ? 'None' : command.aliases.join('\n'), inline: true },
                         { name: 'Utilisation', value: command.utilisation.replace('{prefix}', client.config.discord.default_prefix), inline: true },
                         { name: 'Description', value: command.description, inline: true },
-                        { name: "Cooldown", value: command.cooldown ? `${command.cooldown} seconds` : "None", inline: true}
+                        { name: "Cooldown", value: command.cooldown ? `${command.cooldown} seconds` : "None", inline: true},
+                        { name: "guildOnly", value: command.guildOnly ? true : false, inline: true },
+                        { name: "adminOnly", value: command.adminOnly ? true : false, inline: true },
+                        { name: "ownerOnly", value: command.ownerOnly ? true : false, inline: true },
+                        { name: "User permissions", value: command.permissions ? command.permissions.map(x => `${x}`) : "None", inline: true },
+                        { name: "User permissions", value: command.clientPermissions ? command.clientPermissions.map(x => `${x}`) : "None", inline: true },
                     ],
                     timestamp: new Date(),
                     description: 'Find information on the command provided.\nMandatory arguments `[]`, optional arguments `<>`.',

@@ -1,54 +1,47 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Client, Message } = require("discord.js");
+const { language } = require("../../language");
 module.exports = {
     name: 'hackban',
     aliases: ['hb'],
     description: 'hackban somebody',
     category: 'Core',
     utilisation: '{prefix}hackban [id] <reason>',
+    ownerOnly: false,
+    guildOnly: true,
+    adminOnly: false,
+    permissions: ["BAN_MEMBERS"],
+    clientPermissions: ["BAN_MEMBERS"],
+    string: [],
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
-
-        if (!message.member.hasPermission("BAN_MEMBERS")) {
-
-            return message.channel.send("Something went wrong, you need the (BAN_MEMBERS) permission");
-
-        }
-
-
         let userID = args[0];
 
         let reason = args.slice(1).join(" ");
 
 
-        if (!userID) return message.channel.send("Please give me a valid id");
+        if (!userID) return message.channel.send(this.string[0]);
 
-        if (isNaN(userID)) return message.channel.send("id must be a number");
+        if (isNaN(userID)) return message.channel.send(this.string[1]);
 
-        if (userID === message.author.id) return message.channel.send("You can't ban yourself");
+        if (userID === message.author.id) return message.channel.send(this.string[2]);
 
-        if (userID === client.user.id) return message.channel.send("You can't ban me");
+        if (userID === client.user.id) return message.channel.send(this.string[3]);
 
 
         if (!reason) reason = "No reason provided";
 
 
         client.users.fetch(userID).then(async user => {
-
             await message.guild.members.ban(user.id, { reason: reason });
 
-            return message.channel.send(`**${user.tag}** has been hackbanned`);
+            return message.channel.send(this.string[4].format(user.tag));
 
         }).catch(error => {
-            return message.channel.send(`Something went wrong: **${error}**`);
-        });
-        client.users.fetch(userID).then(async user => {
-            const embed = new MessageEmbed()
-            .setAuthor(`${user.username} (${user.id})`)
-            .setColor('#dc143c')
-            .setDescription(`**Action**: hackban\n**Raison**: ${reason}`)
-            .setThumbnail(user.avatarURL())
-            .setTimestamp()
-            .setFooter(user.username, user.avatarURL())
-            client.channnels.cache.get('786674142719377408').send(embed)
+            return message.channel.send(this.string[5].format(error));
         });
 
     },

@@ -1,5 +1,7 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
 const axios = require("axios");
+const language = require("../../language")
+
 module.exports = {
     name: "djs",
     aliases: ["docs"],
@@ -12,7 +14,7 @@ module.exports = {
      */
     async execute(client, message, args) {
         const query = args.join(" ");
-        if (!query) return message.reply("Please specify a query!");
+        if (!query) return message.reply(`Please specify a query!`);
         const url = `https://djsdocs.sorta.moe/v2/embed?src=stable&q=${encodeURIComponent(
             query
         )}`;

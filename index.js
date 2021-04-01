@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const config = require("./config.json");
+const lang = require("./language")
 const glob = require("glob");
 const { Player } = require("discord-player");
 const consoleUtil = require(`${process.cwd()}/util/console`);
@@ -8,22 +9,13 @@ let table2 = new ascii("Events");
 let table3 = new ascii("PLayer Events");
 table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
-const colors = require("colors");
-const { YTSearcher } = require("ytsearcher");
-const searcher = new YTSearcher({
-  key: config.ytsearcher.key,
-  revealed: true,
-});
+require("colors");
 const client = new Discord.Client({
   disableEveryone: true,  //disables, that the bot is able to send @everyone
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'] //creating the client with partials, so you can fetch OLD messages;
 });
 const fs = require("fs");
 const mongoose = require("mongoose");
-
-
-//Xp database
-// const adapters = new FileSync('db_xp.json');
 
 //client initalization
 client.login(config.discord.token);
@@ -38,16 +30,6 @@ client.filters = client.config.filters;
 client.player = new Player(client);
 client.db_warns = require("./db_warns.json");
 client.config.features = client.config.allowedFeatures;
-client.ownerOnly = Boolean
-// client.db_xp = low(adapters);
-// client.db_xp.defaults({ histoires: [], xp: [] }).write();
-//client.anischedule = new Anischedule(client);
-// client.database = null;
-
-// if (config.database?.enable === true) {
-//   client.database = new Mongoose(client, config.database)
-// }
-
 
 //Load the events
 fs.readdir("./events/", (err, files) => {
@@ -57,7 +39,7 @@ fs.readdir("./events/", (err, files) => {
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
     if (eventName) {
-      table2.addRow(eventName, /*'\x1b[32mReady\x1b[0m'*/'Ready'.trap);
+      table2.addRow(eventName, 'Ready'.trap);
     } else {
       table2.addRow(eventName, '\x1b[31mERR!\x1b[0m');
     }
@@ -74,7 +56,7 @@ for (const file of player) {
   const eventName = file.split(".")[0];
   client.player.on(eventName, event.bind(null, client));
   if (eventName) {
-    table3.addRow(eventName, /*"\x1b[32mReady\x1b[0m"*/ "Ready".trap);
+    table3.addRow(eventName, "Ready".trap);
   } else {
     table3.addRow(eventName, '\x1b[31mERR!\x1b[0m');
   }
@@ -109,20 +91,14 @@ recursive_readdir("commands", function (err, files) {
   }
 });
 
-// const ExtendedClient = require(`./struct/Client`);
-// //const ExtendedClient = require(`${process.cwd()}/struct/Client`)
-// const configuration = require(`./config`);
-// const Client = new ExtendedClient(configuration);
-// Client.database?.init();
-
 //Mongodb
 if(config.database.enable) {
   mongoose.connect(config.database.URI, {
+    useFindAndModify: false,
     useUnifiedTopology: true,
     useNewUrlParser: true,
     autoIndex: false,
     poolSize: 5,
-    //connectTimeoutMS: 10000,
     family: 4,
   }).then( () =>{
     consoleUtil.success("Connected to Mongodb");
@@ -158,4 +134,14 @@ client.on('guildDelete', async (guild) => {
           PrefixSchema.findOneAndDelete({ GuildID: guild.id }).then(consoleUtil.success('deleted data.'))
       }
   })
-})
+});
+
+String.prototype.format = function () {
+  let args = arguments;
+  return this.replace(/{(\d+)}/g, function (match, number) {
+      return typeof args[number] != 'undefined'
+          ? args[number]
+          : match
+          ;
+  });
+};

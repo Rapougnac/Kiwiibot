@@ -1,7 +1,8 @@
 .vscode/
 db_warns.json
 config.json
-audio/
+audio/record.mp3
+audio/record.pcm
 db_xp.json
 # Logs
 logs

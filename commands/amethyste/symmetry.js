@@ -1,17 +1,28 @@
-const Discord = require("discord.js");
-const AmeClient = require('amethyste-api');
-const config = require('../../config.json');
+const { Message, MessageAttachment, Client, MessageEmbed } = require("discord.js"),
+AmeClient = require('amethyste-api');
 
 module.exports = {
     name: 'symmetry',
     aliases: [],
     description: '',
     category: 'Misc',
-    utilisation: '{prefix}symmetry',
+    utilisation: '{prefix}symmetry [tag]',
+    cooldown: 5,
+    guildOnly: false,
+    ownerOnly: false,
+    adminOnly: false,
+    nsfw: false,
+    permissions: [],
+    clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
-        const AmeAPI = new AmeClient(config.amethyste.client); {
+        const AmeAPI = new AmeClient(client.config.amethyste.client); {
     
-          const embederr = new Discord.MessageEmbed({title: "Error, you must be use tags listed here:", color: "RED", description: "Tags:\n_left-right_\n_right-left_\n_top-bottom_\n_bottom-top_\n_top-left_\n_top-right_\n_bottom-left_\n_bottom-right_",  fields: [{ name: "left-right", value: "The symmetry will be from the left to the right", inline: true},{ name: 'right-left', value: "The symmetry will be from the right to the left", inline: true}, { name: 'top-bottom', value: "The symmetry will be from the top to the bottom", inline: true},{ name: 'bottom-top', value: "The symmetry will be from the bottom to the top", inline: true},{ name: "top-left", value: "The symmetry will be from the top to the left", inline: true},{ name: "top-right", value: "The symmetry will be from the top to the right", inline: true},{ name: "bottom-left", value: "The symmetry will be from the bottom to the left", inline: true},{ name: "bottom-right", value: "The symmetry will be from the bottom to the right", inline: true}],});
+          const embederr = new MessageEmbed({title: "Error, you must be use tags listed here:", color: "RED", description: "Tags:\n_left-right_\n_right-left_\n_top-bottom_\n_bottom-top_\n_top-left_\n_top-right_\n_bottom-left_\n_bottom-right_",  fields: [{ name: "left-right", value: "The symmetry will be from the left to the right", inline: true},{ name: 'right-left', value: "The symmetry will be from the right to the left", inline: true}, { name: 'top-bottom', value: "The symmetry will be from the top to the bottom", inline: true},{ name: 'bottom-top', value: "The symmetry will be from the bottom to the top", inline: true},{ name: "top-left", value: "The symmetry will be from the top to the left", inline: true},{ name: "top-right", value: "The symmetry will be from the top to the right", inline: true},{ name: "bottom-left", value: "The symmetry will be from the bottom to the left", inline: true},{ name: "bottom-right", value: "The symmetry will be from the bottom to the right", inline: true}],});
           if(!args[0]) return message.channel.send(embederr);
           
           const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
@@ -26,7 +37,7 @@ module.exports = {
             || args[0].toLowerCase() === "bottom-right")) return message.channel.send(embederr);
           let m =  await message.channel.send("**Please Wait...**");
           const buffer = await  AmeAPI.generate("symmetry", { url: message.author.displayAvatarURL({ format: "png", size: 2048 }), orientation: args[0] });
-          const attachment = new Discord.MessageAttachment(buffer, "symmetry.png");
+          const attachment = new MessageAttachment(buffer, "symmetry.png");
           m.delete({ timeout: 5000 });
           message.channel.send(attachment);
           }else {
@@ -40,7 +51,7 @@ module.exports = {
             || args[1].toLowerCase() === "bottom-right")) return message.channel.send(embederr);
             let m =  await message.channel.send("**Please Wait...**");
             const buffer = await  AmeAPI.generate("symmetry", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), orientation: args[1]});
-            const attachment = new Discord.MessageAttachment(buffer, "symmetry.png");
+            const attachment = new MessageAttachment(buffer, "symmetry.png");
             m.delete({ timeout: 5000 });
             message.channel.send(attachment);
           }

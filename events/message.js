@@ -6,7 +6,7 @@ const PrefixSchema = require("../models/PrefixSchema")
 const moment = require("moment")
 const fetch = require("node-fetch")
 const ownerOnly = Boolean(config.discord.owner)
-const { prefix } = require("../util/prefix")
+const pref = require("../util/prefix")
 const { language } = require("../language")
 const lang = require("../langs.json")
 
@@ -17,9 +17,9 @@ const lang = require("../langs.json")
  */
 module.exports = async (client, message) => {
   const { guild } = message;
-  const p = await prefix(message, client.config)
+  const p = await pref.prefix(message, client.config)
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
-    return message.channel.send(`My prefix in ${message.guild.name} is ${p}`)
+    return message.channel.send(`${language(guild, "MESSAGE_PREFIX").format(guild.name, p)}`)
   }
   if (!message.content.toLowerCase().startsWith(p) || message.author.bot) return
   const args = message.content.slice(p.length).trim().split(/ +/g)
@@ -45,8 +45,8 @@ module.exports = async (client, message) => {
     }
 
     if (message.channel.type !== "dm") {
-      if (Array.isArray(command_to_execute.ownerOnly)) {
-        if (!message.client.config.discord.owners.includes(message.author.id)) {
+      if ((command_to_execute.ownerOnly)) {
+        if (!client.config.discord.owners.includes(message.author.id)) {
           reasons.push(
             [
               "**Limited to Devs**",
@@ -68,28 +68,14 @@ module.exports = async (client, message) => {
         }
       }
       if (Array.isArray(command_to_execute.permissions)) {
-        if (
-          !message.channel
-            .permissionsFor(message.member)
-            .has(command_to_execute.permissions)
-        ) {
+        if (!message.channel.permissionsFor(message.member).has(command_to_execute.permissions)) {
           reasons.push(
-            [
-              "****⚠️[Error] You don't have enough permissions** - ",
-              "You need the following permission(s):\n\u2000\u2000- ",
-              Object.entries(
-                message.channel.permissionsFor(message.member).serialize()
-              )
-                .filter(
-                  (p) => command_to_execute.permissions.includes(p[0]) && !p[1]
-                )
-                .flatMap((c) =>
-                  c[0]
-                    .split("_")
-                    .map((x) => x.charAt(0) + x.toLowerCase().slice(1))
-                    .join(" ")
-                )
-                .join("\n\u2000\u2000- "),
+            ["****⚠️[Error] You don't have enough permissions** - ", 
+            "You need the following permission(s):\n\u2000\u2000- ",
+            Object.entries(message.channel.permissionsFor(message.member).serialize())
+            .filter((p) => command_to_execute.permissions.includes(p[0]) && !p[1])
+            .flatMap((c) => c[0].split("_").map((x) => x.charAt(0) + x.toLowerCase().slice(1)).join(" "))
+            .join("\n\u2000\u2000- "),
             ].join("")
           )
         } else {
@@ -143,7 +129,7 @@ module.exports = async (client, message) => {
           .setDescription(
             `Reasons:\n\n${reasons.map((reason) => "• " + reason).join("\n")}`
           )
-        await message.channel.send(embed)
+       return await message.channel.send(embed)
       }
     }
     if (command_to_execute.string) {

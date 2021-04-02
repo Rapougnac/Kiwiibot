@@ -47,36 +47,36 @@ module.exports = {
         userFlags.push("<:ADMINISTRATOR:827241621270560788>")
       }
       if (status === "dnd") {
-        status = "Do Not Disturb <:ne_pas_deranger:820758788381999115>"
+        status = this.string[0]
       }
       if (status === "online") {
-        status = "Online <:en_ligne:820758911975424021>"
+        status = this.string[1]
       }
       if (status === 'offline') {
-        status = 'Offline <:hors_ligne:820758964895613009>'
+        status = this.string[2]
       }
       if (status === "idle") {
-        status = "Idle <:inactif:820758854375571496>"
+        status = this.string[3]
       }
       if (device[0] === "web") {
         device[0] = "Web " + client.config.clientMap.web
       }
       if (device[0] === "desktop") {
-        device[0] = "Desktop " + client.config.clientMap.desktop
+        device[0] = this.string[4].format(client.config.clientMap.desktop)
       }
       if (device[0] === "mobile") {
         device[0] = "Mobile " + client.config.clientMap.mobile
       }
 
       const embeduser = new MessageEmbed()
-        .setAuthor(`Discord user ${user.tag}`, null, 'https://discord.com/')
+        .setAuthor(this.string[5].format(user.tag), null, 'https://discord.com/')
         .setDescription(userFlags.join(" "))
-        .addField('Membre', member, true)
-        .addField('Nom et tag', member.user.tag, true)
-        .addField('Nickname', member.nickname ? `${member.nickname}` : 'Ne possède pas de nick', true)
-        .addField('Date de création du compte', moment(member.user.createdAt).format('[Le] DD/MM/YYYY [à] HH:mm:ss'), true)
-        .addField('Date d\'arrivée sur le serveur', moment(member.joinedAt).format('[Le] DD/MM/YYYY [à] HH:mm:ss'), true)
-        .addField('Date de début de boost', member.premiumSince ? moment(member.premiumSince).format('[Le] DD/MM/YYYY [à] HH:mm:ss') : 'Ne boost pas', true)
+        .addField(this.string[6], member, true)
+        .addField(this.string[7], member.user.tag, true)
+        .addField(this.string[8], member.nickname ? `${member.nickname}` : this.string[9], true)
+        .addField('Date de création du compte', moment(member.user.createdAt).format(`${this.string[10]} DD/MM/YYYY ${this.string[11]} HH:mm:ss`), true)
+        .addField('Date d\'arrivée sur le serveur', moment(member.joinedAt).format(`${this.string[10]} DD/MM/YYYY ${this.string[11]} HH:mm:ss`), true)
+        .addField('Date de début de boost', member.premiumSince ? moment(member.premiumSince).format(`${this.string[10]} DD/MM/YYYY ${this.string[11]} HH:mm:ss`) : 'Ne boost pas', true)
         .addField('Presence', status, true)
         .addField("Plateforme", device[0], true)
         .addField('Type', member.user.bot ? 'Bot' : 'User', true)

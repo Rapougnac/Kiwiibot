@@ -1,6 +1,15 @@
 <h1 align="center"> <img src = 'https://cdn.discordapp.com/attachments/772106096713924671/807975843548626944/anime-original-brown-hair-girl-green-eyes-hd-wallpaper-preview.png' height='50'> Kiwii</h1>
 
+## Table of contents
+
+- [Kiwiibot](#kiwiibot)
+- [Installation](#install)
+- [Usage](#usage)
+- [Features](#features)
+- [License](#license)
+
 ## Kiwiibot
+
 > A SIMPle bot who's not very useful
 
 ## Install
@@ -14,47 +23,50 @@ Press enter.
 After that type in: git clone https://github.com/Rapougnac/Kiwiibot.git
 Press enter.
 When you see all Github files in your folder you installed the bot succesfully.
+Once you've done that move into the folder, and type [npm install]
+Now you can run the bot by doing [node .]
 ```
+
+Don't put the `[]` in the command prompt
 
 ## Usage
 
-Open config.json
+Open configexample.json
 And change the following values:
 
 ```json
 "discord":{
-      "token":"TOKEN_HERE",
-      "default_prefix":"PREFIX_HERE",
-      "dev":{
-          "include_cmd":[],
-          "exclude_cmd":[],
-          "active":true
+    "discord": {
+      "token": "TOKEN_HERE(required)(https://discord.com/developers/applications)",
+      "default_prefix": "PREFIX_HERE(required)",
+      "status": "dnd",
+      "dev": {
+        "include_cmd": [],
+        "exclude_cmd": [],
+        "active": false /*Default is false, you can put it to true to exclude or include commands*/
       }
   },
-  "ytsearcher":{
-      "key":"YT_KEY_HERE"
+  "amethyste": {
+    "client": "AMETHYSTE_KEY_HERE(optional, but images manipulation won't work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token"
   },
-  "amethyste":{
-      "client":"APETHYSTE_KEY_HERE"
-  },
+    "chatbot": {
+    "id": "ID_HERE(optionnal) but the chatbot functionnality won't work(https://brainshop.ai/user/register) get the id here",
+    "key": "KEY_HERE(optionnal) but the chatbot functionnality won't work(https://brainshop.ai/user/register) get the key here"
+  }
 }
 ```
 
 ## Features
 
-* Lot's of NSFW commands!
-* Interact with users trough gifs (For example: !hug <@user>)!
-* OwOfy text!
-* Get random questions, facts and cat emojis!
-* Cute pictures of cats, dogs and many more!
-* Moderation commands
-* Anime facts
-* Search a user trough MAL
-* Show the code of the specified command (Example: !code ping)
-* Giveaway feature
-* Music player
-* A lot of events (Like messageDelete)
-* And useless commands !
+- Interact with users trough gifs (For example: !hug @user)!
+- OwOfy text!
+- Get random questions, facts and cat emojis!
+- Cute pictures of cats, dogs and many more!
+- Moderation commands
+- Anime facts
+- Search a user trough MAL
+- Music player
+- And useless commands !
 
 ## License
 

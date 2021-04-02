@@ -19,6 +19,18 @@
         "serverinfo": {
             "english": ["Name", "Region", "Members", "Online members", "Channels", "Emojis", "Roles [{0}]", "Owner", "Creation date", "Nitro boost", "Afk timeout", "Verification level", "ID: {0}", "Tier : `{0}`\nNumber of boosts: `{1}`", "members", "humans", "bots", "channels", "text channels", "voice channels", "category", "animated emojis", "The", "at", "static emojis"],
             "french": ["Nom", "Région", "Membres", "Membres en ligne", "Salons", "Emojis", "Rôles [{0}]", "Propriétaire", "Date de création", "Nitro boost", "Temps d'afk", "Niveau de vérification", "ID:", "Tier : `{0}`\nNombre de boosts: `{1}`", "membres", "humains", "bots", "salons", "salons textuels", "salons vocaux", "catégories", "emojis animés", "Le", "à", "emojis statiques"]
+        },
+        "userinfo": {
+            "english": ["Do Not Disturb <:ne_pas_deranger:820758788381999115>", "Online <:en_ligne:820758911975424021>", "Offline <:hors_ligne:820758964895613009>", "Idle <:inactif:820758854375571496>", "Desktop {0}", "Discord user {0}", "Member", "Name and discrim", "Nickname", "Not set", "Account creation date", "The", "at"],
+            "french": ["Ne Pas Déranger <:ne_pas_deranger:820758788381999115>", "En Ligne <:en_ligne:820758911975424021>", "Hors-Ligne <:hors_ligne:820758964895613009>", "Inactif <:inactif:820758854375571496>", "Bureau {0}", "Utilisateur discord {0}", "Membre", "Nom et tag", "Pseudo", "Ne possède pas de nick", "Date de création du compte", "Le", "à"]
+        },
+        "changemymind": {
+            "english": ["Please put a valid text!"],
+            "french": ["Veuillez mettre un texte valide !"]
+        },
+        "MESSAGE_PREFIX": {
+            "english": "My prefix in the server {0} is {1}",
+            "french": "Mon prefix dans le serveur {0} est {1}"
         }
     }
 }

@@ -136,7 +136,7 @@ module.exports = {
 
             if (!command) return message.channel.send(`${client.emotes.error} - I didn't find this command !`);
 
-            message.channel.send({
+            await message.channel.send({
                 embed: {
                     color: 'ORANGE',
                     author: { name: 'Help pannel' },
@@ -150,8 +150,8 @@ module.exports = {
                         { name: "guildOnly", value: command.guildOnly ? true : false, inline: true },
                         { name: "adminOnly", value: command.adminOnly ? true : false, inline: true },
                         { name: "ownerOnly", value: command.ownerOnly ? true : false, inline: true },
-                        { name: "User permissions", value: command.permissions ? command.permissions.map(x => `${x}`) : "None", inline: true },
-                        { name: "User permissions", value: command.clientPermissions ? command.clientPermissions.map(x => `${x}`) : "None", inline: true },
+                        { name: "User permissions", value: command.permissions.length === 0 ? "None" : command.permissions.map(x => `${x}`), inline: true },
+                        { name: "Client permissions", value: command.clientPermissions.length === 0 ? "None" : command.clientPermissions.map(x => `${x}`), inline: true },
                     ],
                     timestamp: new Date(),
                     description: 'Find information on the command provided.\nMandatory arguments `[]`, optional arguments `<>`.',

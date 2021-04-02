@@ -14,22 +14,22 @@ module.exports = {
 	permissions: [],
 	clientPermissions: ["SEND_MESSAGES", "EMBED_LINKS", "VIEW_CHANNEL"],
 	string: [],
-	async execute(client, message, args) {
 		/**
-		 * @param {Client} client the client that intitialized this
-		 * @param {Message} message the message
-		 * @param {Array} args args into an array
+		 * @param {Client} client
+		 * @param {Message} message
+		 * @param {String[]} args
 		 */
+	async execute(client, message, args) {
 		const { guild } = message;
 		const { afkTimeout } = guild
-		const botcount = message.guild.members.cache.filter(member => member.user.bot).size;
-		const humancount = message.guild.members.cache.filter(member => !member.user.bot).size;
+		const botcount = guild.members.cache.filter(member => member.user.bot).size;
+		const humancount = guild.members.cache.filter(member => !member.user.bot).size;
 		const embedserv = new MessageEmbed()
-			.setAuthor(message.guild.name, message.guild.iconURL({ dynamic: true, }))
-			.addField(this.string[0], message.guild.name, true)
-			.addField(this.string[1], message.guild.region, true)
-			.addField(this.string[2], `${message.guild.memberCount} ${this.string[14]}\n${humancount} ${this.string[15]}\n${botcount} ${this.string[16]}`, true)
-			.addField(this.string[3], message.guild.members.cache.filter(({ presence }) => presence.status == "online" || presence.status == "idle" || presence.status == "dnd").size, true)
+			.setAuthor(guild.name, guild.iconURL({ dynamic: true, }))
+			.addField(this.string[0], guild.name, true)
+			.addField(this.string[1], guild.region, true)
+			.addField(this.string[2], `${guild.memberCount} ${this.string[14]}\n${humancount} ${this.string[15]}\n${botcount} ${this.string[16]}`, true)
+			.addField(this.string[3], message.guild.members.cache.filter(({presence}) => presence.status !== 'offline').size, true)
 			.addField(this.string[4], `${message.guild.channels.cache.size} ${this.string[17]}\n${message.guild.channels.cache.filter(channel => channel.type === 'text').size} ${this.string[18]}\n${message.guild.channels.cache.filter(channel => channel.type === 'voice').size} ${this.string[19]}\n${message.guild.channels.cache.filter(channel => channel.type === 'category').size} ${this.string[20]}`, true)
 			.addField(this.string[5], `${message.guild.emojis.cache.size} emojis\n${message.guild.emojis.cache.filter(emoji => !emoji.animated).size} ${this.string[24]}\n${message.guild.emojis.cache.filter(emoji => emoji.animated).size} ${this.string[21]}`, true)
 			.addField(this.string[6].format(message.guild.roles.cache.size - 1), message.guild.roles.cache.filter(r => r.id !== message.guild.id).sort((A, B) => B.rawPosition - A.rawPosition).map(x => `${x}`).splice(0, 30).join(' | ') || '\u200b', false)

@@ -1,6 +1,6 @@
 {
   "discord": {
-    "token": "TOKEN_HERE(required)",
+    "token": "TOKEN_HERE(required)(https://discord.com/developers/applications)",
     "default_prefix": "PREFIX_HERE(required)",
     "status": "dnd",
     "dev": {
@@ -16,11 +16,8 @@
     "music": ":musical_note:",
     "success": ":white_check_mark:"
   },
-  "ytsearcher": {
-    "key": "YT_SEARCHER_KEY_HERE(otional)"
-  },
   "amethyste": {
-    "client": "AMETHYSTE_KEY_HERE(optional, but images manipulation won't work"
+    "client": "AMETHYSTE_KEY_HERE(optional, but images manipulation won't work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token"
   },
   "filters": [
     "8D",
@@ -62,12 +59,6 @@
     "neutral": "e67e22",
     "negative": "e91e63"
   },
-  "guildChannelMap": {
-    "692311924448297011": {
-      "logChannelId": "806129974011887706",
-      "ignoreChannelIds": []
-    }
-  },
   "database": {
     "enable": true,
     "uri": "MONGO_URI_HERE",
@@ -84,7 +75,11 @@
     "NONE": "None",
     "LOW": "Low",
     "MEDIUM": "Medium",
-    "HIGH": "(╯°□°）╯︵ ┻━┻",
-    "VERY_HIGH": "┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻"
+    "HIGH": "(╯°□°）╯︵ ┻━┻ | High",
+    "VERY_HIGH": "┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻ | Very High"
+  },
+  "chatbot": {
+    "id": "ID_HERE",
+    "key": "KEY_HERE"
   }
 }

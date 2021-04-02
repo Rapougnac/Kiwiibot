@@ -5,9 +5,16 @@ const config = require('../../config.json');
 module.exports = {
     name: 'vs',
     aliases: ["versus"],
-    description: 'Send a vs image',
+    description: 'An epic combat against your opponent, or you if you have no friends',
     category: 'Misc',
     utilisation: '{prefix}vs [user]',
+    cooldown: 5,
+    guildOnly: false,
+    ownerOnly: false,
+    adminOnly: false,
+    nsfw: false,
+    permissions: [],
+    clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
     /**
      * @param {Client} client
      * @param {Message} message

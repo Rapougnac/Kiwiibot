@@ -16,9 +16,10 @@ module.exports = {
 	ownerOnly: false,
 	guildOnly: false,
 	adminOnly: false,
+	permissions: ["SEND_MESSAGES"],
+	clientPermissions: [],
 	string: [],
 	async execute(client,message,args) {
-
 		const msg = await message.channel.send(`🏓 Pinging....`);
 		const ping = /*Math.round*/(msg.createdTimestamp - message.createdTimestamp);
 		const string = this.string[0].format(ping, formatNumber((client.ws.ping)));

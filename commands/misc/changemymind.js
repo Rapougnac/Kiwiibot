@@ -1,6 +1,5 @@
-const Discord = require("discord.js");
+const { MessageAttachment, Message, Client } = require("discord.js");
 const canva = require('canvacord');
-const { changemymind } = require('canvacord');
 
 module.exports = {
     name: 'changemymind',
@@ -8,14 +7,26 @@ module.exports = {
     description: '',
     category: 'Misc',
     utilisation: '{prefix}changemymind',
+    cooldown: 5,
+    guildOnly: false,
+    ownerOnly: false,
+    adminOnly: false,
+    permissions: [],
+    clientPermissions:["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
+    string: [],
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
-        if (!args[0]) return message.channel.send('Veuillez mettre un texte valide');
+        if (!args[0]) return message.channel.send(this.string[0]);
 
         const text = args.join(" ");
 
         const image = await canva.Canvas.changemymind(text);
 
-        const changeMyMind = new Discord.MessageAttachment(image, "cmm.png");
+        const changeMyMind = new MessageAttachment(image, "cmm.png");
 
         message.channel.send(changeMyMind);
     },

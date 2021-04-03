@@ -55,7 +55,7 @@ And change the following values:
   }
 }
 ```
-:warning: Don't forget to change the name of the `configexample.json` to `config.json`!
+> :warning: Don't forget to change the name of the `configexample.json` to `config.json`!
 ## Features
 
 - Interact with users trough gifs (For example: !hug @user)!

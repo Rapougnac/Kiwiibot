@@ -15,6 +15,7 @@ module.exports = {
     nsfw: false,
     permissions: [],
     clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
+    string: [],
     /**
      * @param {Client} client 
      * @param {Message} message 
@@ -26,7 +27,7 @@ module.exports = {
             let m =await message.channel.send("**Please Wait...**");
             const buffer = await AmeAPI.generate("distort", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }) });
             const attachment = new MessageAttachment(buffer, "challenger.png");
-            m.delete({ timeout: 5000 });
+            m.delete({ timeout: 3000 });
             message.channel.send(attachment);
         }
     },

@@ -27,7 +27,11 @@ client.cooldowns = new Discord.Collection();
 client.config = config;
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
-client.player = new Player(client);
+client.player = new Player(client, {
+  autoSelfDeaf: false,
+  quality: "high",
+  enableLive: true,
+});
 client.db_warns = require("./db_warns.json");
 client.config.features = client.config.allowedFeatures;
 

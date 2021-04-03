@@ -1,7 +1,7 @@
 
 
 const { Client, Message, MessageEmbed } = require('discord.js');
-const { languages } = require("../../langs.json");
+const { languages } = require("../../assets/json/langs.json");
 const languageSchema = require("../../models/languageSchema")
 const { setLanguage } = require("../../language");
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
 
         const targetedlanguage = args[0].toLowerCase()
         if(!languages.includes(targetedlanguage)) {
-           await message.reply(this.string[0]);
+           return await message.channel.send(/*this.string[0]*/"This language is not supported yet!");
         }
 
         setLanguage(message.guild, targetedlanguage);
@@ -42,9 +42,9 @@ module.exports = {
                 upsert: true,
             })
 
-           await message.reply(this.string[1])
+           await message.reply("Language has been setted!")
         } catch (error) {
-           await message.channel.send(this.string[2].format(error.name))
+           await message.channel.send(/*this.string[2].format(error.name)*/"⚠️[DATABASE ERROR] The database responded with the following error: "+error.name)
         }
     },
 };

@@ -1,11 +1,21 @@
 const fs = require("fs");
 const glob = require('glob');
-
+const { Message, Client } = require("discord.js");
 module.exports = {
     name: "code",
     aliases: [],
     description: "Display the code of the specified command.",
     category: "Core",
+    ownerOnly: true,
+    amdinOnly: false,
+    guildOnly: false,
+    permissions: [],
+    clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+    /**
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
     async execute(client, message, args) {
 
         try {
@@ -20,8 +30,8 @@ module.exports = {
             message.channel.send(`Here is the code for the ${args[0]} command:\n\`\`\`js\n${code.substr(0, 1900)}\`\`\``);
 
         } catch (error) {
-            return message.channel.send(`I couldn't find a command called \`${args[0]}\``);
-        }
+            return message.channel.send(`I couldn't find a command called \`${args[0]}\`` + error);
+        };
 
     },
 };

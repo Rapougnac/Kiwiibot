@@ -2,14 +2,19 @@
 module.exports = {
     //definition
     name: "uptime", //the name of the command 
-    category: "info", //the category this will be listed at, for the help cmd
-    aliases: [""], //every parameter can be an alias or empty for no aliases
+    category: "Info", //the category this will be listed at, for the help cmd
+    aliases: [], //every parameter can be an alias or empty for no aliases
     cooldown: 10, //this will set it to a 10 second cooldown
     usage: "uptime", //this is for the help command for EACH cmd
     description: "Returns the duration on how long the Bot is online", //the description of the command
-
-    //running the command with the parameters: client, message, args, user, text, prefix
-    async execute(client, message, args, user, text, prefix) {
+    guildOnly: false, // if the command can be run in dms
+    adminOnly: false, // if the command is only usable by the server adminitrators
+    ownerOnly: false, // if the command is only usable by the owner(s)
+    permissions: [], // an array of the required permissions by user side
+    clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES"], // an array of the permissions by client side
+    string: [], // this is for the traduction
+    //running the command with the parameters: client, message, args
+    async execute(client, message, args) {
         // a sub function to get the time    
         function duration(ms) { 
             const sec = Math.floor(ms / 1000 % 60).toString();
@@ -18,6 +23,6 @@ module.exports = {
             const days = Math.floor(ms / (24*60*60*1000) % 60).toString();
             return `\`${days} Days\`, \`${hrs} Hours\`, \`${min} Minutes\`, \`${sec} Seconds\``
         }
-        message.reply(`:white_check_mark: **${client.user.username}** is since ${duration(client.uptime)} online`); //sending the uptime
+        message.reply(`${this.string[0].format(client.user.username, duration(client.uptime))}`); //sending the uptime
     }
 }

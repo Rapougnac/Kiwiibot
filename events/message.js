@@ -1,14 +1,8 @@
-const chatbot = require(`${process.cwd()}/util/chatbot`)
-const config = require("../config.json")
+
 const { Collection, Message, Client, MessageEmbed } = require("discord.js")
-//const prefix = require("../models/PrefixSchema");
-const PrefixSchema = require("../models/PrefixSchema")
-const moment = require("moment")
-const fetch = require("node-fetch")
-const ownerOnly = Boolean(config.discord.owner)
-const pref = require("../util/prefix")
+const { prefix } = require("../util/prefix")
 const { language } = require("../language")
-const lang = require("../langs.json")
+const lang = require("../assets/json/langs.json");
 
 /**
  * @param {Message} message
@@ -17,7 +11,7 @@ const lang = require("../langs.json")
  */
 module.exports = async (client, message) => {
   const { guild } = message;
-  const p = await pref.prefix(message, client.config)
+  const p = await prefix(message, client.config)
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
     return message.channel.send(`${language(guild, "MESSAGE_PREFIX").format(guild.name, p)}`)
   }
@@ -39,7 +33,7 @@ module.exports = async (client, message) => {
             "**Command is unavailable on DM**",
             "This command can only be used inside servers.",
           ].join(" - ")
-        )
+        );
       } else {
       }
     }
@@ -52,7 +46,7 @@ module.exports = async (client, message) => {
               "**Limited to Devs**",
               "This command can only be used by my developers.",
             ].join(" - ")
-          )
+          );
         } else {
         }
       }
@@ -63,21 +57,21 @@ module.exports = async (client, message) => {
               "**Limited to Admins**",
               "This command can only be used by server administrators.",
             ].join(" - ")
-          )
+          );
         } else {
         }
       }
       if (Array.isArray(command_to_execute.permissions)) {
         if (!message.channel.permissionsFor(message.member).has(command_to_execute.permissions)) {
           reasons.push(
-            ["****⚠️[Error] You don't have enough permissions** - ", 
-            "You need the following permission(s):\n\u2000\u2000- ",
-            Object.entries(message.channel.permissionsFor(message.member).serialize())
-            .filter((p) => command_to_execute.permissions.includes(p[0]) && !p[1])
-            .flatMap((c) => c[0].split("_").map((x) => x.charAt(0) + x.toLowerCase().slice(1)).join(" "))
-            .join("\n\u2000\u2000- "),
+            ["****⚠️[Error] You don't have enough permissions** - ",
+              "You need the following permission(s):\n\u2000\u2000- ",
+              Object.entries(message.channel.permissionsFor(message.member).serialize())
+                .filter((p) => command_to_execute.permissions.includes(p[0]) && !p[1])
+                .flatMap((c) => c[0].split("_").map((x) => x.charAt(0) + x.toLowerCase().slice(1)).join(" "))
+                .join("\n\u2000\u2000- "),
             ].join("")
-          )
+          );
         } else {
         }
       }
@@ -106,7 +100,7 @@ module.exports = async (client, message) => {
                 )
                 .join("\n\u2000\u2000- "),
             ].join("")
-          )
+          );
         } else {
         }
       }
@@ -118,7 +112,7 @@ module.exports = async (client, message) => {
               "**NSFW Command**",
               "You can only use this command on a nsfw channel.",
             ].join(" - ")
-          )
+          );
         }
       }
 
@@ -129,7 +123,9 @@ module.exports = async (client, message) => {
           .setDescription(
             `Reasons:\n\n${reasons.map((reason) => "• " + reason).join("\n")}`
           )
-       return await message.channel.send(embed)
+        return await message.channel.send(embed) || message.createDM().then((channel) => {
+          channel.send(embed);
+        })
       }
     }
     if (command_to_execute.string) {
@@ -148,7 +144,7 @@ module.exports = async (client, message) => {
           console.error(error)
           message.reply(
             "There was an error trying to execute that command!" + error
-          )
+          );
         }
       } else {
         const timestamps = client.cooldowns.get(message.author.id) //get the timestamp of the last used commands
@@ -171,7 +167,7 @@ module.exports = async (client, message) => {
             console.error(error)
             message.reply(
               "There was an error trying to execute that command!" + error
-            )
+            );
           }
         }
       }
@@ -221,6 +217,7 @@ module.exports = async (client, message) => {
   } else {
     return
   }
+
 }
 
 function format(time) {

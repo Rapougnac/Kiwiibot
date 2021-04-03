@@ -1,5 +1,5 @@
 const languageSchema = require("./models/languageSchema");
-const lang = require("./langs.json");
+const lang = require("./assets/json/langs.json");
 
 const guildLanguages = {};
 
@@ -23,6 +23,7 @@ const setLanguage = (guild, language) => {
     guildLanguages[guild.id] = language.toLowerCase();
 }
 const language = (guild, textID) => {
+    if (guild !== null) {
     if(!lang.translations[textID]){
         throw new Error(`Unknow text id: ${textID}`)
     }
@@ -30,6 +31,10 @@ const language = (guild, textID) => {
     const selectedLanguage = guildLanguages[guild.id].toLowerCase();
 
     return lang.translations[textID][selectedLanguage]; 
+    } else {
+        const selectedLanguage = "english"
+        return lang.translations[textID][selectedLanguage]; 
+    }
 }
 
 module.exports = { loadLanguages, setLanguage, language };

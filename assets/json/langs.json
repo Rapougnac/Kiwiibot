@@ -1,0 +1,343 @@
+{
+  "languages": ["english", "french"],
+  "translations": {
+    "ping": {
+      "english": ["🏓 Pong! The ping is: `{0}ms`\nHeartbeat: `{1}ms`"],
+      "french": ["🏓 Pong ! Le ping est de: `{0}ms`\nHeartbeat: `{1}ms`"]
+    },
+    "hackban": {
+      "english": [
+        "Please give me a valid id!",
+        "The id must be a number!",
+        "You can't ban yourself!",
+        "You can't ban me!",
+        "**{0}** has been hackbanned!",
+        "Something went wrong: **{0}**"
+      ],
+      "french": [
+        "S'il vous plaît, veuillez me donner une id valide !",
+        "L'id doit être un nombre !",
+        "Vous ne pouvez pas vous bannir vous-même !",
+        "Vous ne pouvez pas pas me bannir !",
+        "**{0}** a été hackbanni !",
+        "Quelque chose s'est mal passé: **{0}**"
+      ]
+    },
+    "setlanguage": {
+      "english": [
+        "This language is not supported yet!",
+        "Language has been setted!",
+        "⚠️[DATABASE ERROR] The database responded with the following error: {0}"
+      ],
+      "french": [
+        "Cette langue n'est pas encore implémentée !",
+        "La langue a bien été définie !",
+        "⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}"
+      ]
+    },
+    "serverinfo": {
+      "english": [
+        "Name",
+        "Region",
+        "Members",
+        "Online members",
+        "Channels",
+        "Emojis",
+        "Roles [{0}]",
+        "Owner",
+        "Creation date",
+        "Nitro boost",
+        "Afk timeout",
+        "Verification level",
+        "ID: {0}",
+        "Tier : `{0}`\nNumber of boosts: `{1}`",
+        "members",
+        "humans",
+        "bots",
+        "channels",
+        "text channels",
+        "voice channels",
+        "category",
+        "animated emojis",
+        "The",
+        "at",
+        "static emojis"
+      ],
+      "french": [
+        "Nom",
+        "Région",
+        "Membres",
+        "Membres en ligne",
+        "Salons",
+        "Emojis",
+        "Rôles [{0}]",
+        "Propriétaire",
+        "Date de création",
+        "Nitro boost",
+        "Temps d'afk",
+        "Niveau de vérification",
+        "ID:",
+        "Tier : `{0}`\nNombre de boosts: `{1}`",
+        "membres",
+        "humains",
+        "bots",
+        "salons",
+        "salons textuels",
+        "salons vocaux",
+        "catégories",
+        "emojis animés",
+        "Le",
+        "à",
+        "emojis statiques"
+      ]
+    },
+    "userinfo": {
+      "english": [
+        "Do Not Disturb <:ne_pas_deranger:820758788381999115>",
+        "Online <:en_ligne:820758911975424021>",
+        "Offline <:hors_ligne:820758964895613009>",
+        "Idle <:inactif:820758854375571496>",
+        "Desktop {0}",
+        "Discord user {0}",
+        "Member",
+        "Name and discrim",
+        "Nickname",
+        "Not set",
+        "Account creation date",
+        "The",
+        "at",
+        "Is not boosting",
+        "Date of arrival on the server",
+        "Boost start date",
+        "Device",
+        "Type",
+        "User",
+        "Roles {0}"
+      ],
+      "french": [
+        "Ne Pas Déranger <:ne_pas_deranger:820758788381999115>",
+        "En Ligne <:en_ligne:820758911975424021>",
+        "Hors-Ligne <:hors_ligne:820758964895613009>",
+        "Inactif <:inactif:820758854375571496>",
+        "Bureau {0}",
+        "Utilisateur discord {0}",
+        "Membre",
+        "Nom et tag",
+        "Pseudo",
+        "Ne possède pas de nick",
+        "Date de création du compte",
+        "Le",
+        "à",
+        "Ne boost pas",
+        "Date d'arrivée sur le serveur",
+        "Date de début de boost",
+        "Plateforme",
+        "Type d'utilisateur",
+        "Utilisateur",
+        "Rôles [{0}]"
+      ]
+    },
+    "changemymind": {
+      "english": ["Please put a valid text!"],
+      "french": ["Veuillez mettre un texte valide !"]
+    },
+    "MESSAGE_PREFIX": {
+      "english": "My prefix in the server {0} is {1}",
+      "french": "Mon prefix dans le serveur {0} est {1}"
+    },
+    "customprefix": {
+      "english": [
+        "Please specify a prefix!",
+        "Error, my prefix cannot be longer than 5 characters!",
+        "⚠️[DATABASE ERROR] The database responded with the following error: {0}",
+        "My prefix has been updated to **{0}**",
+        "Prefix in this server is now set to **{0}**"
+      ],
+      "french": [
+        "S'il vous plaît, veuillez spécifiez un préfixe !",
+        "Erreur, mon préfixe ne peut pas faire plus de 5 caractères",
+        "⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}",
+        "Mon préfixe a été mis à jour sur **{0}**",
+        "Le préfixe sur ce serveur à été défini sur **{0}**"
+      ]
+    },
+    "prefix-reset": {
+      "english": [
+        "Are you sure you want to reset the prefix?",
+        "The prefix has been resetted to {0}",
+        "Prefix reset has been canceled!"
+      ],
+      "french": [
+        "Etes-vous sûr de de vouloir réintialiser le préfixe ?",
+        "Le préfixe a été réintialisé sur {0}",
+        "La réinitialisation du préfixe a été annulée !"
+      ]
+    },
+    "queue": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel as me!",
+        "{0} - No songs currently playing!",
+        "**Server queue - {0} {1}**\nCurrent : {2} | ${3}\n\n",
+        "**#{0}** - {1} | {2} (requested by: {3})",
+        "And **{0}** other songs...",
+        "In the playlist **{0}** song(s)...`"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} Vous n'êtes pas dans le même channel que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "**File d'attente du serveur - {0} {1}**\nActuellement : {2} | ${3}\n\n",
+        "**#{0}** - {1} | {2} (demandé par: {3})",
+        "Et **{0}** autre chansons...",
+        "Dans la playlist **{0}** chanson(s)"
+      ]
+    },
+    "uptime": {
+      "english": [
+        ":white_check_mark: **{0}** is since {1} online",
+        "Days",
+        "Hours",
+        "Minutes",
+        "Seconds"
+      ],
+      "french": [
+        ":white_check_mark: **{0}** est depuis {1} mis en ligne",
+        "Jours",
+        "Heures",
+        "Minutes",
+        "Secondes"
+      ]
+    },
+    "serverlist": {
+      "english": ["No Guild", "members"],
+      "french": ["Aucun serveur", "membres"]
+    },
+    "3000y": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "afusion": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "approved": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "batslap": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "beautiful": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "blur": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "blurple": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "brazzers": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "challenger": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "house": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "distort": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "facebook": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "fire": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "jail": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "lookwhatkarenhave": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "magik": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "moustache": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "pixelize": {
+      "english": [
+        "**Please Wait...**",
+        "It doesn't seem to be valid number",
+        "Please, insert a valid number between 1 to 50"
+      ],
+      "french": [
+        "**Veuillez patientez...**",
+        "Ça ne me semble pas être un nombre valide",
+        "S'il vous plaît, veuillez doner un chiffre entre 1 à 50"
+      ]
+    },
+    "ps4": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "rip": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "scary": {
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "symmetry": {
+      "english": [
+        "**Please Wait...**",
+        "Error, you must be use tags listed here:",
+        "The symmetry will be from the left to the right",
+        "The symmetry will be from the right to the left",
+        "The symmetry will be from the top to the bottom",
+        "The symmetry will be from the bottom to the top",
+        "The symmetry will be from the top to the left",
+        "The symmetry will be from the top to the right",
+        "The symmetry will be from the bottom to the left",
+        "The symmetry will be from the bottom to the right"
+      ],
+      "french": [
+        "**Veuillez patientez...**",
+        "Erreur, vous devez utiliser les tags listés ci-dessous:",
+        "La symétrie va se faire de gauche à droite",
+        "La symétrie va se faire de droite à gauche",
+        "La symétrie va se faire du haut jusqu'en bas",
+        "La symétrie va se faire du bas jusqu'en haut",
+        "La symétrie va se faire du haut jusqu'à gauche",
+        "La symétrie va se faire du haut jusqu'à droite",
+        "La symétrie va se faire du bas jusqu'à gauche",
+        "La symétrie va se faire du bas jusqu'à droite"
+      ]
+    },
+    "thanos": {
+        "english": ["**Please Wait...**"],
+        "french": ["**Veuillez patientez...**"]
+    },
+    "vs": {
+        "english": ["**Please Wait...**"],
+        "french": ["**Veuillez patientez...**"]
+    }
+  }
+}

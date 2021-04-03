@@ -7,23 +7,31 @@ module.exports = {
     category: "Core",
     utilisation: "{prefix}prefix-reset",
     description: "Reset the prefix",
+    cooldown: 5,
+    nsfw: false,
+    guildOnly: false,
+    ownerOnly: false,
+    adminOnly: true,
+    permissions: [],
+    clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+    string: [],
     /**
-     * 
+
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     async execute(client, message, args) {
-        message.channel.send("Are you sure you want to reset the prefix?").then(async (msg) => {
+        message.channel.send(this.string[0]).then(async (msg) => {
             const emoji = await confirmation(msg, message.author, ['✅', '❌'], 10000)
             if(emoji === '✅') {
                 msg.delete()
                 await prefixSchema.findOneAndDelete({ GuildID: message.guild.id })
-                message.channel.send(`The prefix has been resetted to ${client.config.discord.default_prefix}`)
+                message.channel.send(this.string[1].format(client.config.discord.default_prefix))
             }
             if(emoji === '❌') {
                 msg.delete()
-                message.channel.send('reset prefix has been cancelled.')
+                message.channel.send(this.string[2])
             }
         })
 

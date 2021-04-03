@@ -1,21 +1,31 @@
 const PrefixSchema = require("../models/PrefixSchema")
-
-async function prefix (message, config) {
-  let customprefix
-
+const { Message } = require("discord.js")
+const config = require("../config.json")
+/**
+ * @param {Message} message 
+ * @param {config} config 
+ */
+async function prefix(message, config) {
   const data = await PrefixSchema.findOne({
-    GuildID: message.guild.id,
+    GuildID: message.guild?.id,
   }).catch((error) => console.log(error))
-
-  if (data) {
-    customprefix = data.Prefix || config.discord.default_prefix.toLowerCase() || "n?";
-  }else if (data){
-    customprefix = config.discord.default_prefix.toLowerCase() || data.Prefix;
+  let prefix;
+  if(message.channel.type !== "dm"){
+  if(message.content.startsWith("m?")){
+    prefix = "m?";
+  } else if (message.content.startsWith(config.discord.default_prefix.toLowerCase())) {
+    prefix = config.discord.default_prefix.toLowerCase();
+  } else if (data.Prefix && message.content.startsWith(data.Prefix)){
+    prefix = data.Prefix;
   }
-   else {
-    customprefix = config.discord.default_prefix.toLowerCase()
+  } else {
+    if(message.content.startsWith("m?")){
+      prefix = "m?";
+    } else if (message.content.startsWith(config.discord.default_prefix)) {
+      prefix = config.discord.default_prefix;
+    }
   }
-  return customprefix;
+  return prefix;
 }
 
 module.exports = { prefix }

@@ -14,6 +14,7 @@ module.exports = {
     nsfw: false,
     permissions: [],
     clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
+    string: [],
       /**
        * @param {Client} client The client that instantiated this
        * @param {Message} message The global variable

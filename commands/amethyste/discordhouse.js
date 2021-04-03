@@ -14,6 +14,7 @@ module.exports = {
     nsfw: false,
     permissions: [],
     clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
+    string: [],
     /**
      * @param {Client} client 
      * @param {Message} message 
@@ -30,10 +31,10 @@ module.exports = {
             if(!zz[0]) return message.channel.send("You need to have a house!");
             const house = zz[0].replace('HOUSE_', "")
             let nameHouseAPI = house.slice(0, 1) + house.slice(1).toLowerCase()
-            let m = await message.channel.send("**Please Wait...**");
+            let m = await message.channel.send(this.string[0]);
             const buffer = await AmeAPI.generate("discordhouse", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), house: nameHouseAPI});
             const attachment = new MessageAttachment(buffer, "discordhouse.png");
-            m.delete({ timeout: 5000 });
+            m.delete({ timeout: 3000 });
             message.channel.send(attachment);
         }
     },

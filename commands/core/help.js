@@ -1,4 +1,4 @@
-const { MessageEmbed, Client } = require("discord.js");
+const { MessageEmbed, Client, Message } = require("discord.js");
 const { Menu } = require('discord.js-menu');
 module.exports = {
     name: 'help',
@@ -7,8 +7,13 @@ module.exports = {
     description:'Shows the help pannel or the function of a command',
     utilisation: '{prefix}help <command name>',
     cooldown: 10,
+    guildOnly: true,
+    adminOnly: false,
+    ownerOnly: false,
+    nsfw: false,
+    permissions: [],
+    clientPermissions: ["EMBED_LINKS", "SEND_MESSAGES", "VIEW_CHANNEL"],
     /**
-     * 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
@@ -24,8 +29,6 @@ module.exports = {
             const nsfw = message.client.commands.filter(x => x.category == 'Nsfw').map((x) => '`' + x.name + '`').join(' ');
             const int = message.client.commands.filter(x => x.category == 'Interactions').map((x) => '`' + x.name + '`').join(' ');
             const misc = message.client.commands.filter(x => x.category == 'Misc').map((x) => '`' + x.name + '`').join(' ');
-            let pages = 4;
-            let currentPage = 0;
             let helpMenu = new Menu(message.channel, message.author.id, [
                 {
                     name: 'main',

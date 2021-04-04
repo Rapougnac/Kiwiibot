@@ -332,12 +332,46 @@
       ]
     },
     "thanos": {
-        "english": ["**Please Wait...**"],
-        "french": ["**Veuillez patientez...**"]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "vs": {
-        "english": ["**Please Wait...**"],
-        "french": ["**Veuillez patientez...**"]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
+    },
+    "invite": {
+      "english": [
+        "There are currently no invite links in this server",
+        "**Default invite**",
+        "This is not recommended to use this link. because the bot will have zero permissions.",
+        "**Recommended invite**",
+        "All invite links of Kiwii",
+        "This invite grants Kiwii all the necessary permissions for all of her functions to work.\n",
+        "**All permissions**",
+        "This invite grants the bot the `ADMINISTRATOR` permission\n",
+        "**No moderator permissions**",
+        "This invite remove the permission to Kiwii to moderate the server and the users\n",
+        "**Basic Permissions**",
+        "The basic permissions for basic commands to work",
+        "**Or you can get the invite link of this server instead...**",
+        "I was unable to fetch the invite link of the server (I need the `MANAGE_GUILD` permission)"
+      ],
+      "french": [
+        "Il n'y a aucun lien d'invitation lié a ce serveur",
+        "**Invitation par défaut**",
+        "Il n'est pas conseillé d'utiliser ce lien d'invitation, car il va octroyer aucune permissions au bot.\n",
+        "**Invitation recommandée**",
+        "Liens d'invitation de Kiwii",
+        "Ce lien d'invitation permet le bon fonctionnement du bot avec ses permissions normales.\n",
+        "**Permissions complètes**",
+        "Cette invitation va donner le rôle `ADMINISTRATEUR` au bot, de ce fait, il va avoir presque tout les droits\n",
+        "**Sans modération**",
+        "Cette invitation enlève les droits a Kiwii de modérer le serveur et les utilisateurs\n",
+        "**Permissions basiques**",
+        "Les permissions basiques pour que le bot puisse fonctionner comme il faut avec les commandes de base",
+        "**Ou bien vous pouvez avoir le lien d'invitation du serveur à la place...**",
+        "J'ai été incapable de récupérer le lien d'invitation (J'ai besoins de la permission `MANAGE_GUILD`)"
+      ]
     }
   }
 }

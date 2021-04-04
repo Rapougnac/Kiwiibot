@@ -24,10 +24,10 @@ module.exports = {
      * @param {String[]} args 
      */
     async execute(client, message, args) {
-
+    if(message.guild){
         const targetedlanguage = args[0].toLowerCase()
         if(!languages.includes(targetedlanguage)) {
-           return await message.channel.send(/*this.string[0]*/"This language is not supported yet!");
+           return await message.channel.send(this.string[0]/*"This language is not supported yet!"*/);
         }
 
         setLanguage(message.guild, targetedlanguage);
@@ -42,9 +42,12 @@ module.exports = {
                 upsert: true,
             })
 
-           await message.reply("Language has been setted!")
+           await message.reply(/*"Language has been setted!"*/this.string[1])
         } catch (error) {
-           await message.channel.send(/*this.string[2].format(error.name)*/"⚠️[DATABASE ERROR] The database responded with the following error: "+error.name)
+           await message.channel.send(this.string[2].format(error.name)/*"⚠️[DATABASE ERROR] The database responded with the following error: "+error.name*/)
         }
+    }else {
+        return message.channel.send("You can't set a language inside dms, the default langage is `english`")
+    }
     },
 };

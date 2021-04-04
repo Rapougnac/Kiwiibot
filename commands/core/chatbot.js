@@ -4,10 +4,10 @@ const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
   name: 'chatbot',
-  aliases: [],
-  description: '',
+  aliases: ["chat"],
+  description: 'Chat with the bot with the api \n⚠ This functionnality is made with an API son it can\'t be translated!',
   category: 'Core',
-  utilisation: '{prefix}',
+  utilisation: '{prefix}chatbot',
   cooldown: 5,
   nsfw: false,
   guildOnly: false,
@@ -15,6 +15,7 @@ module.exports = {
   adminOnly: false,
   permissions: [],
   clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES"],
+  string: [],
   /** 
    * @param {Client} client 
    * @param {Message} message 
@@ -29,7 +30,7 @@ module.exports = {
     // Get a response from the bot via api
     const res = await fetch(`http://api.brainshop.ai/get?bid=${client.config.chatbot.id}&key=${client.config.chatbot.key}&uid=${message.author.id}&msg=${encodeURIComponent(input)}`)
       .then(res => res.json())
-      .catch(() => { });
+      .catch(() => {});
 
     // Add a 3s delay
     await new Promise(_ => setTimeout(() => _(), 3000))

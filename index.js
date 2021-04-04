@@ -48,9 +48,7 @@ fs.readdir("./events/", (err, files) => {
       table2.addRow(eventName, '\x1b[31mERR!\x1b[0m');
     }
   });
-  console.log(
-    table2.toString()
-  ); //showing the table
+  console.log(table2.toString()); //showing the table
 });
 const player = fs.readdirSync("./events/player").filter((file) => file.endsWith(".js"));
 

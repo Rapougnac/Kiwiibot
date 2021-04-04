@@ -40,8 +40,9 @@ module.exports = {
                    { name: "\u200b", value: [ `[${this.string[8]}](https://discord.com/api/oauth2/authorize?client_id=776825747897319424&permissions=519249&scope=bot)`, this.string[9] ], inline: true, },
                    { name: "\u200b", value: [ `[${this.string[10]}](https://discord.com/oauth2/authorize?client_id=776825747897319424&permissions=1614138432&scope=bot)`, this.string[11]], inline: true },
                    { name: "\u200b", value: "\u200b", inline: true },
-                   {  name: `\u200b\n${this.string[12]}`, value: invitesGuild.url || this.string[13], inline: true }
+                   { name: `\u200b\n${this.string[12]}`, value: invitesGuild.url || this.string[13], inline: true }
                 ],
+                thumbnail: "https://cdn.discordapp.com/avatars/823158943214862357/7b9c263a86aebaf3ee5842115ef569dd.png?size=2048",
             },
         });
     },

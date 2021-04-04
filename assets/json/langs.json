@@ -1,9 +1,16 @@
 {
-  "languages": ["english", "french"],
+  "languages": [
+    "english",
+    "french"
+  ],
   "translations": {
     "ping": {
-      "english": ["🏓 Pong! The ping is: `{0}ms`\nHeartbeat: `{1}ms`"],
-      "french": ["🏓 Pong ! Le ping est de: `{0}ms`\nHeartbeat: `{1}ms`"]
+      "english": [
+        "🏓 Pong! The ping is: `{0}ms`\nHeartbeat: `{1}ms`"
+      ],
+      "french": [
+        "🏓 Pong ! Le ping est de: `{0}ms`\nHeartbeat: `{1}ms`"
+      ]
     },
     "hackban": {
       "english": [
@@ -138,8 +145,12 @@
       ]
     },
     "changemymind": {
-      "english": ["Please put a valid text!"],
-      "french": ["Veuillez mettre un texte valide !"]
+      "english": [
+        "Please put a valid text!"
+      ],
+      "french": [
+        "Veuillez mettre un texte valide !"
+      ]
     },
     "MESSAGE_PREFIX": {
       "english": "My prefix in the server {0} is {1}",
@@ -210,76 +221,150 @@
       ]
     },
     "serverlist": {
-      "english": ["No Guild", "members"],
-      "french": ["Aucun serveur", "membres"]
+      "english": [
+        "No Guild",
+        "members"
+      ],
+      "french": [
+        "Aucun serveur",
+        "membres"
+      ]
     },
     "3000y": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "afusion": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "approved": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "batslap": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "beautiful": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "blur": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "blurple": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "brazzers": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "challenger": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "house": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "distort": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "facebook": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "fire": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "jail": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "lookwhatkarenhave": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "magik": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "moustache": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "pixelize": {
       "english": [
@@ -294,16 +379,28 @@
       ]
     },
     "ps4": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "rip": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "scary": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "symmetry": {
       "english": [
@@ -332,12 +429,20 @@
       ]
     },
     "thanos": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "vs": {
-      "english": ["**Please Wait...**"],
-      "french": ["**Veuillez patientez...**"]
+      "english": [
+        "**Please Wait...**"
+      ],
+      "french": [
+        "**Veuillez patientez...**"
+      ]
     },
     "invite": {
       "english": [
@@ -371,6 +476,40 @@
         "Les permissions basiques pour que le bot puisse fonctionner comme il faut avec les commandes de base",
         "**Ou bien vous pouvez avoir le lien d'invitation du serveur à la place...**",
         "J'ai été incapable de récupérer le lien d'invitation (J'ai besoins de la permission `MANAGE_GUILD`)"
+      ]
+    },
+    "chatbot": {
+      "english": [],
+      "french": []
+    },
+    "animefacts": {
+      "english": [],
+      "french": []
+    },
+    "character": {
+      "english": [
+        "Searching for character named **{0}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)",
+        "No results were found for **{0}**!\n\nIf you believe this character exists, try their alternative names.",
+        "I'm being rate limited in {0}, please try again later.",
+        "I could not access {0}, the site might be currently down, please try again later.",
+        "{0} responded with HTTP error code {1}"
+      ],
+      "french": [
+        "En train de chercher un personnage nommé **{0}** sur <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)",
+        "Aucun résultat n'a été trouvé pour **{0}**\n\nSi vous pensez que ce personnage existe, essayez par leur nom différent.",
+        "Je suis limitée en {0}, veuillez réessayer plus tard.",
+        "Je ne peux pas accéder {0}, le site pourrait être indisponible pour le moment.",
+        "{0} a répondu avec le code d'erreur HTTP {1}"
+      ]
+    },
+    "avatar": {
+      "english": [
+        "Avatar of {0}",
+        "If the image is not displayed, [click here]"
+      ],
+      "french": [
+        "Avatar de {0}",
+        "Si l'avatar n'est pas affiché, [cliquez ici]"
       ]
     }
   }

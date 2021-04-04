@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Message, Client } = require('discord.js');
 const _ = require('lodash');
 const fetch = require('node-fetch');
 
@@ -11,26 +11,42 @@ module.exports = {
   aliases: ["char"],
   category: 'Anime',
   description: 'Searches for a character in <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)',
+  utilisation: "{prefix}character [character]",
+  cooldown: 10,
+  nsfw: false,
+  guildOnly: false,
+  adminOnly: false,
+  ownerOnly: false,
+  string: [],
+  /**
+   * @param {Client} client 
+   * @param {Message} message 
+   * @param {String[]} args 
+   * @returns
+   */
   async execute(client, message, args) {
 
     const query = args.join(' ');
 
-    const embed = new MessageEmbed({ color: "YELLOW", description: "(`Searching for character named **${query}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)`", thumbnail: "https://cdn.discordapp.com/attachments/494469722826604546/822838565842583582/tenor.gif"});
+    
+    //const embed = new MessageEmbed({ color: "YELLOW", description: `${this.string[0].format(query)}`, thumbnail: 'https://cdn.discordapp.com/attachments/494469722826604546/822838565842583582/tenor.gif'});
+    const embed = new MessageEmbed().setColor("YELLOW").setThumbnail("https://cdn.discordapp.com/attachments/494469722826604546/822838565842583582/tenor.gif").setDescription(this.string[0].format(query))
     const msg = await message.channel.send(embed);
-
+    //const embd = new MessageEmbed().setColor("YELLOW").setThumbnail("https://cdn.discordapp.com/attachments/819628139071668274/828319991521869864/SUnd8msYOTpAc7jjr4JzXKI6GxloJofHam0W87YIB3w.png").setDescription(this.string[1])
+    //if(!query) return message.channel.send(embd)
     let data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(query)}&page=1`).then(res => res.json());
 
     const errstatus = {
-      "404": `No results were found for **${query}**!\n\nIf you believe this character exists, try their alternative names.`,
-      "429": `I am being rate-limited in ${badge}. Please try again Later`,
-      "500": `Could not access ${badge}. The site might be currently down at the moment`,
-      "503": `Could not access ${badge}. The site might be currently down at the moment`,
+      404: `${this.string[1].format(query)}`,
+      429: `${this.string[2].format(badge)}`,
+      500: `${this.string[3].format(badge)}`,
+      503: `${this.string[3].format(badge)}`,
     }
 
     embed
     .setColor('RED')
-    .setAuthor(data.status == 404 ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
-    .setDescription(`**${message.member.displayName}**, ${errstatus[data.status] || `${badge} responded with HTTP error code ${data.status}`}`)
+    .setAuthor(data.status == 404 ? 'None Found' : 'Response Error')
+    .setDescription(`**${message.member.displayName}**, ${errstatus[data.status] || `${this.string[4].format(badge, data.status)}`}`)
     .setThumbnail('https://i.imgur.com/qkBQB8V.png');
 
     if (!data || data.error){
@@ -43,7 +59,7 @@ module.exports = {
     .then(res => res.json())
     .catch(() => {});
 
-    embed.setDescription(`**${message.member.displayName}**, ${errstatus[data.status] || `${badge} responded with HTTP error code ${data.status}`}`);
+    embed.setDescription(`**${message.member.displayName}**, ${errstatus[data.status] || `${this.string[4].format(badge, data.status)}`}`);
 
     if (!res || res.error){
       return await msg.edit(embed).catch(()=>{}) || message.channel.send(embed);

@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Client, Collection } = require("discord.js");
 const config = require("./config.json");
 const lang = require("./language")
 const glob = require("glob");
@@ -10,7 +10,7 @@ let table3 = new ascii("PLayer Events");
 table2.setHeading("Events", "Load status");
 table3.setHeading("Player Events", "Load status");
 require("colors");
-const client = new Discord.Client({
+const client = new Client({
   disableEveryone: true,  //disables, that the bot is able to send @everyone
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'] //creating the client with partials, so you can fetch OLD messages;
 });
@@ -19,22 +19,18 @@ const mongoose = require("mongoose");
 
 //client initalization
 client.login(config.discord.token);
-
-client.commands = new Discord.Collection();
-client.commands_path = new Discord.Collection();
-client.aliases = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
+//All collections of the bot
+["commands", "commands_path", "aliases", "cooldowns"].forEach(x => client[x] = new Collection())
 client.config = config;
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
+client.db_warns = require("./db_warns.json");
+client.config.features = client.config.allowedFeatures;
 client.player = new Player(client, {
   autoSelfDeaf: false,
   quality: "high",
   enableLive: true,
 });
-client.db_warns = require("./db_warns.json");
-client.config.features = client.config.allowedFeatures;
-
 //Load the events
 fs.readdir("./events/", (err, files) => {
   files = files.filter((file) => file.endsWith(".js"));

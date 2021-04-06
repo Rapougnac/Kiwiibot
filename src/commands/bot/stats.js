@@ -1,10 +1,10 @@
 const { MessageEmbed, version: discord_version } = require('discord.js');
-const { version, author } = require('../../package.json');
+const { version, author } = require('../../../package.json');
 const { createCanvas, loadImage } = require('canvas');
 const { release, cpus } = require('os');
 const moment = require('moment');
 
-const text = require(`${process.cwd()}/util/string`);
+const text = require(`../../util/string`);
 const MemoryLimit = 512;  //If one day the bot is on heroku
 /**
  * Display the stats of the bot

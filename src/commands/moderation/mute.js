@@ -1,4 +1,5 @@
 const { Client, Message } = require("discord.js");
+//const muteSchema = require("")
 
 module.exports = {
     name: 'mute',
@@ -6,6 +7,13 @@ module.exports = {
     description: 'Mute a person',
     category: 'Core',
     utilisation: '{prefix}mute <mention>',
+    cooldown: 1,
+    adminOnly: false,
+    ownerOnly: false,
+    guildOnly: true,
+    nsfw: false,
+    permissions: ["KICK_MEMBERS"],
+    clientPermissions: ["KICK_MEMBERS", "MANAGE_ROLES", "SEND_MESSAGES", "VIEW_CHANNEL"],
     /**
      * @param {Client} client 
      * @param {Message} message 
@@ -14,8 +22,6 @@ module.exports = {
      */
     async execute(client, message, args) {
         
-        if (!message.member.hasPermission("ADMINISTRATOR")) return;
-
         let mention = message.mentions.members.first();
         let reason = args.join(' ').slice(mention);
 

@@ -1,6 +1,5 @@
 const { MessageAttachment, Message, Client } = require("discord.js")
 const AmeClient = require('amethyste-api');
-const config = require('../../config.json');
 
 module.exports = {
     name: 'vs',
@@ -22,7 +21,7 @@ module.exports = {
      * @param {String[]} args
      */
     async execute(client, message, args) {
-        const AmeAPI = new AmeClient(config.amethyste.client); {
+        const AmeAPI = new AmeClient(client.config.amethyste.client); {
     
           const User = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member; 
           let m = await  message.channel.send(this.string[0]);

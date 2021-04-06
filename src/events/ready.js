@@ -1,13 +1,13 @@
 const path = require("path")
-const { getCommands } = require("../../util/index")
-const consoleUtil = require(`${process.cwd()}/util/console`)
-const text = require(`${process.cwd()}/util/string`)
+const { getCommands } = require("../util/index")
+const consoleUtil = require(`../util/console`)
+const text = require(`../util/string`)
 const { version, author } = require("../../package.json")
 const { performance } = require("perf_hooks")
 const bootTime = Math.round(performance.now())
 // const { logs } = require("config.json");
 //const GuildProfilesManager = require("../struct/guilds/ProfileManager")
-const { loadLanguages } = require("../../language");
+const { loadLanguages } = require("../language");
 
 module.exports = async (client) => {
   /**

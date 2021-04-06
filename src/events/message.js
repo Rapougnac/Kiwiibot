@@ -1,8 +1,8 @@
 
 const { Collection, Message, Client, MessageEmbed } = require("discord.js")
-const { prefix } = require("../../util/prefix")
-const { language } = require("../../language")
-const lang = require("../../assets/json/langs.json");
+const { prefix } = require("../util/prefix")
+const { language } = require("../language")
+const lang = require("../assets/json/langs.json");
 
 /**
  * @param {Message} message

@@ -13,6 +13,7 @@ module.exports = {
 	category: 'Infos',
 	cooldown: 5,
 	utilisation: '{prefix}ping',
+	nsfw: false,
 	ownerOnly: false,
 	guildOnly: false,
 	adminOnly: false,

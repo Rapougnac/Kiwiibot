@@ -1,9 +1,9 @@
 const { Client, Collection } = require("discord.js");
-const config = require("./config.json");
-const lang = require("./language")
+const config = require("./src/config.json");
+const lang = require("./src/language")
 const glob = require("glob");
 const { Player } = require("discord-player");
-const consoleUtil = require(`${process.cwd()}/util/console`);
+const consoleUtil = require(`./src/util/console`);
 const ascii = require("ascii-table");
 let table2 = new ascii("Events");
 let table3 = new ascii("PLayer Events");
@@ -32,10 +32,10 @@ client.player = new Player(client, {
   enableLive: true,
 });
 //Load the events
-fs.readdir("./events/", (err, files) => {
+fs.readdir("./src/events/", (err, files) => {
   files = files.filter((file) => file.endsWith(".js"));
   files.forEach((file) => {
-    const eventHandler = require(`./events/${file}`);
+    const eventHandler = require(`./src/events/${file}`);
     const eventName = file.split(".")[0];
     client.on(eventName, (...args) => eventHandler(client, ...args));
     if (eventName) {
@@ -46,11 +46,11 @@ fs.readdir("./events/", (err, files) => {
   });
   console.log(table2.toString()); //showing the table
 });
-const player = fs.readdirSync("./events/player").filter((file) => file.endsWith(".js"));
+const player = fs.readdirSync("./src/events/player").filter((file) => file.endsWith(".js"));
 
 //Loading the player events
 for (const file of player) {
-  const event = require(`./events/player/${file}`);
+  const event = require(`./src/events/player/${file}`);
   const eventName = file.split(".")[0];
   client.player.on(eventName, event.bind(null, client));
   if (eventName) {
@@ -67,7 +67,7 @@ var recursive_readdir = function (src, callback) {
 };
 
 //Load the commands
-recursive_readdir("commands", function (err, files) {
+recursive_readdir("./src/commands", function (err, files) {
   if (err) {
     consoleUtil.error("Error", err);
   } else {
@@ -108,7 +108,7 @@ if(config.database.enable) {
   consoleUtil.warn("Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!");
 };
 
-const PrefixSchema = require("./models/PrefixSchema");
+const PrefixSchema = require("./src/models/PrefixSchema");
 
 client.prefix = async function(message){
   let  customprefix;

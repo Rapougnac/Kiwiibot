@@ -1,7 +1,6 @@
 const { MessageEmbed, Message, Client } = require('discord.js');
 const _ = require('lodash');
 const fetch = require('node-fetch');
-//require("module-alias/register");
 const text = require('../../util/string');
 
 const badge = '<:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)';

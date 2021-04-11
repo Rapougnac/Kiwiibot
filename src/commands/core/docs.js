@@ -1,6 +1,5 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
 const axios = require("axios");
-const language = require("../../language")
 
 module.exports = {
     name: "djs",

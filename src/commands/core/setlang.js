@@ -3,7 +3,7 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
 const { languages } = require("../../assets/json/langs.json");
 const languageSchema = require("../../models/languageSchema")
-const { setLanguage } = require("../../language");
+const { setLanguage } = require("../../../language");
 module.exports = {
     name: 'setlanguage',
     aliases: ["setlang"],

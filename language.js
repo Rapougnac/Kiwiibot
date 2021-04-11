@@ -1,5 +1,5 @@
-const languageSchema = require("./models/languageSchema");
-const lang = require("./assets/json/langs.json");
+const languageSchema = require("./src/models/languageSchema");
+const lang = require("./src/assets/json/langs.json");
 
 const guildLanguages = {};
 
@@ -15,7 +15,7 @@ const loadLanguages = async (client) => {
             guildLanguages[guildID] = result ? result.language : "english";
         };
     } catch (error) {
-        message.channel.send(`⚠️[DATABASE ERROR] The database responded with the following error: ${error.name}`);
+        console.error(`⚠️[DATABASE ERROR] The database responded with the following error: ${error.name}`);
     };
 };
 

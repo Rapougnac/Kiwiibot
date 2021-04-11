@@ -2,7 +2,7 @@ const { Client, Message, MessageEmbed, DiscordAPIError } = require('discord.js')
 
 module.exports = {
     name: 'eval',
-    aliases: ["test"],
+    aliases: [],
     description: 'Eval the code',
     category: 'Core',
     utilisation: '{prefix}eval',

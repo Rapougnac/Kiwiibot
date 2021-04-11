@@ -511,6 +511,18 @@
         "Avatar de {0}",
         "Si l'avatar n'est pas affiché, [cliquez ici]"
       ]
+    },
+    "dm": {
+      "english": ["Please mention a user to send a dm"],
+      "french": ["Veuillez mentionner un utilisateur pour envoyer un mp"]
+    },
+    "dmall": {
+      "english": ["Please give me a valid id!"],
+      "french": ["S'il vous plaît, veuillez me donner une id valide !"]
+    },
+    "embedbuilder": {
+      "english": [],
+      "french": []
     }
   }
 }

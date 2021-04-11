@@ -61,7 +61,7 @@
   },
   "database": {
     "enable": true,
-    "uri": "MONGO_URI_HERE",
+    "URI": "MONGO_URI_HERE",
     "config": {
       "useUnifiedTopology": true,
       "useNewUrlParser": true,

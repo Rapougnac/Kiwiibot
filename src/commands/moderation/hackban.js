@@ -1,5 +1,4 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
-const { language } = require("../../language");
 module.exports = {
     name: 'hackban',
     aliases: ['hb'],

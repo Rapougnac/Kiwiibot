@@ -28,6 +28,6 @@ module.exports = {
             const attachment = new MessageAttachment(buffer, "3000years.png");
             m.delete({ timeout: 3000 });
             message.channel.send(attachment);
-          }
+        }
     },
 };

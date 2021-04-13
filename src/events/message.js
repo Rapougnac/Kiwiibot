@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
     return message.channel.send(`${language(guild, "MESSAGE_PREFIX").format(guild.name, p)}`)
   }
   if (!message.content.toLowerCase().startsWith(p) || message.author.bot) return
-  const args = message.content.slice(p.length).trim().split(/ +/g)
+  const args = message.content.slice(p.length).trim().split(/\s+/g)
   const command = args.shift().toLowerCase()
 
   if (!client.commands.has(command) && !client.aliases.has(command)) return

@@ -53,15 +53,15 @@ module.exports = {
                 case "🕵️":
                     const msgQuestionAuthor = await message.channel.send("Quel est le nom votre auteur ?");
                     const Author = (await message.channel.awaitMessages(filterMessage, { max: 1, time: 60000 })).first().content;
-                    const msgQuestionAuthorImage = await message.channel.send("Quelle est l'image de votre auteur ?");
-                    const AuthorImage = (await message.channel.awaitMessages(filterMessage, { max: 1, time: 60000 })).first().content;
-                    if(!(AuthorImage.includes("http") || AuthorImage.includes("https") || AuthorImage.includes("png") || AuthorImage.includes("jpg") || AuthorImage.includes("jpeg"))) return message.channel.send("fichiers png, jpg et jpeg seulement !");
-                    const msgQuestionUrl = await message.channel.send("Quelle est l'url de votre auteur ?");
-                    const Url = (await message.channel.awaitMessages(filterMessage, { max: 1, time: 60000 })).first().content;
+                    //const msgQuestionAuthorImage = await message.channel.send("Quelle est l'image de votre auteur ?");
+                    //const AuthorImage = (await message.channel.awaitMessages(filterMessage, { max: 1, time: 60000 })).first().content;
+                    //if(!(AuthorImage.includes("http") || AuthorImage.includes("https") || AuthorImage.includes("png") || AuthorImage.includes("jpg") || AuthorImage.includes("jpeg"))) return message.channel.send("fichiers png, jpg et jpeg seulement !");
+                    //const msgQuestionUrl = await message.channel.send("Quelle est l'url de votre auteur ?");
+                    //const Url = (await message.channel.awaitMessages(filterMessage, { max: 1, time: 60000 })).first().content;
                     msgQuestionAuthor.delete();
-                    msgQuestionAuthorImage.delete();
-                    msgQuestionUrl.delete();
-                    BaseEmbed.setAuthor(Author, AuthorImage, Url)
+                    //msgQuestionAuthorImage.delete();
+                    //msgQuestionUrl.delete();
+                    BaseEmbed.setAuthor(Author/*, AuthorImage, Url*/)
                     messageEmbedForEditing.edit(BaseEmbed);
                 break;
 

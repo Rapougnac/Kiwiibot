@@ -16,7 +16,6 @@ module.exports = {
     clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES"],
     string: [],
     /**
-
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
@@ -31,7 +30,7 @@ module.exports = {
             }
             if(emoji === '❌') {
                 msg.delete()
-                message.channel.send(this.string[2])
+                return message.channel.send(this.string[2])
             }
         })
 

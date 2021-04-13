@@ -1,4 +1,4 @@
-const { MessageEmbed, version: discord_version } = require('discord.js');
+const { MessageEmbed, Message, Client, version: discord_version } = require('discord.js');
 const { version, author } = require('../../../package.json');
 const { createCanvas, loadImage } = require('canvas');
 const { release, cpus } = require('os');
@@ -17,7 +17,14 @@ module.exports = {
   category: 'Bot',
   description: 'Displays the status of the bot instance.',
   utilisation: '{prefix}stats',
-  async execute(client, message) {
+  /**
+   * 
+   * @param {Client} client 
+   * @param {Message} message 
+   * @param {String[]} args
+   * @returns 
+   */
+  async execute(client, message, args) {
 
     const { heapUsed, heapTotal } = process.memoryUsage();
 
@@ -60,7 +67,7 @@ module.exports = {
     ctx.beginPath();
     ctx.font = 'bold 15px arial';
     ctx.fillStyle = 'rgba(255,255,255,0.8)';
-    ctx.fillText('Kiwii', 75, 45, 25);
+    ctx.fillText(client.user.username, 75, 45, 25);
     ctx.font = 'bold 10px arial';
     ctx.fillStyle = 'rgba(255,255,255,0.6)';
     ctx.fillText('#' + client.user.discriminator, 100, 45, 50);

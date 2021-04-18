@@ -13,7 +13,6 @@ module.exports = {
     const query = args.join(' ');
 
     if (!query){
-      client.commands.cooldowns.get(this.name).users.delete(message.author.id);
       return message.channel.send('\\❌ Please include the user to find on mal!');
     };
 

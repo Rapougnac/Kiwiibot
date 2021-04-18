@@ -25,6 +25,7 @@
     "amethyste-api": "^1.1.5",
     "ascii-table": "0.0.9",
     "axios": "^0.21.1",
+    "blueapi.js": "^0.0.4",
     "booru": "^2.4.0",
     "canvacord": "^5.1.0",
     "canvas": "^2.7.0",

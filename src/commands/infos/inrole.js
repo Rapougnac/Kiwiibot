@@ -11,11 +11,19 @@ module.exports = {
     async execute(client, message, args) {
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]) || message.guild.roles.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase())
 
-        const allMembers = message.guild.members.cache.map(m => {
-            return `${m.user.tag}${(m.user.bot ? ' [BOT]' : '')}`
+        // const allMembers = message.guild.members.cache
+        // .filter(member => {
+        //     member.roles.cache.get(role.id)
+        // })
+        // /*.cache*/.map(m => {
+        //     return `${m.user.tag}${(m.user.bot ? ' [BOT]' : '')}`
+        // }).sort((a, b) => a.localeCompare(b)).join(', ')
+        const str = message.guild.roles.cache.get(role).members.map(m => m.user.tag);
+        //const str = message.guild.members.fi
+        //if(!allMembers) return message.channel.send('There are no members in that role!')
+        const allMembers = message.guild.roles.cache.get(role).members.map((m) => {
+            return `${m.user.tag}${(m.user.bot ? " [BOT]" : "")}`
         }).sort((a, b) => a.localeCompare(b)).join(', ')
-
-        if(!allMembers) return message.channel.send('There are no members in that role!')
 
         if(allMembers.length > 2048) return message.channel.send('Too much members in that role! I couldn\'t send the information!');
 
@@ -24,6 +32,6 @@ module.exports = {
             .setColor(role.hexColor)
             .setDescription(`\`\`\`css\n${allMembers}\`\`\``)
             .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL());
-        return message.channel.send(`All members with the **${role.name}** role!`, {embed: embed});
+        return message.channel.send(`All members with the **${role.name}** role!`, { embed: embed });
     },
 };

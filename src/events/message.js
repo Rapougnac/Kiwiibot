@@ -20,8 +20,7 @@ module.exports = async (client, message) => {
   const command = args.shift().toLowerCase()
 
   if (!client.commands.has(command) && !client.aliases.has(command)) return
-  const command_to_execute =
-    client.commands.get(command) || client.aliases.get(command)
+  const command_to_execute = client.commands.get(command) || client.aliases.get(command)
 
   if (command_to_execute) {
     const reasons = []
@@ -115,7 +114,6 @@ module.exports = async (client, message) => {
           );
         }
       }
-
       if (reasons.length > 0) {
         const embed = new MessageEmbed()
           .setAuthor("Command Execution Blocked!")

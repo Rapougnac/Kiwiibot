@@ -522,7 +522,7 @@
     },
     "embedbuilder": {
       "english": [],
-      "french": []
+      "french": ["Veuillez patientez pendant l'ajout des réactions.", "✏️ Modifier le titre\n💬 Modifier la description\n🕵️ Modifier l'auteur\n🔻 Modifier le footer\n🔳 Modifier le thumbnail\n🕙 Ajouter un timestamp\n🖼️ Modifier l'image\n🌐 Modifier l'url\n🔵 Modifier la couleur\n↩️ Ajouter un field\n📥 Copier un embed existant\n✅ Envoyer l'embed\n📑 Modifier un message du bot avec cet embed\n❌ Pour annuler la commande"]
     }
   }
 }

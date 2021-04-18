@@ -78,15 +78,7 @@ module.exports = {
       })
       if (!args[0]) return message.channel.send(embederr)
 
-      const User =
-        (await message.mentions.members.first()) ||
-        message.guild.members.cache.get(args[0]) ||
-        message.guild.members.cache.find(
-          (r) => r.user.username.toLowerCase() == args.join(" ").toLowerCase()
-        ) ||
-        message.guild.members.cache.find(
-          (r) => r.displayName.toLowerCase() === args.join(" ").toLowerCase()
-        )
+      const User = (message.mentions.members.first()) || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find((r) => r.user.username.toLowerCase() == args.join(" ").toLowerCase()) || message.guild.members.cache.find((r) => r.displayName.toLowerCase() === args.join(" ").toLowerCase()/* || client.users.fetch(args[0])*/)
       if (!User) {
         if (
           !(

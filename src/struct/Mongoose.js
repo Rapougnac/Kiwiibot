@@ -1,47 +1,55 @@
 const mongoose = require("mongoose")
-const { Client } = require("discord.js")
 const consoleUtil = require("../util/console")
+const Client = require("./Client")
 module.exports = class Mongoose {
   /**
-    * @param {Client} client 
+    * @param {Client} client The client from `./Client`
+    * @param {Object} options The options passed trough the Mongoose manager
     */
-  constructor(client) {
+  constructor(client, options = {}) {
     Object.defineProperty(this, "client", { value: client })
-    this.db = mongoose
-    this.connected = false
-    this.db.connection.on("connected", () => {
-      this.connected = true
-    })
-    this.db.connection.on("disconnect", () => {
-      this.connected = false
-    })
-  }
-  init() {
-    //     this.db.connect(client.database.URI, {
-    //       useFindAndModify: false,
-    //       useUnifiedTopology: true,
-    //       useNewUrlParser: true,
-    //       autoIndex: false,
-    //       poolSize: 5,
-    //       family: 4,
-    //     }).then(() => {
-    //         consoleUtil.success("Connected to Mongodb");
-    //   }).catch(err => {
-    //         consoleUtil.error("Failed to connect to MongoDB " + err);
-    //     })
-    this.db.connect(client.database.URI, {
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      autoIndex: false,
-      poolSize: 5,
-      family: 4,
-    }).catch((error) => {
-        consoleUtil.error(error.message, 'db');
-    });
-    this.db.Promise = global.Promise;
+    /**
+     * The connection URI for this instance
+     * @type {string}
+     */
+    this.connector = options.URI;
+    /**
+     * The connection settings for this instance
+     * @type {object}
+     */
+    this.settings = options.config;
 
-    this.db.connection.on("connected", () => {consoleUtil.success('Connected to MongoDB!')});
-    return this.db;
-  };
+    /**
+     * Instance of mongoose library
+     * @type {object}
+     */
+    this.database = mongoose;
+    /**
+     * Wether the client is connected to the database
+     */
+    this.connected = false;
+
+    this.database.connection.on("connected", () => this.connected = true);
+    this.database.connection.on("disconnect", () => this.connected = false);
+
+
+  }
+  /**
+   * Initialize this database
+   * @returns {Object<Database>}
+   */
+  init() {
+    this.database.connect(this.connector, this.settings).catch((error) => {
+      consoleUtil.error(error.message, "[Database]");
+    });
+
+    this.database.set("useFindAndModify", false);
+
+    this.database.Promise = global.Promise;
+
+    this.database.connection.on("connected", () => {
+      consoleUtil.success("Connected to MongoDB");
+    });
+  }
+  
 };

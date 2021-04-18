@@ -44,7 +44,7 @@ And change the following values:
       "dev": {
         "include_cmd": [],
         "exclude_cmd": [],
-        "active": false /*Default is false, you can put it to true to exclude or include commands*/
+        "active": false /*Default is false, you can put it to true to exclude or include commands (remove this comment after all the changes)*/
       }
   },
   "amethyste": {

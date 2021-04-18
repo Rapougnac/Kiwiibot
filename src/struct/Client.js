@@ -60,11 +60,11 @@ module.exports = class KiwiiClient extends Client {
     if (options.database?.enable === true) {
       this.database = new Mongoose(this, options.database)
     } else {
-        // Do nothing
+      // Do nothing
     }
-  /**
-   * Function for the translation
-   */
+    /**
+     * Function for the translation
+     */
     String.prototype.format = function () {
       let args = arguments
       return this.replace(/{(\d+)}/g, function (match, number) {
@@ -113,17 +113,17 @@ module.exports = class KiwiiClient extends Client {
       if (this.config.discord.dev.include_cmd.length) {
         files = files.filter((file) =>
           file.endsWith(this.config.discord.dev.include_cmd)
-        );
+        )
       } else {
         // Do nothing
       }
       if (this.config.discord.dev.exclude_cmd.length) {
         files = files.filter(
           (file) => !file.endsWith(this.config.discord.dev.exclude_cmd)
-        );
+        )
       } else {
         // Do nothing
-      };
+      }
     } else {
       // Do nothing
     }
@@ -185,25 +185,23 @@ module.exports = class KiwiiClient extends Client {
         Console.error("Failed to connect to MongoDB ", err)
       })
   }
-    /**
+  /**
    * Load all player events in the specified directory
    * @param {String} path The path where the player events are located
    * @returns
    */
   playerInit(path) {
-    const player = readdirSync(path).filter((file) =>
-      file.endsWith(".js")
-    )
+    const player = readdirSync(path).filter((file) => file.endsWith(".js"))
     for (const file of player) {
       const event = require(`../../src/events/player/${file}`)
       const eventName = file.split(".")[0]
-      this.player.on(eventName, event.bind(null, this));
+      this.player.on(eventName, event.bind(null, this))
       if (eventName) {
-        table2.addRow(eventName, "Ready");
+        table2.addRow(eventName, "Ready")
       } else {
-        table2.addRow(eventName, "\x1b[31mERR!\x1b[0m");
-      };
-    };
+        table2.addRow(eventName, "\x1b[31mERR!\x1b[0m")
+      }
+    }
     console.log(table2.toString())
-  };
-};
+  }
+}

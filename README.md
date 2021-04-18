@@ -76,6 +76,8 @@ And change the following values:
 * [x] Check permissions
 * [x] nsfw boolean
 * [x] GuildOnly/AdminOnly/OwnerOnly (GuildOnly is not implemented yet!)
+* [x] Extend client to modify the discord Client
+    * [x] Handle events, commands and mongoose in Client.js
 * [ ] Rpg system
   * [ ] Shop system
   * [ ] Battle system

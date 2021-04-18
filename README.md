@@ -83,6 +83,7 @@ And change the following values:
   * [ ] Battle system
 * [ ] Level system
 * [ ] Upgrade basics moderation commands
+* [ ] Dashboard for the bot
 
 
 ## License

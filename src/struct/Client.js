@@ -60,8 +60,11 @@ module.exports = class KiwiiClient extends Client {
     if (options.database?.enable === true) {
       this.database = new Mongoose(this, options.database)
     } else {
+        // Do nothing
     }
-
+  /**
+   * Function for the translation
+   */
     String.prototype.format = function () {
       let args = arguments
       return this.replace(/{(\d+)}/g, function (match, number) {

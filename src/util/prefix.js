@@ -1,31 +1,30 @@
 const PrefixSchema = require("../models/PrefixSchema")
 const { Message } = require("discord.js")
 const config = require("../../config.json");
+
 /**
  * @param {Message} message 
  * @param {config} config 
  */
 async function prefix(message, config) {
-  const data = await PrefixSchema.findOne({
-    GuildID: message.guild?.id,
-  }).catch((error) => console.log(error))
+
   let prefix;
-  if(message.channel.type !== "dm"){
-  if(message.content.startsWith("m?")){
-    prefix = "m?";
-  } else if (message.content.startsWith(config.discord.default_prefix.toLowerCase())) {
+  try {
+  if (message.content.startsWith(config.discord.default_prefix.toLowerCase())) 
     prefix = config.discord.default_prefix.toLowerCase();
-  } else if (data.Prefix && message.content.startsWith(data.Prefix)){
-    prefix = data.Prefix;
+    //if(message.channel.type === "dm") prefix = config.discord.default_prefix;
+   await PrefixSchema.findOne({GuildID: message.guild?.id}, function(err, data) {
+    if(!data) return prefix = config.discord.default_prefix.toLowerCase();
+    if (!err) prefix = data.Prefix;
+    else console.log(err);
+  });
+
+  if(message.channel.type !== "dm") return prefix;
+  else return config.discord.default_prefix.toLowerCase();
+  } catch (err) {
+    console.error(err);
   }
-  } else {
-    if(message.content.startsWith("m?")){
-      prefix = "m?";
-    } else if (message.content.startsWith(config.discord.default_prefix)) {
-      prefix = config.discord.default_prefix;
-    }
-  }
-  return prefix;
+
 }
 
 module.exports = { prefix }

@@ -1,13 +1,26 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
+const Client = require("../../struct/Client");
 
 const text = require('../../util/string');
 module.exports = {
   name: 'malprofile',
   aliases: [ 'mal-of', 'malof', 'malstat', 'maluser' ],
-  category: 'anime',
+  category: 'Anime',
   description: 'Finds user profile on myanimelist based on the provided query.',
+  utilisation: "{prefix}malprofile [profile]",
+  cooldown: 10,
+  nsfw: false,
+  guildOnly: false,
+  adminOnly: false,
+  ownerOnly: false,
+  /**
+   * @param {Client} client 
+   * @param {Message} message 
+   * @param {String[]} args 
+   * @returns 
+   */
    async execute (client, message, args ){
 
     const query = args.join(' ');

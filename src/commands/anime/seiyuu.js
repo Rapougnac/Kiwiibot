@@ -8,8 +8,16 @@ const text = require('../../util/string');
 module.exports = {
   name: 'seiyuu',
   aliases: ['voice', 'va'],
-  category: 'anime',
+  category: 'Anime',
   description: 'Search for seiyuu\'s on your favorite anime characters',
+  utilisation: "{prefix}seiyuu [voice actor/actress]",
+  cooldown: 10,
+  nsfw: false,
+  guidlOnly: false,
+  adminOnly: false,
+  ownerOnly: false,
+  permissions: [],
+  clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS"],
   async execute(client, message, args) {
     if(!seiyuu) return message.channel.send('doijcof')
     try {

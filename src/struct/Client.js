@@ -109,6 +109,24 @@ module.exports = class KiwiiClient extends Client {
   loadCommands(path) {
     let files = glob.sync(path + "/**/*")
     files = files.filter((file) => file.endsWith(".js"))
+    if (this.config.discord.dev.active) {
+      if (this.config.discord.dev.include_cmd.length) {
+        files = files.filter((file) =>
+          file.endsWith(this.config.discord.dev.include_cmd)
+        );
+      } else {
+        // Do nothing
+      }
+      if (this.config.discord.dev.exclude_cmd.length) {
+        files = files.filter(
+          (file) => !file.endsWith(this.config.discord.dev.exclude_cmd)
+        );
+      } else {
+        // Do nothing
+      };
+    } else {
+      // Do nothing
+    }
     files.forEach((file) => {
       const command = require(`../../${file}`)
       this.commands.set(command.name, command)
@@ -116,6 +134,8 @@ module.exports = class KiwiiClient extends Client {
         command.aliases.forEach((alias) => {
           this.aliases.set(alias, command)
         })
+      } else {
+        // Do nothing
       }
     })
     Console.success(`Loaded ${files.length} commands`)

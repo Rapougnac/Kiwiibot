@@ -72,7 +72,7 @@ module.exports = async (client) => {
 
   const app = express()
 
-  const port = 3000 || 3001
+  const port = 2000 || 3001
 
   app.set("view engine", "ejs")
 

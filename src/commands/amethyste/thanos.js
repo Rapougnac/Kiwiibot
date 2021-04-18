@@ -1,5 +1,6 @@
 const { MessageAttachment, Message, Client } = require("discord.js"),
-AmeClient = require('amethyste-api');
+AmeClient = require('amethyste-api'),
+Client = require("../../struct/Client");
 
 module.exports = {
     name: 'thanos',

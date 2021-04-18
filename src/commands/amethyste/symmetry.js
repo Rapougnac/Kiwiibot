@@ -1,10 +1,10 @@
 const {
     Message,
     MessageAttachment,
-    Client,
     MessageEmbed,
   } = require("discord.js"),
-  AmeClient = require("amethyste-api")
+  AmeClient = require("amethyste-api"),
+  Client = require("../../struct/Client");
 
 module.exports = {
   name: "symmetry",

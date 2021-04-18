@@ -26,3 +26,6 @@ if (client.config.database.enable) {
     "Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!"
   );
 };
+
+// TODO(Rapougnac): Finish all the properties of the commands
+// TODO(Rapougnac): Dashboard for the bot

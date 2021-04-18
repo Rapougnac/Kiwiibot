@@ -1,4 +1,4 @@
-const { MessageAttachment, Message, Client } = require("discord.js"),
+const { MessageAttachment, Message } = require("discord.js"),
 AmeClient = require('amethyste-api'),
 Client = require("../../struct/Client");
 

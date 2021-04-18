@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed, DiscordAPIError } = require('discord.js');
-
+const { clean } = require("../../util/string")
 module.exports = {
     name: 'eval',
     aliases: [],
@@ -30,10 +30,4 @@ module.exports = {
         }
     },
 };
-const clean = text => {
-    if (typeof(text) === "string")
-    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-    else
-    return text;
-}
 

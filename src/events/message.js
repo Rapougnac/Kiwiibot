@@ -3,19 +3,21 @@ const { Collection, Message, MessageEmbed } = require("discord.js")
 const { prefix } = require("../util/prefix")
 const { language } = require("../../language")
 const Client = require("../struct/Client")
-
 /**
  * @param {Message} message
  * @param {Client} client
  * @param {String[]} args
  */
 module.exports = async (client, message) => {
+
+  if(message.author.bot) return;
+  const p = await prefix(message, client.config);
   const { guild } = message;
-  const p = await prefix(message, client.config)
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
     return message.channel.send(`${language(guild, "MESSAGE_PREFIX").format(guild.name, p)}`)
   }
-  if (!message.content.toLowerCase().startsWith(p) || message.author.bot) return
+  if (!message.content.toLowerCase().startsWith(p)) return
+  
   const args = message.content.slice(p.length).trim().split(/\s+/g)
   const command = args.shift().toLowerCase()
 

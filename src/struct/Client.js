@@ -62,15 +62,18 @@ module.exports = class KiwiiClient extends Client {
     } else {
       // Do nothing
     }
+
+    
     /**
      * Function for the translation
      */
-    String.prototype.format = function () {
-      let args = arguments
+    String.prototype.format = function() {
+      let args = arguments;
       return this.replace(/{(\d+)}/g, function (match, number) {
         return typeof args[number] != "undefined" ? args[number] : match
-      })
-    }
+      });
+    };
+
     /**
      * The player function of the client
      * @type {Player}
@@ -99,7 +102,7 @@ module.exports = class KiwiiClient extends Client {
     super.login(token)
 
     //Return this client to allow chaining of function calls
-    return this
+    return this;
   }
   /**
    * Load all commands in the specifed directory

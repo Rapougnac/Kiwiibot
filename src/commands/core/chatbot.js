@@ -5,9 +5,9 @@ const { Client, Message, MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'chatbot',
   aliases: ["chat"],
-  description: 'Chat with the bot with the api \n⚠ This functionnality is made with an API son it can\'t be translated!',
+  description: 'Chat with the bot with an api \n⚠ This functionnality is made with an API so it can\'t be translated!',
   category: 'Core',
-  utilisation: '{prefix}chatbot',
+  utilisation: '{prefix}chatbot <message>',
   cooldown: 5,
   nsfw: false,
   guildOnly: false,

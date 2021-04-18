@@ -10,9 +10,8 @@ async function prefix(message, config) {
 
   let prefix;
   try {
-  if (message.content.startsWith(config.discord.default_prefix.toLowerCase())) 
-    prefix = config.discord.default_prefix.toLowerCase();
-    //if(message.channel.type === "dm") prefix = config.discord.default_prefix;
+  if (message.content.startsWith(config.discord.default_prefix.toLowerCase())) return prefix = config.discord.default_prefix.toLowerCase();
+    if(message.channel.type === "dm") prefix = config.discord.default_prefix.toLowerCase();
    await PrefixSchema.findOne({GuildID: message.guild?.id}, function(err, data) {
     if(!data) return prefix = config.discord.default_prefix.toLowerCase();
     if (!err) prefix = data.Prefix;

@@ -1,5 +1,4 @@
 .vscode/
-db_warns.json
 config.json
 audio/record.mp3
 audio/record.pcm

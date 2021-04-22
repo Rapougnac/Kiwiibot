@@ -28,44 +28,44 @@ module.exports = class KiwiiClient extends Client {
      * A collection of all the bot's commands
      * @type {Collection}
      */
-    this.commands = new Collection()
+    this.commands = new Collection();
     /**
      * A collection of all the bot's command aliases
      * @type {Collection}
      */
-    this.aliases = new Collection()
+    this.aliases = new Collection();
     /**
      * A collection of the cooldown of the bot
      * @type {Collection}
      */
-    this.cooldowns = new Collection()
+    this.cooldowns = new Collection();
 
     // Client variables
     /**
      * The bot configuration file, empty if no file was specified
      * @type {Object}
      */
-    this.config = options.config ? require(`../../${options.config}`) : {}
+    this.config = options.config ? require(`../../${options.config}`) : {};
 
     Console.success(
       `Client has been initialized, you're using ${process.version}`
-    )
+    );
 
     /**
      * The database connected to this bot (null if false)
      * @type {?Mongoose}
      */
-    this.database = null
+    this.database = null;
 
     if (options.database?.enable === true) {
       this.database = new Mongoose(this, options.database)
     } else {
       // Do nothing
-    }
+    };
 
     
     /**
-     * Function for the translation
+     * Function to format a string
      */
     String.prototype.format = function() {
       let args = arguments;
@@ -82,7 +82,7 @@ module.exports = class KiwiiClient extends Client {
       autoSelfDeaf: false,
       quality: "high",
       enableLive: true,
-    })
+    });
     /**
      * Get the emojis in config
      */

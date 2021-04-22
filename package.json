@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/fekt/nekos.life-bot/issues"
   },
+  "_moduleAliases": {
+    "@struct": "./src/struct",
+    "@Client": "./src/struct/Client"
+  },
   "homepage": "https://github.com/fekt/nekos.life-bot#readme",
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
@@ -60,6 +64,7 @@
     "lowdb": "^1.0.0",
     "mathjs": "^9.3.0",
     "merge-options": "^3.0.4",
+    "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.12.3",

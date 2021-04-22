@@ -1,6 +1,6 @@
 const booru = require("booru")
 const { BooruError, sites } = require("booru")
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "r34",
@@ -21,12 +21,13 @@ module.exports = {
                 let msg = await message.channel.send(`No results found for **${query}**!`);
                 msg.delete({ timeout: 5000 }) 
               }
-              if(query == "LOLI".toLowerCase()) return message.channel.send("Mommy I see a pedo")
+              if(query === "LOLI".toLowerCase()) return message.channel.send("Mommy I see a pedo")
             for (let image of images) {
-              const embed = new Discord.MessageEmbed()
+              const embed = new MessageEmbed()
                 .setTitle("Rule34:")
                 .setDescription(`・ Rating: \`${image.rating}\` (s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated' | Score: ${image.score})`)
-                .setImage(image.fileUrl)
+                .attachFiles(image.fileUrl)
+                .setImage(`attachment://test.png`)
                 .setColor("#FF0000")
                 .setFooter(`Tags: ${image.tags.slice(",").join(" | ")}`)
                 .setURL(image.fileUrl)

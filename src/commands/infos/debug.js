@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const Embed = require("@struct/MessageEmbed");
 const { version } = require('../../../package.json')
 const moment = require('moment');
 require("moment-duration-format");
@@ -11,7 +11,7 @@ module.exports = {
 
     async execute(client, message,args) {
         const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
-        message.channel.send(new MessageEmbed ({
+        message.channel.send(new Embed({
             color: 'BLUE',
             title: 'Debug infos:',
             description: 'Infos about the bot',

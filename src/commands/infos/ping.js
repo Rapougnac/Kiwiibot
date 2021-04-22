@@ -6,7 +6,7 @@ function formatNumber(number, minimumFractionDigits = 0) {
 	});
 }
 const { Message, MessageEmbed } = require("discord.js");
-const Client = require("../../struct/Client")
+const Client = require("@Client")
 
 module.exports = {
     name: 'ping',
@@ -30,10 +30,9 @@ module.exports = {
 	 */
 	async execute(client,message,args) {
         message.channel.startTyping();
-		const msg = await message.channel.send(`🏓 Pinging....`);
-		const ping = /*Math.round*/(msg.createdTimestamp - message.createdTimestamp);
+		const msg = await message.lineReplyNoMention(`🏓 Pinging....`);
+		const ping = (msg.createdTimestamp - message.createdTimestamp);
 		const string = this.string[0].format(ping, formatNumber((client.ws.ping)));
-        //editing it to the actual latency
         msg.edit(stripIndents`${string}`);
 		message.channel.stopTyping();
 	},

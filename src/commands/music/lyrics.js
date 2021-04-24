@@ -52,7 +52,7 @@ module.exports = {
         .setThumbnail(data.thumbnail.genius)
         .setFooter([
           `Page ${i+1} of ${lyrics_subarray.length}`,
-          `Lyrics | \©️${new Date().getFullYear()} Kiwii`
+
         ].join( '\u2000•\u2000' ))
         .setAuthor(`${data.title}\n${data.author}`, null, data.links.genius)
       )

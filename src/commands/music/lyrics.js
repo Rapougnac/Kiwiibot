@@ -17,7 +17,7 @@ module.exports = {
     .catch(() => null);
 
     if (!data || data.error){
-      return message.channel.send(`\\\❌ | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
+      return message.channel.send(`\\❌ | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
     };
 
     if (data.lyrics.length < 2000){
@@ -26,7 +26,7 @@ module.exports = {
         .setColor('GREY')
         .setDescription(data.lyrics)
         .setThumbnail(data.thumbnail.genius)
-        .setFooter(`Lyrics | \©️${new Date().getFullYear()} Kiwii`)
+
         .setAuthor(`${data.title}\n${data.author}`, null, data.links.genius)
       );
     };

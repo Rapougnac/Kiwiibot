@@ -28,9 +28,9 @@ module.exports = {
 	 * @param {Message} message 
 	 * @param {String[]} args 
 	 */
-	async execute(client,message,args) {
+	async execute(client, message) {
         message.channel.startTyping();
-		const msg = await message.lineReplyNoMention(`🏓 Pinging....`);
+		const msg = await message.inlineReplyNoMention(`🏓 Pinging....`);
 		const ping = (msg.createdTimestamp - message.createdTimestamp);
 		const string = this.string[0].format(ping, formatNumber((client.ws.ping)));
         msg.edit(stripIndents`${string}`);

@@ -13,10 +13,10 @@ const loadLanguages = async (client) => {
             });
 
             guildLanguages[guildID] = result ? result.language : "english";
-        };
+        }
     } catch (error) {
-        console.error(`⚠️[DATABASE ERROR] The database responded with the following error: ${error.name}`);
-    };
+        console.error(`⚠️[DATABASE ERROR] The database responded with the following error: ${error.name}\n${error}`);
+    }
 };
 
 const setLanguage = (guild, language) => {

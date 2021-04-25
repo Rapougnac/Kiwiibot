@@ -19,7 +19,7 @@ module.exports = class Paginate{
 
     // Validate array content
     this._validate();
-  };
+  }
 
   /**
   * Add more MessageEmbed to the array
@@ -30,7 +30,7 @@ module.exports = class Paginate{
     this._array.push(...item.flat());
     this._validate()
     return [ ...item.flat() ];
-  };
+  }
 
   /**
   * Delete some elements from the array
@@ -44,13 +44,13 @@ module.exports = class Paginate{
       if (index === this.currentIndex){
         if (this.currentIndex > 0){
           this.previous();
-        };
+        }
       } else if (this.currentIndex === this.tail){
         this.previous();
-      };
+      }
       return this._array.splice(index,1);
-    };
-  };
+    }
+  }
 
   /**
   * Moves the index up to view the next element from the array
@@ -60,7 +60,7 @@ module.exports = class Paginate{
   next(){
     if (!this._array.length){
       return undefined;
-    };
+    }
     if (this._index === this.tail) this._index = -1;
     this._index++;
     return this._array[this._index];
@@ -74,7 +74,7 @@ module.exports = class Paginate{
   previous(){
     if (!this._array.length){
       return undefined;
-    };
+    }
     if (this._index === 0) this._index = this.tail + 1;
     this._index--;
     return this._array[this._index];
@@ -124,7 +124,7 @@ module.exports = class Paginate{
   */
   get size(){
     return this._array.length;
-  };
+  }
 
   /**
   * The last index, or null if no element.
@@ -135,7 +135,7 @@ module.exports = class Paginate{
     return this._array.length > 0
     ? this._array.length - 1
     : null;
-  };
+  }
 
   /**
   * Checks if there is a non message embed present in the array
@@ -145,8 +145,8 @@ module.exports = class Paginate{
     for (const el of this._array){
       if (!(el instanceof MessageEmbed)){
         throw new Error('Paginate: Passed argument is not an instance of MessageEmbed!')
-      };
-    };
+      }
+    }
     return;
-  };
+  }
 };

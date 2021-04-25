@@ -1,7 +1,7 @@
 const { APIMessage, Structures, Message } = require("discord.js")
 
 class ExtMessage extends Message {
-  async lineReply(content, options) {
+  async inlineReply(content, options) {
     let mentionRepliedUser =
       typeof ((options || content || {}).allowedMentions || {}).repliedUser ===
       "undefined"
@@ -49,7 +49,7 @@ class ExtMessage extends Message {
       .then((d) => this.client.actions.MessageCreate.handle(d).message)
   }
 
-  async lineReplyNoMention(content, options) {
+  async inlineReplyNoMention(content, options) {
     const apiMessage =
       content instanceof APIMessage
         ? content.resolveData()

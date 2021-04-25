@@ -53,7 +53,7 @@ module.exports = {
 
     if (!data || data.error){
       return await msg.edit(embed).catch(()=>null) || message.channel.send(embed);
-    };
+    }
 
     const { results : [ { mal_id } ] } = data;
 
@@ -65,9 +65,8 @@ module.exports = {
 
     if (!res || res.error){
       return await msg.edit(embed).catch(()=>{}) || message.channel.send(embed);
-    };
+    }
 
-    const elapsed = Date.now() - msg.createdAt;
     const [ anime, manga ] = ['animeography', 'mangaography'].map(props => {
       const data = res[props]?.map(x => {
         const url = x.url.split('/').slice(0,5).join('/');
@@ -99,7 +98,7 @@ module.exports = {
               return `...and ${res.voice_actors.length - 8} more!`;
             } else {
               return `${/*flag || */va.language} [${va.name}](${va.url})`;
-            };
+            }
           }).join('\n') || '\u200b'
         };
       })

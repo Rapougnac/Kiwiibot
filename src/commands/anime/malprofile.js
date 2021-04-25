@@ -26,8 +26,9 @@ module.exports = {
     const query = args.join(' ');
 
     if (!query){
+      client.commands.cooldowns.get(this.name).users.delete(message.author.id);
       return message.channel.send('\\❌ Please include the user to find on mal!');
-    };
+    }
 
     const response = await fetch(`https://api.jikan.moe/v3/user/${encodeURI(query)}/profile`)
     .then(res => res.json())
@@ -38,12 +39,12 @@ module.exports = {
       if (response && response.status >= 500){
         err = `\\❌ I just received a server error from Myanimelist. MAL might be currently down. Please try again later.`
       } else if (response && response.status >=400){
-        err = `\`❌ CLIENT_ERR\`:invalid request to MAL.`
+        err = `\`❌ CLIENT_ERR\`: Mai attempted to send an invalidated request to MAL. Please contact my developer to fix this bug.`
       } else {
         err = `\\❌ I can't find **${query}** on mal`
-      };
+      }
       return message.channel.send(err);
-    };
+    }
 
     const fav_anime = text.joinArrayAndLimit(response.favorites.anime.map((entry) => {
       return `[${entry.name}](${entry.url.split('/').splice(0,5).join('/')})`;
@@ -61,12 +62,12 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed()
       .setColor('GREY')
-      .setFooter(`MALProfile | \©️${new Date().getFullYear()} Kiwii`)
+      .setFooter(`MALProfile`)
       .setAuthor(`${response.username}'s Profile`, response.image_url, response.url)
       .setDescription([
         text.truncate((response.about || '').replace(/(<([^>]+)>)/ig, ''), 350, `...[Read More](${response.url})`),
         `• **Gender**:\u2000\u2000${response.gender || 'Unspecified'}`,
-        `• **Location**\u2000\u2000${response.location || 'Unspecified'}`,
+        `• **From**\u2000\u2000${response.location || 'Unspecified'}`,
         `• **Joined MAL:**\u2000\u2000${moment(response.joined).format('dddd, do MMMM YYYY')}, *${moment(response.joined).fromNow()}*`,
         `• **Last Seen:**\u2000\u2000${moment(response.last_online).format('dddd, do MMMM YYYY')}, *${moment(response.last_online).fromNow()}*`
       ].join('\n'))
@@ -91,16 +92,16 @@ module.exports = {
           }).join('\n') + '```'
         },{
           name: 'Favorite Anime',
-          value: fav_anime.text + (!!fav_anime.excess ? ` and ${fav_anime.excess} more!` : '') || 'None Listed.'
+          value: fav_anime.text + (fav_anime.excess ? ` and ${fav_anime.excess} more!` : '') || 'None Listed.'
         },{
           name: 'Favorite Manga',
-          value: fav_manga.text + (!!fav_manga.excess ? ` and ${fav_manga.excess} more!` : '') || 'None Listed.'
+          value: fav_manga.text + (fav_manga.excess ? ` and ${fav_manga.excess} more!` : '') || 'None Listed.'
         },{
           name: 'Favorite Characters',
-          value: fav_characters.text + (!!fav_characters.excess ? ` and ${fav_characters.excess} more!` : '') || 'None Listed.'
+          value: fav_characters.text + (fav_characters.excess ? ` and ${fav_characters.excess} more!` : '') || 'None Listed.'
         },{
           name: 'Favorite Staffs',
-          value: fav_people.text + (!!fav_people.excess ? ` and ${fav_people.excess} more!` : '') || 'None Listed.'
+          value: fav_people.text + (fav_people.excess ? ` and ${fav_people.excess} more!` : '') || 'None Listed.'
         }
       ])
     );

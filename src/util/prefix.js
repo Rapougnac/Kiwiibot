@@ -1,10 +1,9 @@
 const PrefixSchema = require("../models/PrefixSchema")
 const { Message } = require("discord.js")
-const config = require("../../config.json");
 
 /**
  * @param {Message} message 
- * @param {config} config 
+ * @param {*} config 
  */
 async function prefix(message, config) {
 

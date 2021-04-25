@@ -1,32 +1,19 @@
-const consoleUtil = require(`./src/util/console`)
 const Client = require("./src/struct/Client");
 require("./src/struct/Message");
 require("module-alias/register");
 const client = new Client({
+  defaultPerms: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+  owners: "253554702858452992",
   config: "./config.json",
   clientOptions: {
     disableMentions: "everyone", //disables, that the bot is able to send @everyone
   },
 });
-const mongoose = require("mongoose")
+//Client start
+client.start();
 //client initalization
-client.login(client.config.discord.token);
-//Load the player events
-client.playerInit("src/events/player");
-//Load the commands
-client.loadCommands("src/commands");
-//Load the events
-client.loadEvents("src/events");
-//Mongodb
-if (client.config.database.enable) {
-  client.mongoInit(mongoose);
-} else {
-  mongoose.disconnect();
-  consoleUtil.warn(
-    "Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!"
-  );
-};
+client.login();
 
-// TODO(Rapougnac): Finish all the properties of the commands
-// TODO(Rapougnac): Dashboard for the bot
+// TODO: Finish all the properties of the commands
+// TODO: Dashboard for the bot
 // FIXME: Fix Mongoose.js

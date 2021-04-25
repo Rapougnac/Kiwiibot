@@ -23,7 +23,7 @@ module.exports = {
      */
     async execute(client, message, args) {
         const AmeAPI = new AmeClient(client.config.amethyste.client); {
-          const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;; 
+          const User = await message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member; 
           let m = await  message.channel.send(this.string[0]);
           const buffer =  await AmeAPI.generate("lookwhatkarenhave", { url: User.user.displayAvatarURL({ format: "png", size: 2048 })});
           const attachment = new MessageAttachment(buffer, "lookwhatkarenhave.png");

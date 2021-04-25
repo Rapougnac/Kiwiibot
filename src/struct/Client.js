@@ -1,4 +1,4 @@
-const { Client, Collection } = require("discord.js")
+const { Client, Collection, Permissions } = require("discord.js")
 const Console = require("../util/console")
 const glob = require("glob")
 const { readdir, readdirSync } = require("fs")
@@ -9,6 +9,7 @@ table.setHeading("Events", "Load status")
 table2.setHeading("PLayer events", "Load status")
 const Mongoose = require("./Mongoose")
 const mongoose = require("mongoose")
+const Util = require("./Util")
 const { Player } = require("discord-player")
 /**
  * Represents a discord client
@@ -19,10 +20,14 @@ module.exports = class KiwiiClient extends Client {
    *
    * @param {Object} options The options passed trough the client
    * @param {Object} options.clientOptions The client options used by discord.js itself
-   * @param {Object} options.config The path to the config file
+   * @param {String} options.config The path to the config file
+   * @param {String|String[]} options.owners The owner(s) of the bot
+   * @param {String[]} options.defaultPerms The default perms of the bot
    */
   constructor(options) {
-    super(options.clientOptions || {})
+    super(options.clientOptions || {});
+    
+    if(typeof options !== "object") throw new TypeError("Options should be an `Object`")
 
     /**
      * A collection of all the bot's commands
@@ -40,12 +45,29 @@ module.exports = class KiwiiClient extends Client {
      */
     this.cooldowns = new Collection();
 
+    this.utils = new Util(this);
+
     // Client variables
     /**
      * The bot configuration file, empty if no file was specified
-     * @type {Object}
+     * @type {String}
      */
     this.config = options.config ? require(`../../${options.config}`) : {};
+    /**
+     * The bot owner(s)
+     * @type {String}
+     */
+    this.owners = options.owners;
+
+
+    if(!options.defaultPerms) throw new Error("You must pass default perm(s) for the client")
+    /**
+     * The default perms of the bot
+     * @type {string}
+     */
+    this.defaultPerms = new Permissions(options.defaultPerms).freeze();
+
+
 
     Console.success(
       `Client has been initialized, you're using ${process.version}`
@@ -61,7 +83,7 @@ module.exports = class KiwiiClient extends Client {
       this.database = new Mongoose(this, options.database)
     } else {
       // Do nothing
-    };
+    }
 
     
     /**
@@ -97,7 +119,7 @@ module.exports = class KiwiiClient extends Client {
    * @param {String} token The token used to log
    * @returns
    */
-  login(token) {
+  login(token = this.config.discord.token) {
     //Log super in with the supplied token
     super.login(token)
 
@@ -106,11 +128,9 @@ module.exports = class KiwiiClient extends Client {
   }
   /**
    * Load all commands in the specifed directory
-   * @param {String} path The path where the commands are located
-   * @returns
    */
-  loadCommands(path) {
-    let files = glob.sync(path + "/**/*")
+  loadCommands() {
+    let files = glob.sync("src/commands" + "/**/*")
     files = files.filter((file) => file.endsWith(".js"))
     if (this.config.discord.dev.active) {
       if (this.config.discord.dev.include_cmd.length) {
@@ -146,11 +166,9 @@ module.exports = class KiwiiClient extends Client {
   }
   /**
    * Load all events in the specified directory
-   * @param {String} path The path where events are located
-   * @returns
    */
-  loadEvents(path) {
-    readdir(path, (err, files) => {
+  loadEvents() {
+    readdir("src/events", (err, files) => {
       if (err) throw err
       files = files.filter((file) => file.endsWith(".js"))
       files.forEach((file) => {
@@ -168,10 +186,9 @@ module.exports = class KiwiiClient extends Client {
     return this
   }
   /**
-   * Connect to the database
-   * @param {mongoose} mongoose The mongoose module
+   * Connection to the database
    */
-  mongoInit(mongoose) {
+  mongoInit() {
     mongoose
       .connect(this.config.database.URI, {
         useFindAndModify: false,
@@ -190,11 +207,9 @@ module.exports = class KiwiiClient extends Client {
   }
   /**
    * Load all player events in the specified directory
-   * @param {String} path The path where the player events are located
-   * @returns
    */
-  playerInit(path) {
-    const player = readdirSync(path).filter((file) => file.endsWith(".js"))
+  playerInit() {
+    const player = readdirSync("src/events/player").filter((file) => file.endsWith(".js"))
     for (const file of player) {
       const event = require(`../../src/events/player/${file}`)
       const eventName = file.split(".")[0]
@@ -206,5 +221,24 @@ module.exports = class KiwiiClient extends Client {
       }
     }
     console.log(table2.toString())
+  }
+  /**
+   * Function to start the bot
+   */
+  async start() {
+    //Load the player events
+    this.playerInit();
+    //Load the events
+    this.loadEvents();
+    //Load the commands
+    this.loadCommands();
+
+    //Mongodb
+    if (this.config.database.enable) {
+      this.mongoInit();
+    } else {
+      mongoose.disconnect();
+      Console.warn("Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!");
+    }
   }
 }

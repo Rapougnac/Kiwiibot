@@ -1,4 +1,9 @@
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js");
+
+/**
+ * An extended version of the `MessageEmbed`
+ * @extends MessageEmbed
+ */
 module.exports = class ExtendedMessageEmbed extends MessageEmbed {
     /**
      * 
@@ -10,6 +15,6 @@ module.exports = class ExtendedMessageEmbed extends MessageEmbed {
         // Handling errors
         if(typeof inline !== "boolean") throw new TypeError("The inline cannot be other than a boolean");
         return super.addField("\u200b", "\u200b", inline);
-    };
+    }
 
-}
+};

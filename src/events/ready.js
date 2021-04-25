@@ -1,8 +1,6 @@
 const path = require("path")
 const { getCommands } = require("../util/index")
 const consoleUtil = require(`../util/console`)
-const text = require(`../util/string`)
-const { version, author } = require("../../package.json")
 const { performance } = require("perf_hooks")
 const bootTime = Math.round(performance.now())
 // const { logs } = require("config.json");

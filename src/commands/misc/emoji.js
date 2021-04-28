@@ -29,7 +29,7 @@ module.exports = {
           Animated = true;
         } else {
           Animated = false;
-        };
+        }
 
         const Name = Thinger[1];
         const ID = Thinger[2].slice(0, -1);

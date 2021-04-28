@@ -10,29 +10,29 @@ module.exports = {
         const reason = args.slice(1).join(' ') || 'Aucune raison fournie'
 
         if (!member) {
-            return message.channel.send(`\❌ | ${message.author}, User could not be found! Please ensure the supplied ID is valid. Mention user for more precision on pinpointing user.`);
-        };
+            return message.channel.send(`\\❌ | ${message.author}, User could not be found! Please ensure the supplied ID is valid. Mention user for more precision on pinpointing user.`);
+        }
 
         if (member.id === message.author.id) {
-            return message.channel.send(`\❌ | ${message.author}, You cannot ban yourself!`);
-        };
+            return message.channel.send(`\\❌ | ${message.author}, You cannot ban yourself!`);
+        }
 
         if (member.id === client.user.id) {
-            return message.channel.send(`\❌ | ${message.author}, Please don't ban me!`);
-        };
+            return message.channel.send(`\\❌ | ${message.author}, Please don't ban me!`);
+        }
 
         if (member.id === message.guild.ownerID) {
-            return message.channel.send(`\❌ | ${message.author}, You cannot ban a server owner!`);
-        };
+            return message.channel.send(`\\❌ | ${message.author}, You cannot ban a server owner!`);
+        }
 
 
         if (message.member.roles.highest.position < member.roles.highest.position) {
-            return message.channel.send(`\❌ | ${message.author}, You can't ban that user! He/She has a higher role than yours`)
-        };
+            return message.channel.send(`\\❌ | ${message.author}, You can't ban that user! He/She has a higher role than yours`)
+        }
 
         if (!member.bannable) {
-            return message.channel.send(`\❌ | ${message.author}, I couldn't ban that user!`);
-        };
+            return message.channel.send(`\\❌ | ${message.author}, I couldn't ban that user!`);
+        }
 
         await message.channel.send(`Are you sure you want to ban **${member.user.tag}**? (y/n)`)
 
@@ -43,8 +43,8 @@ module.exports = {
             .catch(() => false);
 
         if (!proceed) {
-            return message.channel.send(`\❌ | ${message.author}, cancelled the ban command!`);
-        };
+            return message.channel.send(`\\❌ | ${message.author}, cancelled the ban command!`);
+        }
 
         await member.send(`**${message.author.tag}** banned you from ${message.guild.name}!\n**Reason**: ${reason || 'Unspecified.'}`)
             .catch(() => null);

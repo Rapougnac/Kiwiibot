@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const moment = require('moment');
 require("moment-duration-format");
 const Client = 'tets'
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
         // /*.cache*/.map(m => {
         //     return `${m.user.tag}${(m.user.bot ? ' [BOT]' : '')}`
         // }).sort((a, b) => a.localeCompare(b)).join(', ')
-        const str = message.guild.roles.cache.get(role).members.map(m => m.user.tag);
+        const _str = message.guild.roles.cache.get(role).members.map(m => m.user.tag);
         //const str = message.guild.members.fi
         //if(!allMembers) return message.channel.send('There are no members in that role!')
         const allMembers = message.guild.roles.cache.get(role).members.map((m) => {

@@ -25,7 +25,7 @@ module.exports = {
     .then(res => res.json()).then(body => {
       if(body.message) return message.channel.send(`User Not Found | Please Give Me A Valid Username!`);
       
-        let { login, avatar_url, name, id, html_url, public_repos, followers, following, location, created_at, bio } = body;
+        let { login, avatar_url, _name, id, _html_url, public_repos, followers, following, location, created_at, bio } = body;
 
             const embed = new MessageEmbed()
             .setAuthor(`${login} Information!`, avatar_url)

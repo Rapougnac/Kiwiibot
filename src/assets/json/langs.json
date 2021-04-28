@@ -1,16 +1,9 @@
 {
-  "languages": [
-    "english",
-    "french"
-  ],
+  "languages": ["english", "french"],
   "translations": {
     "ping": {
-      "english": [
-        "🏓 Pong! The ping is: `{0}ms`\nHeartbeat: `{1}ms`"
-      ],
-      "french": [
-        "🏓 Pong ! Le ping est de: `{0}ms`\nHeartbeat: `{1}ms`"
-      ]
+      "english": ["🏓 Pong! The ping is: `{0}ms`\nHeartbeat: `{1}ms`"],
+      "french": ["🏓 Pong ! Le ping est de: `{0}ms`\nHeartbeat: `{1}ms`"]
     },
     "hackban": {
       "english": [
@@ -34,12 +27,12 @@
       "english": [
         "This language is not supported yet!",
         "Language has been setted!",
-        "⚠️[DATABASE ERROR] The database responded with the following error: {0}"
+        "\\⚠️[DATABASE ERROR] The database responded with the following error: {0}"
       ],
       "french": [
         "Cette langue n'est pas encore implémentée !",
         "La langue a bien été définie !",
-        "⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}"
+        "\\⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}"
       ]
     },
     "serverinfo": {
@@ -145,12 +138,8 @@
       ]
     },
     "changemymind": {
-      "english": [
-        "Please put a valid text!"
-      ],
-      "french": [
-        "Veuillez mettre un texte valide !"
-      ]
+      "english": ["Please put a valid text!"],
+      "french": ["Veuillez mettre un texte valide !"]
     },
     "MESSAGE_PREFIX": {
       "english": "My prefix in the server {0} is {1}",
@@ -160,14 +149,14 @@
       "english": [
         "Please specify a prefix!",
         "Error, my prefix cannot be longer than 5 characters!",
-        "⚠️[DATABASE ERROR] The database responded with the following error: {0}",
+        "\\⚠️[DATABASE ERROR] The database responded with the following error: {0}",
         "My prefix has been updated to **{0}**",
         "Prefix in this server is now set to **{0}**"
       ],
       "french": [
         "S'il vous plaît, veuillez spécifiez un préfixe !",
         "Erreur, mon préfixe ne peut pas faire plus de 5 caractères",
-        "⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}",
+        "\\⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}",
         "Mon préfixe a été mis à jour sur **{0}**",
         "Le préfixe sur ce serveur à été défini sur **{0}**"
       ]
@@ -221,150 +210,76 @@
       ]
     },
     "serverlist": {
-      "english": [
-        "No Guild",
-        "members"
-      ],
-      "french": [
-        "Aucun serveur",
-        "membres"
-      ]
+      "english": ["No Guild", "members"],
+      "french": ["Aucun serveur", "membres"]
     },
     "3000y": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "afusion": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "approved": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "batslap": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "beautiful": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "blur": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "blurple": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "brazzers": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "challenger": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "house": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "distort": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "facebook": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "fire": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "jail": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "lookwhatkarenhave": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "magik": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "moustache": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "pixelize": {
       "english": [
@@ -379,28 +294,16 @@
       ]
     },
     "ps4": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "rip": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "scary": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "symmetry": {
       "english": [
@@ -429,20 +332,12 @@
       ]
     },
     "thanos": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "vs": {
-      "english": [
-        "**Please Wait...**"
-      ],
-      "french": [
-        "**Veuillez patientez...**"
-      ]
+      "english": ["**Please Wait...**"],
+      "french": ["**Veuillez patientez...**"]
     },
     "invite": {
       "english": [
@@ -521,8 +416,34 @@
       "french": ["S'il vous plaît, veuillez me donner une id valide !"]
     },
     "embedbuilder": {
-      "english": [],
-      "french": ["Veuillez patientez pendant l'ajout des réactions.", "✏️ Modifier le titre\n💬 Modifier la description\n🕵️ Modifier l'auteur\n🔻 Modifier le footer\n🔳 Modifier le thumbnail\n🕙 Ajouter un timestamp\n🖼️ Modifier l'image\n🌐 Modifier l'url\n🔵 Modifier la couleur\n↩️ Ajouter un field\n📥 Copier un embed existant\n✅ Envoyer l'embed\n📑 Modifier un message du bot avec cet embed\n❌ Pour annuler la commande"]
+      "english": [
+        "Please wait while I'm adding the reactions",
+        "✏️ Edit the title\n💬 Edit the description\n🕵️ Edit the author\n🔻 Edit the footer\n🔳 Edit the thumbnail\n🕙 Add a timestamp\n🖼️ Edit the image\n🌐 Edit the url\n🔵 Edit the color\n↩️ Add a field\n📥 Copy an existant embed\n✅ Send the embed\n📑 Edit a message of the bot with this embed\n❌ To cancel the command"
+      ],
+      "french": [
+        "Veuillez patientez pendant l'ajout des réactions.",
+        "✏️ Modifier le titre\n💬 Modifier la description\n🕵️ Modifier l'auteur\n🔻 Modifier le footer\n🔳 Modifier le thumbnail\n🕙 Ajouter un timestamp\n🖼️ Modifier l'image\n🌐 Modifier l'url\n🔵 Modifier la couleur\n↩️ Ajouter un field\n📥 Copier un embed existant\n✅ Envoyer l'embed\n📑 Modifier un message du bot avec cet embed\n❌ Pour annuler la commande"
+      ]
+    },
+    "setmute": {
+      "english": [
+        "Please, mention a role or give me it's id!",
+        "\\⚠️[DATABASE ERROR] The database responded with the following error: {0}"
+      ],
+      "french": [
+        "Veuillez mentionner un rôle, ou me donner son id !",
+        "\\⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}"
+      ]
+    },
+    "mute": {
+      "english": [
+        "\\⚠️[DATABASE ERROR] The database responded with the following error: {0}",
+        "Oops, looks like you didn't give me a mute role, please do `{0}setmute` to add a muted role."
+      ],
+      "french": [
+        "\\⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}",
+        "Oups, on dirait bien que vous ne m'avez donné aucun rôle mute assigné, s'il vous plaît, faites `{0}setmute` pour associer un rôle mute."
+      ]
     }
   }
 }

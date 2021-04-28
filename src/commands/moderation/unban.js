@@ -4,11 +4,11 @@ module.exports = {
     group: 'moderation',
     description: 'Unbans a user from this server',
     parameters: [ 'user Mention/ID', 'Unban Reason' ],
-    async execute(client, message, ) {
-  
+    async execute(client, message, args) {
+      let user = args[0];
       if (!user.match(/\d{17,19}/)){
         return message.channel.send(`❌ | ${message.author}, Please provide the ID of the user to unban`);
-      };
+      }
   
       user = user.match(/\d{17,19}/)[0];
   

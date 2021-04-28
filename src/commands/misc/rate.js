@@ -8,7 +8,7 @@ module.exports = {
   
       if (!args.length){
         return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Give me something to rate!!`);
-      };
+      }
   
       const raw = args.join(' ').replace(/[^\w\s]/gi,1202)
       let rate = parseInt(raw, 36) % 101;
@@ -32,7 +32,7 @@ module.exports = {
         'mai senpai', 'mai1202senpai', '1202120212027020744523173070611202'
       ].includes(raw.toLowerCase())){
         rate = 100;
-      };
+      }
   
       return message.channel.send(`${emoji(rate)} (**${rate}**) %`)
     }

@@ -7,8 +7,7 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}8ball',
     async execute(client, message, args) {
-        //const args = message.content.trim().split(/\s+/g);
-        const mention = message.mentions.members.first();
+        const _mention = message.mentions.members.first();
         const question = args;
         if (!args) return message.channel.send('Veuillez indiquer une question.');
         const replies = ['Oui', 'Non', 'Peut être', 'Evidemment', "Pas sûr", "Que nenni !", "Bien sûr !", "Non connard !", "JAMAIS", "Non parce que je t'aimes pas :)", 'Je ne sais pas', 'Ça tombe sous le sens', 'Je regrette mais non', 'Oui, ça me paraît logique', 'Non désolé t\'es trop moche', 'Jamais de la vie', 'LOL tu crois quoi bien sûr que non', 'C\'est une possibilité', 'Alors ça non'];

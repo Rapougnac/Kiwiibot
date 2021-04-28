@@ -1,6 +1,6 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const fetch = require('node-fetch');
-const text = require('../../util/string');
+const _text = require('../../util/string');
 const Page = require('../../struct/Paginate');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 
     if (!data || data.error){
       return message.channel.send(`\\❌ | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
-    };
+    }
 
     if (data.lyrics.length < 2000){
       return message.channel.send(
@@ -29,7 +29,7 @@ module.exports = {
 
         .setAuthor(`${data.title}\n${data.author}`, null, data.links.genius)
       );
-    };
+    }
 
     const lyrics_array = data.lyrics.split('\n');
     const lyrics_subarray = [ '' ];
@@ -41,8 +41,8 @@ module.exports = {
       } else {
         n++
         lyrics_subarray.push(line);
-      };
-    };
+      }
+    }
 
     const pages = new Page(
       lyrics_subarray.map((x,i) =>

@@ -16,7 +16,7 @@ module.exports = {
             user = member.user;
         } else {
             user = message.author;
-        };
+        }
 
         return message.channel.send({
             files: [{

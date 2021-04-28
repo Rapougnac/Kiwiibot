@@ -1,5 +1,5 @@
 const booru = require("booru")
-const { BooruError, sites } = require("booru")
+const { BooruError, _sites } = require("booru")
 const { MessageEmbed } = require("discord.js")
 
 module.exports = {

@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed, DiscordAPIError } = require('discord.js');
+const { Client, Message, MessageEmbed } = require('discord.js');
 const { clean } = require("../../util/string")
 module.exports = {
     name: 'eval',

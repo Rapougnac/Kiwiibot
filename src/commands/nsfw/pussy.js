@@ -12,13 +12,13 @@ module.exports = {
 		if(message.channel.nsfw){
 		const GIF = await neko.nsfw.pussy();
 		const embed = new Discord.MessageEmbed()
-		  .setColor('#202225')
-		  .setTitle(`${message.author.tag} here's a random pussy image/gif`)
-		  .setImage(GIF.url)
+			.setColor('#202225')
+			.setTitle(`${message.author.tag} here's a random pussy image/gif`)
+			.setImage(GIF.url)
 		message.channel.send(embed);
 		}else {
 			let m = await message.channel.send("**Warning** this command cannot be used in non-nsfw channels!");
-		  m.delete({ timeout: 10000 })
+			m.delete({ timeout: 10000 })
 		}
 	},
 };

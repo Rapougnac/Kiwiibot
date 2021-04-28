@@ -59,6 +59,7 @@ module.exports = class KiwiiClient extends Client {
      */
     this.owners = options.owners;
 
+    this.prefix = this.config.discord.default_prefix;
 
     if(!options.defaultPerms) throw new Error("You must pass default perm(s) for the client")
     /**

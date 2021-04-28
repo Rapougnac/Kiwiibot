@@ -11,5 +11,5 @@ module.exports = (client, error, message) => {
             break;
         default:
             message.channel.send(`${client.emotes.error} - Something went wrong ... Error : ${error}`);
-    };
+    }
 };

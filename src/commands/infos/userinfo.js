@@ -40,7 +40,7 @@ module.exports = {
     }
     if (message.guild.ownerID === user.id) {
       userFlags.push('<:GUILD_OWNER:812992729797230592>')
-    };
+    }
     if (message.member.hasPermission("ADMINISTRATOR")) {
       userFlags.push("<:ADMINISTRATOR:827241621270560788>")
     }

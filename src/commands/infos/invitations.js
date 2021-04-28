@@ -1,3 +1,5 @@
+/* eslint-disable no-self-assign */
+/* eslint-disable no-dupe-else-if */
 const { MessageEmbed } = require("discord.js")
 
 module.exports = {
@@ -12,7 +14,7 @@ module.exports = {
 
             invites.forEach((invite => {
                 const { uses, inviter } = invite
-                const { username, discriminator } = inviter
+                const { _username, _discriminator } = inviter
 
                 const name = `${inviter}`
 
@@ -23,7 +25,7 @@ module.exports = {
              .setDescription('Invites: \n')
              .setColor("BLUE")
 
-             const sortedInvites = Object.keys(inviteCounter).sort((a, b) => inviteCounter[b] - inviteCounter[a])
+             let sortedInvites = Object.keys(inviteCounter).sort((a, b) => inviteCounter[b] - inviteCounter[a])
 
              if (sortedInvites.length > 5) sortedInvites.length = 5
              else if(sortedInvites.length > 5) sortedInvites.length = sortedInvites.length

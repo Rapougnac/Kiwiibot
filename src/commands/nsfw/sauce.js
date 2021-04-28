@@ -15,13 +15,12 @@ module.exports = {
         if (isNaN(id)) {
             client.commands.cooldowns.get(this.name).users.delete(message.author.id);
             return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please provide a valid **Sauce**.`);
-        };
+        }
 
         const prompt = new MessageEmbed()
             .setColor('YELLOW')
             .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
             .setDescription(`Searching for **${id}** on <:nhentai:767062351169323039> [nHentai.net](https:/nhentai.net 'nHentai Homepage').`)
-            .setFooter(`Doujin Query | \©️${new Date().getFullYear()} Kiwii`);
 
         const msg = await message.channel.send(prompt);
         const book = await api.getBook(id).catch(() => null);
@@ -33,14 +32,12 @@ module.exports = {
                 .setThumbnail('https://i.imgur.com/qkBQB8V.png')
 
             return await msg.edit(prompt).catch(() => null) || message.channel.send(prompt);
-        };
+        }
 
-        const { title: { english, japanese, pretty },
-            tags, pages, uploaded, cover } = book
+        const { title: { _english, _japanese, pretty }, _tags, _pages, _uploaded, cover } = book
 
         const embed = new MessageEmbed()
             .setColor('GREY')
-            .setFooter(`Doujin Query | \©️${new Date().getFullYear()} Kiwii`)
             .setAuthor(pretty, null, `https://nhentai.net/g/${id}`)
             .setDescription(`**${book.title.english}**\n*${book.title.japanese}*`)
             .setThumbnail(api.getImageURL(cover))
@@ -59,7 +56,7 @@ module.exports = {
                     name: '\u200b',
                     value: [
                         `[\`[LINK]\`](https://nhentai.net/g/${id} `,
-                        `'Click here to proceed to ${book.title.pretty}\'s nHentai Page')`
+                        `'Click here to proceed to ${book.title.pretty}'s nHentai Page')`
                     ].join(''),
                     inline: true
                 }

@@ -21,7 +21,7 @@ module.exports = {
   
       if (!proceed){
         return message.channel.send(`\\❌ | **${message.author.tag}**, you cancelled the nuke command!`);
-      };
+      }
   
       return message.channel.send(`The nuke has been deployed, saying goodbye to **#${message.channel.name}** in 10`)
       .then(() => setTimeout(() => message.channel.clone()

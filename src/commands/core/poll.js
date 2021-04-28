@@ -25,6 +25,6 @@ module.exports = {
         const sent = await message.channel.send(new MessageEmbed()
             .setTitle(question)
             .setDescription(choices.map((choice, i) => `${reactions[i]} ${choice}`).join('\n\n')));
-        for (i = 0; i < choices.length; i++)  sent.react(reactions[i]);
+        for (let i = 0; i < choices.length; i++)  sent.react(reactions[i]);
     },
 };

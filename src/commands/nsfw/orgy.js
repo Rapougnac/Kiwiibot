@@ -15,7 +15,7 @@ module.exports = {
 		message.channel.send(emebed);
 		}else {
 			let m = await message.channel.send("**Warning** this command cannot be used in non-nsfw channels!");
-		  m.delete({ timeout: 10000 })
+			m.delete({ timeout: 10000 })
 		}
 	},
 };

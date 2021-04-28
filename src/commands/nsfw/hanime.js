@@ -20,13 +20,13 @@ module.exports = {
     if (!query){
       client.commands.cooldowns.get(this.name).users.delete(message.author.id);
       return message.channel.send('\\❌ Please include your **hanime** query!');
-    };
+    }
 
     const res = await hanime.search(query);
 
     if (!res.hits){
       return message.channel.send(`\\❌ **${message.author.tag}**, no results were found for your query **${query}**!`);
-    };
+    }
 
     const pages = new Pages(res.videos.splice(0,10).map((entry, i, a) =>
       new MessageEmbed()
@@ -37,12 +37,11 @@ module.exports = {
       .setThumbnail(reviseURL(entry.cover_url))
       .setAuthor('hanime.tv', 'https://i.imgur.com/fl2V0QV.png','https://hanime.tv/')
       .setDescription([
-        `[**${entry.brand}**](https://hanime.tv/browse/brands/${entry.brand.toLowerCase().replace(/ +/gi, '\-')})`,
+        `[**${entry.brand}**](https://hanime.tv/browse/brands/${entry.brand.toLowerCase().replace(/ +/gi, '-')})`,
         entry.tags.sort().map(x => `[\`${x.toUpperCase()}\`](https://hanime.tv/browse/tags/${encodeURI(x)})`).join(' ')
         ].join('\n\n'))
       .setFooter([
-        `Page ${i + 1} of ${a.length}`,
-        `hanime.tv query | \©️${new Date().getFullYear()} Kiwii`
+        `Page ${i + 1} of ${a.length}`
       ].join('\u2000\u2000•\u2000\u2000'))
       .addFields([
         { name: 'Released', value: moment(new Date(entry.released_at * 1000)).format('dddd, do MMMM YYYY'), inline: true },
@@ -55,18 +54,18 @@ module.exports = {
         {
           name: '\u200b',
           value: [
-            text.truncate(decode(entry.description).replace(/\<\/?(p|br)\>/gi,''), 500),
+            text.truncate(decode(entry.description).replace(/<\/?(p|br)>/gi,''), 500),
             `[**\\▶ Watch** \`${entry.is_censored ? 'CENSORED' : 'UNCENSORED' }\` on **hanime.tv**](https://hanime.tv/videos/hentai/${entry.slug})`
           ].join('\n\n')
         }
       ])
     ));
 
-    msg = await message.channel.send(pages.firstPage);
+    let msg = await message.channel.send(pages.firstPage);
 
     if (pages.size === 1){
       return;
-    };
+    }
 
     const prev = client.emojis.cache.get('767062237722050561') || '◀';
     const next = client.emojis.cache.get('767062244034084865') || '▶';
@@ -79,7 +78,7 @@ module.exports = {
 
     for (let i = 0; i < navigators.length; i++) {
       await msg.react(navigators[i]);
-    };
+    }
 
     collector.on('collect', async reaction => {
 
@@ -93,7 +92,7 @@ module.exports = {
         case terminate instanceof GuildEmoji ? terminate.name : terminate:
           collector.stop();
         break;
-      };
+      }
 
       await reaction.users.remove(message.author.id);
       timeout.refresh();
@@ -103,13 +102,13 @@ module.exports = {
     }
     else{
       let m = await message.channel.send("**Warning** this command cannot be used in non-nsfw channels!");
-		  m.delete({ timeout: 10000 })
+      m.delete({ timeout: 10000 })
     } 
   }
 };
 
 function reviseURL(url){
   const baseurl = 'https://i1.wp.com/static-assets.droidbuzz.top/';
-  const ext = String(url).match(/images\/(covers|posters)\/[\-\w]{1,}\.(jpe?g|png|gif)/i);
+  const ext = String(url).match(/images\/(covers|posters)\/[-\w]{1,}\.(jpe?g|png|gif)/i);
   return ext ? baseurl + ext[0] : null;
-};;
+}

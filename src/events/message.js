@@ -19,7 +19,11 @@ module.exports = async (client, message) => {
   }
   if (!message.content.toLowerCase().startsWith(p)) return;
 
-  const [ command, ...args ] = message.content.toLowerCase().slice(p.length).trim().split(/\s+/g);
+  const [command, ...args] = message.content
+    .toLowerCase()
+    .slice(p.length)
+    .trim()
+    .split(/\s+/g);
   //const command = args.shift().toLowerCase();
 
   if (!client.commands.has(command) && !client.aliases.has(command)) return;
@@ -28,9 +32,8 @@ module.exports = async (client, message) => {
 
   if (command_to_execute) {
     const reasons = [];
-
-    if (command_to_execute.guildOnly) {
-      if (message.channel.type === 'dm') {
+    if (message.channel.type === 'dm') {
+      if (command_to_execute.guildOnly) {
         reasons.push(
           [
             '**Command is unavailable on DM**',

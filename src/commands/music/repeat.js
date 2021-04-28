@@ -18,6 +18,6 @@ module.exports = {
         } else {
             client.player.setLoopMode(message, true);
             return message.channel.send(`${client.emotes.success} - Repeat mode **enabled** !`);
-        };
+        }
     },
 };

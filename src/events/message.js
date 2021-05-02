@@ -1,6 +1,10 @@
-const { Collection, MessageEmbed } = require('discord.js'),
+const {
+    Collection,
+    MessageEmbed,
+    Message,
+    MessageAttachment,
+  } = require('discord.js'),
   Client = require('../struct/Client'),
-  Message = require('../struct/Message'),
   { prefix } = require('../util/prefix'),
   { language } = require('../../language');
 /**
@@ -17,15 +21,13 @@ module.exports = async (client, message) => {
       language(guild, 'MESSAGE_PREFIX').format(guild.name, p)
     );
   }
-  if (!message.content.toLowerCase().startsWith(p)) return;
 
+  if (!message.content.toLowerCase().startsWith(p)) return;
   const [command, ...args] = message.content
     .toLowerCase()
     .slice(p.length)
     .trim()
     .split(/\s+/g);
-  //const command = args.shift().toLowerCase();
-
   if (!client.commands.has(command) && !client.aliases.has(command)) return;
   const command_to_execute =
     client.commands.get(command) || client.aliases.get(command);
@@ -98,9 +100,11 @@ module.exports = async (client, message) => {
                 )
                 .flatMap((c) =>
                   c[0]
-                    .split('_')
-                    .map((x) => x.charAt(0) + x.toLowerCase().slice(1))
-                    .join(' ')
+                    .toLowerCase()
+                    .replace(/(^|"|_)(\S)/g, (x) => x.toUpperCase())
+                    .replace(/_/g, ' ')
+                    .replace(/Guild/g, 'Server')
+                    .replace(/Use Vad/g, 'Use Voice Activity')
                 )
                 .join('\n\u2000\u2000- '),
             ].join('')
@@ -119,18 +123,20 @@ module.exports = async (client, message) => {
             [
               "**\\⚠️[Error] I don't have enough permissions** - ",
               'I need the following permission(s):\n\u2000\u2000- ',
-              /*Object.entries(*/ message.channel
-                .permissionsFor(message.guild.me)
-                .serialize() //)
+              Object.entries(
+                message.channel.permissionsFor(message.guild.me).serialize()
+              )
                 .filter(
                   (p) =>
                     command_to_execute.clientPermissions.includes(p[0]) && !p[1]
                 )
                 .flatMap((c) =>
                   c[0]
-                    .split('_')
-                    .map((x) => x.charAt(0) + x.toLowerCase().slice(1))
-                    .join(' ')
+                    .toLowerCase()
+                    .replace(/(^|"|_)(\S)/g, (x) => x.toUpperCase())
+                    .replace(/_/g, ' ')
+                    .replace(/Guild/g, 'Server')
+                    .replace(/Use VAD/g, 'Use Voice Activity')
                 )
                 .join('\n\u2000\u2000- '),
             ].join('')

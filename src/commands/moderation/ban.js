@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 module.exports = {
     name: 'ban',
     aliases: [],
@@ -49,17 +48,6 @@ module.exports = {
         await member.send(`**${message.author.tag}** banned you from ${message.guild.name}!\n**Reason**: ${reason || 'Unspecified.'}`)
             .catch(() => null);
 
-        member.ban({ reason: `${reason || 'Unspecified'}` })
-            .then(_member => {
-                message.channel.send(`Successfully banned **${_member.user.tag}**`);
-                message.guild.channels.cache.get('786674142719377408').send(new Discord.MessageEmbed()
-                    .setAuthor(`[BAN] ${_member.user.tag}`, _member.user.displayAvatarURL())
-                    .addField('Utilisateur', _member, true)
-                    .setColor('#dc143c')
-                    .addField('Modérateur', message.author, true)
-                    .addField('Raison', reason, true)
-                    .addField('Durée', '∞', true));
-            })
-            .catch(() => message.channel.send(`Failed to ban **${member.user.tag}**!`));
+        member.ban({ reason: `${reason || 'Unspecified'}` });
     },
 };

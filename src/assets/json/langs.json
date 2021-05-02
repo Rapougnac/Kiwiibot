@@ -93,12 +93,12 @@
     },
     "userinfo": {
       "english": [
-        "Do Not Disturb <:ne_pas_deranger:820758788381999115>",
-        "Online <:en_ligne:820758911975424021>",
-        "Offline <:hors_ligne:820758964895613009>",
-        "Idle <:inactif:820758854375571496>",
+        "Do Not Disturb <:dnd:838001604098654229>",
+        "Online <:online:838001438972968990>",
+        "Offline <:offline:838001624512856114>",
+        "Idle <:idle:838003208588230706>",
         "Desktop {0}",
-        "Discord user {0}",
+        "User {0}",
         "Member",
         "Name and discrim",
         "Nickname",
@@ -112,15 +112,16 @@
         "Device",
         "Type",
         "User",
-        "Roles {0}"
+        "Roles [{0}]",
+        "There's no roles to display"
       ],
       "french": [
-        "Ne Pas Déranger <:ne_pas_deranger:820758788381999115>",
-        "En Ligne <:en_ligne:820758911975424021>",
-        "Hors-Ligne <:hors_ligne:820758964895613009>",
-        "Inactif <:inactif:820758854375571496>",
+        "Ne Pas Déranger <:dnd:838001604098654229>",
+        "En Ligne <:online:838001438972968990>",
+        "Hors-Ligne <:offline:838001624512856114>",
+        "Inactif <:idle:838003208588230706>",
         "Bureau {0}",
-        "Utilisateur discord {0}",
+        "Utilisateur {0}",
         "Membre",
         "Nom et tag",
         "Pseudo",
@@ -134,7 +135,8 @@
         "Plateforme",
         "Type d'utilisateur",
         "Utilisateur",
-        "Rôles [{0}]"
+        "Rôles [{0}]",
+        "Il n'y a pas de rôles à afficher"
       ]
     },
     "changemymind": {
@@ -438,11 +440,21 @@
     "mute": {
       "english": [
         "\\⚠️[DATABASE ERROR] The database responded with the following error: {0}",
-        "Oops, looks like you didn't give me a mute role, please do `{0}setmute` to add a muted role."
+        "Oops, looks like you didn't give me a mute role, please do `{0}setmute` to add a muted role.",
+        "You cannot mute yourself!",
+        "You cannot mute me!",
+        "You cannot mute the server owner!",
+        "You cannot mute this user, they have a highest role than yours!",
+        "I cannot mute this user!"
       ],
       "french": [
         "\\⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}",
-        "Oups, on dirait bien que vous ne m'avez donné aucun rôle mute assigné, s'il vous plaît, faites `{0}setmute` pour associer un rôle mute."
+        "Oups, on dirait bien que vous ne m'avez donné aucun rôle mute assigné, s'il vous plaît, faites `{0}setmute` pour associer un rôle mute.",
+        "Vous ne pouvez pas vous auto-muter !",
+        "Vous ne pouvez pas me mute !",
+        "Vous ne pouvez pas mute l'owner !",
+        "Vous ne pouvez pas mute cet utilisateur, il/elle a un rôle plus haut que le vôtre !",
+        "Je ne peux pas mute cet utilisateur !"
       ]
     }
   }

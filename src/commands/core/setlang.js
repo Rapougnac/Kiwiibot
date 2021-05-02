@@ -25,9 +25,7 @@ module.exports = {
     if (message.guild) {
       const targetedlanguage = args[0].toLowerCase();
       if (!languages.includes(targetedlanguage)) {
-        return await message.channel.send(
-          this.string[0] /*"This language is not supported yet!"*/
-        );
+        return await message.channel.send(this.string[0]);
       }
 
       setLanguage(message.guild, targetedlanguage);
@@ -45,7 +43,6 @@ module.exports = {
             upsert: true,
           }
         );
-
         await message.inlineReply(this.string[1], {
           allowedMentions: {
             repliedUser: false,

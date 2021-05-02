@@ -41,8 +41,13 @@ module.exports = {
 
     // check if we get proper response
     if (typeof res.cnt !== 'string') {
-      return message.channel
-        .send('???', { replyTo: message })
+      return message
+        .inlineReply('???', {
+          replyTo: message,
+          allowedMentions: {
+            repliedUser: false,
+          },
+        })
         .then(() => {
           message.channel.stopTyping();
           return { success: true };
@@ -54,9 +59,15 @@ module.exports = {
     }
 
     // send the response
-    return message.channel
-      .send(res.cnt, { replyTo: message })
-      .then(() => {
+    return message
+      .inlineReply(res.cnt, {
+        replyTo: message,
+        allowedMentions: {
+          repliedUser: false,
+        },
+      })
+      .then((x) => {
+        console.log(x.reference)
         message.channel.stopTyping();
         return { success: true };
       })

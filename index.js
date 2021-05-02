@@ -1,12 +1,12 @@
-const Client = require("./src/struct/Client");
-require("./src/struct/Message");
-require("module-alias/register");
+const Client = require('./src/struct/Client'); // Extended Client
+require('./src/struct/Message'); // Extended Message
+require('module-alias/register'); // Module alias for the path
 const client = new Client({
-  defaultPerms: ["SEND_MESSAGES", "VIEW_CHANNEL"],
-  owners: "253554702858452992",
-  config: "./config.json",
+  defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
+  owners: '253554702858452992', // Owner(s) of the bot
+  config: './config.json', //Path to the config.json file
   clientOptions: {
-    disableMentions: "everyone", //disables, that the bot is able to send @everyone
+    disableMentions: 'everyone', //disables, that the bot is able to send @everyone
   },
 });
 //Client start
@@ -14,6 +14,8 @@ client.start();
 //client initalization
 client.login();
 
-// TODO: Finish all the properties of the commands
-// TODO: Dashboard for the bot
-// FIXME: Fix Mongoose.js
+client.listentoProcessEvents(['uncaughtException', 'unhandledRejection'], {
+  log_on_console: false,
+  nologs: false,
+});
+

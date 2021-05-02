@@ -167,13 +167,13 @@ module.exports = {
                       Author.delete();
                       Url.delete();
                       msgQuestionUrl.delete();
-                      BaseEmbed.setAuthor(Author, '', Url);
+                      BaseEmbed.setAuthor(Author, null, Url);
                       messageEmbedForEditing.edit(BaseEmbed);
                     }
                   });
               } else if (emoji === '✅') {
                 const msgQuestionImage = await message.channel.send(
-                  "Quelle est l'url de votre image à ajouter ?"
+                  'Quelle est l\'url de votre image à ajouter ?'
                 );
                 const AuthorImage = (
                   await message.channel.awaitMessages(filterMessage, {
@@ -392,9 +392,8 @@ module.exports = {
               max: 1,
               time: 60000,
             })
-          ).first();
+          ).first().content;
           msgQuestionEmbed.delete();
-          channel.delete();
           if (!message.guild.channels.cache.get(channel))
             return message.channel.send('Salon invalide');
           else message.guild.channels.cache.get(channel).send(BaseEmbed);

@@ -50,7 +50,17 @@ module.exports = {
           return message.channel.send(this.string[1].format(e.name));
         }
       } else {
-        //
+
+        try {
+          data = new GuildSchema({
+            _id: message.guild.id,
+            roles: {
+              muted: mutedRole,
+            },
+          });
+        } catch (error) {
+          return message.channel.send(this.string[1].format(error.name));
+        }
       }
     });
   },

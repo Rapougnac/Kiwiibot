@@ -26,7 +26,7 @@ module.exports = {
         if(!user) return message.channel.send(this.string[0]);
         try{
         if(message.content.includes("-a")){
-            user.send(str.replace("-a", ""));
+            user.send(str.replace(/-a/g, ""));
         } else {
             user.send(`${message.author.tag}: ${str}`)
         }

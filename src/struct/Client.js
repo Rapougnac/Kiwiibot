@@ -132,8 +132,7 @@ module.exports = class KiwiiClient extends Client {
    * Load all commands in the specifed directory
    */
   loadCommands() {
-    let files = glob.sync('src/commands' + '/**/*');
-    files = files.filter((file) => file.endsWith('.js'));
+    let files = glob.sync('src/commands' + '/**/*.js');
     if (this.config.discord.dev.active) {
       if (this.config.discord.dev.include_cmd.length) {
         files = files.filter((file) =>

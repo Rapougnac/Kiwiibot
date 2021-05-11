@@ -1,9 +1,17 @@
+const Client = require('../../struct/Client')
+const { Message } = require('discord.js');
 module.exports = {
     name: 'stop',
     aliases: [],
     category: 'Music',
     utilisation: '{prefix}stop',
-
+    /**
+     * 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     * @returns 
+     */
     async execute(client, message, args) {
         if (!message.member.voice.channel) return message.channel.send(`${client.emotes.error} - You're not in a voice channel !`);
 

@@ -12,7 +12,8 @@ const mongoose = require('mongoose');
 const Util = require('./Util');
 const { Player } = require('discord-player');
 const ProcessEvent = require('../util/processEvents');
-const util = require('util');
+const Genius = require('genius-lyrics');
+
 /**
  * Represents a discord client
  * @extends Client
@@ -25,6 +26,7 @@ module.exports = class KiwiiClient extends Client {
    * @param {String} options.config The path to the config file
    * @param {String|String[]} options.owners The owner(s) of the bot
    * @param {String[]} options.defaultPerms The default perms of the bot
+   * @param {String[]} options.disabledEvents Disabled events of this instance
    */
   constructor(options) {
     super(options.clientOptions || {});
@@ -48,6 +50,10 @@ module.exports = class KiwiiClient extends Client {
      */
     this.cooldowns = new Collection();
 
+    /**
+     * The manager of the `Util` class
+     * @type {Class}
+     */
     this.utils = new Util(this);
 
     // Client variables
@@ -61,8 +67,23 @@ module.exports = class KiwiiClient extends Client {
      * @type {String}
      */
     this.owners = options.owners;
-
+    /**
+     * Access to the prefix easily
+     * @type {String}
+     */
     this.prefix = this.config.discord.default_prefix;
+    /**
+     * The events that should not be executed
+     * @type {Object}
+     */
+    this.disabledEvents = options.disabledEvents;
+
+    // if (this.disabledEvents) {
+    //   for (const evt of this.disabledEvents) {
+    //     require(`discord.js/src/client/actions/${evt}`);
+    //     return;
+    //   }
+    // }
 
     if (!options.defaultPerms)
       throw new Error('You must pass default perm(s) for the client');
@@ -98,6 +119,11 @@ module.exports = class KiwiiClient extends Client {
       });
     };
 
+    Number.prototype.padLeft = function (base, chr) {
+      var len = String(base || 10).length - String(this).length + 1;
+      return len > 0 ? new Array(len).join(chr || '0') + this : this;
+    };
+
     /**
      * The player function of the client
      * @type {Player}
@@ -107,6 +133,9 @@ module.exports = class KiwiiClient extends Client {
       quality: 'high',
       enableLive: true,
     });
+    this.lyrics = new Genius.Client(
+      process.env.GENIUS_API_KEY || this.config.genius_lyrics.TOKEN
+    );
     /**
      * Get the emojis in config
      */
@@ -171,6 +200,9 @@ module.exports = class KiwiiClient extends Client {
   loadEvents() {
     readdir('src/events', (err, files) => {
       if (err) throw err;
+      if(this.disabledEvents.length) {
+        files = files.filter((file) => !file.startsWith(this.disabledEvents))
+      }
       files = files.filter((file) => file.endsWith('.js'));
       files.forEach((file) => {
         const eventHandler = require(`../events/${file}`);
@@ -196,14 +228,15 @@ module.exports = class KiwiiClient extends Client {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         autoIndex: false,
+        connectTimeoutMS: 10000,
         poolSize: 5,
         family: 4,
       })
       .then(() => {
-        Console.success('Connected to Mongodb');
+        Console.success(`Connected to Mongodb`, 'Mongodb');
       })
       .catch((err) => {
-        Console.error('Failed to connect to MongoDB ', err);
+        Console.error('Failed to connect to Mongodb', err);
       });
   }
   /**
@@ -225,55 +258,36 @@ module.exports = class KiwiiClient extends Client {
     }
     console.log(table2.toString());
   }
-  // /**
-  //  * Listener for process events
-  //  * @param {...String} events The process event(s) to listen to.
-  //  * @param {ProcessEventConfig} config  The configuration for the process event(s).
-  //  * @returns {void}
-  //  */
-  // listenToProcessEvents(events = [], config = {}) {
-  //   if (!Array.isArray(events)) {
-  //     throw new Error(`The events must be an array`);
-  //   }
-
-  //   if (typeof config !== 'object') {
-  //     config = {};
-  //   }
-
-  //   for(const event of events) {
-  //     process.on(event, (error, ...args) => {
-  //       if(config.ignore && typeof config.ignore === "boolean") {
-  //         // if(config.bypassErr && typeof config.bypassErr === 'boolean'){
-  //         //   return;
-  //         // }
-  //         return //console.error(error.stack);
-  //       } else {
-  //         return ProcessEvent(event, args, this);
-  //       }
-  //     })
-  //   }
-  // }
   /**
    * Listener for process events.
    * @param {...string} events The process event name to listen to
    * @param {ProcessEventConfig} config The configuration for the process events.
+   * @param {Boolean} config.log_on_console Logs the error on the console
+   * @param {Boolean} config.nologs No error sended both on the channel & the console
+   * @param {Boolean} config.logsonboth Logs the error on the console & the channel
    * @returns {void}
    */
-  listentoProcessEvents(events = [], config = {}){
-    if (!Array.isArray(events)){
-      return;
+  listentoProcessEvents(events = [], config = {}) {
+    if (!Array.isArray(events)) {
+      throw new Error('Event must be an array!');
     }
 
-    if (typeof config !== 'object'){
+    if (typeof config !== 'object') {
       config = {};
     }
 
-    for (const event of events){
+    for (const event of events) {
       process.on(event, (...args) => {
-        if (config.log_on_console && typeof config.log_on_console === 'boolean') {
+        if (
+          config.log_on_console &&
+          typeof config.log_on_console === 'boolean'
+        ) {
           return console.error(args[0].stack);
         } else if (config.nologs && typeof config.nologs === 'boolean') {
           return;
+          // } else if (config.logsonboth && typeof config.logsonboth === 'boolean'){
+          //   console.error(args[0].stack)
+          //   return ProcessEvent(event. args, this);
         } else {
           return ProcessEvent(event, args, this);
         }

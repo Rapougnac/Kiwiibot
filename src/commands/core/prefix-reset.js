@@ -1,5 +1,5 @@
 const prefixSchema = require('../../models/PrefixSchema')
-const { confirmation } = require('@reconlx/discord.js')
+const { confirmation } = require('@reconlx/discord.js');
 const { Message, Client } = require("discord.js");
 module.exports = {
     name : 'prefix-reset',

@@ -3,6 +3,8 @@ config.json
 audio/record.mp3
 audio/record.pcm
 db_xp.json
+config.js
+out/
 # Logs
 logs
 *.log

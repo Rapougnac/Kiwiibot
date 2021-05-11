@@ -4,9 +4,14 @@ const consoleUtil = require(`../util/console`);
 const { performance } = require('perf_hooks');
 const bootTime = Math.round(performance.now());
 const { loadLanguages } = require('../../language');
+const mongoose = require('mongoose');
+const moment = require('moment');
+require('moment-duration-format');
 
 module.exports = async (client) => {
-  loadLanguages(client);
+  loadLanguages(client, mongoose).then(() => {consoleUtil.success('Loaded languages', 'LoadLangs')}).catch(err =>  {
+    console.log(err)
+  })
   const statuses = [
     `m?help | Currently on ${client.guilds.cache.size} servers`,
     `m?help | Serving ${client.guilds.cache.reduce(
@@ -27,6 +32,7 @@ module.exports = async (client) => {
       .setPresence({ activity: { name: i, type: 'PLAYING' }, status: 'dnd' })
       .catch(console.error);
   }, 1e4);
+
   //client.guildProfiles.load();
   consoleUtil.success(
     `Ready on ${
@@ -36,9 +42,21 @@ module.exports = async (client) => {
       0
     )} users`
   );
-
+  const d = new Date(),
+  timedate =
+    [
+      (d.getMonth() + 1).padLeft(),
+      d.getDate().padLeft(),
+      d.getFullYear(),
+    ].join('/'),
+  timehrs = 
+  [
+    d.getHours().padLeft(),
+    d.getMinutes().padLeft(),
+    d.getSeconds().padLeft(),
+  ].join(':');
   consoleUtil.success(
-    `${client.user.username} is now Online! (Loaded in ${bootTime} ms)\n\n`
+    `${client.user.username} is now Online! (Loaded in ${bootTime} ms)\n`, `${timedate} ${timehrs}`
   );
 
   //express section------------------------------

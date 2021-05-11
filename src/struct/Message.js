@@ -35,5 +35,4 @@ class ExtMessage extends Message {
   }
 }
 
-//module.exports = { ExtMessage };
 Structures.extend("Message", () => ExtMessage);

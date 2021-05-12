@@ -55,7 +55,7 @@ module.exports = class KiwiiClient extends Client {
      * The bot configuration file, empty if no file was specified
      * @type {String}
      */
-    this.config = options.config ? require(`../../${options.config}`) : {};
+    this.config = options.config ? options.config : {};
     /**
      * The bot owner(s)
      * @type {String}

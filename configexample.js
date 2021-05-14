@@ -1,7 +1,7 @@
 module.exports = {
   discord: {
-    token: 'TOKEN_HERE(required)(https://discord.com/developers/applications)',
-    default_prefix: 'PREFIX_HERE(required)',
+    token: 'TOKEN_HERE', // (required)(https://discord.com/developers/applications)
+    prefix: 'PREFIX_HERE', // Required
     text: 'm?help/m?commands',
     activity: 'WATCHING',
     status: 'dnd',
@@ -20,11 +20,11 @@ module.exports = {
     success: '✅',
   },
   ytsearcher: {
-    key: 'YT_SEARCH_KEY_HERE(optional)',
+    key: 'YT_SEARCH_KEY_HERE', // Optionnal
   },
   amethyste: {
     client:
-      'AMETHYSTE_KEY_HERE(optional, but images manipulation won\'t work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token',
+      'AMETHYSTE_KEY_HERE', // (optional, but mostly of images manipulation won\'t work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token
   },
   filters: [
     '8D',
@@ -66,7 +66,7 @@ module.exports = {
   },
   database: {
     enable: true,
-    URI: 'MONGO_URI_HERE(optional but there\'ll be no database)',
+    URI: 'MONGO_URI_HERE', // (optional but there'll be no database)
     config: {
       useUnifiedTopology: true,
       useNewUrlParser: true,
@@ -84,7 +84,7 @@ module.exports = {
     VERY_HIGH: '┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻',
   },
   chatbot: {
-    id: 'ID_HERE(optional but the chatbot function\'ll not work)(get a id & key here)[https://brainshop.ai/]',
-    key: 'KEY_HERE(optional)',
+    id: 'ID_HERE', // (optional but the chatbot function will not work)(get a id & key here)[https://brainshop.ai/]
+    key: 'KEY_HERE', // Same as the id 
   },
 };

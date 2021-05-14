@@ -27,7 +27,7 @@ module.exports = {
                     { name: '** **', value: filtersStatuses[1].join('\n'), inline: true },
                 ],
                 timestamp: new Date(),
-                description: `List of all filters enabled or disabled.\nUse \`${client.config.discord.default_prefix}filter\` to add a filter to a song.`,
+                description: `List of all filters enabled or disabled.\nUse \`${client.prefix}filter\` to add a filter to a song.`,
             },
         });
     },

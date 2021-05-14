@@ -1,12 +1,6 @@
 // https://github.com/cordejs/corde
 const { group, test, command, beforeStart, afterAll, expect } = require("corde");
 const Client = require('../src/struct/Client');
-const Discord = require('discord.js');
-const Message = require('./struct/Message');
-const TextChannel = require('./struct/TextChannel');
-const Guild = require('./struct/Guild');
-const { read } = require("jimp");
-const exp = require("constants");
 
 beforeStart(async () => {
     const client = new Client({

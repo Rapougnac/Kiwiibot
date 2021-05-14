@@ -3,8 +3,20 @@
   "version": "3.2.6",
   "description": "Bot written in discord.js",
   "main": "src/index.js",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "corde -validate",
+    "test": "corde",
     "start": "node .",
     "lint": "eslint ./"
   },
@@ -45,6 +57,7 @@
     "discord-tts": "^1.0.3",
     "discord-tts-fr": "^1.0.3",
     "discord-ytdl-core": "^5.0.2",
+    "discord.js": "^12.5.3",
     "discord.js-menu": "^2.3.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
@@ -88,7 +101,7 @@
     "superagent": "^6.1.0",
     "telk-music": "^3.0.0",
     "weather-js": "^2.0.0",
-    "youtube-notifier": "^1.3.2",
+    "yarn": "^1.22.10",
     "youtube-search": "^1.1.4",
     "youtube-sr": "^2.0.5",
     "ytdl": "^1.4.1",
@@ -97,11 +110,14 @@
     "ytsearcher": "^1.2.4"
   },
   "devDependencies": {
+    "corde": "^3.1.4",
+    "coveralls": "^3.1.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "html-to-markdown": "^1.0.0",
+    "jest": "^26.2.2",
     "prettier": "^2.2.1"
   }
 }

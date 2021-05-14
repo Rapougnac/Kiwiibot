@@ -12,11 +12,6 @@ function textTruncate(str = '', length = 100, end = '...'){
   return String(str).substring(0, length - end.length) + (str.length > length ? end : '');
 }
 
-// extends textTruncate function -> lesser length
-function truncate(...options){
-  return textTruncate(...options);
-}
-
 /**
  * Appends ordinal suffixes to input numbers. Max input before failing is 10e307
  * @param {number|string} n the Number to append ordinal suffix to
@@ -76,7 +71,7 @@ function joinArray(array = []){
  * @note Will throw a typeerror array.reduce is not a function if param1 is not of type array.
  */
 function joinArrayAndLimit(array = [], limit = 1000, connector = '\n'){
-  return array.reduce((a,c,i,x) => a.text.length + String(c).length > limit
+  return array.reduce((a,c,i,_x) => a.text.length + String(c).length > limit
   ? { text: a.text, excess: a.excess + 1 }
   : { text: a.text + (i ? connector : '') + String(c), excess: a.excess }
   , { text: '', excess: 0});
@@ -93,7 +88,6 @@ function clean(text){
 
 module.exports = {
   textTruncate,
-  truncate,
   ordinalize,
   commatize,
   compactNum,

@@ -8,7 +8,6 @@ module.exports = {
     category: 'Misc',
     utilisation: '{prefix}cycle',
     async execute(client, message, args) {
-        //const args = message.content.trim().split(/ +/g);
         const text = args.join(' ')
         if (!text) return message.reply("Please provide text");
 

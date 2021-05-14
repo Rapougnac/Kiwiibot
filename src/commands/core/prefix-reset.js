@@ -26,7 +26,7 @@ module.exports = {
             if(emoji === '✅') {
                 msg.delete()
                 await prefixSchema.findOneAndDelete({ GuildID: message.guild.id })
-                message.channel.send(this.string[1].format(client.config.discord.default_prefix))
+                message.channel.send(this.string[1].format(client.prefix))
             }
             if(emoji === '❌') {
                 msg.delete()

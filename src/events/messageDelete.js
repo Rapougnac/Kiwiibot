@@ -16,9 +16,9 @@ module.exports = async (client, message) => {
   //   });
   //   console.log(fetchGuildAuditLogs);
   //   // console.log(fetchGuildAuditLogs.entries);
-  //   // const latestMessageDeleted = fetchGuildAuditLogs.entries.first();
+  //   const latestMessageDeleted = fetchGuildAuditLogs.entries.first();
   //   // console.log(latestMessageDeleted);
-  //   // const { executor } = latestMessageDeleted;
+  //   const { executor } = latestMessageDeleted;
   //   // console.log(executor);
   //   await GuildSchema.findOne({ _id: message.guild.id }, async (err, data) => {
   //     if (err)
@@ -40,7 +40,7 @@ module.exports = async (client, message) => {
   //         )
   //         .addField('**Channel**:', message.channel)
   //         .setTimestamp()
-  //         //.setFooter(executor.username, executor.displayAvatarURL());
+  //         .setFooter(executor.username, executor.displayAvatarURL());
   //       message.guild.channels.cache.get(data.channels.logs).send(embed);
   //     }
   //   });

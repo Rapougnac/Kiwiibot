@@ -35,7 +35,7 @@ module.exports = class KiwiiClient extends Client {
       throw new TypeError('Options should be an `Object`');
 
     /**
-     * A collection of all the bot's commands
+     * * A collection of all the bot's commands
      * @type {Collection}
      */
     this.commands = new Collection();
@@ -71,7 +71,7 @@ module.exports = class KiwiiClient extends Client {
      * Access to the prefix easily
      * @type {String}
      */
-    this.prefix = this.config.discord.default_prefix;
+    this.prefix = this.config.discord.prefix;
     /**
      * The events that should not be executed
      * @type {Object}

@@ -1,9 +1,17 @@
+const Client = require('../../struct/Client')
+const { Message } = require('discord.js')
 module.exports = {
   name: 'nowplaying',
   aliases: ['np', 'n'],
   category: 'Music',
   utilisation: '{prefix}nowplaying',
-
+  /**
+   * 
+   * @param {Client} client 
+   * @param {Message} message 
+   * @param {String[]} args 
+   * @returns 
+   */
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(

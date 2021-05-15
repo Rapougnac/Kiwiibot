@@ -19,15 +19,14 @@ module.exports = {
   guildOnly: false,
   adminOnly: false,
   permissions: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
-  clientPermissions: [],
+  clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
   string: [],
   /**
-   *
    * @param {Client} client
    * @param {ExtMessage} message
    * @param {String[]} args
    */
-  async execute(client, message) {
+  async execute(client, message, args) {
     message.channel.startTyping();
     const msg = await message.inlineReply(`🏓 Pinging....`, {
       allowedMentions: {

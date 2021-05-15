@@ -19,4 +19,11 @@ module.exports = class Utils {
     formatArray(array, type = "conjunction") {
         return new Intl.ListFormat("en-US", { style: "short", type: type }).format(array)
     }
+
+    static formatNumber(number, minimumFractionDigits = 0) {
+		return Number.parseFloat(number).toLocaleString(undefined, {
+			minimumFractionDigits,
+			maximumFractionDigits: 2
+		});
+	}
 }

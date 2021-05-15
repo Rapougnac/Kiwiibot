@@ -1,5 +1,5 @@
 const prefixSchema = require('../../models/PrefixSchema')
-const { confirmation } = require('@reconlx/discord.js')
+const { confirmation } = require('@reconlx/discord.js');
 const { Message, Client } = require("discord.js");
 module.exports = {
     name : 'prefix-reset',
@@ -26,7 +26,7 @@ module.exports = {
             if(emoji === '✅') {
                 msg.delete()
                 await prefixSchema.findOneAndDelete({ GuildID: message.guild.id })
-                message.channel.send(this.string[1].format(client.config.discord.default_prefix))
+                message.channel.send(this.string[1].format(client.prefix))
             }
             if(emoji === '❌') {
                 msg.delete()

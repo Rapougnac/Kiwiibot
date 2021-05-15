@@ -1,5 +1,6 @@
-const { MessageEmbed, Client, Message } = require("discord.js");
+const { MessageEmbed, Message } = require("discord.js");
 const { Menu } = require('discord.js-menu');
+const Client = require('../../struct/Client')
 module.exports = {
     name: 'help',
     aliases: ['h'],
@@ -36,7 +37,7 @@ module.exports = {
                         color: 'ORANGE',
                         title: 'Help pannel',
                         footer: { text: `1/5`},
-                        description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
+                        description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
                         fields: [
                             
                             { name: "Bot", value: infos },
@@ -58,7 +59,7 @@ module.exports = {
                         color: 'ORANGE',
                         title: 'Help pannel',
                         footer: { text: 'Page 2/5' },
-                        description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
+                        description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
                         fields: [
 
                             { name: 'Neko', value: neko},
@@ -78,7 +79,7 @@ module.exports = {
                         color: 'ORANGE',
                         title: 'Help pannel',
                         footer: { text: 'Page 3/5' },
-                        description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
+                        description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
                         fields: [
                             
                             { name: 'NSFW', value: nsfw },
@@ -98,7 +99,7 @@ module.exports = {
                         color: 'ORANGE',
                         title: 'Help pannel',
                         footer: { text: 'Page 4/5' },
-                        description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
+                        description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
                         fields: [
                             
                             { name: 'Interactions', value: int },
@@ -118,7 +119,7 @@ module.exports = {
                         color: 'ORANGE',
                         title: 'Help pannel',
                         footer: { text: 'Page 5/5' },
-                        description: `To use filters, ${client.config.discord.default_prefix}filter (the filter). Example : ${client.config.discord.default_prefix}filter 8D.`,
+                        description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
                         fields: [
                             
                             { name: 'Misc', value: misc },
@@ -146,7 +147,7 @@ module.exports = {
                         { name: 'Name', value: command.name, inline: true },
                         { name: 'Category', value: command.category, inline: true },
                         { name: 'Aliase(s)', value: command.aliases.length < 1 ? 'None' : command.aliases.join('\n'), inline: true },
-                        { name: 'Utilisation', value: command.utilisation.replace('{prefix}', client.config.discord.default_prefix), inline: true },
+                        { name: 'Utilisation', value: command.utilisation.replace('{prefix}', client.prefix), inline: true },
                         { name: 'Description', value: command.description, inline: true },
                         { name: "Cooldown", value: command.cooldown ? `${command.cooldown} seconds` : "None", inline: true},
                         { name: "guildOnly", value: command.guildOnly ? true : false, inline: true },

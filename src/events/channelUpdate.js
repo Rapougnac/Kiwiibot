@@ -57,7 +57,7 @@ module.exports = async (client, oldChannel, newChannel) => {
             .addField("**Channel category**", newCategory)
             .setTimestamp()
             .setFooter(executor.username, executor.displayAvatarURL())
-        await newChannel.guild.channels.cache.get('815679519682986049').send(embed);
+        await newChannel.guild.channels.cache.get('823501407042797579').send(embed);
         } catch (err) {
             //
         }

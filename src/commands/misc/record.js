@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { MessageAttachment, MessageEmbed } = require('discord.js');
-const ffmpeg = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require.resolve("ffmpeg-static/ffmpeg.exe");
+// FIXME: Fix record
 let exec = require('child_process').exec, child;
 module.exports = {
     name: 'record',

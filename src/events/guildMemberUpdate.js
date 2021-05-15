@@ -1,18 +1,18 @@
 'use strict';
 
-const { MessageEmbed, Client, GuildMember } = require('discord.js');
+// const { MessageEmbed, Client, GuildMember } = require('discord.js');
 
-function stringifyPropsInOrder(obj) {
-  var keys = Object.keys(obj).sort();
-  var output = [],
-    prop;
-  for (var i = 0; i < keys.length; i++) {
-    prop = keys[i];
-    output.push(prop);
-    output.push(obj[prop]);
-  }
-  return JSON.stringify(output);
-}
+// function stringifyPropsInOrder(obj) {
+//   var keys = Object.keys(obj).sort();
+//   var output = [],
+//     prop;
+//   for (var i = 0; i < keys.length; i++) {
+//     prop = keys[i];
+//     output.push(prop);
+//     output.push(obj[prop]);
+//   }
+//   return JSON.stringify(output);
+// }
 // guildMemberUpdate
 /**Emitted whenever a guild member changes - i.e. new role, removed role, nickname.
  * PARAMETER:                             TYPE:              DESCRIPTION:

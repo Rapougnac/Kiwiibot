@@ -55,7 +55,7 @@ module.exports = class KiwiiClient extends Client {
      * The bot configuration file, empty if no file was specified
      * @type {String}
      */
-    this.config = options.config ? require(`../../${options.config}`) : {};
+    this.config = options.config ? options.config : {};
     /**
      * The bot owner(s)
      * @type {String}
@@ -152,15 +152,20 @@ module.exports = class KiwiiClient extends Client {
       // Do nothing
     }
     files.forEach((file) => {
-      const command = require(`../../${file}`);
-      this.commands.set(command.name, command);
-      if (command.aliases) {
-        command.aliases.forEach((alias) => {
-          this.aliases.set(alias, command);
-        });
-      } else {
-        // Do nothing
+      try {
+        const command = require(`${process.cwd()}\\${file.split('/').join('\\')}`);
+        this.commands.set(command.name, command);
+        if (command.aliases) {
+          command.aliases.forEach((alias) => {
+            this.aliases.set(alias, command);
+          });
+        } else {
+          // Do nothing
+        }
+      } catch (error) {
+        console.log(error)
       }
+
     });
     Console.success(`Loaded ${files.length} commands`);
     return this;
@@ -259,16 +264,16 @@ module.exports = class KiwiiClient extends Client {
    * @param {ProcessEventConfig} config The configuration for the process events.
    * @returns {void}
    */
-  listentoProcessEvents(events = [], config = {}){
-    if (!Array.isArray(events)){
+  listentoProcessEvents(events = [], config = {}) {
+    if (!Array.isArray(events)) {
       return;
     }
 
-    if (typeof config !== 'object'){
+    if (typeof config !== 'object') {
       config = {};
     }
 
-    for (const event of events){
+    for (const event of events) {
       process.on(event, (...args) => {
         if (config.log_on_console && typeof config.log_on_console === 'boolean') {
           return console.error(args[0].stack);

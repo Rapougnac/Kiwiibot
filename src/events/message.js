@@ -13,7 +13,7 @@ const {
  * @param {String[]} args
  */
 module.exports = async (client, message) => {
-  if (message.author.bot) return;
+  if (message.author.bot && (message.author.id !=client.config.discord.id_bot_test)) return;
   const p = await prefix(message, client.config);
   const { guild } = message;
   if (message.content.startsWith(`<@!${client.user.id}>`)) {

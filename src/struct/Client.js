@@ -64,7 +64,7 @@ module.exports = class KiwiiClient extends Client {
     this.config = options.config ? require(`../../${options.config}`) : {};
     /**
      * The bot owner(s)
-     * @type {String}
+     * @type {String|String[]}
      */
     this.owners = options.owners;
     /**
@@ -167,31 +167,40 @@ module.exports = class KiwiiClient extends Client {
         files = files.filter((file) =>
           file.endsWith(this.config.discord.dev.include_cmd)
         );
-      } else {
-        // Do nothing
       }
       if (this.config.discord.dev.exclude_cmd.length) {
         files = files.filter(
           (file) => !file.endsWith(this.config.discord.dev.exclude_cmd)
         );
-      } else {
-        // Do nothing
       }
-    } else {
-      // Do nothing
     }
     files.forEach((file) => {
       const command = require(`../../${file}`);
-      this.commands.set(command.name, command);
-      if (command.aliases) {
-        command.aliases.forEach((alias) => {
-          this.aliases.set(alias, command);
-        });
+
+      if (this.commands.has(command.name)) {
+        console.error(
+          new Error(`Command name duplicate: ${command.name}`).stack
+        );
+        return process.exit(1);
       } else {
-        // Do nothing
+        this.commands.set(command.name, command);
+        if (command.aliases) {
+          command.aliases.forEach((alias) => {
+            if (this.aliases.has(alias)) {
+              console.error(
+                new Error(`Alias name duplicate: ${command.aliases}`).stack
+              );
+              return process.exit(1);
+            } else {
+              this.aliases.set(alias, command);
+            }
+          });
+        }
       }
     });
-    Console.success(`Loaded ${files.length} commands`);
+    setTimeout(function () {
+      Console.success(`Loaded ${files.length} commands`);
+    }, 1000);
     return this;
   }
   /**
@@ -200,8 +209,8 @@ module.exports = class KiwiiClient extends Client {
   loadEvents() {
     readdir('src/events', (err, files) => {
       if (err) throw err;
-      if(this.disabledEvents.length) {
-        files = files.filter((file) => !file.startsWith(this.disabledEvents))
+      if (this.disabledEvents.length) {
+        files = files.filter((file) => !file.startsWith(this.disabledEvents));
       }
       files = files.filter((file) => file.endsWith('.js'));
       files.forEach((file) => {
@@ -214,7 +223,7 @@ module.exports = class KiwiiClient extends Client {
           table.addRow(eventName, '\x1b[31mERR!\x1b[0m');
         }
       });
-      console.log(table.toString()); //showing the table
+      console.log(table.toString());
     });
     return this;
   }
@@ -315,4 +324,13 @@ module.exports = class KiwiiClient extends Client {
       );
     }
   }
+};
+
+const arrayEquals = (a, b) => {
+  return (
+    Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index])
+  );
 };

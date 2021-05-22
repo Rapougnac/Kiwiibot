@@ -383,22 +383,6 @@
       "english": [],
       "french": []
     },
-    "character": {
-      "english": [
-        "Searching for character named **{0}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)",
-        "No results were found for **{0}**!\n\nIf you believe this character exists, try their alternative names.",
-        "I'm being rate limited in {0}, please try again later.",
-        "I could not access {0}, the site might be currently down, please try again later.",
-        "{0} responded with HTTP error code {1}"
-      ],
-      "french": [
-        "En train de chercher un personnage nommé **{0}** sur <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)",
-        "Aucun résultat n'a été trouvé pour **{0}**\n\nSi vous pensez que ce personnage existe, essayez par leur nom différent.",
-        "Je suis limitée en {0}, veuillez réessayer plus tard.",
-        "Je ne peux pas accéder {0}, le site pourrait être indisponible pour le moment.",
-        "{0} a répondu avec le code d'erreur HTTP {1}"
-      ]
-    },
     "avatar": {
       "english": [
         "Avatar of {0}",
@@ -455,6 +439,50 @@
         "Vous ne pouvez pas mute l'owner !",
         "Vous ne pouvez pas mute cet utilisateur, il/elle a un rôle plus haut que le vôtre !",
         "Je ne peux pas mute cet utilisateur !"
+      ]
+    },
+    "8ball": {
+      "english": [
+        "Please, indicate a question!",
+        [
+          "Yes",
+          "No",
+          "Maybe",
+          "Obviously!",
+          "Not sure",
+          "Nay",
+          "Of course",
+          "NEVER",
+          "No, 'cause I don't like you :)",
+          "I don't know",
+          "It make sense",
+          "I regret, but no",
+          "Yes that seems logical to me",
+          "No sorry, you're too ugly",
+          "No way",
+          "It's a possibility"
+        ]
+      ],
+      "french": [
+        "Veuillez indiquer une question !",
+        [
+          "Oui",
+          "Non",
+          "Peut être",
+          "Evidemment",
+          "Pas sûr",
+          "Que nenni !",
+          "Bien sûr !",
+          "JAMAIS",
+          "Non parce que je t'aimes pas :)",
+          "Je ne sais pas",
+          "Ça tombe sous le sens",
+          "Je regrette mais non",
+          "Oui, ça me paraît logique",
+          "Non désolé t'es trop moche",
+          "Jamais de la vie",
+          "C'est une possibilité"
+        ]
       ]
     }
   }

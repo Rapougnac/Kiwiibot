@@ -18,7 +18,7 @@ const Genius = require('genius-lyrics');
  * Represents a discord client
  * @extends Client
  */
-module.exports = class KiwiiClient extends Client {
+class KiwiiClient extends Client {
   /**
    *
    * @param {Object} options The options passed trough the client
@@ -27,12 +27,14 @@ module.exports = class KiwiiClient extends Client {
    * @param {String|String[]} options.owners The owner(s) of the bot
    * @param {String[]} options.defaultPerms The default perms of the bot
    * @param {String[]} options.disabledEvents Disabled events of this instance
+   * @param {String} options.prefix The prefix of the bot
    */
   constructor(options) {
     super(options.clientOptions || {});
 
-    if (typeof options !== 'object')
+    if (typeof options !== 'object') {
       throw new TypeError('Options should be an `Object`');
+    }
 
     /**
      * * A collection of all the bot's commands
@@ -71,22 +73,17 @@ module.exports = class KiwiiClient extends Client {
      * Access to the prefix easily
      * @type {String}
      */
-    this.prefix = this.config.discord.prefix;
+    this.prefix = options.prefix;
     /**
      * The events that should not be executed
      * @type {Object}
      */
     this.disabledEvents = options.disabledEvents;
 
-    // if (this.disabledEvents) {
-    //   for (const evt of this.disabledEvents) {
-    //     require(`discord.js/src/client/actions/${evt}`);
-    //     return;
-    //   }
-    // }
-
-    if (!options.defaultPerms)
+    if (!options.defaultPerms) {
       throw new Error('You must pass default perm(s) for the client');
+    }
+
     /**
      * The default perms of the bot
      * @type {string}
@@ -114,8 +111,8 @@ module.exports = class KiwiiClient extends Client {
      */
     String.prototype.format = function () {
       let args = arguments;
-      return this.replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] != 'undefined' ? args[number] : match;
+      return this.replace(/{(\d+)}/g, (match, number) => {
+        return typeof args[number] !== 'undefined' ? args[number] : match;
       });
     };
 
@@ -133,13 +130,16 @@ module.exports = class KiwiiClient extends Client {
       quality: 'high',
       enableLive: true,
     });
+
     this.lyrics = new Genius.Client(
       process.env.GENIUS_API_KEY || this.config.genius_lyrics.TOKEN
     );
+
     /**
      * Get the emojis in config
      */
     this.emotes = this.config.emojis;
+
     /**
      * Get the filters in config
      */
@@ -294,9 +294,12 @@ module.exports = class KiwiiClient extends Client {
           return console.error(args[0].stack);
         } else if (config.nologs && typeof config.nologs === 'boolean') {
           return;
-          // } else if (config.logsonboth && typeof config.logsonboth === 'boolean'){
-          //   console.error(args[0].stack)
-          //   return ProcessEvent(event. args, this);
+        } else if (
+          config.logsonboth &&
+          typeof config.logsonboth === 'boolean'
+        ) {
+          console.error(args[0].stack);
+          return ProcessEvent(event, args, this);
         } else {
           return ProcessEvent(event, args, this);
         }
@@ -324,13 +327,6 @@ module.exports = class KiwiiClient extends Client {
       );
     }
   }
-};
+}
 
-const arrayEquals = (a, b) => {
-  return (
-    Array.isArray(a) &&
-    Array.isArray(b) &&
-    a.length === b.length &&
-    a.every((val, index) => val === b[index])
-  );
-};
+module.exports = KiwiiClient;

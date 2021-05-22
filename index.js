@@ -2,6 +2,7 @@ const Client = require('./src/struct/Client'); // Extended Client
 require('./src/struct/Message'); // Extended Message
 require('module-alias/register'); // Module alias for the path
 const client = new Client({
+  prefix: 'n?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
   owners: '253554702858452992', // Owner(s) of the bot
   config: './config.js', //Path to the config.js file
@@ -17,8 +18,8 @@ client.start();
 client.login();
 
 client.listentoProcessEvents(['uncaughtException', 'unhandledRejection'], {
-  log_on_console: true,
+  log_on_console: false,
   nologs: false,
-  logsonboth: false,
+  logsonboth: true,
 });
 

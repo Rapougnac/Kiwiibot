@@ -5,13 +5,20 @@ const { performance } = require('perf_hooks');
 const bootTime = Math.round(performance.now());
 const { loadLanguages } = require('../../language');
 const mongoose = require('mongoose');
-const moment = require('moment');
+const Client = require('../struct/Client');
 require('moment-duration-format');
-
+/**
+ *
+ * @param {Client} client
+ */
 module.exports = async (client) => {
-  loadLanguages(client, mongoose).then(() => {consoleUtil.success('Loaded languages', 'LoadLangs')}).catch(err =>  {
-    console.log(err)
-  })
+  loadLanguages(client, mongoose)
+    .then(() => {
+      consoleUtil.success('Loaded languages', 'LoadLangs');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   const statuses = [
     `m?help | Currently on ${client.guilds.cache.size} servers`,
     `m?help | Serving ${client.guilds.cache.reduce(
@@ -29,11 +36,10 @@ module.exports = async (client) => {
   setInterval(async () => {
     const i = statuses[Math.floor(Math.random() * statuses.length)];
     await client.user
-      .setPresence({ activity: { name: i, type: 'PLAYING' }, status: 'dnd' })
+      .setPresence({ activity: { name: i, type: 'PLAYING' }, status: client.config.discord.status })
       .catch(console.error);
   }, 1e4);
 
-  //client.guildProfiles.load();
   consoleUtil.success(
     `Ready on ${
       client.guilds.cache.size
@@ -43,30 +49,26 @@ module.exports = async (client) => {
     )} users`
   );
   const d = new Date(),
-  timedate =
-    [
+    timedate = [
       (d.getMonth() + 1).padLeft(),
       d.getDate().padLeft(),
       d.getFullYear(),
     ].join('/'),
-  timehrs = 
-  [
-    d.getHours().padLeft(),
-    d.getMinutes().padLeft(),
-    d.getSeconds().padLeft(),
-  ].join(':');
+    timehrs = [
+      d.getHours().padLeft(),
+      d.getMinutes().padLeft(),
+      d.getSeconds().padLeft(),
+    ].join(':');
   consoleUtil.success(
-    `${client.user.username} is now Online! (Loaded in ${bootTime} ms)\n`, `${timedate} ${timehrs}`
+    `${client.user.username} is now Online! (Loaded in ${bootTime} ms)\n`,
+    `${timedate} ${timehrs}`
   );
 
   //express section------------------------------
 
   const clientDetails = {
     guilds: client.guilds.cache.size,
-    users: client.guilds.cache.reduce(
-      (a, b) => a + b.memberCount,
-      0
-    ),
+    users: client.guilds.cache.reduce((a, b) => a + b.memberCount, 0),
     channels: client.channels.cache.size,
   };
 

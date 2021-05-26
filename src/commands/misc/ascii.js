@@ -12,7 +12,8 @@ module.exports = {
         if (!text) {
             return message.channel.send('Please provide text for the ascii conversion!')
         }
-        let _maxlen = 20
+
+        
         if (text.length > 20) {
             return message.channel.send("Please put text that has 20 characters or less because the conversion won't be good!")
         }

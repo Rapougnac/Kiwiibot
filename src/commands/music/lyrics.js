@@ -80,9 +80,9 @@ module.exports = {
 
       const msg = await message.channel.send(pages.currentPage);
 
-      const prev = client.emojis.cache.get('767062237722050561') || '◀';
-      const next = client.emojis.cache.get('767062244034084865') || '▶';
-      const terminate = client.emojis.cache.get('767062250279927818') || '❌';
+      const prev = '◀';
+      const next = '▶';
+      const terminate = '❌';
 
       const collector = msg.createReactionCollector(
         (reaction, user) => user.id === message.author.id
@@ -170,9 +170,9 @@ module.exports = {
 
       const msg = await message.channel.send(pages.currentPage);
 
-      const prev = client.emojis.cache.get('767062237722050561') || '◀';
-      const next = client.emojis.cache.get('767062244034084865') || '▶';
-      const terminate = client.emojis.cache.get('767062250279927818') || '❌';
+      const prev = '◀';
+      const next = '▶';
+      const terminate = '❌';
 
       const collector = msg.createReactionCollector(
         (reaction, user) => user.id === message.author.id

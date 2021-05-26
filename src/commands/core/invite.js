@@ -8,7 +8,7 @@ module.exports = {
   utilisation: '{prefix}invite',
   cooldown: 10,
   nsfw: false,
-  ownerOnly: false,
+  ownerOnly: true,
   adminOnly: false,
   guildOnly: false,
   permissions: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
@@ -165,7 +165,7 @@ module.exports = {
             },
           ],
           thumbnail:
-            'https://cdn.discordapp.com/avatars/823158943214862357/7b9c263a86aebaf3ee5842115ef569dd.png?size=2048',
+            message.author.displayAvatarURL({ dynamic: true }),
         },
       });
     }

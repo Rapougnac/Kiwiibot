@@ -9,22 +9,22 @@ const config = require('../../config');
 async function prefix(message, config) {
   let prefix;
   try {
-    if (message.content.startsWith(config.discord.prefix.toLowerCase()))
-      return (prefix = config.discord.prefix.toLowerCase());
+    if (message.content.startsWith(message.client.prefix))
+      return (prefix = message.client.prefix);
     if (message.channel.type === 'dm')
-      prefix = config.discord.prefix.toLowerCase();
+      prefix = message.client.prefix;
     await PrefixSchema.findOne(
       { GuildID: message.guild?.id },
       function (err, data) {
         if (!data)
-          return (prefix = config.discord.prefix.toLowerCase());
+          return (prefix = message.client.prefix);
         if (!err) prefix = data.Prefix;
         else console.log(err);
       }
     );
     
-    if (message.channel.type !== 'dm') return prefix;
-    else return config.discord.prefix.toLowerCase();
+    if (message.channel.type !== 'dm'.substring()) return prefix;
+    else return message.client.prefix;
   } catch (err) {
     console.error(err);
   }

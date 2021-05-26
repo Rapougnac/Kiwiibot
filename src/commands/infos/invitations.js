@@ -6,15 +6,17 @@ module.exports = {
     name: 'invitations',
     description: "Gives You the list of top 5 people with most invites to your server!",
     utilisation: "{prefix}invites",
-    aliases: ['inv'],
+    aliases: ['invites'],
     async execute(client, message, args) {
         message.guild.fetchInvites().then((invites) => {
             const inviteCounter = {}
 
 
             invites.forEach((invite => {
-                const { uses, inviter } = invite
-                const { _username, _discriminator } = inviter
+                const { uses, inviter } = invite;
+                
+                // eslint-disable-next-line no-unused-vars
+                const { username, discriminator } = inviter;
 
                 const name = `${inviter}`
 
@@ -33,7 +35,7 @@ module.exports = {
 
              for(const invite of sortedInvites) {
                  const count = inviteCounter[invite]
-                 replyText.description += `\n${invite} has invited ${count} member(s)!`
+                 replyText.description += `\n${invite} has invited ${count} member(s)!`;
              }
              message.channel.send(replyText)
 

@@ -24,7 +24,7 @@ module.exports = {
    */
   async execute(client, message, args) {
     const kitsu = new Kitsu();
-    var search = args.join(' ');
+    const search = args.join(' ');
     if (!search) {
       return message.channel.send(this.string[0]);
     }

@@ -16,7 +16,6 @@ module.exports = {
     `).then((res) => res.json());
 
         const embed = new Discord.MessageEmbed()
-            .setTitle("Clyde")
             .setImage(data.message)
             .setFooter(message.author.username)
             .setColor("BLUE")

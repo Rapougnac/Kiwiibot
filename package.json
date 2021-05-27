@@ -58,8 +58,6 @@
         "gifencoder": "^2.0.1",
         "gifu": "^3.0.0",
         "glob": "^7.1.6",
-        "graphql": "^15.4.0",
-        "graphql-request": "^3.4.0",
         "hanime": "^1.1.2",
         "humanize-duration": "^3.25.1",
         "jimp": "^0.16.1",

@@ -485,13 +485,29 @@
         ]
       ]
     },
-    "djs": {
+    "docs": {
       "english": ["Please specify a query!"],
       "french": ["Veuillez spécifiez une recherche !"]
     },
     "anime": {
       "english": ["Please, specify an anime!", "No results was found for **{0}**!", "Name in japanese", "Public age", "Yes", "No", "Global note:", "Ranking:", "Popularity:", "The message will stop to collect messages in 60 seconds", "Stats", "Beginning", "End", "In progress..."],
       "french": ["S'il vous plaît, veuillez spécifier un animé !", "Aucun résultat trouvé pour **{0}** !", "Nom en japonais", "Age du public:", "Oui", "Non", "Note globale:", "Classement:", "Popularité:", "Le collecteur va cesser de récuperer des messages après 60 secondes", "Statistiques", "Début", "Fin", "En cours..."]
+    },
+    "calc": {
+      "english": [],
+      "french": []
+    },
+    "ascii": {
+      "english": ["Please provide text for the ascii conversion!", "Please put text that has 20 characters or less otherwise the conversion won't be good!"],
+      "french": ["S'il vous plaît, veuillez me donner un texte à convertir !", "S'il vous plaît, veuillez rentrer un texte de moins de 20 caractères sinon la conversion se fera mal."]
+    },
+    "firstmessage": {
+      "english": ["First message in: **{0}**", "**Content:** ", "**Author:**", "**Message ID:**", "**Created at:**"],
+      "french": ["Premier message du channel: **{0}**", "**Contenu:** ", "**Auteur:**", "**ID du message:**", "**Créé le:**"]
+    },
+    "fisheye": {
+      "english": ["Please insert a number between 1 to 10", "Please insert a valid number", "Distortion must be between 1 to 10!"],
+      "french": []
     }
   }
 }

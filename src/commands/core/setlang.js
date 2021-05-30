@@ -31,23 +31,34 @@ module.exports = {
       setLanguage(message.guild, targetedlanguage);
 
       try {
-        await languageSchema.findOneAndUpdate(
-          {
-            _id: message.guild.id,
-          },
-          {
-            _id: message.guild.id,
-            language: targetedlanguage,
-          },
-          {
-            upsert: true,
-          }
-        );
-        await message.inlineReply(this.string[1], {
-          allowedMentions: {
-            repliedUser: false,
-          },
-        });
+        await languageSchema
+          .findOneAndUpdate(
+            {
+              _id: message.guild.id,
+            },
+            {
+              _id: message.guild.id,
+              language: targetedlanguage,
+            },
+            {
+              upsert: true,
+            }
+          )
+          .then(async () => {
+            if (targetedlanguage === 'english') {
+              await message.inlineReply('Language has been setted!', {
+                allowedMentions: {
+                  repliedUser: false,
+                },
+              });
+            } else if(targetedlanguage === 'french') {
+              await message.inlineReply('La langue a bien été définie !', {
+                allowedMentions: {
+                  repliedUser: false,
+                },
+              });
+            }
+          });
       } catch (error) {
         await message.channel.send(this.string[2].format(error.name));
       }

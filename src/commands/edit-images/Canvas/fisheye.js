@@ -21,7 +21,7 @@ module.exports = {
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
-   * @returns {Promise<any>}
+   * @returns {Promise<Message>}
    */
   async execute(client, message, args) {
     const member =
@@ -92,13 +92,13 @@ module.exports = {
       }
       ctx.drawImage(data, 0, 0);
       if (level > 10 && level < 1) {
-        return message.inlineReply(this.string[2], {
+        return message.inlineReply(this.string[0], {
           allowedMentions: {
             repliedUser: false,
           },
         });
       }
-      
+
       Canvas.fishEye(ctx, level, 0, 0, data.width, data.height);
 
       const att = new MessageAttachment(canvas.toBuffer(), 'fisheye.png');

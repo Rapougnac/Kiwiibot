@@ -107,7 +107,7 @@
         "The",
         "at",
         "Is not boosting",
-        "Date of arrival on the server",
+        "Arrival date on the server",
         "Boost start date",
         "Device",
         "Type",
@@ -487,7 +487,10 @@
     },
     "docs": {
       "english": ["Please specify a query!", "I couldn't fetch the docs!"],
-      "french": ["Veuillez spécifiez une recherche !", "Je n'ai pas pu récupérer la doc !"]
+      "french": [
+        "Veuillez spécifiez une recherche !",
+        "Je n'ai pas pu récupérer la doc !"
+      ]
     },
     "anime": {
       "english": [
@@ -560,10 +563,16 @@
     "fisheye": {
       "english": [
         "Please insert a number between 1 to 10",
-        "Please insert a valid number",
-        "Distortion must be between 1 to 10!"
+        "Please insert a valid number"
       ],
-      "french": []
+      "french": [
+        "Veuillez mettre un numéro compris entre 1 et 10",
+        "S'il vous plaît, veuillez insérer un nombre valide"
+      ]
+    },
+    "roleinfo": {
+      "english": ["Please specify a role.", "Role", "Role name", "Members who own it", "Color", "Creation date", "The", "at", "Hoisted", "Yes", "No", "Mentionable"],
+      "french": ["Veuillez spécifez le rôle dont vous voulez voir les infos.", "Rôle", "Nom du rôle", "Membres le possédant", "Couleur", "Date de création", "Le", "à", "Affiché séparément", "Oui", "Non", "Mentionnable"]
     }
   }
 }

@@ -61,7 +61,7 @@ database: {
     },
   },
 ```
-> :warning: Don't forget to change the name of the `configexample.json` to `config.json`!
+> :warning: Don't forget to change the name of the `configexample.js` to `config.js`!
 ## Features
 
 - Interact with users trough gifs (For example: !hug @user)!

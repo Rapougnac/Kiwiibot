@@ -1,9 +1,7 @@
 module.exports = {
   discord: {
     token: 'TOKEN_HERE', // (required)(https://discord.com/developers/applications)
-    text: 'm?help/m?commands',
-    activity: 'WATCHING',
-    status: 'dnd',
+    status: 'idle',
     dev: {
       include_cmd: [],
       exclude_cmd: [],

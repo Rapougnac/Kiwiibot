@@ -159,7 +159,6 @@ module.exports = async (client, message) => {
         return await message.channel.send(embed); //message.channel.send(`\`\`\`diff\n-Command execution blocked!\n\`\`\`\n\`Reasons:\`\n\n\`\`\`json\n${reasons.map((reason) => `• ${reason}`).join("\n")}\n\`\`\``);
       }
     }
-
     if (command_to_execute.string) {
       command_to_execute.string = language(guild, command_to_execute.name);
       const now = Date.now(); //get the current time

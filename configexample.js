@@ -77,8 +77,4 @@ module.exports = {
     HIGH: '(╯°□°）╯︵ ┻━┻',
     VERY_HIGH: '┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻',
   },
-  chatbot: {
-    id: 'ID_HERE', // (optional but the chatbot function will not work)(get a id & key here)[https://brainshop.ai/]
-    key: 'KEY_HERE', // Same as the id 
-  },
 };

@@ -49,7 +49,7 @@ module.exports = {
               author: {
                 name: this.string[9],
               },
-              title: 'Choose your anime betwen the numbers',
+              title: this.string[14],
               description: string,
               footer: {
                 text: `Requested by ${message.author.username}`,
@@ -89,7 +89,7 @@ module.exports = {
           x.forEach((y, counter) => (c = counter + 1));
           if (!continued)
             return message.channel.send(
-              `Please insert a number between 1 and ${c}`
+              this.string[15].format(c)
             );
           else {
             const anime = x[number - 1];

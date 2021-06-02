@@ -63,7 +63,7 @@ class KiwiiClient extends Client {
      * The bot configuration file, empty if no file was specified
      * @type {String}
      */
-    this.config = options.config ? require(`../../${options.config}`) : {};
+    this.config = options.config ? options.config : {};
     /**
      * The bot owner(s)
      * @type {String|String[]}
@@ -175,9 +175,10 @@ class KiwiiClient extends Client {
       }
     }
     files.forEach((file) => {
-      const command = require(`../../${file}`);
 
-      if (this.commands.has(command.name)) {
+      try {
+        const command = require(`${process.cwd()}\\${file.split('/').join('\\')}`);
+        if (this.commands.has(command.name)) {
         console.error(
           new Error(`Command name duplicate: ${command.name}`).stack
         );
@@ -186,7 +187,7 @@ class KiwiiClient extends Client {
         this.commands.set(command.name, command);
         if (command.aliases) {
           command.aliases.forEach((alias) => {
-            if (this.aliases.has(alias)) {
+                        if (this.aliases.has(alias)) {
               console.error(
                 new Error(`Alias name duplicate: ${command.aliases}`).stack
               );
@@ -197,6 +198,12 @@ class KiwiiClient extends Client {
           });
         }
       }
+      } catch (error) {
+        console.log(error);
+      }
+
+      }
+
     });
     setTimeout(function () {
       Console.success(`Loaded ${files.length} commands`);

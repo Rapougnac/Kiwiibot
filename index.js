@@ -7,7 +7,7 @@ const client = new Client({
   prefix: 'n?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
   owners: '253554702858452992', // Owner(s) of the bot
-  config: './config.js', //Path to the config.js file
+  config: require('./config.json'), //Path to the config.json file
   disabledEvents: ['channelUpdate', 'channelCreate', 'guildMemberUpdate'],
   clientOptions: {
     disableMentions: 'everyone', //disables, that the bot is able to send @everyone

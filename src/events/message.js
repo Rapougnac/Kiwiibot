@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
 
   const { author, guild } = message;
   const { bot } = author;
-  if (bot) return;
+  if (bot&&(author.id !==client.config.discord.id_bot_test)) return;
   const p = await prefix(message, client.config);
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
     return message.channel.send(

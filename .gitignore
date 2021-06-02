@@ -1,5 +1,6 @@
 .vscode/
 config.json
+corde.config.json
 audio/record.mp3
 audio/record.pcm
 db_xp.json

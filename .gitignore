@@ -6,6 +6,7 @@ audio/record.pcm
 db_xp.json
 config.js
 out/
+package-lock.json
 # Logs
 logs
 *.log

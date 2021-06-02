@@ -1,15 +1,12 @@
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Client = require('../../struct/Client');
-const Canvas = require('../../struct/Canvas');
-const path = require('path');
-const { loadImage } = require('canvas')
-//const _x = require('../../assets/images/TrumpApi.png')
+const fetch = require('node-fetch')
 module.exports = {
     name: 'trump',
     aliases: [],
     description: '',
-    category: '',
-    utilisation: '{prefix}',
+    category: 'misc',
+    utilisation: '{prefix}trump',
     cooldown: 5,
     nsfw: false,
     ownerOnly: false,
@@ -23,7 +20,8 @@ module.exports = {
      * @param {String[]} args 
      */
     async execute(client, message, args) {
-        // const base = await loadImage('../../assets/images/TrumpApi.png')
-        // console.log(base);
-    },
+        const query = args.join(' ');
+        const data = await fetch(`https://nekobot.xyz/api/imagegen?type=trumptweet&text=${encodeURIComponent(query)}`).then((res) => res.json());
+        message.channel.send(new MessageEmbed().setImage(data.message))
+    }
 };

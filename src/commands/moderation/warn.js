@@ -5,7 +5,7 @@ module.exports = {
     name: 'warn',
     aliases: [],
     description: 'Warn a person',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}warn [mention] [raison]',
     async execute(client, message, args) {
         let { guild } = message;

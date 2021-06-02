@@ -1,7 +1,7 @@
 module.exports = {
     name: 'w-filters',
     aliases: ['filters'],
-    category: 'Music',
+    category: 'music',
     utilisation: '{prefix}w-filters',
 
     async execute(client, message,args) {
@@ -21,7 +21,6 @@ module.exports = {
         message.channel.send({
             embed: {
                 color: 'ORANGE',
-                footer: { text: 'This bot uses a Github project made by Zerio (ZerioDev/Music-bot)' },
                 fields: [
                     { name: 'Filters', value: filtersStatuses[0].join('\n'), inline: true },
                     { name: '** **', value: filtersStatuses[1].join('\n'), inline: true },

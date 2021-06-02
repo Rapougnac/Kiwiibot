@@ -3,7 +3,7 @@ module.exports = {
     name: 'hackban',
     aliases: ['hb'],
     description: 'hackban somebody',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}hackban [id] <reason>',
     ownerOnly: false,
     guildOnly: true,

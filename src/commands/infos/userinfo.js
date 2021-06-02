@@ -1,12 +1,12 @@
 const { MessageEmbed, Client, Message } = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
-
+const languageSchema = require('../../models/languageSchema');
 module.exports = {
   name: 'userinfo',
   aliases: ['ui', 'whois'],
   description: 'Shows informations about you or a user',
-  category: 'Infos',
+  category: 'infos',
   utilisation: '{prefix}userinfo <member>',
   guildOnly: true,
   adminOnly: false,
@@ -64,29 +64,62 @@ module.exports = {
     if (message.member.hasPermission('ADMINISTRATOR')) {
       userFlags.push('<:ADMINISTRATOR:827241621270560788>');
     }
-    if (status === 'dnd') {
-      status = this.string[0];
+    switch (status) {
+      case 'dnd': {
+        status = this.string[0];
+        break;
+      }
+      case 'online': {
+        status = this.string[1];
+        break;
+      }
+      case 'offline': {
+        status = this.string[2];
+        break;
+      }
+      case 'idle': {
+        status = this.string[3];
+        break;
+      }
     }
-    if (status === 'online') {
-      status = this.string[1];
+    switch (device[0]) {
+      case 'web': {
+        device[0] = 'Web ' + client.config.clientMap.web;
+        break;
+      }
+      case 'desktop': {
+        device[0] = this.string[4].format(client.config.clientMap.desktop);
+        break;
+      }
+      case 'mobile': {
+        device[0] = 'Mobile ' + client.config.clientMap.mobile;
+        break;
+      }
     }
-    if (status === 'offline') {
-      status = this.string[2];
-    }
-    if (status === 'idle') {
-      status = this.string[3];
-    }
-    if (device[0] === 'web') {
-      device[0] = 'Web ' + client.config.clientMap.web;
-    }
-    if (device[0] === 'desktop') {
-      device[0] = this.string[4].format(client.config.clientMap.desktop);
-    }
-    if (device[0] === 'mobile') {
-      device[0] = 'Mobile ' + client.config.clientMap.mobile;
+    let lang;
+    try {
+      await languageSchema.findOne({
+        _id: message.guild.id,
+      }).then((val) => lang = val.language)
+      switch(lang) {
+        case 'english': {
+          lang = 'en';
+          break;
+        }
+        case 'french': {
+          lang = 'fr-ch';
+          break;
+        }
+      }
+    } catch (e) {
+      console.error(e);
     }
     const embeduser = new MessageEmbed()
-      .setAuthor(this.string[5].format(user.tag), user.displayAvatarURL({ dynamic: true, format: "png", size: 512 }), 'https://discord.com/')
+      .setAuthor(
+        this.string[5].format(user.tag),
+        user.displayAvatarURL({ dynamic: true, format: 'png', size: 512 }),
+        'https://discord.com/'
+      )
       .setDescription(userFlags.join(' '))
       .addField(this.string[6], member, true)
       .addField(this.string[7], member.user.tag, true)
@@ -99,22 +132,25 @@ module.exports = {
         this.string[10],
         moment(member.user.createdAt).format(
           `[${this.string[11]}] DD/MM/YYYY [${this.string[12]}] HH:mm:ss`
-        ),
+        ) + `\n\`${moment(member.user.createdAt, 'DD/MM/YYYY').locale(lang).fromNow()}\``,
         true
       )
       .addField(
         this.string[14],
         moment(member.joinedAt).format(
           `[${this.string[11]}] DD/MM/YYYY [${this.string[12]}] HH:mm:ss`
-        ),
+        ) +
+          `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
+            .locale(lang)
+            .fromNow()}\``,
         true
       )
       .addField(
         this.string[15],
         member.premiumSince
           ? moment(member.premiumSince).format(
-              `[${this.string[11]}] DD/MM/YYYY [${this.string[13]}] HH:mm:ss`
-            )
+              `[${this.string[11]}] DD/MM/YYYY [${this.string[12]}] HH:mm:ss`
+            ) + `\n\`${moment(member.premiumSince, 'DD/MM/YYYY').locale(lang).fromNow()}\``
           : this.string[13],
         true
       )
@@ -136,7 +172,7 @@ module.exports = {
               .splice(0, 50)
               .join(' | ') || '\u200b'
       )
-      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
       .setFooter(`ID : ${member.id}`)
       .setColor(member.displayHexColor || 'GREY');
     message.channel.send(embeduser);

@@ -6,7 +6,7 @@ module.exports = {
     name: 'afusion',
     aliases: ['fusion'],
     description: 'fusionnate your profile picture with the specified member',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}afusion [member]',
     cooldown: 5,
     guildOnly: false,

@@ -6,7 +6,7 @@ module.exports = {
     name: 'approved',
     aliases: [],
     description: 'If your approuved that\'s very cool',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}approved <member>',
     cooldown: 5,
     guildOnly: false,

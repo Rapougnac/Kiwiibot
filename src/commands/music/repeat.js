@@ -1,7 +1,7 @@
 module.exports = {
     name: 'repeat',
     aliases: ['rep', 'r'],
-    category: 'Music',
+    category: 'music',
     description: 'enable or disable repeat mode for the server (play the queue again and again)',
     utilisation: '{prefix}repeat',
 

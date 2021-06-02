@@ -2,7 +2,7 @@ module.exports = {
     name: 'kick',
     aliases: [],
     description: 'Kick a person',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}kick <mention>',
     async execute(client, message, args) {
 

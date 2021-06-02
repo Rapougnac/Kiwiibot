@@ -13,7 +13,7 @@ module.exports = {
   name: 'embedbuilder',
   aliases: ['embed'],
   description: 'Create an embed of your choice',
-  category: 'Core',
+  category: 'core',
   utilisation: '{prefix}embedbuilder',
   cooldown: 5,
   nsfw: false,

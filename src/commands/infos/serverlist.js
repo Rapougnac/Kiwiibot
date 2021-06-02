@@ -1,7 +1,7 @@
 module.exports = {
     name: "serverlist",
     aliases: ["sl"],
-    category: "Info",
+    category: "infos",
     utilisation: "Serverlist",
     description: "Show Bot Server List!",
     adminOnly: false,

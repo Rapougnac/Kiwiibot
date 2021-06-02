@@ -6,7 +6,7 @@ module.exports = {
     name: '3000y',
     aliases: [],
     description: 'Sends your avatar with the 3000y meme',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}3000y <member>',
     cooldown: 5,
     guildOnly: false,

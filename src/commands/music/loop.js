@@ -1,7 +1,7 @@
 module.exports = {
     name: 'loop',
     aliases: ['lp', 'l'],
-    category: 'Music',
+    category: 'music',
     description: 'enable or disable loop mode for the server (play the song again and again)',
     utilisation: '{prefix}loop',
 

@@ -5,7 +5,7 @@ module.exports = {
   name: 'doujin',
   aliases: [],
   description: '',
-  category: 'Nsfw',
+  category: 'nsfw',
   utilisation: '{prefix}doujin',
   async execute(client, message, args) {
     if (message.channel.nsfw) {

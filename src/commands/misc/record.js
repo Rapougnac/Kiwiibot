@@ -7,7 +7,7 @@ module.exports = {
     name: 'record',
     aliases: [],
     description: 'Record in the voice channel',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}record',
     async execute(client, message, args) {
         if (message.member.id === message.author.id) {

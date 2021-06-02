@@ -8,6 +8,7 @@ module.exports = {
     usage: "Github <Name>",
     exmaple: "Github Emoji",
     description: `Github User Account Information!`,
+    category: 'misc',
     /**
      * 
      * @param {Client} client 

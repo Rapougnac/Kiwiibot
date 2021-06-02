@@ -5,7 +5,7 @@ module.exports = {
   name: 'changemymind',
   aliases: ['cmm'],
   description: '',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}changemymind [text]',
   cooldown: 5,
   guildOnly: false,

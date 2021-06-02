@@ -5,7 +5,7 @@ module.exports = {
 	name: 'owofy',
 	aliases: [],
 	description: '',
-	category: 'Misc',
+	category: 'misc',
 	utilisation: '{prefix}owofy',
 	async execute(client, message, args) {
 		const owoTEXT = await neko.sfw.OwOify({ text: message.content.split(' ').slice(1).join(' ') });

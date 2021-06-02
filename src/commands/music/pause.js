@@ -1,7 +1,7 @@
 module.exports = {
     name: 'pause',
     aliases: [],
-    category: 'Music',
+    category: 'music',
     utilisation: '{prefix}pause',
 
     async execute(client, message,args) {

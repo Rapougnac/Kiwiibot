@@ -5,7 +5,7 @@ module.exports = {
 	name: 'why',
 	aliases: [],
 	description: '',
-	category: 'Misc',
+	category: 'misc',
 	utilisation: '{prefix}why',
 	async execute(client, message, args) {
 		const whyTEXT = await neko.sfw.why();

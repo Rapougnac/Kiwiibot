@@ -6,7 +6,7 @@ module.exports = {
     name: 'fire',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}fire',
     cooldown: 5,
     guildOnly: false,

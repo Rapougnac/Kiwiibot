@@ -6,7 +6,7 @@ module.exports = {
   name: 'nekogif',
   aliases: [],
   description: '',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}nekogif',
   async execute(client, message, args) {
     const GIF = await neko.sfw.nekoGif();

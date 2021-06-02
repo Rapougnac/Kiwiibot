@@ -6,7 +6,7 @@ module.exports = {
   aliases: ['doc', 'documentation'],
   description:
     'Get the djs doc in an embed, you can spefify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`',
-  category: 'Core',
+  category: 'docs',
   utilisation: '{prefix}docs [query] <--src> <[source]>',
   cooldown: 5,
   nsfw: false,

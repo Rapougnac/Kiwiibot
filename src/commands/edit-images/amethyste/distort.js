@@ -7,7 +7,7 @@ module.exports = {
     name: 'distort',
     aliases: [],
     description: 'Distort your profile profile picture',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}distort',
     cooldown: 5,
     guildOnly: false,

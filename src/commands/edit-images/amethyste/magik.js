@@ -6,7 +6,7 @@ module.exports = {
     name: 'magik',
     aliases: [],
     description: 'You\'ll be magik',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}magik',
     cooldown: 5,
     guildOnly: false,

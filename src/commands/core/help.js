@@ -1,10 +1,11 @@
 const { MessageEmbed, Message } = require('discord.js');
-const { Menu } = require('discord.js-menu');
 const Client = require('../../struct/Client');
+const _ = require('lodash');
+const { joinArray } = require('../../util/string')
 module.exports = {
   name: 'help',
   aliases: ['h'],
-  category: 'Core',
+  category: 'core',
   description: 'Shows the help pannel or the function of a command',
   utilisation: '{prefix}help <command name>',
   cooldown: 10,
@@ -22,125 +23,29 @@ module.exports = {
   async execute(client, message, args) {
     if (args.length > 2) return;
     if (!args[0]) {
-      const infos = message.client.commands
-        .filter((x) => x.category == 'Infos')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      const music = message.client.commands
-        .filter((x) => x.category == 'Music')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      const core = message.client.commands
-        .filter((x) => x.category == 'Core')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      const neko = message.client.commands
-        .filter((x) => x.category == 'Neko')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      const nsfw = message.client.commands
-        .filter((x) => x.category == 'Nsfw')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      const int = message.client.commands
-        .filter((x) => x.category == 'Interactions')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      const misc = message.client.commands
-        .filter((x) => x.category == 'Misc')
-        .map((x) => `${x.name}`)
-        .join(' ');
-      // const music = message.client.commands
-      //     .filter((x) => x.category == 'Music')
-      //     .map((x) => `${x.name}`)
-      //     .join(' ');
-      const helpMenu = new Menu(
-        message.channel,
-        message.author.id,
-        [
-          {
-            name: 'main',
-            content: new MessageEmbed({
-              color: 'ORANGE',
-              title: 'Help pannel',
-              footer: { text: `1/5` },
-              description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
-              fields: [
-                { name: 'Bot', value: infos },
-                { name: 'Music', value: music },
-                { name: 'Core', value: core },
-              ],
-              timestamp: new Date(),
-            }),
-            reactions: {
-              '◀️': 'main',
-              '▶️': 'extra',
-            },
-          },
-          {
-            name: 'extra',
-            content: new MessageEmbed({
-              color: 'ORANGE',
-              title: 'Help pannel',
-              footer: { text: 'Page 2/5' },
-              fields: [{ name: 'Neko', value: neko }],
-              timestamp: new Date(),
-            }),
-            reactions: {
-              '◀️': 'main',
-              //'🔄': 'main',
-              '▶️': 'nsfw',
-            },
-          },
-          {
-            name: 'nsfw',
-            content: new MessageEmbed({
-              color: 'ORANGE',
-              title: 'Help pannel',
-              footer: { text: 'Page 3/5' },
-              fields: [{ name: 'NSFW', value: nsfw }],
-              timestamp: new Date(),
-            }),
-            reactions: {
-              '◀️': 'extra',
-              //'🔄': 'main',
-              '▶️': 'interactions',
-            },
-          },
-          {
-            name: 'interactions',
-            content: new MessageEmbed({
-              color: 'ORANGE',
-              title: 'Help pannel',
-              footer: { text: 'Page 4/5' },
-              fields: [{ name: 'Interactions', value: int }],
-              timestamp: new Date(),
-            }),
-            reactions: {
-              '◀️': 'nsfw',
-              //'🔄': 'main',
-              '▶️': 'misc',
-            },
-          },
-          {
-            name: 'misc',
-            content: new MessageEmbed({
-              color: 'ORANGE',
-              title: 'Help pannel',
-              footer: { text: 'Page 5/5' },
-              description: `To use filters, ${client.prefix}filter (the filter). Example : ${client.prefix}filter 8D.`,
-              fields: [{ name: 'Misc', value: misc }],
-              timestamp: new Date(),
-            }),
-            reactions: {
-              '◀️': 'nsfw',
-              '▶️': 'misc',
-            },
-          },
-        ],
-        300000
-      );
-      helpMenu.start();
+      // const embed = new MessageEmbed()
+      // .setDescription(
+      //   `${[...client.categories].map(
+      //     (val) =>
+      //       `${_.upperFirst(val)} [${
+      //         client.commands.filter((c) => c.category === val)
+      //           .size
+      //       }]\n${client.commands
+      //         .filter((c) => c.category === val)
+      //         .map((value) => `\`${value.name}\``)
+      //         .join(', ')}`
+      //   ).join('\n\n')}`
+      // )
+      // .setColor('ORANGE')
+      // message.channel.send(embed);
+      const fields = [];
+
+      for (const category of Object.keys(client.commands.category).filter((cat) => cat !== undefined)) {
+        fields.push({
+          name: category.charAt(0).toUpperCase() + category.slice(1).toLowerCase(), value: joinArray(client.commands.category.get(category).map((x) => `\`${x.name}\``))
+        })
+      }
+      return message.channel.send(new MessageEmbed().setColor('ORANGE').addFields(fields.sort((a, b) => b.value.length - a.value.length))) 
     } else {
       const command =
         message.client.commands.get(args.join(' ').toLowerCase()) ||
@@ -185,7 +90,7 @@ module.exports = {
               inline: true,
             },
             {
-              name: 'If the command require the `ADMINISTRATOR`permission',
+              name: 'If the command require the `ADMINISTRATOR` permission',
               value: command.adminOnly ? 'Yes' : 'No',
               inline: true,
             },
@@ -233,3 +138,4 @@ module.exports = {
     }
   },
 };
+

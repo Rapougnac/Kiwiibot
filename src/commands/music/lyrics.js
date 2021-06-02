@@ -7,7 +7,7 @@ const Client = require('../../struct/Client')
 module.exports = {
   name: 'lyrics',
   aliases: ['ly'],
-  category: 'Music',
+  category: 'music',
   description:
     'Searches for lyric info about a song from GeniuslLyrics if no query are provided.',
   /**

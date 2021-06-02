@@ -4,7 +4,7 @@ module.exports = {
   name: 'dm',
   aliases: ['mp'],
   description: "Dm a specific user who's in the guild",
-  category: 'Core',
+  category: 'core',
   utilisation: '{prefix}dm',
   cooldown: 5,
   nsfw: false,

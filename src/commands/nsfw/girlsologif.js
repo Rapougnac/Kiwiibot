@@ -6,7 +6,7 @@ module.exports = {
   name: 'girlsologif',
   aliases: [],
   description: '',
-  category: 'Nsfw',
+  category: 'nsfw',
   utilisation: '{prefix}girlsologif',
   async execute(client, message, args) {
     if (message.channel.nsfw) {

@@ -6,7 +6,7 @@ module.exports = {
     name: 'jail',
     aliases: [],
     description: 'Go to horny jail!',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}jail',
     cooldown: 5,
     guildOnly: false,

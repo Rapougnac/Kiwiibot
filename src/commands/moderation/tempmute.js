@@ -2,7 +2,7 @@ module.exports = {
     name: 'tempmute',
     aliases: [],
     description: 'Tempmute a person',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}tempmute <mention>',
     async execute(client, message, args) {
 

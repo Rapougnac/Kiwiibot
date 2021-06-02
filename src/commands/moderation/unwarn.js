@@ -4,7 +4,7 @@ module.exports = {
     name: 'unwarn',
     aliases: [],
     description: 'Unwarn a person',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}unwarn [mention] [raison]',
     async execute(client, message, args) {
 

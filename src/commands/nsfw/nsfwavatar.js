@@ -6,7 +6,7 @@ module.exports = {
   name: 'nsfwavatar',
   aliases: [],
   description: '',
-  category: 'Nsfw',
+  category: 'nsfw',
   utilisation: '{prefix}nsfwavatar',
   async execute(client, message, args) {
     if (message.channel.nsfw) {

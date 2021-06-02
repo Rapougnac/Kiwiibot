@@ -2,7 +2,7 @@ module.exports = {
     name: 'ban',
     aliases: [],
     description: 'Ban a person',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}ban [mention] <raison>',
     async execute(client, message, args) {
         const member = message.mentions.members.first();

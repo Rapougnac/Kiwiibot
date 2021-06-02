@@ -6,7 +6,7 @@ module.exports = {
   name: 'r34',
   aliases: [],
   description: 'Scrap images of the r34',
-  category: 'Nsfw',
+  category: 'nsfw',
   utilisation: '{prefix}r34',
   cooldown: 5,
   nsfw: true,

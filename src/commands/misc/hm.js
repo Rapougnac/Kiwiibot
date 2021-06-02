@@ -4,7 +4,7 @@ module.exports = {
   name: 'hangman',
   aliases: ['hm'],
   description: 'A hangman game',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}hm',
   async execute(client, message, args) {
     if (!message.member.hasPermission('MANAGE_MESSAGES'))

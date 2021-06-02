@@ -6,7 +6,7 @@ const api = new API();
 
 module.exports = {
     name: 'sauce',
-    category: 'Nsfw',
+    category: 'nsfw',
     aliases: ['gimmesauce', 'finddoujin', 'doujin', 'nhentai', 'saucefor'],
     description: 'Fetch doujin information from <:nhentai:808384048635445278> [nHentai](https://nhentai.net "nHentai Homepage")',
      async execute(client, message, [id]) {

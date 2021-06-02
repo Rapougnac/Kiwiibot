@@ -5,15 +5,15 @@ const { Message, Client } = require('discord.js');
 module.exports = {
   name: 'prefix-reset',
   aliases: ['pr', 'clearprefix', 'resetprefix'],
-  category: 'Core',
+  category: 'core',
   utilisation: '{prefix}prefix-reset',
   description: 'Reset the prefix',
   cooldown: 5,
   nsfw: false,
   guildOnly: false,
   ownerOnly: false,
-  adminOnly: true,
-  permissions: [],
+  adminOnly: false,
+  permissions: ['MANAGE_MESSAGES'],
   clientPermissions: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
   string: [],
   /**

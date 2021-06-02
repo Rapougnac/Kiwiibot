@@ -1,7 +1,7 @@
 module.exports = {
     name: 'resume',
     aliases: ['res'],
-    category: 'Music',
+    category: 'music',
     utilisation: '{prefix}resume',
 
     async execute(client, message,args) {

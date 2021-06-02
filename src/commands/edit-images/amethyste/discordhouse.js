@@ -6,7 +6,7 @@ module.exports = {
     name: 'house',
     aliases: [],
     description: 'Show your avatar with your discord house arround, beautiful isn\'t it?',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}house',
     cooldown: 5,
     guildOnly: false,

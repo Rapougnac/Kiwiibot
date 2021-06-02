@@ -2,7 +2,7 @@ module.exports = {
     name: 'unmute',
     aliases: [],
     description: 'Unmute a person',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}unmute <mention>',
     async execute(client, message, args) {
 

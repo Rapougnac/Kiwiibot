@@ -5,7 +5,7 @@ module.exports = {
   name: 'tag',
   aliases: [],
   description: 'Search trough all the tags',
-  category: 'Docs',
+  category: 'docs',
   utilisation: '{prefix}tag [tag] or {prefix}tag [category] <tag>',
   cooldown: 5,
   nsfw: false,
@@ -30,7 +30,7 @@ module.exports = {
             icon_url: message.author.displayAvatarURL({ dynamic: true }),
           },
           description:
-            'Liste de toutes les catégories \n\n`fix`, `unexpected`, `==`, `destructure`, `websocket`, `hyperlien`, `purge`, `ping-command`, `intents`, `of-undefined`, `collector`, `ask`, `swearwords`, `heroku`',
+            'Liste de toutes les catégories \n\n`fix`, `unexpected`, `==`, `destructure`, `websocket`, `hyperlien`, `purge`, `ping-command`, `intents`, `of-undefined`, `collector`, `ask`, `swearwords`, `heroku`, `find`, `dashboard`, `avatar`, `bot`, `client`, `template-literal`',
         },
       });
     switch (args[0]) {
@@ -149,7 +149,7 @@ module.exports = {
       case 'of-null':
       case 'of-undefined': {
         return message.channel.send(
-          "`TypeError: Cannot read property 'bar' of undefined`\nLa variable dont vous essayez d'accéder à la propriété bar est undefined, pas bar lui-même ! | foo.bar - la valeur de foo est undefined.\nLe stack pointe exactement sur la ligne où l'erreur se produit.\nPour plus d'informations : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cant_access_property"
+          "`TypeError: Cannot read property 'bar' of undefined`\nLa variable dont vous essayez d'accéder à la propriété bar est undefined, pas bar lui-même ! | foo.bar - la valeur de foo est undefined.\nLe stack pointe exactement sur la ligne où l'erreur se produit.\nPour plus d'informations: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cant_access_property>"
         );
       }
       case 'collector': {
@@ -178,10 +178,28 @@ module.exports = {
         );
       }
       case 'find': {
-          return message.channel.send('`[v12] TypeError : fn.bind is not a function`\n```diff\n- someCollection.find(\'property\', value);\n+ someCollection.find(element => element.property === value)\n```Collection#find ne peut être utilisé qu\'avec une fonction et non avec une paire propriété-valeur comme dans les versions précédentes.')
+        return message.channel.send(
+          "`[v12] TypeError : fn.bind is not a function`\n```diff\n- someCollection.find('property', value);\n+ someCollection.find(element => element.property === value)\n```Collection#find ne peut être utilisé qu'avec une fonction et non avec une paire propriété-valeur comme dans les versions précédentes."
+        );
       }
       case 'dashboard': {
-          return message.channel.send('Créer un dashboard n\'est pas une mince affaire. Cela nécessite un grand nombre d\'éléments mobiles, notamment express, des modèles, oauth2 et un site Web. Si ce genre de choses est essentiel pour vous, consultez <https://github.com/AnIdiotsGuide/guidebot/tree/dashboard> qui est un exemple fonctionnel complet d\'un dashboard discord.js intégré à un bot. Remarque: cela ne fonctionnera pas sur un bot shardé, mais c\'est un bon point de départ pour les petits bots.')
+        return message.channel.send(
+          "Créer un dashboard n'est pas une mince affaire. Cela nécessite un grand nombre d'éléments mobiles, notamment express, des modèles, oauth2 et un site Web. Si ce genre de choses est essentiel pour vous, consultez <https://github.com/AnIdiotsGuide/guidebot/tree/dashboard> qui est un exemple fonctionnel complet d'un dashboard discord.js intégré à un bot. Remarque: cela ne fonctionnera pas sur un bot shardé, mais c'est un bon point de départ pour les petits bots."
+        );
+      }
+      case 'avatar': {
+        return message.channel.send(
+          "`[v12]``.displayAvatarURL`, `.avatarURL`, et `.iconURL` sont maintenant des méthodes qui autorisent les options d'url d'image\n```diff\n- user.avatarURL\n+ user.avatarURL()\n+ user.avatarURL({ dynamic : boolean, format : string, size : number })\n- guild. iconURL\n+ guild.iconURL()\n+ guild.iconURL({ dynamic : boolean, format : string, size : number })\n```\n<https://discord.js.org/#/docs/main/stable/typedef/ImageURLOptions>"
+        );
+      }
+      case 'bot': {
+        return message.channel.send('```js\nconst Discord = require(\'discord.js\');\nconst client = new Discord.Client();\nclient.on(\'ready\', () => {\n  console.log("Il fait beau dehors, n\'est-ce pas ?");\n});\nclient.login(\'votre token\');\n```')
+      }
+      case 'client': {
+        return message.channel.send('**Client** est le principal centre d\'interaction avec l\'API Discord, et le point de départ de tout bot.\n\nPour définir le client, utilisez:\n```js\nconst client = new Discord.Client();\n```\nNe créez pas un nouveau client pour chaque commande, événement ou autre, utilisez le même client pour tout.\nConsultez le guide pour plus d\'informations: <https://discordjs.guide/creating-your-bot/>')
+      }
+      case 'template-literal': {
+        return message.channel.send('Au lieu de faire: `let b = a + "some string";` utilisez les templates literals.\nComprendre les templates literals en JavaScript:\n<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>')
       }
     }
   },

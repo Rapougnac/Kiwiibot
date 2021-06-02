@@ -6,7 +6,7 @@ module.exports = {
 	name: 'serverinfo',
 	aliases: ['si', 'servinf', 'servi', 'sinfo'],
 	description: '',
-	category: 'Infos',
+	category: 'infos',
 	utilisation: '{prefix}serverinfo',
 	guildOnly: true,
 	adminOnly: false,

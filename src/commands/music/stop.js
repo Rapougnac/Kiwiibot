@@ -3,7 +3,7 @@ const { Message } = require('discord.js');
 module.exports = {
     name: 'stop',
     aliases: [],
-    category: 'Music',
+    category: 'music',
     utilisation: '{prefix}stop',
     /**
      * 

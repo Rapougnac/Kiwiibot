@@ -6,7 +6,7 @@ module.exports = {
     name: 'vs',
     aliases: ["versus"],
     description: 'An epic combat against your opponent, or you if you have no friends',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}vs [user]',
     cooldown: 5,
     guildOnly: false,

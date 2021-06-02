@@ -6,7 +6,7 @@ module.exports = {
     name: 'ps4',
     aliases: [],
     description: 'You, but in a ps4 game, cool no?',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}ps4 <member>',
     cooldown: 5,
     guildOnly: false,

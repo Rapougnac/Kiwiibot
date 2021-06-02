@@ -5,7 +5,7 @@ module.exports = {
     name: 'cry',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}cry',
     async execute(client, message, args) {
         const result = gifu("cry");

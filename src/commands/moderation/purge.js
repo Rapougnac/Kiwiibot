@@ -3,7 +3,7 @@ module.exports = {
     name: 'purge',
     aliases: [],
     description: '',
-    category: 'core',
+    category: 'moderation',
     utilisation: '{prefix}purge  <number of messages you want to delete',
     /**
      * 

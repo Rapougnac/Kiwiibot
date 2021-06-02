@@ -2,10 +2,10 @@
 module.exports = {
     //definition
     name: "uptime", //the name of the command 
-    category: "Info", //the category this will be listed at, for the help cmd
+    category: "infos", //the category this will be listed at, for the help cmd
     aliases: [], //every parameter can be an alias or empty for no aliases
     cooldown: 10, //this will set it to a 10 second cooldown
-    usage: "uptime", //this is for the help command for EACH cmd
+    utilisation: "uptime", //this is for the help command for EACH cmd
     description: "Returns the duration on how long the Bot is online", //the description of the command
     guildOnly: false, // if the command can be run in dms
     adminOnly: false, // if the command is only usable by the server adminitrators

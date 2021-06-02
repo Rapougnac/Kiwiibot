@@ -6,7 +6,7 @@ module.exports = {
   name: 'anime',
   aliases: [],
   description: 'Get informations about the specified anime, the max limit of an',
-  category: 'Misc',
+  category: 'anime',
   utilisation: '{prefix}anime',
   cooldown: 5,
   nsfw: false,

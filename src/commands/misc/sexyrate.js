@@ -4,7 +4,7 @@ module.exports = {
     name: 'sexyrate',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}sexyrate',
     async execute(client, message, args) {
         const sexyrate = Math.floor(Math.random() * 100);

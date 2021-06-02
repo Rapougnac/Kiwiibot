@@ -6,7 +6,7 @@ module.exports = {
     name: 'brazzers',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}brazzers',
     cooldown: 5,
     guildOnly: false,

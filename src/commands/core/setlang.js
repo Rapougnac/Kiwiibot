@@ -6,7 +6,7 @@ module.exports = {
   name: 'setlanguage',
   aliases: ['setlang'],
   description: '',
-  category: '',
+  category: 'core',
   utilisation: '{prefix}setlanguage [language]',
   cooldown: 5,
   nsfw: false,
@@ -45,18 +45,21 @@ module.exports = {
             }
           )
           .then(async () => {
-            if (targetedlanguage === 'english') {
-              await message.inlineReply('Language has been setted!', {
-                allowedMentions: {
-                  repliedUser: false,
-                },
-              });
-            } else if(targetedlanguage === 'french') {
-              await message.inlineReply('La langue a bien été définie !', {
-                allowedMentions: {
-                  repliedUser: false,
-                },
-              });
+            switch(targetedlanguage) {
+              case 'english': {
+                return await message.inlineReply('Language has been setted!', {
+                  allowedMentions: {
+                    repliedUser: false,
+                  },
+                });
+              }
+              case 'french': {
+                return await message.inlineReply('La langue a bien été définie !', {
+                  allowedMentions: {
+                    repliedUser: false,
+                  },
+                });
+              }
             }
           });
       } catch (error) {

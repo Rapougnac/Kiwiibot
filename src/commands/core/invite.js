@@ -4,7 +4,7 @@ module.exports = {
   name: 'invite',
   aliases: [],
   description: 'Invite the bot on the server',
-  category: 'Core',
+  category: 'core',
   utilisation: '{prefix}invite',
   cooldown: 10,
   nsfw: false,

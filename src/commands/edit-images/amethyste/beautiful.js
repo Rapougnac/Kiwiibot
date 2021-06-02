@@ -6,7 +6,7 @@ module.exports = {
     name: 'beautiful',
     aliases: [],
     description: 'You\'re very beautiful',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}beautiful',
     cooldown: 5,
     guildOnly: false,

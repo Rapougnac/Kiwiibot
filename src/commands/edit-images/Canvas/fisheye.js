@@ -7,7 +7,7 @@ module.exports = {
   name: 'fisheye',
   aliases: ['fh'],
   description: 'Fisheye your profile picture',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}fisheye <member> [size]',
   cooldown: 5,
   nsfw: false,

@@ -5,7 +5,7 @@ module.exports = {
     name: 'clyde',
     aliases: ['cly'],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}cycle',
     async execute(client, message, args) {
         const text = args.join(' ')

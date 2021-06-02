@@ -4,7 +4,7 @@ module.exports = {
     name: 'emote',
     aliases: ["emoji"],
     description: 'Display the specified emoji',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}emote',
     cooldown: 5,
     nsfw: false,

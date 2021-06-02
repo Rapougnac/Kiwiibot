@@ -6,7 +6,7 @@ module.exports = {
     name: 'phcomment',
     aliases: ['commentph', 'ph'],
     description: 'Write a comment in ph ( ͡• ͜ʖ ͡• )',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}phcomment <user> [text]',
     cooldown: 5,
     nsfw: true,
@@ -29,7 +29,7 @@ module.exports = {
             message.channel.send(att);
         } else {
             const query = args.join(' ');
-            const data = await fetch(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${message.author.displayAvatarURL()}&text=${encodeURIComponent(query)}&username=${encodeURIComponent(message.author.username)}`).then((res) => res.json());
+            const data = await fetch(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${message.author.displayAvatarURL()}&text=${encodeURIComponent(_.upperFirst(query))}&username=${encodeURIComponent(message.author.username)}`).then((res) => res.json());
             const att = new MessageAttachment(data.message)
             message.channel.send(att);
         }

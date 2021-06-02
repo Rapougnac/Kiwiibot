@@ -2,7 +2,7 @@ const { Client, Message } = require("discord.js");
 module.exports = {
     name: 'nuke',
     aliases: [ 'clearall' ],
-    category: 'Core',
+    category: 'moderation',
     description: 'Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)',
     /**
      * @param {Client} client 

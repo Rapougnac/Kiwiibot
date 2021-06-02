@@ -10,7 +10,7 @@ module.exports = {
   name: "symmetry",
   aliases: [],
   description: "Symmetry yourself with the tags listed",
-  category: "Misc",
+  category: "misc",
   utilisation: "{prefix}symmetry [tag]",
   cooldown: 5,
   guildOnly: false,

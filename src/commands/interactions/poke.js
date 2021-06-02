@@ -6,7 +6,7 @@ module.exports = {
 	name: 'poke',
 	aliases: [],
 	description: '',
-	category: 'Misc',
+	category: 'misc',
 	utilisation: '{prefix}poke',
 	async execute(client, message, args) {
 		const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());

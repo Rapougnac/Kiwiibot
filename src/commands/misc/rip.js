@@ -7,7 +7,7 @@ module.exports = {
     name: 'rip',
     aliases: [],
     description: '',
-    category: '',
+    category: 'misc',
     utilisation: '{prefix}',
     cooldown: 5,
     nsfw: false,
@@ -27,8 +27,7 @@ module.exports = {
         try {
             const avatarURL = User.user.displayAvatarURL({ format: 'png', size: 512 });
             const cause = args.slice(1).join(' ');
-            const base = await Image(join(__dirname, '..', '..', 'assets', 'images', 'rip.png'));
-            //const base = await loadImage(join(__dirname, '..', '..', 'assets', 'images', 'rip2.png'));
+            const base = await loadImage(join(__dirname, '..', '..', 'assets', 'images', 'rip.png'));
             const avatar = await loadImage(avatarURL);
             const canvas = createCanvas(base.width, base.height);
             const ctx = canvas.getContext('2d');
@@ -66,7 +65,7 @@ module.exports = {
             ctx.fillStyle = 'black';
             ctx.fillText('In memory of', 438, 292);
             ctx.fillText(message.author.username, 438, 330, 500);
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = 'black';
             if(cause) ctx.fillText(cause, 438, 910, 500)
             const att = new MessageAttachment(canvas.toBuffer(), 'rip.png');
             return message.channel.send(att);

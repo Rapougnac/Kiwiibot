@@ -6,7 +6,7 @@ module.exports = {
   name: 'waifu',
   aliases: [],
   description: '',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}waifu',
   async execute(client, message, args) {
     const GIF = await neko.sfw.waifu();

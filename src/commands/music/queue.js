@@ -3,7 +3,7 @@ const { MessageEmbed, Message, Client } = require('discord.js');
 module.exports = {
     name: 'queue',
     aliases: [],
-    category: 'Music',
+    category: 'music',
     utilisation: '{prefix}queue',
     cooldown: 5,
     guildOnly: true,

@@ -6,7 +6,7 @@ module.exports = {
   name: 'setmute',
   aliases: ['configmute'],
   description: 'Set the mute role',
-  category: 'Moderation',
+  category: 'moderation',
   utilisation: '{prefix}setmute',
   cooldown: 5,
   nsfw: false,

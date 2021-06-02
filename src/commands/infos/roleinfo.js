@@ -6,7 +6,7 @@ module.exports = {
   name: 'roleinfo',
   aliases: ['ri'],
   description: 'Shows informations about the mentionned role',
-  category: 'Infos',
+  category: 'infos',
   utilisation: '{prefix}roleinfo [role]',
   nsfw: false,
   guildOnly: true,

@@ -7,7 +7,7 @@ module.exports = {
   name: 'anal',
   aliases: [],
   description: 'Returns a anal image/gif',
-  category: 'Nsfw',
+  category: 'nsfw',
   utilisation: '{prefix}anal',
   nsfw: true,
   guildOnly: false,

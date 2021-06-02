@@ -4,7 +4,7 @@ module.exports = {
     name: 'firstmessage',
     aliases: ['fm'],
     description: 'Get the first message in the current channel',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}firstmessage',
     cooldown: 10,
     nsfw: false,

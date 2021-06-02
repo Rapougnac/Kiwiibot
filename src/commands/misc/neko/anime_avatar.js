@@ -6,7 +6,7 @@ module.exports = {
 	name: 'anime avatar',
 	aliases: [],
 	description: '',
-	category: 'Neko',
+	category: 'neko',
 	utilisation: '{prefix}anime avatar',
 	async execute(client, message, args) {
 		const GIF = await neko.sfw.avatar();

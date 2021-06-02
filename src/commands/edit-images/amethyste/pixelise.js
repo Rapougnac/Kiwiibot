@@ -6,7 +6,7 @@ module.exports = {
   name: 'pixelize',
   aliases: [],
   description: '',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}pixelize',
   cooldown: 5,
   guildOnly: false,

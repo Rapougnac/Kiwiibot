@@ -3,7 +3,7 @@ module.exports = {
     name: 'slowmode',
     aliases: ['sm'],
     description: '',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}slowmode <number>',
     /**
      * @param {Client} client 

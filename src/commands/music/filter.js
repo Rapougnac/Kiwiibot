@@ -1,7 +1,7 @@
 module.exports = {
     name: 'filter',
     aliases: ['f'],
-    category: 'Music',
+    category: 'music',
     description: 'You can add or disable filters you can see all the filters by doing {prefix}filters',
     utilisation: '{prefix}filter [filter name]',
 

@@ -5,7 +5,7 @@ module.exports = {
   name: 'mute',
   aliases: [],
   description: 'Mute a person',
-  category: 'Core',
+  category: 'moderation',
   utilisation: '{prefix}mute <mention>',
   cooldown: 1,
   adminOnly: false,

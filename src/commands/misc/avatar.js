@@ -4,7 +4,7 @@ module.exports = {
   name: 'avatar',
   aliases: [],
   description: 'Get the avatar of yourself ou the specified member (★ ω ★)',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}avatar <member>',
   cooldown: 10,
   nsfw: false,

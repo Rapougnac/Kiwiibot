@@ -1,7 +1,7 @@
 module.exports = {
     name: 'back',
     aliases: ['bck'],
-    category: 'Music',
+    category: 'music',
     description: 'Return to the precedent track',
     utilisation: '{prefix}back',
 

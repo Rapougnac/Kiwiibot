@@ -5,7 +5,7 @@ module.exports = {
     name: 'inrole',
     aliases: ['ir'],
     description: 'Shows all the members who has the mentionned role',
-    category: 'Infos',
+    category: 'infos',
     utilisation: '{prefix}inrole <role>',
     async execute(client, message, args) {
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]) || message.guild.roles.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase())

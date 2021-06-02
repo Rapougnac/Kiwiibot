@@ -5,7 +5,7 @@ module.exports = {
 	name: 'fact',
 	aliases: [],
 	description: '',
-	category: 'Misc',
+	category: 'misc',
 	utilisation: '{prefix}fact',
 	async execute(client, message, args) {
 		const factTEXT = await neko.sfw.fact();

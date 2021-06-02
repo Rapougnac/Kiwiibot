@@ -6,7 +6,7 @@ module.exports = {
     name: 'batslap',
     aliases: ['bs'],
     description: 'Slap a user with the power of batman',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}batslap',
     cooldown: 5,
     guildOnly: false,

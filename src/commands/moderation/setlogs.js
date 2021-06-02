@@ -5,7 +5,7 @@ module.exports = {
   name: 'setlogs',
   aliases: ['logs'],
   description: 'Set the logs in the mentionned channel',
-  category: 'Moderation',
+  category: 'moderation',
   utilisation: '{prefix}setlogs',
   cooldown: 10,
   nsfw: false,

@@ -6,7 +6,7 @@ module.exports = {
     name: 'blur',
     aliases: [],
     description: 'Blur your profile picture',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}blur',
     cooldown: 5,
     guildOnly: false,

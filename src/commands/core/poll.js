@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'poll',
   aliases: [],
-  category: 'Core',
+  category: 'core',
   utilisation: '{prefix}poll [question]',
   cooldown: 5,
   nsfw: false,

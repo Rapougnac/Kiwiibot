@@ -5,7 +5,7 @@ module.exports = {
     name: 'sendpins',
     aliases: ['sendpinned'],
     description: '',
-    category: '',
+    category: 'docs',
     utilisation: '{prefix}',
     cooldown: 5,
     nsfw: false,

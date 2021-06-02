@@ -7,15 +7,15 @@ module.exports = {
     name: 'youdied',
     aliases: [],
     description: '',
-    category: '',
-    utilisation: '{prefix}',
+    category: 'misc',
+    utilisation: '{prefix}youdied',
     cooldown: 5,
     nsfw: false,
     ownerOnly: false,
     adminOnly: false,
     guildOnly: false,
     permissions: [],
-    clientPermissions: [],
+    clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ATTACH_FILES'],
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -34,6 +34,5 @@ module.exports = {
         ctx.drawImage(base, x, y, width, height);
         const attachment = new MessageAttachment(canvas.toBuffer(), 'you-died.png');
         message.channel.send(attachment);
-
     },
 };

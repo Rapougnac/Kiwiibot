@@ -6,7 +6,7 @@ module.exports = {
     name: 'challenger',
     aliases: [],
     description: 'A new foe has appared!',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}challenger',
     cooldown: 5,
     guildOnly: false,

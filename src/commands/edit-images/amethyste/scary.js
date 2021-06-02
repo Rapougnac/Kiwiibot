@@ -6,7 +6,7 @@ module.exports = {
     name: 'scary',
     aliases: [],
     description: 'Scare the little girl by your beautiful profile picture',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}scary <member>',
     cooldown: 5,
     guildOnly: false,

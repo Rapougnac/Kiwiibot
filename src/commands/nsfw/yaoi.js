@@ -5,7 +5,7 @@ module.exports = {
     name: 'yaoi',
     aliases: [],
     description: 'Get a yaoi pic (✿◕‿◕✿)',
-    category: 'Nsfw',
+    category: 'nsfw',
     utilisation: '{prefix}yaoi',
     cooldown: 5,
     nsfw: true,

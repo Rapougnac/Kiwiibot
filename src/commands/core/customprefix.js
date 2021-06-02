@@ -3,16 +3,16 @@ const { Message, Client } = require('discord.js');
 
 module.exports = {
   name: 'customprefix',
-  aliases: ['cp', 'custp', 'cprefix'],
-  category: 'Core',
+  aliases: ['cp', 'custp', 'cprefix', 'setprefix', 'setp'],
+  category: 'core',
   utilisation: '{prefix}customprefix [prefix]',
   description: 'Change the default prefix to the specified prefix',
   cooldown: 5,
-  adminOnly: true,
+  adminOnly: false,
   ownerOnly: false,
   nsfw: false,
   guildOnly: false,
-  permissions: [],
+  permissions: ['MANAGE_MESSAGES'],
   clientPermissions: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
   string: [],
   /**

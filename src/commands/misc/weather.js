@@ -5,7 +5,7 @@ module.exports = {
     name: 'weather',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}weather',
     async execute(client, message, args) {
         weather.find({ search: args.join(" "), degreeType: 'C' }, function (error, result) {

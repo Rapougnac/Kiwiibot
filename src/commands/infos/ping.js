@@ -10,7 +10,7 @@ module.exports = {
   name: 'ping',
   aliases: ['pouing'],
   description: 'Ping!',
-  category: 'Infos',
+  category: 'infos',
   cooldown: 5,
   utilisation: '{prefix}ping',
   nsfw: false,

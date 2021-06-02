@@ -8,6 +8,7 @@ module.exports = {
     'Gives You the list of top 5 people with most invites to your server!',
   utilisation: '{prefix}invites',
   aliases: ['invites'],
+  category: 'infos',
   async execute(client, message, args) {
     message.guild.fetchInvites().then((invites) => {
       const inviteCounter = {};

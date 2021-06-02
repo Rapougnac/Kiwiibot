@@ -6,7 +6,7 @@ module.exports = {
     name: 'infractions',
     aliases: ['inf'],
     description: 'See the infractions of a user',
-    category: 'Core',
+    category: 'moderation',
     utilisation: '{prefix}infractions',
     async execute(client, message, args) {
 

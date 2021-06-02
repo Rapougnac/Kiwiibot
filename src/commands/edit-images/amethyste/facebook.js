@@ -6,7 +6,7 @@ module.exports = {
     name: 'facebook',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}facebook',
     cooldown: 5,
     guildOnly: false,

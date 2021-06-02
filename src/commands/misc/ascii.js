@@ -5,7 +5,7 @@ module.exports = {
   name: 'ascii',
   aliases: [],
   description: 'Convert your text to ASCII code ',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}ascii [text]',
   cooldown: 10,
   nsfw: false,

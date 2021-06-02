@@ -4,7 +4,7 @@ module.exports = {
     name: 'trash',
     aliases: [],
     description: '',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}trash',
     async execute(client, message, args) {
         let user =

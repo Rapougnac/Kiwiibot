@@ -5,7 +5,7 @@ module.exports = {
   name: 'netorare',
   aliases: [],
   description: '',
-  category: 'Nsfw',
+  category: 'nsfw',
   utilisation: '{prefix}netorare',
   async execute(client, message, args) {
     if (message.channel.nsfw) {

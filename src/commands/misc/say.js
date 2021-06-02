@@ -2,7 +2,7 @@ module.exports = {
     name: 'say',
     aliases: [],
     description: 'Say the text of the message sent by the author',
-    category: 'Misc',
+    category: 'misc',
     utilisation: '{prefix}say',
     ownerOnly: true,
     adminOnly: false,

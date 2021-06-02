@@ -1,7 +1,7 @@
 module.exports = {
     name: 'invert',
     aliases: ['inv'],
-    category: 'Misc',
+    category: 'misc',
     description: 'Invert the colors on user avatar',
     async execute(client, message) {
 

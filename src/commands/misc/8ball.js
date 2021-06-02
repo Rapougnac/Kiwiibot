@@ -4,7 +4,7 @@ module.exports = {
   name: '8ball',
   aliases: [],
   description: '',
-  category: 'Misc',
+  category: 'misc',
   utilisation: '{prefix}8ball',
   cooldown: 10,
   nsfw: false,

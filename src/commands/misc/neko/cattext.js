@@ -5,7 +5,7 @@ module.exports = {
 	name: 'cattext',
 	aliases: [],
 	description: '',
-	category: 'Misc',
+	category: 'misc',
 	utilisation: '{prefix}cattext',
 	async execute(client, message, args) {
 		const catTEXT = await neko.sfw.catText();

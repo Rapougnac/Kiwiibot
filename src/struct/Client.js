@@ -1,3 +1,8 @@
+if (Number(process.version.slice(1).split('.')[0]) < 12)
+  throw new Error(
+    'Node 12.0.0 or higher is required. Update Node on your system.'
+  );
+
 const { Client, Collection, Permissions } = require('discord.js');
 const Console = require('../util/console');
 const glob = require('glob');
@@ -51,6 +56,11 @@ class KiwiiClient extends Client {
      * @type {Collection}
      */
     this.cooldowns = new Collection();
+    /**
+     * Categories of the commands
+     * @type {SetConstructor}
+     */
+    this.categories = new Set();
 
     /**
      * The manager of the `Util` class
@@ -175,35 +185,34 @@ class KiwiiClient extends Client {
       }
     }
     files.forEach((file) => {
-
       try {
-        const command = require(`${process.cwd()}\\${file.split('/').join('\\')}`);
+        const command = require(`${process.cwd()}\\${file
+          .split('/')
+          .join('\\')}`);
         if (this.commands.has(command.name)) {
-        console.error(
-          new Error(`Command name duplicate: ${command.name}`).stack
-        );
-        return process.exit(1);
-      } else {
-        this.commands.set(command.name, command);
-        if (command.aliases) {
-          command.aliases.forEach((alias) => {
-                        if (this.aliases.has(alias)) {
-              console.error(
-                new Error(`Alias name duplicate: ${command.aliases}`).stack
-              );
-              return process.exit(1);
-            } else {
-              this.aliases.set(alias, command);
-            }
-          });
+          console.error(
+            new Error(`Command name duplicate: ${command.name}`).stack
+          );
+          return process.exit(1);
+        } else {
+          this.commands.set(command.name, command);
+          this.categories.add(command.category);
+          if (command.aliases) {
+            command.aliases.forEach((alias) => {
+              if (this.aliases.has(alias)) {
+                console.error(
+                  new Error(`Alias name duplicate: ${command.aliases}`).stack
+                );
+                return process.exit(1);
+              } else {
+                this.aliases.set(alias, command);
+              }
+            });
+          }
         }
-      }
       } catch (error) {
         console.log(error);
       }
-
-      }
-
     });
     setTimeout(function () {
       Console.success(`Loaded ${files.length} commands`);

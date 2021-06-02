@@ -6,8 +6,8 @@ require('module-alias/register'); // Module alias for the path
 const client = new Client({
   prefix: 'n?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
-  owners: '253554702858452992', // Owner(s) of the bot
-  config: require('./config.json'), //Path to the config.json file
+  owners: ['253554702858452992', '364062534975881218'], // Owner(s) of the bot
+  config: require('./config.js'), //Path to the config.js file
   disabledEvents: ['channelUpdate', 'channelCreate', 'guildMemberUpdate'],
   clientOptions: {
     disableMentions: 'everyone', //disables, that the bot is able to send @everyone

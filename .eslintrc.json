@@ -9,6 +9,13 @@
         "ecmaVersion": 12
     },
     "rules": {
-        "no-unused-vars": ["warn", {"vars": "all", "args": "none", "varsIgnorePattern": "[cC]lient|[cC]ommand|[cC]ollection|[mM]essage|[gG]uild|DMChannel|^_|^m"}]
+        "no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "none",
+                "varsIgnorePattern": "[cC]lient|[cC]ommand|[cC]ollection|[mM]essage|[gG]uild|DMChannel|^_|^m"
+            }
+        ]
     }
 }

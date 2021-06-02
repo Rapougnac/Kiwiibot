@@ -1,10 +1,7 @@
 module.exports = {
   discord: {
     token: 'TOKEN_HERE', // (required)(https://discord.com/developers/applications)
-    prefix: 'PREFIX_HERE', // Required
-    text: 'm?help/m?commands',
-    activity: 'WATCHING',
-    status: 'dnd',
+    status: 'idle',
     dev: {
       include_cmd: [],
       exclude_cmd: [],
@@ -48,11 +45,8 @@ module.exports = {
   ],
   channels: {
     debug: '838362111545442354',
-    votes: '809665224377761813',
-    uploads: '806949058710339655',
     logs: '806129974011887706',
   },
-  allowedFeatures: ['ANISCHEDULE', 'CHATBOT', 'EXPERIENCE_POINTS'],
   clientMap: {
     web: '🌐',
     mobile: '📱',
@@ -82,9 +76,5 @@ module.exports = {
     MEDIUM: 'Medium',
     HIGH: '(╯°□°）╯︵ ┻━┻',
     VERY_HIGH: '┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻',
-  },
-  chatbot: {
-    id: 'ID_HERE', // (optional but the chatbot function will not work)(get a id & key here)[https://brainshop.ai/]
-    key: 'KEY_HERE', // Same as the id 
   },
 };

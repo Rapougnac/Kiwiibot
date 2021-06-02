@@ -14,6 +14,7 @@ const {
  */
 
 module.exports = async (client, message) => {
+
   const { author, guild } = message;
   const { bot } = author;
   if (bot&&(author.id !==client.config.discord.id_bot_test)) return;
@@ -44,8 +45,6 @@ module.exports = async (client, message) => {
             'This command can only be used inside servers.',
           ].join(' - ')
         );
-      } else {
-        //Do nothing
       }
     }
 
@@ -58,8 +57,6 @@ module.exports = async (client, message) => {
               'This command can only be used by my developers.',
             ].join(' - ')
           );
-        } else {
-          // Do nothing
         }
       }
       if (command_to_execute.adminOnly) {
@@ -70,8 +67,6 @@ module.exports = async (client, message) => {
               'This command can only be used by server administrators.',
             ].join(' - ')
           );
-        } else {
-          // Do nothing
         }
       }
       if (command_to_execute.nsfw) {
@@ -111,8 +106,6 @@ module.exports = async (client, message) => {
                 .join('\n\u2000\u2000- '),
             ].join('')
           );
-        } else {
-          // Do nothing
         }
       }
       if (Array.isArray(command_to_execute.clientPermissions)) {
@@ -143,8 +136,6 @@ module.exports = async (client, message) => {
                 .join('\n\u2000\u2000- '),
             ].join('')
           );
-        } else {
-          // Do nothing
         }
       }
 
@@ -168,22 +159,6 @@ module.exports = async (client, message) => {
         return await message.channel.send(embed); //message.channel.send(`\`\`\`diff\n-Command execution blocked!\n\`\`\`\n\`Reasons:\`\n\n\`\`\`json\n${reasons.map((reason) => `• ${reason}`).join("\n")}\n\`\`\``);
       }
     }
-    // const userPermsCheck = command_to_execute.permissions ? client.defaultPerms.add(command_to_execute.permissions) : client.defaultPerms;
-    // if(userPermsCheck) {
-    //   const missing = message.channel.permissionsFor(message.member).missing(userPermsCheck);
-
-    //   if (missing) {
-    //     return message.reply(`You are missing ${client.utils.formatArray(missing.map(client.utils.formatPerms))} permissions to use this command`)
-    //   }
-    // }
-    // const botPermsCheck = command_to_execute.clientPermissions ? client.defaultPerms.add(command_to_execute.clientPermission) : client.defaultPerms;
-    // if(botPermsCheck) {
-    //   const missing = message.channel.permissionsFor(message.member).missing(botPermsCheck);
-
-    //   if (missing) {
-    //     return message.channel.send(`I'm missing ${client.utils.formatArray(missing.map(client.utils.formatPerms))} permissions to use this command`)
-    //   }
-    // }
     if (command_to_execute.string) {
       command_to_execute.string = language(guild, command_to_execute.name);
       const now = Date.now(); //get the current time
@@ -272,6 +247,7 @@ module.exports = async (client, message) => {
         }
       }
     }
+    
   } else {
     return;
   }

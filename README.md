@@ -35,28 +35,33 @@ Don't put the `[]` in the command prompt
 Open configexample.json
 And change the following values:
 
-```json
-"discord":{
-    "discord": {
-      "token": "TOKEN_HERE(required)(https://discord.com/developers/applications)",
-      "default_prefix": "PREFIX_HERE(required)",
-      "status": "dnd",
-      "dev": {
-        "include_cmd": [],
-        "exclude_cmd": [],
-        "active": false /*Default is false, you can put it to true to exclude or include commands (remove this comment after all the changes)*/
-      }
+```js
+discord: {
+    token: 'TOKEN_HERE', // (required)(https://discord.com/developers/applications)
+    status: 'idle',
+    dev: {
+      include_cmd: [],
+      exclude_cmd: [],
+      active: false, //Default is false, you can put it to true to exclude or include commands
+    },
+amethyste: {
+    client:
+      'AMETHYSTE_KEY_HERE', // (optional, but mostly of images manipulation won\'t work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token
   },
-  "amethyste": {
-    "client": "AMETHYSTE_KEY_HERE(optional, but images manipulation won't work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token"
+database: {
+    enable: true,
+    URI: 'MONGO_URI_HERE', // (optional but there'll be no database)
+    config: {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      autoIndex: false,
+      poolSize: 5,
+      connectTimeoutMS: 10000,
+      family: 4,
+    },
   },
-    "chatbot": {
-    "id": "ID_HERE(optionnal) but the chatbot functionnality won't work(https://brainshop.ai/user/register) get the id here",
-    "key": "KEY_HERE(optionnal) but the chatbot functionnality won't work(https://brainshop.ai/user/register) get the key here"
-  }
-}
 ```
-> :warning: Don't forget to change the name of the `configexample.json` to `config.json`!
+> :warning: Don't forget to change the name of the `configexample.js` to `config.js`!
 ## Features
 
 - Interact with users trough gifs (For example: !hug @user)!

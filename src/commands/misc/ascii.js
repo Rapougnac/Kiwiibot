@@ -1,25 +1,48 @@
-const figlet = require("figlet");
-
+const figlet = require('figlet');
+const Client = require('../../struct/Client');
+const { Message } = require('discord.js');
 module.exports = {
-    name: 'ascii',
-    aliases: [],
-    description: '',
-    category: 'Misc',
-    utilisation: '{prefix}ascii',
-    async execute(client, message, args) {
-        let text = args.join(" ");
+  name: 'ascii',
+  aliases: [],
+  description: 'Convert your text to ASCII code ',
+  category: 'Misc',
+  utilisation: '{prefix}ascii [text]',
+  cooldown: 10,
+  nsfw: false,
+  guildOnly: false,
+  adminOnly: false,
+  ownerOnly: false,
+  permissions: [],
+  clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+  string: [],
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   * @returns {Promise<Message>}
+   */
+  async execute(client, message, args) {
+    let text = args.join(' ');
 
-        if (!text) {
-            return message.channel.send('Please provide text for the ascii conversion!')
-        }
-        let _maxlen = 20
-        if (text.length > 20) {
-            return message.channel.send("Please put text that has 20 characters or less because the conversion won't be good!")
-        }
-        figlet(text, function (err, data) {
-            message.channel.send(data, {
-                code: 'AsciiArt'
-            });
-        });
-    },
+    if (!text) {
+      return message.inlineReply(this.string[0], {
+        allowedMentions: {
+          repliedUser: false,
+        },
+      });
+    }
+
+    if (text.length > 20) {
+      return message.inlineReply(this.string[1], {
+        allowedMentions: {
+          repliedUser: false,
+        },
+      });
+    }
+    figlet(text, (err, data) => {
+      message.channel.send(data, {
+        code: 'AsciiArt',
+      });
+    });
+  },
 };

@@ -2,8 +2,8 @@
   "languages": ["english", "french"],
   "translations": {
     "ping": {
-      "english": ["🏓 Pong! The ping is: `{0}ms`\nHeartbeat: `{1}ms`"],
-      "french": ["🏓 Pong ! Le ping est de: `{0}ms`\nHeartbeat: `{1}ms`"]
+      "english": ["🏓 P{0}ng! The ping is: `{1}ms`\nHeartbeat: `{2}ms`"],
+      "french": ["🏓 P{0}ng ! Le ping est de: `{1}ms`\nHeartbeat: `{2}ms`"]
     },
     "hackban": {
       "english": [
@@ -107,7 +107,7 @@
         "The",
         "at",
         "Is not boosting",
-        "Date of arrival on the server",
+        "Arrival date on the server",
         "Boost start date",
         "Device",
         "Type",
@@ -144,8 +144,8 @@
       "french": ["Veuillez mettre un texte valide !"]
     },
     "MESSAGE_PREFIX": {
-      "english": "My prefix in the server {0} is {1}",
-      "french": "Mon prefix dans le serveur {0} est {1}"
+      "english": "My actual prefix in the guild {0} is `{1}`",
+      "french": "Mon prefix actuel dans le serveur {0} est `{1}`"
     },
     "customprefix": {
       "english": [
@@ -156,7 +156,7 @@
         "Prefix in this server is now set to **{0}**"
       ],
       "french": [
-        "S'il vous plaît, veuillez spécifiez un préfixe !",
+        "S'il vous plaît, veuillez spécifier un préfixe !",
         "Erreur, mon préfixe ne peut pas faire plus de 5 caractères",
         "\\⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {0}",
         "Mon préfixe a été mis à jour sur **{0}**",
@@ -383,22 +383,6 @@
       "english": [],
       "french": []
     },
-    "character": {
-      "english": [
-        "Searching for character named **{0}** on <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)",
-        "No results were found for **{0}**!\n\nIf you believe this character exists, try their alternative names.",
-        "I'm being rate limited in {0}, please try again later.",
-        "I could not access {0}, the site might be currently down, please try again later.",
-        "{0} responded with HTTP error code {1}"
-      ],
-      "french": [
-        "En train de chercher un personnage nommé **{0}** sur <:MAL:808384986574094427> [MyAnimeList](https://myanimelist.net)",
-        "Aucun résultat n'a été trouvé pour **{0}**\n\nSi vous pensez que ce personnage existe, essayez par leur nom différent.",
-        "Je suis limitée en {0}, veuillez réessayer plus tard.",
-        "Je ne peux pas accéder {0}, le site pourrait être indisponible pour le moment.",
-        "{0} a répondu avec le code d'erreur HTTP {1}"
-      ]
-    },
     "avatar": {
       "english": [
         "Avatar of {0}",
@@ -456,6 +440,139 @@
         "Vous ne pouvez pas mute cet utilisateur, il/elle a un rôle plus haut que le vôtre !",
         "Je ne peux pas mute cet utilisateur !"
       ]
+    },
+    "8ball": {
+      "english": [
+        "Please, indicate a question!",
+        [
+          "Yes",
+          "No",
+          "Maybe",
+          "Obviously!",
+          "Not sure",
+          "Nay",
+          "Of course",
+          "NEVER",
+          "No, 'cause I don't like you :)",
+          "I don't know",
+          "It make sense",
+          "I regret, but no",
+          "Yes that seems logical to me",
+          "No sorry, you're too ugly",
+          "No way",
+          "It's a possibility"
+        ]
+      ],
+      "french": [
+        "Veuillez indiquer une question !",
+        [
+          "Oui",
+          "Non",
+          "Peut être",
+          "Evidemment",
+          "Pas sûr",
+          "Que nenni !",
+          "Bien sûr !",
+          "JAMAIS",
+          "Non parce que je t'aimes pas :)",
+          "Je ne sais pas",
+          "Ça tombe sous le sens",
+          "Je regrette mais non",
+          "Oui, ça me paraît logique",
+          "Non désolé t'es trop moche",
+          "Jamais de la vie",
+          "C'est une possibilité"
+        ]
+      ]
+    },
+    "docs": {
+      "english": ["Please specify a query!", "I couldn't fetch the docs!"],
+      "french": [
+        "Veuillez spécifiez une recherche !",
+        "Je n'ai pas pu récupérer la doc !"
+      ]
+    },
+    "anime": {
+      "english": [
+        "Please, specify an anime!",
+        "No results was found for **{0}**!",
+        "Name in japanese",
+        "Public age",
+        "Yes",
+        "No",
+        "Global note:",
+        "Ranking:",
+        "Popularity:",
+        "The message will stop to collect messages in 60 seconds",
+        "Stats",
+        "Beginning",
+        "End",
+        "In progress...",
+        "Choose your anime between the displayed numbers",
+        "Please insert a number between 1 and {0}"
+      ],
+      "french": [
+        "S'il vous plaît, veuillez spécifier un animé !",
+        "Aucun résultat trouvé pour **{0}** !",
+        "Nom en japonais",
+        "Age du public:",
+        "Oui",
+        "Non",
+        "Note globale:",
+        "Classement:",
+        "Popularité:",
+        "Le collecteur va cesser de récuperer des messages après 60 secondes",
+        "Statistiques",
+        "Début",
+        "Fin",
+        "En cours...",
+        "Choisissez l'animé voulu entre les nombres affichés",
+        "S'il vous plaît, veuillez choisir un nombre compris entre 1 et {0}"
+      ]
+    },
+    "calc": {
+      "english": [],
+      "french": []
+    },
+    "ascii": {
+      "english": [
+        "Please provide text for the ascii conversion!",
+        "Please put text that has 20 characters or less otherwise the conversion won't be good!"
+      ],
+      "french": [
+        "S'il vous plaît, veuillez me donner un texte à convertir !",
+        "S'il vous plaît, veuillez rentrer un texte de moins de 20 caractères sinon la conversion se fera mal."
+      ]
+    },
+    "firstmessage": {
+      "english": [
+        "First message in: **{0}**",
+        "**Content:** ",
+        "**Author:**",
+        "**Message ID:**",
+        "**Created at:**"
+      ],
+      "french": [
+        "Premier message du channel: **{0}**",
+        "**Contenu:** ",
+        "**Auteur:**",
+        "**ID du message:**",
+        "**Créé le:**"
+      ]
+    },
+    "fisheye": {
+      "english": [
+        "Please insert a number between 1 to 10",
+        "Please insert a valid number"
+      ],
+      "french": [
+        "Veuillez mettre un numéro compris entre 1 et 10",
+        "S'il vous plaît, veuillez insérer un nombre valide"
+      ]
+    },
+    "roleinfo": {
+      "english": ["Please specify a role.", "Role", "Role name", "Members who own it", "Color", "Creation date", "The", "at", "Hoisted", "Yes", "No", "Mentionable"],
+      "french": ["Veuillez spécifez le rôle dont vous voulez voir les infos.", "Rôle", "Nom du rôle", "Membres le possédant", "Couleur", "Date de création", "Le", "à", "Affiché séparément", "Oui", "Non", "Mentionnable"]
     }
   }
 }

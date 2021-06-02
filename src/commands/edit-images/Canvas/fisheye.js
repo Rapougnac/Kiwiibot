@@ -1,25 +1,27 @@
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
-const Client = require('../../struct/Client');
-const Canvas = require('../../struct/Canvas');
+const Client = require('../../../struct/Client');
+const Canvas = require('../../../struct/Canvas');
 const { loadImage, createCanvas } = require('canvas');
 
 module.exports = {
   name: 'fisheye',
-  aliases: [],
-  description: '',
-  category: '',
-  utilisation: '{prefix}',
+  aliases: ['fh'],
+  description: 'Fisheye your profile picture',
+  category: 'Misc',
+  utilisation: '{prefix}fisheye <member> [size]',
   cooldown: 5,
   nsfw: false,
   ownerOnly: false,
   adminOnly: false,
   guildOnly: false,
   permissions: [],
-  clientPermissions: [],
+  clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ATTACH_FILES'],
+  string: [],
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
+   * @returns {Promise<Message>}
    */
   async execute(client, message, args) {
     const member =
@@ -41,28 +43,21 @@ module.exports = {
       const ctx = canvas.getContext('2d');
       let level = args[0].slice(1);
       if (!level)
-        return message.inlineReply('Please insert a number between 1 to 10', {
+        return message.inlineReply(this.string[0], {
           allowedMentions: {
             repliedUser: false,
           },
         });
       if (isNaN(level)) {
-        return message.inlineReply('Please insert a valid number', {
+        return message.inlineReply(this.string[1], {
           allowedMentions: {
             repliedUser: false,
           },
         });
       }
       ctx.drawImage(data, 0, 0);
-      if (level > 10) {
-        return message.inlineReply('Distortion must be between 1 to 10!', {
-          allowedMentions: {
-            repliedUser: false,
-          },
-        });
-      }
-      if (level < 1) {
-        return message.inlineReply('Distortion must be between 1 to 10!', {
+      if (level > 10 && level < 1) {
+        return message.inlineReply(this.string[2], {
           allowedMentions: {
             repliedUser: false,
           },
@@ -83,33 +78,27 @@ module.exports = {
       const ctx = canvas.getContext('2d');
       let level = args[0];
       if (!level)
-        return message.inlineReply('Please insert a number between 1 to 10', {
+        return message.inlineReply(this.string[0], {
           allowedMentions: {
             repliedUser: false,
           },
         });
       if (isNaN(level)) {
-        return message.inlineReply('Please insert a valid number', {
+        return message.inlineReply(this.string[1], {
           allowedMentions: {
             repliedUser: false,
           },
         });
       }
       ctx.drawImage(data, 0, 0);
-      if (level > 10) {
-        return message.inlineReply('Distortion must be between 1 to 10!', {
+      if (level > 10 && level < 1) {
+        return message.inlineReply(this.string[0], {
           allowedMentions: {
             repliedUser: false,
           },
         });
       }
-      if (level < 1) {
-        return message.inlineReply('Distortion must be between 1 to 10!', {
-          allowedMentions: {
-            repliedUser: false,
-          },
-        });
-      }
+
       Canvas.fishEye(ctx, level, 0, 0, data.width, data.height);
 
       const att = new MessageAttachment(canvas.toBuffer(), 'fisheye.png');

@@ -8,7 +8,7 @@ const {
   // eslint-disable-next-line no-unused-vars
   ReactionEmoji,
 } = require('discord.js');
-
+const { confirmation } = require('../../util/confirmation')
 module.exports = {
   name: 'embedbuilder',
   aliases: ['embed'],
@@ -85,16 +85,6 @@ module.exports = {
               time: 60000,
             })
           ).first();
-          const noNoWords = [Title];
-
-          const { content } = message;
-
-          for (var i = 0; i < noNoWords.length; i++) {
-            if (content.includes(noNoWords[i])) {
-              message.delete();
-              break;
-            }
-          }
           Title.delete();
           msgQuestionTitle.delete();
           BaseEmbed.setTitle(Title);
@@ -414,8 +404,6 @@ module.exports = {
           msgQuestionEmbedCopy.delete();
           BaseEmbed.edit(obj);
           messageEmbedForEditing.edit(BaseEmbed);
-          //obj.delete();
-          //message.channel.send({ embed: obj });
           break;
         }
 
@@ -429,26 +417,4 @@ module.exports = {
   },
 };
 
-async function confirmation(message, author, validReactions, time = 60000) {
-  if (!message)
-    throw new ReferenceError('confirmation => "message" is not defined');
-  if (!validReactions || validReactions.length !== 2)
-    throw new ReferenceError(
-      'confirmation => Invalid form body [validReactions]'
-    );
-  if (typeof time !== 'number')
-    throw new SyntaxError('confirmation => typeof "time" must be a number');
-  if (!message.guild.me.hasPermission('MANAGE_MESSAGES'))
-    return console.log(
-      `confirmation err: Discord Client has to have "MANAGE_MESSAGES" permission.`
-    );
 
-  for (const reaction of validReactions) await message.react(reaction);
-
-  const filter = (reaction, user) =>
-    validReactions.includes(reaction.emoji.name) && user.id === author.id;
-
-  return message
-    .awaitReactions(filter, { max: 1, time: time })
-    .then((collected) => collected.first() && collected.first().emoji.name);
-}

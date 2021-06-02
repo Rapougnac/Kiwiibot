@@ -1,15 +1,14 @@
-function formatNumber(number, minimumFractionDigits = 0) {
+const  formatNumber = (number, minimumFractionDigits = 0) => {
   return Number.parseFloat(number).toLocaleString(undefined, {
     minimumFractionDigits,
     maximumFractionDigits: 2,
   });
 }
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Message } = require('discord.js');
 const Client = require('../../struct/Client');
-const ExtMessage  = require('../../struct/Message');
 module.exports = {
   name: 'ping',
-  aliases: ['p'],
+  aliases: ['pouing'],
   description: 'Ping!',
   category: 'Infos',
   cooldown: 5,
@@ -23,7 +22,7 @@ module.exports = {
   string: [],
   /**
    * @param {Client} client
-   * @param {ExtMessage} message
+   * @param {Message} message
    * @param {String[]} args
    */
   async execute(client, message, args) {
@@ -34,7 +33,7 @@ module.exports = {
       }
     });
     const ping = msg.createdTimestamp - message.createdTimestamp;
-    const string = this.string[0].format(ping, formatNumber(client.ws.ping));
+    const string = this.string[0].format('o'.repeat(Math.min(Math.round(ping / 100), 1500)), ping, formatNumber(client.ws.ping));
     msg.edit(string, {
       allowedMentions: {
         repliedUser: false,

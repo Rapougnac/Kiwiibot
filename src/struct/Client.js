@@ -18,7 +18,7 @@ const Genius = require('genius-lyrics');
  * Represents a discord client
  * @extends Client
  */
-module.exports = class KiwiiClient extends Client {
+class KiwiiClient extends Client {
   /**
    *
    * @param {Object} options The options passed trough the client
@@ -27,12 +27,14 @@ module.exports = class KiwiiClient extends Client {
    * @param {String|String[]} options.owners The owner(s) of the bot
    * @param {String[]} options.defaultPerms The default perms of the bot
    * @param {String[]} options.disabledEvents Disabled events of this instance
+   * @param {String} options.prefix The prefix of the bot
    */
   constructor(options) {
     super(options.clientOptions || {});
 
-    if (typeof options !== 'object')
+    if (typeof options !== 'object') {
       throw new TypeError('Options should be an `Object`');
+    }
 
     /**
      * * A collection of all the bot's commands
@@ -64,29 +66,24 @@ module.exports = class KiwiiClient extends Client {
     this.config = options.config ? options.config : {};
     /**
      * The bot owner(s)
-     * @type {String}
+     * @type {String|String[]}
      */
     this.owners = options.owners;
     /**
      * Access to the prefix easily
      * @type {String}
      */
-    this.prefix = this.config.discord.prefix;
+    this.prefix = options.prefix;
     /**
      * The events that should not be executed
      * @type {Object}
      */
     this.disabledEvents = options.disabledEvents;
 
-    // if (this.disabledEvents) {
-    //   for (const evt of this.disabledEvents) {
-    //     require(`discord.js/src/client/actions/${evt}`);
-    //     return;
-    //   }
-    // }
-
-    if (!options.defaultPerms)
+    if (!options.defaultPerms) {
       throw new Error('You must pass default perm(s) for the client');
+    }
+
     /**
      * The default perms of the bot
      * @type {string}
@@ -114,8 +111,8 @@ module.exports = class KiwiiClient extends Client {
      */
     String.prototype.format = function () {
       let args = arguments;
-      return this.replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] != 'undefined' ? args[number] : match;
+      return this.replace(/{(\d+)}/g, (match, number) => {
+        return typeof args[number] !== 'undefined' ? args[number] : match;
       });
     };
 
@@ -133,13 +130,16 @@ module.exports = class KiwiiClient extends Client {
       quality: 'high',
       enableLive: true,
     });
+
     this.lyrics = new Genius.Client(
       process.env.GENIUS_API_KEY || this.config.genius_lyrics.TOKEN
     );
+
     /**
      * Get the emojis in config
      */
     this.emotes = this.config.emojis;
+
     /**
      * Get the filters in config
      */
@@ -167,36 +167,47 @@ module.exports = class KiwiiClient extends Client {
         files = files.filter((file) =>
           file.endsWith(this.config.discord.dev.include_cmd)
         );
-      } else {
-        // Do nothing
       }
       if (this.config.discord.dev.exclude_cmd.length) {
         files = files.filter(
           (file) => !file.endsWith(this.config.discord.dev.exclude_cmd)
         );
-      } else {
-        // Do nothing
       }
-    } else {
-      // Do nothing
     }
     files.forEach((file) => {
+
       try {
         const command = require(`${process.cwd()}\\${file.split('/').join('\\')}`);
+        if (this.commands.has(command.name)) {
+        console.error(
+          new Error(`Command name duplicate: ${command.name}`).stack
+        );
+        return process.exit(1);
+      } else {
         this.commands.set(command.name, command);
         if (command.aliases) {
           command.aliases.forEach((alias) => {
-            this.aliases.set(alias, command);
+                        if (this.aliases.has(alias)) {
+              console.error(
+                new Error(`Alias name duplicate: ${command.aliases}`).stack
+              );
+              return process.exit(1);
+            } else {
+              this.aliases.set(alias, command);
+            }
           });
-        } else {
-          // Do nothing
         }
+      }
       } catch (error) {
-        console.log(error)
+        console.log(error);
+      }
+
       }
 
     });
-    Console.success(`Loaded ${files.length} commands`);
+    setTimeout(function () {
+      Console.success(`Loaded ${files.length} commands`);
+    }, 1000);
     return this;
   }
   /**
@@ -205,8 +216,8 @@ module.exports = class KiwiiClient extends Client {
   loadEvents() {
     readdir('src/events', (err, files) => {
       if (err) throw err;
-      if(this.disabledEvents.length) {
-        files = files.filter((file) => !file.startsWith(this.disabledEvents))
+      if (this.disabledEvents.length) {
+        files = files.filter((file) => !file.startsWith(this.disabledEvents));
       }
       files = files.filter((file) => file.endsWith('.js'));
       files.forEach((file) => {
@@ -219,7 +230,7 @@ module.exports = class KiwiiClient extends Client {
           table.addRow(eventName, '\x1b[31mERR!\x1b[0m');
         }
       });
-      console.log(table.toString()); //showing the table
+      console.log(table.toString());
     });
     return this;
   }
@@ -290,9 +301,12 @@ module.exports = class KiwiiClient extends Client {
           return console.error(args[0].stack);
         } else if (config.nologs && typeof config.nologs === 'boolean') {
           return;
-          // } else if (config.logsonboth && typeof config.logsonboth === 'boolean'){
-          //   console.error(args[0].stack)
-          //   return ProcessEvent(event. args, this);
+        } else if (
+          config.logsonboth &&
+          typeof config.logsonboth === 'boolean'
+        ) {
+          console.error(args[0].stack);
+          return ProcessEvent(event, args, this);
         } else {
           return ProcessEvent(event, args, this);
         }
@@ -320,4 +334,6 @@ module.exports = class KiwiiClient extends Client {
       );
     }
   }
-};
+}
+
+module.exports = KiwiiClient;

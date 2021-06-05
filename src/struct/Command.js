@@ -131,9 +131,9 @@ module.exports = class Command {
   /**
    * Puts a user on cooldown
    * @param {String} user The ID of the user to put on cooldown
+   * @param {Command} cmd The command passed trough
    */
-  startCooldown(user, cmd, message) {
-    const { guild } = message;
+  startCooldown(user, cmd) {
     const now = Date.now(); //get the current time
     const cooldownAmount = cmd.config.cooldown; //get the cooldownamount of the command, if there is no cooldown there will be automatically 1 sec cooldown, so you cannot spam it ^^
     if (!this.cooldowns.has(user)) {

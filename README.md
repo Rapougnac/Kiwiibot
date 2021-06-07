@@ -46,7 +46,7 @@ discord: {
     },
 amethyste: {
     client:
-      'AMETHYSTE_KEY_HERE', // (optional, but mostly of images manipulation won\'t work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token
+      'AMETHYSTE_KEY_HERE', // (optional, but mostly of images manipulation won't work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token
   },
 database: {
     enable: true,

@@ -3,6 +3,7 @@ const lang = require('./src/assets/json/langs.json');
 const Client = require('./src/struct/Client'),
 mongoose = require('mongoose');
 const guildLanguages = {};
+const { Guild } = require('discord.js')
 /**
  * @param {Client} client 
  * @param {mongoose} mongoose
@@ -27,10 +28,20 @@ const loadLanguages = async (client, mongoose) => {
     );
   }
 };
-
+/**
+ * Function to set the language in a guild
+ * @param {Guild} guild 
+ * @param {String} language 
+ */
 const setLanguage = (guild, language) => {
   guildLanguages[guild.id] = language.toLowerCase();
 };
+/**
+ * 
+ * @param {Guild} guild The guild 
+ * @param {String} textID The text id in the langs.json
+ * @returns {*}
+ */
 const language = (guild, textID) => {
   if (guild !== null) {
     if (!lang.translations[textID]) {

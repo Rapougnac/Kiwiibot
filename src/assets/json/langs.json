@@ -1,9 +1,10 @@
 {
-  "languages": ["english", "french"],
+  "languages": ["english", "french", "italian"],
   "translations": {
     "ping": {
       "english": ["🏓 P{0}ng! The ping is: `{1}ms`\nHeartbeat: `{2}ms`"],
-      "french": ["🏓 P{0}ng ! Le ping est de: `{1}ms`\nHeartbeat: `{2}ms`"]
+      "french": ["🏓 P{0}ng ! Le ping est de: `{1}ms`\nHeartbeat: `{2}ms`"],
+      "italian": ["🏓 P{0}ng! Il ping è: `{1}ms`\nHeartbeat: `{2}ms`"]
     },
     "hackban": {
       "english": [
@@ -12,7 +13,8 @@
         "You can't ban yourself!",
         "You can't ban me!",
         "**{0}** has been hackbanned!",
-        "Something went wrong: **{0}**"
+        "Something went wrong: **{0}**",
+        "This user is already banned!"
       ],
       "french": [
         "S'il vous plaît, veuillez me donner une id valide !",
@@ -20,7 +22,8 @@
         "Vous ne pouvez pas vous bannir vous-même !",
         "Vous ne pouvez pas pas me bannir !",
         "**{0}** a été hackbanni !",
-        "Quelque chose s'est mal passé: **{0}**"
+        "Quelque chose s'est mal passé: **{0}**",
+        "Cet utilisateur est déjà banni !"
       ]
     },
     "setlanguage": {
@@ -59,7 +62,7 @@
         "voice channels",
         "category",
         "animated emojis",
-        "The",
+        "On",
         "at",
         "static emojis"
       ],
@@ -95,7 +98,7 @@
       "english": [
         "Do Not Disturb <:dnd:838001604098654229>",
         "Online <:online:838001438972968990>",
-        "Offline <:offline:838001624512856114>",
+        "Offline <:offline:850733725704126474>",
         "Idle <:idle:838003208588230706>",
         "Desktop {0}",
         "User {0}",
@@ -104,7 +107,7 @@
         "Nickname",
         "Not set",
         "Account creation date",
-        "The",
+        "On",
         "at",
         "Is not boosting",
         "Arrival date on the server",
@@ -113,12 +116,13 @@
         "Type",
         "User",
         "Roles [{0}]",
-        "There's no roles to display"
+        "There's no roles to display",
+        "I'm sorry, but I could't find this member, could you try again?"
       ],
       "french": [
         "Ne Pas Déranger <:dnd:838001604098654229>",
         "En Ligne <:online:838001438972968990>",
-        "Hors-Ligne <:offline:838001624512856114>",
+        "Hors-Ligne <:offline:850733725704126474>",
         "Inactif <:idle:838003208588230706>",
         "Bureau {0}",
         "Utilisateur {0}",
@@ -136,7 +140,8 @@
         "Type d'utilisateur",
         "Utilisateur",
         "Rôles [{0}]",
-        "Il n'y a pas de rôles à afficher"
+        "Il n'y a pas de rôles à afficher",
+        "Je suis désolée, mais je n'ai pas pu trouver ce membre, pouvez-vous réessayer ?"
       ]
     },
     "changemymind": {
@@ -144,10 +149,10 @@
       "french": ["Veuillez mettre un texte valide !"]
     },
     "MESSAGE_PREFIX": {
-      "english": "My actual prefix in the guild {0} is `{1}`",
-      "french": "Mon prefix actuel dans le serveur {0} est `{1}`"
+      "english": "My actual prefix in the guild is `{0}`",
+      "french": "Mon prefix actuel est `{0}`"
     },
-    "customprefix": {
+    "setprefix": {
       "english": [
         "Please specify a prefix!",
         "Error, my prefix cannot be longer than 5 characters!",
@@ -166,49 +171,21 @@
     "prefix-reset": {
       "english": [
         "Are you sure you want to reset the prefix?",
-        "The prefix has been resetted to {0}",
+        "The prefix has been resetted to `{0}`",
         "Prefix reset has been canceled!"
       ],
       "french": [
         "Etes-vous sûr de de vouloir réintialiser le préfixe ?",
-        "Le préfixe a été réintialisé sur {0}",
+        "Le préfixe a été réintialisé sur `{0}`",
         "La réinitialisation du préfixe a été annulée !"
-      ]
-    },
-    "queue": {
-      "english": [
-        "{0} - You're not in a voice channel!",
-        "{0} - You are not in the same voice channel as me!",
-        "{0} - No songs currently playing!",
-        "**Server queue - {0} {1}**\nCurrent : {2} | ${3}\n\n",
-        "**#{0}** - {1} | {2} (requested by: {3})",
-        "And **{0}** other songs...",
-        "In the playlist **{0}** song(s)...`"
-      ],
-      "french": [
-        "{0} - Vous n'êtes pas dans un channel vocal !",
-        "{0} Vous n'êtes pas dans le même channel que moi !",
-        "{0} - Aucune chanson n'est jouée actuellement !",
-        "**File d'attente du serveur - {0} {1}**\nActuellement : {2} | ${3}\n\n",
-        "**#{0}** - {1} | {2} (demandé par: {3})",
-        "Et **{0}** autre chansons...",
-        "Dans la playlist **{0}** chanson(s)"
       ]
     },
     "uptime": {
       "english": [
-        ":white_check_mark: **{0}** is since {1} online",
-        "Days",
-        "Hours",
-        "Minutes",
-        "Seconds"
+        "**{0}** is since `{1} days` `{2} hours` `{3} minutes` and `{4} seconds` online"
       ],
       "french": [
-        ":white_check_mark: **{0}** est depuis {1} mis en ligne",
-        "Jours",
-        "Heures",
-        "Minutes",
-        "Secondes"
+        "**{0}** est depuis `{1} jours` `{2} heures` `{3} minutes` et `{4} secondes` mis en ligne"
       ]
     },
     "serverlist": {
@@ -219,7 +196,7 @@
       "english": ["**Please Wait...**"],
       "french": ["**Veuillez patientez...**"]
     },
-    "afusion": {
+    "fusion": {
       "english": ["**Please Wait...**"],
       "french": ["**Veuillez patientez...**"]
     },
@@ -401,7 +378,7 @@
       "english": ["Please give me a valid id!"],
       "french": ["S'il vous plaît, veuillez me donner une id valide !"]
     },
-    "embedbuilder": {
+    "embed": {
       "english": [
         "Please wait while I'm adding the reactions",
         "✏️ Edit the title\n💬 Edit the description\n🕵️ Edit the author\n🔻 Edit the footer\n🔳 Edit the thumbnail\n🕙 Add a timestamp\n🖼️ Edit the image\n🌐 Edit the url\n🔵 Edit the color\n↩️ Add a field\n📥 Copy an existant embed\n✅ Send the embed\n📑 Edit a message of the bot with this embed\n❌ To cancel the command"
@@ -486,10 +463,15 @@
       ]
     },
     "docs": {
-      "english": ["Please specify a query!", "I couldn't fetch the docs!"],
+      "english": [
+        "Please specify a query!",
+        "I couldn't fetch the docs!",
+        "This doesn't seem to be a valid source, sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`"
+      ],
       "french": [
         "Veuillez spécifiez une recherche !",
-        "Je n'ai pas pu récupérer la doc !"
+        "Je n'ai pas pu récupérer la doc !",
+        "Cela ne me semble pas être une source valide, les sources sont: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` et `collection`"
       ]
     },
     "anime": {
@@ -571,8 +553,439 @@
       ]
     },
     "roleinfo": {
-      "english": ["Please specify a role.", "Role", "Role name", "Members who own it", "Color", "Creation date", "The", "at", "Hoisted", "Yes", "No", "Mentionable"],
-      "french": ["Veuillez spécifez le rôle dont vous voulez voir les infos.", "Rôle", "Nom du rôle", "Membres le possédant", "Couleur", "Date de création", "Le", "à", "Affiché séparément", "Oui", "Non", "Mentionnable"]
+      "english": [
+        "Please specify a role.",
+        "Role",
+        "Role name",
+        "Members who own it",
+        "Color",
+        "Creation date",
+        "On",
+        "at",
+        "Hoisted",
+        "Yes",
+        "No",
+        "Mentionable"
+      ],
+      "french": [
+        "Veuillez spécifez le rôle dont vous voulez voir les infos.",
+        "Rôle",
+        "Nom du rôle",
+        "Membres le possédant",
+        "Couleur",
+        "Date de création",
+        "Le",
+        "à",
+        "Affiché séparément",
+        "Oui",
+        "Non",
+        "Mentionnable"
+      ]
+    },
+    "help": {
+      "english": [
+        "I didn't find this command!",
+        "Help pannel",
+        "Name",
+        "Category",
+        "Aliase(s)",
+        "None",
+        "None",
+        "seconds",
+        "Usage",
+        "Command can only be used in servers",
+        "If the command require the `ADMINISTRATOR` permission",
+        "If the command can be used only by the owner",
+        "User's permissions",
+        "Bot's permissions",
+        "Find information on the command provided.\nMandatory arguments `[]`, optional arguments `<>`.",
+        "Yes",
+        "No",
+        "No permission required",
+        "Do {0}help [command] to get more information about it."
+      ],
+      "french": [
+        "Je n'ai pas trouvé cette commande !",
+        "Commande d'aide",
+        "Nom",
+        "Catégorie",
+        "Alias",
+        "Aucun alias",
+        "Aucun cooldown",
+        "secondes",
+        "Utilisation",
+        "Si la commande ne peut être utilisée que dans les serveurs",
+        "Si la commande nécessite la permission `ADMINISTRATOR`",
+        "Si la commande ne peut être utilisée que par l'owner",
+        "Permissions de l'utilisateur",
+        "Permissions du bot",
+        "Trouvez des informations sur la commande fournie.\nArguments obligatoires `[]`, arguments facultatifs `<>`.",
+        "Oui",
+        "Non",
+        "Aucune permission requise",
+        "Faites {0}help [commande] pour avoir plus d'informations sur celle-ci."
+      ]
+    },
+    "ERROR_MESSAGE": {
+      "english": "There was an error trying to execute that command! ",
+      "french": "Une erreur s'est produite lors de l'exécution de cette commande ! "
+    },
+    "PERMS_MESSAGE": {
+      "english": [
+        [
+          "**Command is unavailable on DM** - This command can only be used inside servers."
+        ],
+        [
+          "**Limited to Devs** - This command can only be used by my developers."
+        ],
+        [
+          "**Limited to Admins** - This command can only be used by server administrators."
+        ],
+        ["**NSFW Command** - You can only use this command on a nsfw channel"],
+        [
+          "**\\⚠️[Error] You don't have enough permissions** - ",
+          "You need the following permission(s):\n\u2000\u2000- "
+        ],
+        [
+          "**\\⚠️[Error] I don't have enough permissions** - ",
+          "I need the following permission(s):\n\u2000\u2000- "
+        ],
+        ["Command execution blocked!"],
+        ["Reason(s)"]
+      ],
+      "french": [
+        [
+          "**Commande non disponible en message privé** - Cette commande ne peut être utilisée qu'à l'intérieur des serveurs."
+        ],
+        [
+          "**Limité aux développeurs** - Cette commande ne peut être utilisée que par mes développeurs."
+        ],
+        [
+          "**Limité aux administrateurs** - Cette commande ne peut être utilisée que par les administrateurs du serveur."
+        ],
+        [
+          "**Commande NSFW** - Vous ne pouvez utiliser cette commande que sur un channel nsfw"
+        ],
+        [
+          "**\\⚠️- [Erreur] Vous n'avez pas assez de permissions** - ",
+          "Vous avez besoin de/des permission(s) suivante(s): \n\u2000\u2000- "
+        ],
+        [
+          "**\\⚠️- [Erreur] Je n'ai pas assez de permissions** - ",
+          "J'ai besoin de/des permissions suivantes: \n\u2000\u2000- "
+        ],
+        ["L'exécution de la commande a été bloquée !"],
+        ["Raison(s)"]
+      ]
+    },
+    "COOLDOWN_MESSAGE": {
+      "english": "Please wait {0} before reusing the `{1}` command.",
+      "french": "Veuillez attendre {0} avant de réutiliser la commande `{1}`."
+    },
+    "anal": {
+      "english": ["{0} here's a random anal image/gif"],
+      "french": ["{0} voilà une image/gif d'anal random"]
+    },
+    "ass": {
+      "english": ["{0} here's some ass (T H I C C)"],
+      "french": ["{0} et voilà des culs (T H I C C)"]
+    },
+    "inrole": {
+      "english": ["All members with the {0} role", "Please specify a role."],
+      "french": [
+        "Tout les membres avec le rôle {0}",
+        "Veuillez spécifez un rôle !"
+      ]
+    },
+    "clear-queue": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - The queue has just been **removed** !"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - La file d'attente a été effacée !"
+      ]
+    },
+    "filter": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - Please specify a valid filter to enable or disable!",
+        "{0} - This filter doesn't exist, try for example (8D, vibrato, pulsator...)!",
+        "{0} - I'm **adding** the filter to the music, please wait... Note: the longer the music is, the longer this will take.",
+        "{0} - I'm **disabling** the filter on the music, please wait... Note: the longer the music is playing, the longer this will take."
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - Veuillez spécifier un filtre valide à ajouter ou enlever",
+        "{0} - Ce filtre n'exsite pas, essayez par exemple (8D, vibrato, pulsator...) !",
+        "{0} - J'**ajoute** le filtre à la musique, veuillez attendre, Note: plus la musique est longue, plus ça prendra de temps.",
+        "{0} - J'**enlève** le filtre à la musique, veuillez attendre, Note: plus la musique est longue, plus ça prendra de temps."
+      ]
+    },
+    "loop": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - Loop mode **disabled**!",
+        "{0} - Loop mode **enabled**!"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - Loop mode **activé** !",
+        "{0} - Loop mode **désactivé** !"
+      ]
+    },
+    "nowplaying": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "Channel",
+        "Requested by",
+        "From playlist",
+        "Views",
+        "Duration",
+        "Filters activated",
+        "Currently paused",
+        "Yes",
+        "No",
+        "Progress bar"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "Chaîne",
+        "Demandé par",
+        "Depuis une playlist",
+        "Vues",
+        "Durée",
+        "Filtres activés",
+        "Actuellement en pause",
+        "Oui",
+        "Non",
+        "Barre de progression"
+      ]
+    },
+    "pause": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - The music has already been paused!",
+        "{0} - Song {1} has been paused !"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - La musique est déjà en pause !",
+        "{0} - La chanson {1} à été mise en pause !"
+      ]
+    },
+    "play": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - Please indicate the title of a song!",
+        "Warning an error as occured\n{0}"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Veuillez indiquer le titre d'une chanson !",
+        "Attention, une erreur s'est produite.\n{0}"
+      ]
+    },
+    "resume": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - The music is already playing!",
+        "{0} - Song {1} has been resumed!"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - La musique se joue déjà !",
+        "{0} - La chanson {1} a été relancée !"
+      ]
+    },
+    "skip": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - The current music has just been **skipped**!"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - La musique actuelle vient d'être **passée** !"
+      ]
+    },
+    "stop": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - Music **stopped** into this server!"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - La musique a été **stoppée** dans le serveur !"
+      ]
+    },
+    "volume": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - Please enter a valid number (between 1 and 100)!",
+        "{0} - Volume set to **{1}%**!"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - S'il vous plaît, veuillez rentrer un nombre valide (compris entre 1 et 100) !",
+        "{0} - Volume fixé à **{1}%** !"
+      ]
+    },
+    "shuffle": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "{0} - Queue shuffled **{1}** song(s) !"
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "{0} - La file d'attente a été mélangée **{1}** chanson(s) !"
+      ]
+    },
+    "w-filters": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "Filters",
+        "List of all filters enabled or disabled.\nUse `{0}filter [filter]` to add a filter to a song."
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "Filtres",
+        "Liste de tous les filtres activés ou désactivés.\nUtilisez `{0}filter [filtre]` pour ajouter un filtre à une chanson."
+      ]
+    },
+    "queue": {
+      "english": [
+        "{0} - You're not in a voice channel!",
+        "{0} - You are not in the same voice channel!",
+        "{0} - No music currently playing!",
+        "**Server queue - {0} {1}**\nCurrent: {2} | {3}\n\n",
+        "Requested by",
+        "And **{0}** other songs...",
+        "In the playlist **{0}** song(s)..."
+      ],
+      "french": [
+        "{0} - Vous n'êtes pas dans un channel vocal !",
+        "{0} - Vous n'êtes pas dans le même channel vocal que moi !",
+        "{0} - Aucune chanson n'est jouée actuellement !",
+        "**File d'attente du serveur - {0} {1}**\nEn cours: {2} | {3}\n\n",
+        "Demandé par",
+        "Et **{0}** autres chansons...",
+        "Dans la playlist **{0}** chanson(s)..."
+      ]
+    },
+    "botDisconnect": {
+      "english": [
+        "{0} - Music stopped as I have been disconnected from the channel!"
+      ],
+      "french": [
+        "{0} - La musique s'est arrêtée car j'ai été déconnectée du channel !"
+      ]
+    },
+    "channelEmpty": {
+      "english": [
+        "{0} - Music stopped as there is no more member in the voice channel!"
+      ],
+      "french": [
+        "{0} - La musique s'est arrêtée car il n'y a plus de membres dans le channel vocal !"
+      ]
+    },
+    "PlayerError": {
+      "english": [
+        "{0} - There is no music being played on this server !",
+        "{0} - You are not connected in any voice channel!",
+        "{0} - I am not able to join your voice channel, please check my permissions!",
+        "{0} - Something went wrong ... Error: {1}"
+      ],
+      "french": [
+        "{0} - Il n'y a pas de musique en cours de lecture sur ce serveur !",
+        "{0} - Vous n'êtes connecté à aucun channel vocal !",
+        "{0} - Je ne suis pas capable de rejoindre le channel vocal, veuillez vérifier mes permissions !",
+        "{0} - Quelque chose s'est mal passé ... Erreur : {1}"
+      ]
+    },
+    "noResults": {
+      "english": ["{0} - No results found on YouTube for {1}!"],
+      "french": ["{0} - Aucun résultat trouvé sur YouTube pour {1} !"]
+    },
+    "playlistAdd": {
+      "english": ["{0} - {1} has been added to the queue (**{2}** songs)!"],
+      "french": [
+        "{0} - {1} a été ajouté à la file d'attente (**{2}** chansons) !"
+      ]
+    },
+    "queueEnd": {
+      "english": [
+        "{0} - Music stopped as there is no more music in the queue!"
+      ],
+      "french": [
+        "{0} - La musique s'est arrêtée car il n'y a plus de musique dans la file d'attente !"
+      ]
+    },
+    "searchCancel": {
+      "english": ["{0} - You did not provide a valid response... Please send the command again!"],
+      "french": ["{0} - Vous n'avez pas fourni de réponse valide... Veuillez refaire la commande !"]
+    },
+    "searchInvalidResponse": {
+      "english": ["{0} - You must send a valid number between **1** and **{1}**!"],
+      "french": ["{0} - Vous devez envoyer un numéro valide entre **1** et **{1}** !"]
+    },
+    "searchResults": {
+      "english": ["Here are your search results for: {0}"],
+      "french": ["Voici les résultats de votre recherche pour: {0}"]
+    },
+    "trackAdd": {
+      "english": ["{0} - {1} has been added to the queue!"],
+      "french": ["{0} - {1} a été ajouté à la file d'attente !"]
+    },
+    "trackStart": {
+      "english": ["{0} - Now playing {1} into {2}..."],
+      "french": ["{0} - Je joue maintenant {1} dans {2}..."]
     }
   }
 }

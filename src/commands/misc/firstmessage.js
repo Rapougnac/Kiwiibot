@@ -24,13 +24,13 @@ module.exports = {
         const msg = fetchMessages.first();
     
         const embed = new MessageEmbed()
-          .setTitle(this.string[0].format(message.channel.name))
+          .setTitle(this.config.string[0].format(message.channel.name))
           .setURL(msg.url)
           .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
-          .setDescription(this.string[1] + msg.content)
-          .addField(this.string[2], msg.author, true)
-          .addField(this.string[3], msg.id, true)
-          .addField(this.string[4], msg.createdAt.toLocaleDateString(), true)
+          .setDescription(this.config.string[1] + msg.content)
+          .addField(this.config.string[2], msg.author, true)
+          .addField(this.config.string[3], msg.id, true)
+          .addField(this.config.string[4], msg.createdAt.toLocaleDateString(), true)
         message.channel.send(embed)
     },
 };

@@ -1,38 +1,39 @@
-const { MessageEmbed, Message } = require('discord.js');
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+const Client = require('../../struct/Client');
 const Kitsu = require('kitsu.js');
 const { dropRight } = require('lodash');
-const Client = require('../../struct/Client');
-module.exports = {
-  name: 'anime',
-  aliases: [],
-  description: 'Get informations about the specified anime, the max limit of an',
-  category: 'anime',
-  utilisation: '{prefix}anime',
-  cooldown: 5,
-  nsfw: false,
-  guildOnly: false,
-  adminOnly: false,
-  ownerOnly: false,
-  permissions: [],
-  clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'EMBED_LINKS'],
-  string: [],
+module.exports = class AnimeCommand extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'anime',
+      aliases: [],
+      description: 'Get informations about the specified anime',
+      category: 'anime',
+      cooldown: 10,
+      utilisation: '{prefix}anime [anime]',
+      string: [],
+    });
+  }
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
-   * @returns {Promise<any>}
    */
   async execute(client, message, args) {
     const kitsu = new Kitsu();
     const search = args.join(' ');
     if (!search) {
-      return message.channel.send(this.string[0]);
+      return message.channel.send(this.config.string[0]);
     }
     kitsu
       .searchAnime(search)
       .then(async (result) => {
         if (result.length === 0) {
-          return message.channel.send(this.string[1].format(search));
+          return message.channel.send(this.config.string[1].format(search));
         }
         if (result.length > 2) {
           const x = dropRight(result, result.length - 20);
@@ -47,9 +48,9 @@ module.exports = {
           await message.channel.send({
             embed: {
               author: {
-                name: this.string[9],
+                name: this.config.string[9],
               },
-              title: this.string[14],
+              title: this.config.string[14],
               description: string,
               footer: {
                 text: `Requested by ${message.author.username}`,
@@ -88,9 +89,7 @@ module.exports = {
           let c;
           x.forEach((y, counter) => (c = counter + 1));
           if (!continued)
-            return message.channel.send(
-              this.string[15].format(c)
-            );
+            return message.channel.send(this.config.string[15].format(c));
           else {
             const anime = x[number - 1];
             const embed = new MessageEmbed()
@@ -104,35 +103,41 @@ module.exports = {
                 anime.posterImage.original,
                 anime.url
               )
-              .setDescription(anime.synopsis)
-              if(anime.synopsis.length < 2000) embed.setDescription(anime.synopsis.replace(/<[^>]*>/g, '').split('\n')[0])
+              .setDescription(anime.synopsis);
+            if (anime.synopsis.length < 2000)
+              embed
+                .setDescription(
+                  anime.synopsis.replace(/<[^>]*>/g, '').split('\n')[0]
+                )
 
-              .addField(
-                '❯\u2000 Informations',
-                `•\u2000 **${this.string[2]}** ${
-                  anime.titles.romaji
-                }\n•\u2000 **${this.string[3]}** ${
-                  anime.ageRatingGuide
-                }\n•\u2000 **NSFW:** ${
-                  anime.nsfw ? this.string[4] : this.string[5]
-                }`,
-                true
-              )
-              .addField(
-                `❯\u2000 ${this.string[10]}`,
-                `•\u2000 **${this.string[6]}** ${anime.averageRating}\n•\u2000 **${this.string[7]}** ${anime.ratingRank}\n•\u2000 **${this.string[8]}** ${anime.popularityRank}`,
-                true
-              )
-              .addField(
-                '❯\u2000 Status',
-                `•\u2000 **Episodes:** ${
-                  anime.episodeCount ? anime.episodeCount : 'N/A'
-                }\n•\u2000 **${this.string[11]}:** ${anime.startDate}\n•\u2000 **${this.string[12]}:** ${
-                  anime.endDate ? anime.endDate : this.string[13]
-                }`,
-                true
-              )
-              .setThumbnail(anime.posterImage.original, 100, 200);
+                .addField(
+                  '❯\u2000 Informations',
+                  `•\u2000 **${this.config.string[2]}** ${
+                    anime.titles.romaji
+                  }\n•\u2000 **${this.config.string[3]}** ${
+                    anime.ageRatingGuide
+                  }\n•\u2000 **NSFW:** ${
+                    anime.nsfw ? this.config.string[4] : this.config.string[5]
+                  }`,
+                  true
+                )
+                .addField(
+                  `❯\u2000 ${this.config.string[10]}`,
+                  `•\u2000 **${this.config.string[6]}** ${anime.averageRating}\n•\u2000 **${this.config.string[7]}** ${anime.ratingRank}\n•\u2000 **${this.config.string[8]}** ${anime.popularityRank}`,
+                  true
+                )
+                .addField(
+                  '❯\u2000 Status',
+                  `•\u2000 **Episodes:** ${
+                    anime.episodeCount ? anime.episodeCount : 'N/A'
+                  }\n•\u2000 **${this.config.string[11]}:** ${
+                    anime.startDate
+                  }\n•\u2000 **${this.config.string[12]}:** ${
+                    anime.endDate ? anime.endDate : this.config.string[13]
+                  }`,
+                  true
+                )
+                .setThumbnail(anime.posterImage.original, 100, 200);
 
             return message.channel.send(embed);
           }
@@ -150,41 +155,47 @@ module.exports = {
               anime.posterImage.original,
               anime.url
             )
-            .setDescription(anime.synopsis)
-            if(anime.synopsis.length < 2000) embed.setDescription(anime.synopsis.replace(/<[^>]*>/g, '').split('\n')[0])
-            .addField(
-              '❯\u2000 Informations',
-              `•\u2000 **${this.string[2]}** ${
-                anime.titles.romaji
-              }\n•\u2000 **${this.string[3]}** ${
-                anime.ageRatingGuide
-              }\n•\u2000 **NSFW:** ${
-                anime.nsfw ? this.string[4] : this.string[5]
-              }`,
-              true
-            )
-            .addField(
-              `❯\u2000 ${this.string[10]}`,
-              `•\u2000 **${this.string[6]}** ${anime.averageRating}\n•\u2000 **${this.string[7]}** ${anime.ratingRank}\n•\u2000 **${this.string[8]}** ${anime.popularityRank}`,
-              true
-            )
-            .addField(
-              '❯\u2000 Status',
-              `•\u2000 **Episodes:** ${
-                anime.episodeCount ? anime.episodeCount : 'N/A'
-              }\n•\u2000 **${this.string[11]}** ${anime.startDate}\n•\u2000 **${this.string[12]}** ${
-                anime.endDate ? anime.endDate : this.string[13]
-              }`,
-              true
-            )
-            .setThumbnail(anime.posterImage.original, 100, 200);
+            .setDescription(anime.synopsis);
+          if (anime.synopsis.length < 2000)
+            embed
+              .setDescription(
+                anime.synopsis.replace(/<[^>]*>/g, '').split('\n')[0]
+              )
+              .addField(
+                '❯\u2000 Informations',
+                `•\u2000 **${this.config.string[2]}** ${
+                  anime.titles.romaji
+                }\n•\u2000 **${this.config.string[3]}** ${
+                  anime.ageRatingGuide
+                }\n•\u2000 **NSFW:** ${
+                  anime.nsfw ? this.config.string[4] : this.config.string[5]
+                }`,
+                true
+              )
+              .addField(
+                `❯\u2000 ${this.config.string[10]}`,
+                `•\u2000 **${this.config.string[6]}** ${anime.averageRating}\n•\u2000 **${this.config.string[7]}** ${anime.ratingRank}\n•\u2000 **${this.config.string[8]}** ${anime.popularityRank}`,
+                true
+              )
+              .addField(
+                '❯\u2000 Status',
+                `•\u2000 **Episodes:** ${
+                  anime.episodeCount ? anime.episodeCount : 'N/A'
+                }\n•\u2000 **${this.config.string[11]}** ${
+                  anime.startDate
+                }\n•\u2000 **${this.config.string[12]}** ${
+                  anime.endDate ? anime.endDate : this.config.string[13]
+                }`,
+                true
+              )
+              .setThumbnail(anime.posterImage.original, 100, 200);
 
           return message.channel.send(embed);
         }
       })
       .catch((err) => {
         console.error(err.stack); //catching error
-        return message.channel.send(this.string[1].format(search));
+        return message.channel.send(this.config.string[1].format(search));
       });
-  },
+  }
 };

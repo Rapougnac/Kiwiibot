@@ -25,7 +25,7 @@ module.exports = {
     let text = args.join(' ');
 
     if (!text) {
-      return message.inlineReply(this.string[0], {
+      return message.inlineReply(this.config.string[0], {
         allowedMentions: {
           repliedUser: false,
         },
@@ -33,7 +33,7 @@ module.exports = {
     }
 
     if (text.length > 20) {
-      return message.inlineReply(this.string[1], {
+      return message.inlineReply(this.config.string[1], {
         allowedMentions: {
           repliedUser: false,
         },

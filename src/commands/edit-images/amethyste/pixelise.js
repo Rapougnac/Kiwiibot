@@ -28,10 +28,10 @@ module.exports = {
         (await message.mentions.members.first()) ||
         message.guild.members.cache.get(args[0]) ||
         message.guild.members.cache.find(
-          (r) => r.user.username.toLowerCase() == args.join(' ').toLowerCase()
+          (r) => r.user.username.toLowerCase().startsWith(args.join(' ').toLowerCase())
         ) ||
         message.guild.members.cache.find(
-          (r) => r.displayName.toLowerCase() === args.join(' ').toLowerCase()
+          (r) => r.displayName.toLowerCase().startsWith(args.join(' ').toLowerCase())
         );
       if (User) {
         const number = parseInt(args[1]);
@@ -182,10 +182,10 @@ module.exports = {
               (+[![]] + [])
           )(number)
         )
-          return message.channel.send(this.string[1]);
-        if (number < 1) return message.channel.send(this.string[2]);
-        if (number > 50) return message.channel.send(this.string[2]);
-        let m = await message.channel.send(this.string[0]);
+          return message.channel.send(this.config.string[1]);
+        if (number < 1) return message.channel.send(this.config.string[2]);
+        if (number > 50) return message.channel.send(this.config.string[2]);
+        let m = await message.channel.send(this.config.string[0]);
         const buffer = await AmeAPI.generate('pixelize', {
           url: User.user.displayAvatarURL({ format: 'png', size: 2048 }),
           pixelize: number,
@@ -342,10 +342,10 @@ module.exports = {
               (+[![]] + [])
           )(number)
         )
-          return message.channel.send(this.string[1]);
-        if (number < 1) return message.channel.send(this.string[2]);
-        if (number > 50) return message.channel.send(this.string[2]);
-        let m = await message.channel.send(this.string[0]);
+          return message.channel.send(this.config.string[1]);
+        if (number < 1) return message.channel.send(this.config.string[2]);
+        if (number > 50) return message.channel.send(this.config.string[2]);
+        let m = await message.channel.send(this.config.string[0]);
         const buffer = await AmeAPI.generate('pixelize', {
           url: message.author.displayAvatarURL({ format: 'png', size: 2048 }),
           pixelize: number,

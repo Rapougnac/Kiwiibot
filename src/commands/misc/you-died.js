@@ -23,7 +23,7 @@ module.exports = {
      */
     async execute(client, message, args) {
         const base = await loadImage(path.join(__dirname, '..', '..', 'assets', 'images', 'you-died.png'));
-        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
+        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase().startsWith(args.join(' ').toLowerCase())) || message.guild.members.cache.find(r => r.displayName.toLowerCase().startsWith(args.join(' ').toLowerCase())) || message.member;
         const avatar = member.user.displayAvatarURL({ size: 2048, format: 'png' });
         const data = await loadImage(avatar);
         const canvas = createCanvas(data.width, data.height);

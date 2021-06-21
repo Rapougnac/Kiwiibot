@@ -28,12 +28,12 @@ module.exports = {
    */
   async execute(client, message, args) {
     if (!args[0]) {
-      return message.channel.send(this.string[0]);
+      return message.channel.send(this.config.string[0]);
     }
     const mutedRole =
       message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
     GuildSchema.findOne({ _id: message.guild.id }, async (err, data) => {
-      if (err) return message.channel.send(this.string[1].format(err.name));
+      if (err) return message.channel.send(this.config.string[1].format(err.name));
 
       if (data) {
         try{
@@ -47,7 +47,7 @@ module.exports = {
           }
         );
         } catch (e) {
-          return message.channel.send(this.string[1].format(e.name));
+          return message.channel.send(this.config.string[1].format(e.name));
         }
       } else {
 
@@ -59,7 +59,7 @@ module.exports = {
             },
           });
         } catch (error) {
-          return message.channel.send(this.string[1].format(error.name));
+          return message.channel.send(this.config.string[1].format(error.name));
         }
       }
     });

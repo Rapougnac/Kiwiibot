@@ -11,8 +11,10 @@ require('moment-duration-format');
  * @param {Client} client
  */
 module.exports = async (client) => {
-  const slCommands = await getApp('692311924448297011', client).commands.get();
-  console.log(slCommands);
+  // const slCommands = await getApp('316999627066834945', client).commands.get();
+  // console.log(slCommands);
+  // const x = await getApp('692311924448297011', client).commands.get();
+  // console.log(x);
   //await getApp('692311924448297011', client).commands('847889828695638086').delete();
   await getApp('692311924448297011', client).commands.post({
     data: {
@@ -21,7 +23,7 @@ module.exports = async (client) => {
     },
   });
 
-  await getApp('692311924448297011', client).commands.post({
+  await getApp('316999627066834945', client).commands.post({
     data: {
       name: 'docs',
       description: 'Display the doc of discord.js',
@@ -78,7 +80,7 @@ module.exports = async (client) => {
     },
   });
 
-  await getApp('692311924448297011', client).commands.post({
+  await getApp('316999627066834945', client).commands.post({
     data: {
       name: 'avatar',
       description: 'Get the avatar of yourself or the specified user',
@@ -88,10 +90,96 @@ module.exports = async (client) => {
           description: 'User to display',
           required: false,
           type: 6,
-        }
-      ]
-    }
-  })
+        },
+      ],
+    },
+  });
+  await getApp('316999627066834945', client).commands.post({
+    data: {
+      name: 'userinfo',
+      description: 'Get infos about you, or the specified user',
+      options: [
+        {
+          name: 'user',
+          description: 'User to display',
+          required: false,
+          type: 6,
+        },
+      ],
+    },
+  });
+  await getApp('316999627066834945', client).commands.post({
+    data: {
+      name: 'serverinfo',
+      description: 'Get informations about the server',
+    },
+  });
+  await getApp('316999627066834945', client).commands.post({
+    data: {
+      name: 'setlanguage',
+      description: 'Set the language of the bot',
+      options: [
+        {
+          name: 'language',
+          description: 'The language you want to choose',
+          required: true,
+          type: 3,
+          choices: [
+            {
+              name: 'English',
+              value: 'english',
+            },
+            {
+              name: 'French',
+              value: 'french',
+            },
+          ],
+        },
+      ],
+    },
+  });
+  await getApp('316999627066834945', client).commands.post({
+    data: {
+      name: 'roleinfo',
+      description: 'View informations about the provided role',
+      options: [
+        {
+          name: 'role',
+          description: 'Role to display',
+          required: true,
+          type: 8,
+        },
+      ],
+    },
+  });
+  await getApp('316999627066834945', client).commands.post({
+    data: {
+      name: 'inrole',
+      description: 'Shows all the member from the specified role',
+      options: [
+        {
+          name: 'role',
+          description: 'The role to display',
+          required: true,
+          type: 8,
+        },
+      ],
+    },
+  });
+  // await getApp('692311924448297011', client).commands.post({
+  //   data: {
+  //     name: 'setprefix',
+  //     description: 'Set the prefix of the bot to the specified prefix',
+  //     options: [
+  //       {
+  //         name: 'prefix',
+  //         description: 'The prefix to set',
+  //         required: true,
+  //         type: 3,
+  //       }
+  //     ]
+  //   },
+  // });
   loadLanguages(client, mongoose)
     .then(() => {
       consoleUtil.success('Loaded languages', 'LoadLangs');
@@ -180,10 +268,10 @@ module.exports = async (client) => {
   app.listen(port);
 };
 /**
- *
- * @param {String} guildID
- * @param {Client} client
- * 
+ * Get the applications faster
+ * @param {String} guildID The id of the guild
+ * @param {Client} client The client
+ * @returns {*}
  */
 const getApp = (guildID, client) => {
   const app = client.api.applications(client.user.id);

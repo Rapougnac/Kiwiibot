@@ -1,3 +1,4 @@
+const { language } = require('../../../language');
 module.exports = (client, message, track) => {
-    message.channel.send(`${client.emotes.music} - Now playing ${track.title} into ${message.member.voice.channel.name} ...`);
+    message.channel.send(language(message.guild, 'trackStart')[0].format(client.emotes.music, track.title, message.member.voice.channel.name));
 };

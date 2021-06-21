@@ -1,32 +1,44 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+const Client = require('../../struct/Client');
 const axios = require('axios');
-
-module.exports = {
-  name: 'docs',
-  aliases: ['doc', 'documentation'],
-  description:
-    'Get the djs doc in an embed, you can spefify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`',
-  category: 'docs',
-  utilisation: '{prefix}docs [query] <--src> <[source]>',
-  cooldown: 5,
-  nsfw: false,
-  guildOnly: false,
-  adminOnly: false,
-  ownerOnly: false,
-  permissions: [],
-  clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'EMBED_LINKS'],
-  string: [],
+module.exports = class DocsCommand extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'docs',
+      aliases: ['doc', 'documentation'],
+      description:
+        'Get the djs doc in an embed, you can specify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`',
+      category: 'docs',
+      cooldown: 5,
+      utilisation: '{prefix}docs [query] <--src> <[source]>',
+      string: []
+    });
+  }
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
    */
   async execute(client, message, args) {
+    const sources = [
+      'stable',
+      'master',
+      'commando',
+      'rpc',
+      'akairo',
+      'akairo-master',
+      'collection',
+    ];
     const query = args.join(' ').split(/ +--src/g)[0];
-    if (!query) return message.reply(this.string[0]);
+    if (!query) return this.inlineReply(this.config.string[0]);
     let source;
     if (message.content.includes('--src')) {
       source = args[args.length - 1];
+      if(sources.indexOf(source) === -1) return this.respond(this.config.string[2]);
       const url = `https://djsdocs.sorta.moe/v2/embed?src=${source}&q=${encodeURIComponent(
         query
       )}`;
@@ -34,7 +46,7 @@ module.exports = {
         if (data) {
           message.channel.send({ embed: data });
         } else {
-          return message.channel.send(this.string[1]);
+          return message.channel.send(this.config.string[1]);
         }
       });
     } else {
@@ -46,9 +58,9 @@ module.exports = {
         if (data) {
           message.channel.send({ embed: data });
         } else {
-          return message.channel.send(this.string[1]);
+          return message.channel.send(this.config.string[1]);
         }
       });
     }
-  },
+  }
 };

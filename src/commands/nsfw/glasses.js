@@ -1,25 +1,33 @@
 const akaneko = require('akaneko');
-const Discord = require('discord.js');
-
-module.exports = {
-  name: 'glasses',
-  aliases: [],
-  description: '',
-  category: 'nsfw',
-  utilisation: '{prefix}glasses',
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+const Client = require('../../struct/Client');
+module.exports = class GlassesCommand extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'glasses',
+      aliases: [],
+      description: 'Get a random pic of hentai girls with glasses',
+      category: 'nsfw',
+      cooldown: 5,
+      utilisation: '{prefix}glasses',
+      nsfw: true,
+    });
+  }
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
   async execute(client, message, args) {
-    if (message.channel.nsfw) {
-      const emebed = new Discord.MessageEmbed()
-        .setTitle(
-          `${message.author.tag} here some glasses (I'm a bot but I'm horny...)`
-        )
-        .setImage(await akaneko.nsfw.glasses());
-      message.channel.send(emebed);
-    } else {
-      let m = await message.channel.send(
-        '**Warning** this command cannot be used in non-nsfw channels!'
-      );
-      m.delete({ timeout: 10000 });
-    }
-  },
+    const embed = new MessageEmbed()
+      .setTitle(
+        `${message.author.tag} here some glasses (I'm a bot but I'm horny...)`
+      )
+      .setImage(await akaneko.nsfw.glasses());
+    this.respond(embed);
+  }
 };

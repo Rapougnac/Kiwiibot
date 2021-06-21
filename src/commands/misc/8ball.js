@@ -16,9 +16,9 @@ module.exports = {
   string: [],
   async execute(client, message, args) {
     const question = args.join(' ');
-    if (!question) return message.channel.send(this.string[0]);
+    if (!question) return message.channel.send(this.config.string[0]);
 
-    const replies = this.string[1]
+    const replies = this.config.string[1]
 
     message.inlineReply(replies[Math.floor(Math.random() * replies.length)], {
         allowedMentions: {

@@ -9,18 +9,25 @@ module.exports = class FemDomCommand extends Command {
       aliases: [],
       description: 'Get a pic of femdom hentai',
       category: 'infos',
-      cooldown: 120,
-      utilisation: '{prefix}ping',
+      cooldown: 5,
+      utilisation: '{prefix}femdom',
       nsfw: true,
     });
   }
 
   async execute(client, message) {
-     const GIF = await neko.nsfw.femdom();
-      const embed = new MessageEmbed()
-        .setColor('#202225')
-        .setAuthor(`${message.author.tag} here's a random femdom image/gif`, message.author.displayAvatarURL({ dynamic: true, size: 512, format: 'png' }))
-        .setImage(GIF.url);
-      message.channel.send(embed);
+    const GIF = await neko.nsfw.femdom();
+    const embed = new MessageEmbed()
+      .setColor('#202225')
+      .setAuthor(
+        `${message.author.tag} here's a random femdom image/gif`,
+        message.author.displayAvatarURL({
+          dynamic: true,
+          size: 512,
+          format: 'png',
+        })
+      )
+      .setImage(GIF.url);
+    message.channel.send(embed);
   }
-}
+};

@@ -36,6 +36,7 @@ module.exports = async (client, message) => {
    */
   const command_to_execute =
     client.commands.get(command) || client.aliases.get(command);
+  command_to_execute.setMessage(message);
 
   if (command_to_execute) {
     if (client.owners.includes(message.author.id)) {
@@ -44,7 +45,6 @@ module.exports = async (client, message) => {
           guild,
           command_to_execute.help.name
         );
-        command_to_execute.setMessage(message);
         try {
           command_to_execute.execute(client, message, args);
         } catch (error) {
@@ -73,78 +73,19 @@ module.exports = async (client, message) => {
             guild,
             command_to_execute.help.name
           );
-          command_to_execute.setMessage(message);
-          if (command_to_execute.config.cooldown > 0) {
-            command_to_execute.startCooldown(
-              message.author.id,
-              command_to_execute,
-            );
-            if (command_to_execute.now < command_to_execute.expirationTime) {
-              const timeLeft = (command_to_execute.expirationTime - command_to_execute.now) / 1000; //get the lefttime
-              return message.inlineReply(
-                language(guild, 'COOLDOWN_MESSAGE').format(
-                  format(timeLeft),
-                  command_to_execute.help.name
-                ),
-                {
-                  allowedMentions: {
-                    repliedUser: false,
-                  },
-                }
-              );
-            } else {
-              try {
-                command_to_execute.execute(client, message, args);
-              } catch (e) {
-                console.error(e);
-                message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
-              }
-            }
-          }
-          else {
-            try {
-              command_to_execute.execute(client, message, args);
-            } catch (e) {
-              console.error(e);
-              message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
-            }
+
+          try {
+            command_to_execute.execute(client, message, args);
+          } catch (e) {
+            console.error(e);
+            message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
           }
         } else {
-          command_to_execute.setMessage(message);
-          if (command_to_execute.config.cooldown > 0) {
-            command_to_execute.startCooldown(
-              message.author.id,
-              command_to_execute,
-            );
-            if (command_to_execute.now < command_to_execute.expirationTime) {
-              const timeLeft = (command_to_execute.expirationTime - command_to_execute.now) / 1000; //get the lefttime
-              return message.inlineReply(
-                language(guild, 'COOLDOWN_MESSAGE').format(
-                  format(timeLeft),
-                  command_to_execute.help.name
-                ),
-                {
-                  allowedMentions: {
-                    repliedUser: false,
-                  },
-                }
-              );
-            } else {
-              try {
-                command_to_execute.execute(client, message, args);
-              } catch (e) {
-                console.error(e);
-                message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
-              }
-            }
-          }
-          else {
-            try {
-              command_to_execute.execute(client, message, args);
-            } catch (e) {
-              console.error(e);
-              message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
-            }
+          try {
+            command_to_execute.execute(client, message, args);
+          } catch (e) {
+            console.error(e);
+            message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
           }
         }
       }
@@ -152,17 +93,4 @@ module.exports = async (client, message) => {
   } else {
     return;
   }
-};
-const format = (time) => {
-  var hrs = ~~(time / 3600);
-  var mins = ~~((time % 3600) / 60);
-  var secs = ~~time % 60;
-
-  var ret = '';
-  if (hrs > 0) {
-    ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
-  }
-  ret += '' + mins + ':' + (secs < 10 ? '0' : '');
-  ret += '' + secs;
-  return `\`${ret}\``;
 };

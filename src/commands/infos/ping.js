@@ -1,5 +1,5 @@
 const Command = require('../../struct/Command');
-
+const Client = require('../../struct/Client');
 module.exports = class PingCommand extends Command {
   constructor(client) {
     super(client, {
@@ -13,7 +13,11 @@ module.exports = class PingCommand extends Command {
       adminOnly: false,
     });
   }
-
+  /**
+   * 
+   * @param {Client} client 
+   * @param {*} message 
+   */
   async execute(client, message) {
     message.channel.startTyping();
     const msg = await message.inlineReply(`🏓 Pinging....`, {

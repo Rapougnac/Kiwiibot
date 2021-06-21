@@ -1,22 +1,23 @@
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const nekoclient = require('nekos.life');
 const neko = new nekoclient();
-const { MessageEmbed, Message } = require('discord.js');
-
+const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
-module.exports = {
-  name: 'anal',
-  aliases: [],
-  description: 'Returns a anal image/gif',
-  category: 'nsfw',
-  utilisation: '{prefix}anal',
-  nsfw: true,
-  guildOnly: false,
-  adminOnly: true,
-  ownerOnly: true,
-  permissions: [],
-  clientPermissions: ['EMBED_LINKS', 'SEND_MESSAGES', 'VIEW_CHANNEL'],
+module.exports = class AnalCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: 'anal',
+      aliases: [],
+      description: 'Returns an anal image/gif',
+      category: 'nsfw',
+      cooldown: 5,
+      utilisation: '{prefix}anal',
+      clientPermissions: ['EMBED_LINKS'],
+      nsfw: true,
+      string: [],
+    });
+  }
   /**
-   *
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
@@ -28,11 +29,11 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('#202225')
       .setAuthor(
-        `${tag} here's a random anal image/gif`,
+        this.config.string[0].format(tag),
         author.displayAvatarURL({ dynamic: true, format: 'png', size: 512 }),
         null
       )
       .setImage(GIF.url);
     channel.send(embed);
-  },
+  }
 };

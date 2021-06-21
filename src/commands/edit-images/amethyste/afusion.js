@@ -1,34 +1,57 @@
-const { MessageAttachment, Message } = require("discord.js"),
-AmeClient = require('amethyste-api'),
-Client = require("../../../struct/Client");
-
-module.exports = {
-    name: 'afusion',
-    aliases: ['fusion'],
-    description: 'fusionnate your profile picture with the specified member',
-    category: 'misc',
-    utilisation: '{prefix}afusion [member]',
-    cooldown: 5,
-    guildOnly: false,
-    adminOnly: false,
-    ownerOnly: false,
-    nsfw: false,
-    permissions: [],
-    clientPermissions: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES"],
-    string: [],
-    /**
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    async execute(client, message, args) {
-        const AmeAPI = new AmeClient(client.config.amethyste.client); {
-          const User = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase()) || message.member;
-          let m = await  message.channel.send(this.string[0]);
-          const buffer =  await AmeAPI.generate("afusion", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), avatar: message.author.displayAvatarURL({ format: "png", size: 2048 })});
-          const attachment = new MessageAttachment(buffer, "afusion.png");
-          m.delete({ timeout: 3000 });
-          message.channel.send(attachment);
-        }
-    },
+const AmeClient = require('amethyste-api');
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../../struct/Command');
+const Client = require('../../../struct/Client');
+module.exports = class AfusionCommand extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'fusion',
+      aliases: ['afusion'],
+      description: 'Fusionnate your profile pictur with the specified member',
+      category: 'image-manipulation',
+      cooldown: 5,
+      utilisation: '{prefix}fusion [member]',
+      string: [],
+      guildOnly: true,
+    });
+  }
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  async execute(client, message, args) {
+    const AmeAPI = new AmeClient(client.config.amethyste.client);
+    message.channel.startTyping();
+    let member =
+      message.mentions.members.first() ||
+      message.guild.members.cache.get(args[0]) ||
+      message.guild.members.cache.find(
+        (r) =>
+          r.user.username
+            .toLowerCase()
+            .startsWith(args.join(' ').toLowerCase()) ||
+          r.user.username.toLowerCase().endsWith(args.join(' ').toLowerCase())
+      ) ||
+      message.guild.members.cache.find(
+        (r) =>
+          r.displayName
+            .toLowerCase()
+            .startsWith(args.join(' ').toLowerCase()) ||
+          r.displayName.toLowerCase().endsWith(args.join(' ').toLowerCase())
+      );
+    if (args.length <= 0) member = message.member;
+    let m = await message.channel.send(this.config.string[0]);
+    const buffer = await AmeAPI.generate('afusion', {
+      url: member.user.displayAvatarURL({ format: 'png', size: 2048 }),
+      avatar: message.author.displayAvatarURL({ format: 'png', size: 2048 }),
+    });
+    const attachment = new MessageAttachment(buffer, 'fusion.png');
+    m.delete({ timeout: 3000 });
+    message.channel.send(attachment);
+    message.channel.stopTyping();
+  }
 };

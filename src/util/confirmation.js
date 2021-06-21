@@ -5,7 +5,7 @@ const { Message, User } = require('discord.js')
  * @param {Message} message The message
  * @param {User} author The author of the message
  * @param {String[]} validReactions The reaction to react to the message
- * @param {Number} time The time to wait to collect the reactions, default is set to `60000`
+ * @param {Number} [time] The time to wait to collect the reactions, default is set to `60000`
  * @returns {Promise<string|void>}
  */
 const confirmation = async (message, author, validReactions, time = 60000) => {

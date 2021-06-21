@@ -1,36 +1,53 @@
-const { MessageEmbed } = require("discord.js");
-require("moment-duration-format");
-const Client = 'tets'
-module.exports = {
-    name: 'inrole',
-    aliases: ['ir'],
-    description: 'Shows all the members who has the mentionned role',
-    category: 'infos',
-    utilisation: '{prefix}inrole <role>',
-    async execute(client, message, args) {
-        const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]) || message.guild.roles.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase())
-
-        // const allMembers = message.guild.members.cache
-        // .filter(member => {
-        //     member.roles.cache.get(role.id)
-        // })
-        // /*.cache*/.map(m => {
-        //     return `${m.user.tag}${(m.user.bot ? ' [BOT]' : '')}`
-        // }).sort((a, b) => a.localeCompare(b)).join(', ')
-        const _str = message.guild.roles.cache.get(role).members.map(m => m.user.tag);
-        //const str = message.guild.members.fi
-        //if(!allMembers) return message.channel.send('There are no members in that role!')
-        const allMembers = message.guild.roles.cache.get(role).members.map((m) => {
-            return `${m.user.tag}${(m.user.bot ? " [BOT]" : "")}`
-        }).sort((a, b) => a.localeCompare(b)).join(', ')
-
-        if(allMembers.length > 2048) return message.channel.send('Too much members in that role! I couldn\'t send the information!');
-
-        const embed = new MessageEmbed()
-            .setAuthor(`${role.name} (${role.id})`, message.guild.iconURL())
-            .setColor(role.hexColor)
-            .setDescription(`\`\`\`css\n${allMembers}\`\`\``)
-            .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL());
-        return message.channel.send(`All members with the **${role.name}** role!`, { embed: embed });
-    },
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+const Client = require('../../struct/Client');
+module.exports = class InRoleCommand extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'inrole',
+      aliases: ['ir'],
+      description: 'Get all members with the specified role',
+      category: 'infos',
+      cooldown: 5,
+      utilisation: '{prefix}inrole [role id, mention or name]',
+      string: [],
+      clientPermissions: ['EMBED_LINKS'],
+    });
+  }
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  async execute(client, message, args) {
+    let role =
+      message.mentions.roles.first() ||
+      message.guild.roles.cache.get(args[0]) ||
+      message.guild.roles.cache.find(
+        (r) =>
+          r.name.toLowerCase().startsWith(args.join(' ').toLowerCase()) ||
+          r.name.toLowerCase().endsWith(args.join(' ').toLowerCase())
+      );
+    if (args.length <= 0) role = null;
+    if (!role) return this.inlineReply(this.config.string[1]);
+    const memRole = message.guild.roles.cache
+          .get(role.id)
+          .members.map((m) =>`${m.user.tag}${(m.user.bot ? '[BOT]' : '')}`).join('\n')/*.sort((a, b) => a.localeCompare(b)).join(', ')*/
+    const embed = new MessageEmbed()
+      .setAuthor(
+        message.author.tag,
+        message.author.displayAvatarURL({
+          dynamic: true,
+          size: 512,
+          format: 'png',
+        })
+      )
+      .setTitle(this.config.string[0].format(role.name))
+      .setColor(role.color)
+      .setDescription(`\`\`\`css\n${memRole}\`\`\``);
+    this.respond(embed);
+  }
 };

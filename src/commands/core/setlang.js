@@ -1,31 +1,32 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
 const { languages } = require('../../assets/json/langs.json');
 const languageSchema = require('../../models/languageSchema');
 const { setLanguage } = require('../../../language');
-module.exports = {
-  name: 'setlanguage',
-  aliases: ['setlang'],
-  description: '',
-  category: 'core',
-  utilisation: '{prefix}setlanguage [language]',
-  cooldown: 5,
-  nsfw: false,
-  ownerOnly: false,
-  adminOnly: true,
-  guildOnly: true,
-  permissions: [],
-  clientPermissions: [],
-  string: [],
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+module.exports = class SetLangCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: 'setlanguage',
+      aliases: ['setlang'],
+      description: '',
+      category: 'core',
+      cooldown: 5,
+      utilisation: '{prefix}setlang [language]',
+      permissions: ['MANAGE_MESSAGES'],
+      guildOnly: true,
+      string: [],
+    });
+  }
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
    */
-  async execute(client, message, args) {
+  async execute(client, message, [language]) {
     if (message.guild) {
-      const targetedlanguage = args[0].toLowerCase();
+      const targetedlanguage = language.toLowerCase();
       if (!languages.includes(targetedlanguage)) {
-        return await message.channel.send(this.string[0]);
+        return await message.channel.send(this.config.string[0]);
       }
 
       setLanguage(message.guild, targetedlanguage);
@@ -45,30 +46,25 @@ module.exports = {
             }
           )
           .then(async () => {
-            switch(targetedlanguage) {
+            switch (targetedlanguage) {
               case 'english': {
-                return await message.inlineReply('Language has been setted!', {
-                  allowedMentions: {
-                    repliedUser: false,
-                  },
-                });
+                return await this.inlineReply('Language has been setted!');
               }
               case 'french': {
-                return await message.inlineReply('La langue a bien été définie !', {
-                  allowedMentions: {
-                    repliedUser: false,
-                  },
-                });
+                return await this.inlineReply( 'La langue a bien été définie !');
+              }
+              case 'italian': {
+                return await this.inlineReply('La lingua è stata impostata!')
               }
             }
           });
       } catch (error) {
-        await message.channel.send(this.string[2].format(error.name));
+        await message.channel.send(this.config.string[2].format(error.name));
       }
     } else {
       return message.channel.send(
         "You can't set a language inside dms, the default langage is `english`"
       );
     }
-  },
+  }
 };

@@ -1,20 +1,28 @@
 const booru = require('booru');
 const { BooruError, _sites } = require('booru');
-const { MessageEmbed } = require('discord.js');
-
-module.exports = {
-  name: 'r34',
-  aliases: [],
-  description: 'Scrap images of the r34',
-  category: 'nsfw',
-  utilisation: '{prefix}r34',
-  cooldown: 5,
-  nsfw: true,
-  guildOnly: false,
-  adminOnly: false,
-  ownerOnly: false,
-  permissions: [],
-  clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'EMBED_LINKS'],
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+const Client = require('../../struct/Client');
+module.exports = class RuleThirtyFour extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'r34',
+      aliases: ['rule34'],
+      description: 'Scrap images from the r34 site',
+      category: 'nsfw',
+      cooldown: 5,
+      utilisation: '{prefix}rule34 [tag]',
+      nsfw: true,
+    });
+  }
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
   async execute(client, message, args) {
     const query = args.join(' ');
     if (query) {
@@ -30,7 +38,7 @@ module.exports = {
           }
           if (query === 'LOLI'.toLowerCase())
             return message.channel.send('Mommy I see a pedo');
-          for (let image of images) {
+          for (const image of images) {
             const embed = new MessageEmbed()
               .setAuthor(
                 'Rule34',
@@ -56,5 +64,5 @@ module.exports = {
           }
         });
     } else return message.channel.send('Please specify at least one tag');
-  },
+  }
 };

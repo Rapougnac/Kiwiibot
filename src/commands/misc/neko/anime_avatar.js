@@ -3,7 +3,7 @@ const neko = new nekoclient();
 const Discord = require("discord.js");
 
 module.exports = {
-	name: 'anime avatar',
+	name: 'anime-avatar',
 	aliases: [],
 	description: '',
 	category: 'neko',

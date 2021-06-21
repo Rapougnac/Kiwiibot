@@ -1,11 +1,17 @@
 /// <reference path="../../types/index.d.ts" />
 const Client = require('./Client');
 const { Collection, MessageEmbed, Message } = require('discord.js');
-
 /**
  * Represents a command
  */
 module.exports = class Command {
+  /**
+   * @typedef {['CREATE_INSTANT_INVITE'|'KICK_MEMBERS'|'BAN_MEMBERS'|'ADMINISTRATOR'|'MANAGE_CHANNELS'|'MANAGE_GUILD'|'ADD_REACTIONS'|'VIEW_AUDIT_LOG'
+   * |'PRIORITY_SPEAKER'|'STREAM'|'VIEW_CHANNEL'|'SEND_MESSAGES'|'SEND_TTS_MESSAGES'|'MANAGE_MESSAGES'|'EMBED_LINKS'|'ATTACH_FILES'|'READ_MESSAGE_HISTORY'
+   * |'MENTION_EVERYONE'|'USE_EXTERNAL_EMOJIS'|'VIEW_GUILD_INSIGHTS'|'CONNECT'|'SPEAK'|'MUTE_MEMBERS'|'DEAFEN_MEMBERS'|'MOVE_MEMBERS'|'USE_VAD'
+   * |'CHANGE_NICKNAME'|'MANAGE_NICKNAMES'|'MANAGE_ROLES'|'MANAGE_WEBHOOKS'|'MANAGE_EMOJIS']} PermissionString
+   */
+
   /**
    * @param {Client} client
    * @param {Object} options
@@ -13,14 +19,8 @@ module.exports = class Command {
    * @param {String} [options.description] The description of the command
    * @param {String} [options.utilisation] The usage of the command
    * @param {String} [options.category] The category of the command
-   * @param {['CREATE_INSTANT_INVITE'|'KICK_MEMBERS'|'BAN_MEMBERS'|'ADMINISTRATOR'|'MANAGE_CHANNELS'|'MANAGE_GUILD'|'ADD_REACTIONS'|'VIEW_AUDIT_LOG'
-   * |'PRIORITY_SPEAKER'|'STREAM'|'VIEW_CHANNEL'|'SEND_MESSAGES'|'SEND_TTS_MESSAGES'|'MANAGE_MESSAGES'|'EMBED_LINKS'|'ATTACH_FILES'|'READ_MESSAGE_HISTORY'
-   * |'MENTION_EVERYONE'|'USE_EXTERNAL_EMOJIS'|'VIEW_GUILD_INSIGHTS'|'CONNECT'|'SPEAK'|'MUTE_MEMBERS'|'DEAFEN_MEMBERS'|'MOVE_MEMBERS'|'USE_VAD'
-   * |'CHANGE_NICKNAME'|'MANAGE_NICKNAMES'|'MANAGE_ROLES'|'MANAGE_WEBHOOKS'|'MANAGE_EMOJIS']} [options.permissions] The user's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
-   * @param {['CREATE_INSTANT_INVITE'|'KICK_MEMBERS'|'BAN_MEMBERS'|'ADMINISTRATOR'|'MANAGE_CHANNELS'|'MANAGE_GUILD'|'ADD_REACTIONS'|'VIEW_AUDIT_LOG'
-   * |'PRIORITY_SPEAKER'|'STREAM'|'VIEW_CHANNEL'|'SEND_MESSAGES'|'SEND_TTS_MESSAGES'|'MANAGE_MESSAGES'|'EMBED_LINKS'|'ATTACH_FILES'|'READ_MESSAGE_HISTORY'
-   * |'MENTION_EVERYONE'|'USE_EXTERNAL_EMOJIS'|'VIEW_GUILD_INSIGHTS'|'CONNECT'|'SPEAK'|'MUTE_MEMBERS'|'DEAFEN_MEMBERS'|'MOVE_MEMBERS'|'USE_VAD'
-   * |'CHANGE_NICKNAME'|'MANAGE_NICKNAMES'|'MANAGE_ROLES'|'MANAGE_WEBHOOKS'|'MANAGE_EMOJIS']} [options.clientPermissions] The client's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
+   * @param {PermissionString} [options.permissions] The user's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
+   * @param {PermissionString} [options.clientPermissions] The client's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
    * @param {Number} [options.cooldown] The cooldown of the command, none if the cooldown was not specified
    * @param {String[]} [options.aliases] The aliases of the command, none if aliases was not specified
    * @param {Boolean} [options.guildOnly] If the command can be used inside the guild only or not, `false` by default
@@ -62,7 +62,6 @@ module.exports = class Command {
        */
       category: options.category,
     };
-
     this.config = {
       /**
        * The user's permissions, if no permissions was provided
@@ -72,16 +71,16 @@ module.exports = class Command {
        * are the default one
        * @type {PermissionString}
        */
-      permissions: options.permissions || ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+      permissions: options.permissions/*.push('SEND_MESSAGES', 'VIEW_CHANNEL')*/ || ['SEND_MESSAGES', 'VIEW_CHANNEL'],
       /**
        * The client's permissions, if no permissions was provided
        * ```js
        * ['SEND_MESSAGES', 'VIEW_CHANNEL']
        * ```
        * are the default one
-       * @type {PermissionResolvable}
+       * @type {PermissionString}
        */
-      clientPermissions: options.clientPermissions || [
+      clientPermissions: options.clientPermissions/*.push('SEND_MESSAGES', 'VIEW_CHANNEL')*/ || [
         'SEND_MESSAGES',
         'VIEW_CHANNEL',
       ],
@@ -89,7 +88,7 @@ module.exports = class Command {
        * The cooldown of the command, none if the cooldown was not specified
        * @type {Number}
        */
-      cooldown: options.cooldown * 1000 || 1 * 1000,
+      cooldown: options.cooldown * 1000 || -1,
       /**
        * The aliases of the command, none if aliases was not specified
        * @type {String[]}
@@ -120,37 +119,38 @@ module.exports = class Command {
        * @type {String[]}
        */
       string: options.string,
+      /**
+       * @private
+       * How many times the command has been used
+       */
+      used: 0,
     };
-
     /**
      * A set of the ids of the users on cooldown
      * @type {Collection}
      */
-    this.cooldowns = new Collection();
+    this.cooldown = new Collection();
   }
+  // startCooldown(user, cmd) {
+  //   const now = Date.now(); //get the current time
+  //   const cooldownAmount = cmd.config.cooldown; //get the cooldownamount of the command, if there is no cooldown there will be automatically 1 sec cooldown, so you cannot spam it ^^
+  //   if (!this.cooldowns.has(user)) {
+  //     this.cooldowns.set(user, now);
+  //     setTimeout(() => this.cooldowns.delete(user), cooldownAmount); //set a timeout function with the cooldown, so it gets deleted later on again
+  //   } else {
+  //     const timestamps = this.cooldowns.get(user); //get the timestamp of the last used commands
+
+  //     //if the user is on cooldown
+  //     const expirationTime = timestamps + cooldownAmount; //get the amount of time he needs to wait until they can run the cmd again
+
+  //     this.now = now;
+  //     this.expirationTime = expirationTime;
+  //   }
+  // }
   /**
-   * Puts a user on cooldown
-   * @param {String} user The ID of the user to put on cooldown
-   * @param {Command} cmd The command passed trough
+   * Set the message
+   * @param {Message} message
    */
-  startCooldown(user, cmd) {
-    const now = Date.now(); //get the current time
-    const cooldownAmount = cmd.config.cooldown; //get the cooldownamount of the command, if there is no cooldown there will be automatically 1 sec cooldown, so you cannot spam it ^^
-    if (!this.cooldowns.has(user)) {
-      this.cooldowns.set(user, now);
-      setTimeout(() => this.cooldowns.delete(user), cooldownAmount); //set a timeout function with the cooldown, so it gets deleted later on again
-    } else {
-      const timestamps = this.cooldowns.get(user); //get the timestamp of the last used commands
-
-      //if the user is on cooldown
-      const expirationTime = timestamps + cooldownAmount; //get the amount of time he needs to wait until they can run the cmd again
-
-      this.now = now;
-      this.expirationTime = expirationTime;
-      
-    }
-  }
-
   setMessage(message) {
     this.message = message;
   }
@@ -176,7 +176,7 @@ module.exports = class Command {
         }
       }
 
-      if (message.channel.type !== 'dm') {
+      if (guild) {
         if (cmd.config.ownerOnly) {
           if (!client.owners.includes(message.author.id)) {
             reasons.push(language(guild, 'PERMS_MESSAGE')[1].join(' - '));
@@ -250,7 +250,42 @@ module.exports = class Command {
         }
 
         if (reasons.length > 0) {
-          resolve(false)
+          resolve(false);
+          const embed = new MessageEmbed()
+            .setAuthor(
+              client.user.tag,
+              client.user.displayAvatarURL({
+                dynamic: true,
+                format: 'png',
+                size: 2048,
+              })
+            )
+            .setColor('RED')
+            .setDescription(
+              `\`\`\`diff\n-${
+                language(guild, 'PERMS_MESSAGE')[6]
+              }\n\`\`\`\n\n` +
+                `\`${language(guild, 'PERMS_MESSAGE')[7]}:\`\n\n${reasons
+                  .map((reason) => '• ' + reason)
+                  .join('\n')}`
+            );
+          return message.channel.send(embed);
+        } else {
+          resolve(true);
+        }
+      } else {
+        if (cmd.config.ownerOnly) {
+          if (!client.owners.includes(message.author.id)) {
+            reasons.push(language(guild, 'PERMS_MESSAGE')[1].join(' - '));
+          }
+        }
+        if (cmd.config.nsfw) {
+          if (!message.channel.nsfw) {
+            reasons.push(language(guild, 'PERMS_MESSAGE')[3].join(' - '));
+          }
+        }
+        if (reasons.length > 0) {
+          resolve(false);
           const embed = new MessageEmbed()
             .setAuthor(
               client.user.tag,
@@ -276,6 +311,20 @@ module.exports = class Command {
       }
     });
     this.promise = promise;
+  }
+  /**
+   *
+   * @param {String} message The message to pass in
+   * @param {Object} [options] The options
+   */
+  async inlineReply(message, options = {}) {
+    if (!options)
+      options = {
+        allowedMentions: {
+          repliedUser: false,
+        },
+      };
+    this.message.inlineReply(message, options);
   }
 };
 

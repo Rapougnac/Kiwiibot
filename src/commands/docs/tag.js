@@ -1,26 +1,27 @@
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
-
-module.exports = {
-  name: 'tag',
-  aliases: [],
-  description: 'Search trough all the tags',
-  category: 'docs',
-  utilisation: '{prefix}tag [tag] or {prefix}tag [category] <tag>',
-  cooldown: 5,
-  nsfw: false,
-  ownerOnly: false,
-  adminOnly: false,
-  guildOnly: false,
-  permissions: [],
-  clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', ''],
-  /**
-   * @param {Client} client
-   * @param {Message} message
-   * @param {String[]} args
+module.exports = class TagCommand extends Command {
+   /** 
+    *@param {Client} client 
+    */ 
+  constructor(client) {
+    super(client, {
+      name: 'tag',
+      aliases: [],
+      description: 'Search trough all the tags',
+      category: 'docs',
+      cooldown: 5,
+      utilisation: '{prefix}tag [tag] or {prefix}tag [category] <tag>',
+    });
+  }
+  /** 
+   * @param {Client} client 
+   * @param {Message} message 
+   * @param {String[]} args 
    */
   async execute(client, message, args) {
-    // This command is supposed to be for a specifical guild, unless you want to have fun with this command (•_•)
+     // This command is supposed to be for a specifical guild, unless you want to have fun with this command (•_•)
     if (!args[0])
       return message.channel.send({
         embed: {
@@ -30,7 +31,7 @@ module.exports = {
             icon_url: message.author.displayAvatarURL({ dynamic: true }),
           },
           description:
-            'Liste de toutes les catégories \n\n`fix`, `unexpected`, `==`, `destructure`, `websocket`, `hyperlien`, `purge`, `ping-command`, `intents`, `of-undefined`, `collector`, `ask`, `swearwords`, `heroku`, `find`, `dashboard`, `avatar`, `bot`, `client`, `template-literal`',
+            'Liste de toutes les catégories \n\n`fix`, `unexpected`, `==` alias `===`, `destructure`, `websocket` alias `ws`, `hyperlien` alias `hyperlink`, `purge`, `ping-command`, `intents`, `of-undefined` alias `of-null`, `collector`, `ask`, `swearwords`, `heroku`, `find`, `dashboard`, `avatar`, `bot`, `client`, `template-literal`, `embed`, `does-not-work` alias `dnw`',
         },
       });
     switch (args[0]) {
@@ -143,7 +144,7 @@ module.exports = {
       }
       case 'intents': {
         return message.channel.send(
-          "Si votre bot né répond pas aux évenements `guildMemberAdd` & `guildMemberRemove` ou bien qu'il ne détecte pas la presence des personnes c'est que vous n'avez pas activé vos intents de gateway\nVoilà comment les activer\nhttps://imgur.com/a/YDEZRIh\nhttps://cdn.discordapp.com/attachments/770686968816205885/813544147675775006/video0.mov"
+          "Si votre bot ne répond pas aux évenements `guildMemberAdd` & `guildMemberRemove` ou bien qu'il ne détecte pas la presence des personnes c'est que vous n'avez pas activé vos intents de gateway\nVoilà comment les activer\nhttps://imgur.com/a/YDEZRIh\nhttps://cdn.discordapp.com/attachments/770686968816205885/813544147675775006/video0.mov"
         );
       }
       case 'of-null':
@@ -201,6 +202,13 @@ module.exports = {
       case 'template-literal': {
         return message.channel.send('Au lieu de faire: `let b = a + "some string";` utilisez les templates literals.\nComprendre les templates literals en JavaScript:\n<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>')
       }
+      case 'embed': {
+        return message.channel.send('Construction et envoi d\'embeds : <https://discordjs.guide/popular-topics/embeds.html>')
+      }
+      case 'dnw':
+      case 'does-not-work': {
+        return message.channel.send('Pour vous aider, nous avons besoin de plus d\'informations:\n• Que tentez-vous de faire ?\n• Quel est votre code ? \n• Quelles sont les erreurs et les logs dont vous disposez ?')
+      }
     }
-  },
+  }
 };

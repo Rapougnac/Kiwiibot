@@ -3,7 +3,7 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
     'Node 12.0.0 or higher is required. Update Node on your system.'
   );
 
-const { Client, Collection, Permissions } = require('discord.js');
+const { Client, Collection, ClientOptions } = require('discord.js');
 const Console = require('../util/console');
 const glob = require('glob');
 const { readdir, readdirSync } = require('fs');
@@ -12,10 +12,10 @@ let table = new ascii('Events');
 let table2 = new ascii('Player events');
 table.setHeading('Events', 'Load status');
 table2.setHeading('PLayer events', 'Load status');
-const Mongoose = require('./Mongoose');
 const mongoose = require('mongoose');
 const Util = require('./Util');
-const { Player } = require('discord-player');
+const Command = require('./Command');
+const { Player, } = require('discord-player');
 const ProcessEvent = require('../util/processEvents');
 const Genius = require('genius-lyrics');
 
@@ -27,11 +27,10 @@ class KiwiiClient extends Client {
   /**
    *
    * @param {Object} options The options passed trough the client
-   * @param {Object} options.clientOptions The client options used by discord.js itself
+   * @param {ClientOptions} options.clientOptions The client options used by discord.js itself
    * @param {String} options.config The path to the config file
    * @param {String|String[]} options.owners The owner(s) of the bot
-   * @param {String[]} options.defaultPerms The default perms of the bot
-   * @param {String[]} options.disabledEvents Disabled events of this instance
+   * @param {String[]} [options.disabledEvents] Disabled events of this instance
    * @param {String} options.prefix The prefix of the bot
    */
   constructor(options) {
@@ -55,7 +54,7 @@ class KiwiiClient extends Client {
      * A collection of the cooldown of the bot
      * @type {Collection}
      */
-    this.cooldowns = new Collection();
+    //this.cooldowns = new Collection();
     /**
      * Categories of the commands
      * @type {SetConstructor}
@@ -64,7 +63,7 @@ class KiwiiClient extends Client {
 
     /**
      * The manager of the `Util` class
-     * @type {Class}
+     * @type {Util}
      */
     this.utils = new Util(this);
 
@@ -90,31 +89,9 @@ class KiwiiClient extends Client {
      */
     this.disabledEvents = options.disabledEvents;
 
-    if (!options.defaultPerms) {
-      throw new Error('You must pass default perm(s) for the client');
-    }
-
-    /**
-     * The default perms of the bot
-     * @type {string}
-     */
-    this.defaultPerms = new Permissions(options.defaultPerms).freeze();
-
     Console.success(
       `Client has been initialized, you're using ${process.version}`
     );
-
-    /**
-     * The database connected to this bot (null if false)
-     * @type {?Mongoose}
-     */
-    this.database = null;
-
-    if (options.database?.enable === true) {
-      this.database = new Mongoose(this, options.database);
-    } else {
-      // Do nothing
-    }
 
     /**
      * Function to format a string
@@ -131,6 +108,19 @@ class KiwiiClient extends Client {
       return len > 0 ? new Array(len).join(chr || '0') + this : this;
     };
 
+    Array.prototype.remove = function () {
+      var what,
+        a = arguments,
+        L = a.length,
+        ax;
+      while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+          this.splice(ax, 1);
+        }
+      }
+      return this;
+    };
     /**
      * The player function of the client
      * @type {Player}
@@ -139,6 +129,10 @@ class KiwiiClient extends Client {
       autoSelfDeaf: false,
       quality: 'high',
       enableLive: true,
+      leaveOnEnd: true,
+      leaveOnEndCooldown: 45000,
+      leaveOnEmpty: true,
+      leaveOnEmptyCooldown: 5000,
     });
 
     this.lyrics = new Genius.Client(
@@ -174,34 +168,47 @@ class KiwiiClient extends Client {
     let files = glob.sync('src/commands' + '/**/*.js');
     if (this.config.discord.dev.active) {
       if (this.config.discord.dev.include_cmd.length) {
-        files = files.filter((file) =>
-          file.endsWith(this.config.discord.dev.include_cmd)
-        );
+        for (const File of this.config.discord.dev.include_cmd) {
+          files = files.filter((file) => file.endsWith(File));
+        }
       }
       if (this.config.discord.dev.exclude_cmd.length) {
-        files = files.filter(
-          (file) => !file.endsWith(this.config.discord.dev.exclude_cmd)
-        );
+        for (const File of this.config.discord.dev.exclude_cmd) {
+          files = files.filter(
+            (file) => !file.endsWith(File)
+          );
+        }
       }
     }
     files.forEach((file) => {
       try {
-        const command = require(`${process.cwd()}\\${file
-          .split('/')
-          .join('\\')}`);
-        if (this.commands.has(command.name)) {
+        /**
+         * @type {Command}
+         */
+        let command;
+        if (process.platform === 'win32')
+          command = new (require(`${process.cwd()}\\${file
+            .split('/')
+            .join('\\')}`))(this);
+        else if (process.platform === 'linux')
+          command = new (require(`${process.cwd()}/${file}`))(this);
+        if (this.commands.has(command.help.name)) {
           console.error(
-            new Error(`Command name duplicate: ${command.name}`).stack
+            new Error(`Command name duplicate: ${command.help.name}`).stack
           );
           return process.exit(1);
         } else {
-          this.commands.set(command.name, command);
-          this.categories.add(command.category);
-          if (command.aliases) {
-            command.aliases.forEach((alias) => {
+          this.commands.set(command.help.name, command);
+          if (command.help.category === '' || !command.help.category)
+            command.help.category = 'unspecified';
+          //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
+          this.categories.add(command.help.category);
+          if (command.config.aliases) {
+            command.config.aliases.forEach((alias) => {
               if (this.aliases.has(alias)) {
                 console.error(
-                  new Error(`Alias name duplicate: ${command.aliases}`).stack
+                  new Error(`Alias name duplicate: ${command.config.aliases}`)
+                    .stack
                 );
                 return process.exit(1);
               } else {
@@ -226,7 +233,9 @@ class KiwiiClient extends Client {
     readdir('src/events', (err, files) => {
       if (err) throw err;
       if (this.disabledEvents.length) {
-        files = files.filter((file) => !file.startsWith(this.disabledEvents));
+        for (const event of this.disabledEvents) {
+          files = files.filter((file) => !file.startsWith(event));
+        }
       }
       files = files.filter((file) => file.endsWith('.js'));
       files.forEach((file) => {

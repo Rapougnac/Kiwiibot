@@ -9,7 +9,7 @@ module.exports = {
 	category: 'interactions',
 	utilisation: '{prefix}feed',
 	async execute(client, message, args) {
-		const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() == args.join(' ').toLowerCase()) || message.guild.members.cache.find(r => r.displayName.toLowerCase() === args.join(' ').toLowerCase());
+		const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase().startsWith(args.join(' ').toLowerCase())) || message.guild.members.cache.find(r => r.displayName.toLowerCase().startsWith(args.join(' ').toLowerCase()));
 		if (!member) {
 			const GIF = await neko.sfw.feed();
 			const embed = new Discord.MessageEmbed()

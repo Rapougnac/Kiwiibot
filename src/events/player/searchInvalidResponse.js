@@ -1,3 +1,4 @@
+const { language } = require('../../../language');
 module.exports = (client, message, query, tracks, content, collector) => {
-    message.channel.send(`${client.emotes.error} - You must send a valid number between **1** and **${tracks.length}** !`);
+    message.channel.send(language(message.guild, 'searchInvalidResponse')[0].format(client.emotes.error, tracks.length));
 };

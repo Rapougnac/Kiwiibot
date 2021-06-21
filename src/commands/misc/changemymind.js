@@ -20,7 +20,7 @@ module.exports = {
    * @param {String[]} args
    */
   async execute(client, message, args) {
-    if (!args[0]) return message.channel.send(this.string[0]);
+    if (!args[0]) return message.channel.send(this.config.string[0]);
 
     const text = args.join(' ');
 

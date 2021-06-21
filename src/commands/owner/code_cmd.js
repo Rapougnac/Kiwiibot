@@ -5,7 +5,7 @@ module.exports = {
   name: 'code',
   aliases: [],
   description: 'Display the code of the specified command.',
-  category: 'core',
+  category: 'owner',
   ownerOnly: true,
   amdinOnly: false,
   guildOnly: false,

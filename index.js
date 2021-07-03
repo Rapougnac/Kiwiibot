@@ -8,7 +8,6 @@ const {
   // eslint-disable-next-line no-unused-vars
   User,
 } = require('discord.js');
-const _Slash = require('./src/struct/Slash');
 const axios = require('axios');
 const Client = require('./src/struct/Client'); // Extended Client
 require('./src/struct/Message'); // Extended Message

@@ -193,18 +193,18 @@ module.exports = async (client) => {
       (a, b) => a + b.memberCount,
       0
     )} users`,
-    `${client.prefix}help | Do you know how to make bots ?`,
-    `${client.prefix}help | Don't do drugs kids!`,
-    `${client.prefix}help | Is this real life?`,
-    `${client.prefix}help | Can I lost my virginity?`,
-    `${client.prefix}help | Why am I here`,
-    `${client.prefix}help | There's a lot of statuses no?`,
+    `Do you know how to make bots ?`,
+    `Don't do drugs kids!`,
+    `Is this real life?`,
+    `Can I lose my virginity?`,
+    `Why am I here`,
+    `There's a lot of statuses no?`,
   ];
   setInterval(async () => {
     const i = statuses[Math.floor(Math.random() * statuses.length)];
     await client.user
       .setPresence({
-        activity: { name: i, type: 'PLAYING' },
+        activity: { name: `${client.prefix}help | ${i}`, type: 'PLAYING' },
         status: client.config.discord.status,
       })
       .catch(console.error);

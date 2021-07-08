@@ -188,8 +188,8 @@ module.exports = async (client) => {
       console.log(err);
     });
   const statuses = [
-    `${client.prefix}help | Currently on ${client.guilds.cache.size} servers`,
-    `${client.prefix}help | Serving ${client.guilds.cache.reduce(
+    `Currently on ${client.guilds.cache.size} servers`,
+    `Serving ${client.guilds.cache.reduce(
       (a, b) => a + b.memberCount,
       0
     )} users`,

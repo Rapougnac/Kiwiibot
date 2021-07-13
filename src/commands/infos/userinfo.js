@@ -81,19 +81,19 @@ module.exports = class UserInfoCommand extends Command {
       }
       switch (status) {
         case 'dnd': {
-          status = this.config.string[0];
+          status = message.guild.i18n.__mf("userinfo.dnd");
           break;
         }
         case 'online': {
-          status = this.config.string[1];
+          status = message.guild.i18n.__mf("userinfo.online");
           break;
         }
         case 'offline': {
-          status = this.config.string[2];
+          status = message.guild.i18n.__mf("userinfo.oflline");
           break;
         }
         case 'idle': {
-          status = this.config.string[3];
+          status = message.guild.i18n.__mf("userinfo.idle");
           break;
         }
       }
@@ -103,9 +103,7 @@ module.exports = class UserInfoCommand extends Command {
           break;
         }
         case 'desktop': {
-          device[0] = this.config.string[4].format(
-            client.config.clientMap.desktop
-          );
+          device[0] = message.guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop});
           break;
         }
         case 'mobile': {
@@ -145,22 +143,22 @@ module.exports = class UserInfoCommand extends Command {
       }
       const embeduser = new MessageEmbed()
         .setAuthor(
-          this.config.string[5].format(user.tag),
+          message.guild.i18n.__mf("userinfo.user",{tag: user.tag}),
           user.displayAvatarURL({ dynamic: true, format: 'png', size: 512 }),
           'https://discord.com/'
         )
         .setDescription(userFlags.join(' '))
-        .addField(this.config.string[6], member, true)
-        .addField(this.config.string[7], member.user.tag, true)
+        .addField(message.guild.i18n.__mf("userinfo.member"), member, true)
+        .addField(message.guild.i18n.__mf("userinfo.name"), member.user.tag, true)
         .addField(
-          this.config.string[8],
-          member.nickname ? `${member.nickname}` : this.config.string[9],
+          message.guild.i18n.__mf("userinfo.nickname"),
+          member.nickname ? `${member.nickname}` : message.guild.i18n.__mf("userinfo.not_set"),
           true
         )
         .addField(
-          this.config.string[10],
+          message.guild.i18n.__mf("userinfo.account_creation_date"),
           moment(member.user.createdAt).format(
-            `[${this.config.string[11]}] DD/MM/YYYY [${this.config.string[12]}] HH:mm:ss`
+            `[${message.guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("userinfo.at")}] HH:mm:ss`
           ) +
             `\n\`${moment(member.user.createdAt, 'DD/MM/YYYY')
               .locale(lang)
@@ -168,9 +166,9 @@ module.exports = class UserInfoCommand extends Command {
           true
         )
         .addField(
-          this.config.string[14],
+          message.guild.i18n.__mf("userinfo.arrival_date"),
           moment(member.joinedAt).format(
-            `[${this.config.string[11]}] DD/MM/YYYY [${this.config.string[12]}] HH:mm:ss`
+            `[${message.guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("userinfo.at")}] HH:mm:ss`
           ) +
             `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
               .locale(lang)
@@ -178,28 +176,28 @@ module.exports = class UserInfoCommand extends Command {
           true
         )
         .addField(
-          this.config.string[15],
+          message.guild.i18n.__mf("userinfo.boost_start_date"),
           member.premiumSince
             ? moment(member.premiumSince).format(
-                `[${this.config.string[11]}] DD/MM/YYYY [${this.config.string[12]}] HH:mm:ss`
+                `[${message.guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("userinfo.at")}] HH:mm:ss`
               ) +
                 `\n\`${moment(member.premiumSince, 'DD/MM/YYYY')
                   .locale(lang)
                   .fromNow()}\``
-            : this.config.string[13],
+            : message.guild.i18n.__mf("userinfo.not_boosting"),
           true
         )
         .addField('Presence', status, true)
-        .addField(this.config.string[16], device[0], true)
+        .addField(message.guild.i18n.__mf("userinfo.device"), device[0], true)
         .addField(
-          this.config.string[17],
-          member.user.bot ? 'Bot' : this.config.string[18],
+          message.guild.i18n.__mf("userinfo.type"),
+          member.user.bot ? 'Bot' : message.guild.i18n.__mf("userinfo.user2"),
           true
         )
         .addField(
-          this.config.string[19].format(member.roles.cache.size - 1),
+          message.guild.i18n.__mf("userinfo.roles",{role: member.roles.cache.size - 1}),
           member.roles.cache.size - 1 <= 0
-            ? this.config.string[20]
+            ? message.guild.i18n.__mf("userinfo.no_roles")
             : member.roles.cache
                 .filter((r) => r.id !== message.guild.id)
                 .sort((A, B) => B.rawPosition - A.rawPosition)
@@ -217,7 +215,7 @@ module.exports = class UserInfoCommand extends Command {
         // }
       message.channel.send(embeduser);
     } else {
-      this.inlineReply(this.config.string[21]);
+      this.inlineReply(message.guild.i18n.__mf("userinfo.cant_find_member"));
     }
   }
 };

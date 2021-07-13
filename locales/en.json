@@ -198,6 +198,31 @@
 		"description": "Get the uptime of the bot",
 		"msg": "**{emote}** is since `{days} days` `{hours} hours` `{minutes} minutes` and `{seconds} seconds` online"
 	},
+	"userinfo":{
+		"description": "Shows informations about you or a user",
+		"dnd": "Do Not Disturb <:dnd:838001604098654229>",
+		"online": "Online <:online:838001438972968990>",
+		"offline": "Offline <:offline:850733725704126474>",
+		"idle": "Idle <:idle:838003208588230706>",
+		"desktop":"Desktop {x}",
+		"user": "User {tag}",
+		"member": "Member",
+		"name": "Name and discrim",
+		"nickname": "Nickname",
+		"not_set": "Not set",
+		"account_creation_date": "Account creation date",
+		"on": "On",
+		"at": "at",
+		"not_boosting": "Is not boosting",
+		"arrival_date": "Arrival date on the server",
+		"boost_start_date": "Boost start date",
+		"device": "Device",
+		"type": "Type",
+		"user2": "User",
+		"roles":"Roles [{role}]",
+		"no_roles": "There's no roles to display",
+		"cant_find_member": "I'm sorry, but I could't find this member, could you try again?"
+	},
 	"player": {
 		"events": {
 			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",

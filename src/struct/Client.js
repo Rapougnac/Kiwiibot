@@ -168,15 +168,17 @@ class KiwiiClient extends Client {
         files = files.filter((file) => include.includes(path.parse(file).base));
       }
       if (exclude.length) {
-        files = files.filter((file) => !exclude.includes(path.parse(file).base));
+        files = files.filter(
+          (file) => !exclude.includes(path.parse(file).base)
+        );
+      }
     }
     files.forEach((file) => {
       try {
-
+        const file_path = `${process.cwd()}${path.sep}${file}`;
         /**
          * @type {Command}
          */
-        const file_path = `${process.cwd()}${path.sep}${file}`;
         const command = new (require(file_path))(this);
 
         if (this.commands.has(command.help.name)) {

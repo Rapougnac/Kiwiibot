@@ -166,6 +166,34 @@
 		"description": "Ping!",
 		"msg": "🏓 P{pong}ng! The ping is: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
 	},
+	"serverinfo":{
+		"description": "",
+		"name": "Name",
+		"region": "Region",
+		"members": "Members",
+		"online_members": "Online members",
+		"channels": "channels",
+		"emotes": "Emojis",
+		"roles": "Roles [{role}]",
+		"owner": "Owner",
+		"creation_date": "Creation date",
+		"nitro": "Nitro boots",
+		"afk": "Afk timeout",
+		"verification_level": "Verification level",
+		"id": "ID: {id}",
+		"tier": "Tier : `{tier}`\nNumber of boosts: `{boost_number}`",
+		"members2": "members",
+		"humans": "humans",
+		"bots": "bots",
+		"channels2": "channels",
+		"text_channels": "test channels",
+		"voice_channels": "voice channels",
+		"category": "category",
+		"animated_emotes": "animated emojis",
+		"on": "On",
+		"at": "at",
+		"static_emotes": "static emojis"
+	}
 	"player": {
 		"events": {
 			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",

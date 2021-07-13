@@ -245,15 +245,7 @@ class KiwiiClient extends Client {
    */
   mongoInit() {
     mongoose
-      .connect(this.config.database.URI, {
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        autoIndex: false,
-        connectTimeoutMS: 10000,
-        poolSize: 5,
-        family: 4,
-      })
+      .connect(this.config.database.URI, this.config.database.config)
       .then(() => {
         Console.success(`Connected to Mongodb`, 'Mongodb');
       })

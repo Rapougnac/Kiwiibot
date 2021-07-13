@@ -3,6 +3,7 @@ const { joinArray } = require('../../util/string');
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
+const { clientMap } = require('../../../config');
 module.exports = class HelpCommand extends Command {
   /**
    *
@@ -28,42 +29,94 @@ module.exports = class HelpCommand extends Command {
    */
   async execute(client, message, args) {
     if (args.length > 2) return;
+    const fields = [];
+    if (message.channel.nsfw) {
+      for (const category of [...client.categories]) {
+        fields.push({
+          name: `${
+            client.commands.filter(
+              /**@param {Command} c */ (c) =>
+                c.help.category === category && !c.config.hidden
+            ).size
+              ? _.upperFirst(category.replace(/-/g, ' ')) +
+                ' ' +
+                '[' +
+                client.commands.filter(
+                  /**@param {Command} c */ (c) =>
+                    c.help.category === category && !c.config.hidden
+                ).size +
+                ']'
+              : ''
+          }`,
+          value: joinArray([
+            ...client.commands
+              .filter(
+                /**@param {Command} cmd */ (cmd) =>
+                  cmd.help.category === category && !cmd.config.hidden
+              )
+              .map((value) => `\`${value.help.name}\``),
+          ]),
+          inline: true,
+        });
+      }
+    } else {
+      for (const category of [...client.categories].remove('nsfw')) {
+        fields.push({
+          name: `${
+            client.commands.filter(
+              /**@param {Command} c */ (c) =>
+                c.help.category === category && !c.config.hidden
+            ).size
+              ? _.upperFirst(category.replace(/-/g, ' ')) +
+                ' ' +
+                '[' +
+                client.commands.filter(
+                  /**@param {Command} c */ (c) =>
+                    c.help.category === category && !c.config.hidden
+                ).size +
+                ']'
+              : ''
+          }`,
+          value: joinArray([
+            ...client.commands
+              .filter(
+                /**@param {Command} cmd */ (cmd) =>
+                  cmd.help.category === category && !cmd.config.hidden
+              )
+              .map((value) => `\`${value.help.name}\``),
+          ]),
+          inline: true,
+        });
+      }
+    }
+    if (
+      fields.some(
+        (x) => (x.name && x.value) || x.name || x.value === null || ''
+      )
+    ) {
+      for (let i = 0; i < fields.length; i++) {
+        if (
+          !(
+            (fields[i].name && fields[i].value) ||
+            fields[i].name ||
+            fields[i].value
+          )
+        ) {
+          delete fields[i];
+        }
+      }
+    }
     if (!args[0]) {
       const embed = new MessageEmbed()
-        .setDescription(
-          message.channel.nsfw
-            ? `${[...client.categories]
-                .map(
-                  (val) =>
-                    `**${_.upperFirst(val.replace(/-/g, ' '))}** [${
-                      client.commands.filter((c) => c.help.category === val)
-                        .size
-                    }]\n${joinArray([
-                      ...client.commands
-                        .filter((c) => c.help.category === val)
-                        .map((value) => `\`${value.help.name}\``),
-                    ])}`
-                )
-                .join('\n\n')}`
-            : `${[...client.categories]
-                .remove('nsfw')
-                .map(
-                  (val) =>
-                    `**${_.upperFirst(val.replace(/-/g, ' '))}** [${
-                      client.commands.filter((c) => c.help.category === val)
-                        .size
-                    }]\n${joinArray([
-                      ...client.commands
-                        .filter((c) => c.help.category === val)
-                        .map((value) => `\`${value.help.name}\``),
-                    ])}`
-                )
-                .join('\n\n')}`
-        )
+        .addFields(fields.sort((A, B) => A.name.localeCompare(B.name)))
         .setColor('ORANGE')
         .setTimestamp()
-        .setFooter(this.config.string[18].format(client.prefix));
-
+        .setFooter(
+          message.channel.nsfw
+            ? this.config.string[18].format(client.prefix)
+            : this.config.string[18].format(client.prefix) +
+                this.config.string[19]
+        );
       message.channel.send(embed);
     } else {
       /**
@@ -74,10 +127,14 @@ module.exports = class HelpCommand extends Command {
         message.client.commands.find(
           (x) => x.aliases && x.aliases.includes(args.join(' ').toLowerCase())
         );
-
+      if (command.config.hidden) {
+        return message.channel.send(
+          `${client.emotes.error} - ${this.config.string[0]}`
+        );
+      }
       if (!command)
         return message.channel.send(
-          `\\${client.emotes.error} - ${this.config.string[0]}`
+          `${client.emotes.error} - ${this.config.string[0]}`
         );
 
       await message.channel.send({
@@ -85,7 +142,11 @@ module.exports = class HelpCommand extends Command {
           color: 'ORANGE',
           author: { name: this.config.string[1] },
           fields: [
-            { name: this.config.string[2], value: command.help.name, inline: true },
+            {
+              name: this.config.string[2],
+              value: command.help.name,
+              inline: true,
+            },
             {
               name: this.config.string[3],
               value: _.upperFirst(command.help.category),
@@ -101,7 +162,10 @@ module.exports = class HelpCommand extends Command {
             },
             {
               name: this.config.string[8],
-              value: command.help.utilisation.replace('{prefix}', client.prefix),
+              value: command.help.utilisation.replace(
+                '{prefix}',
+                client.prefix
+              ),
               inline: true,
             },
             {
@@ -162,7 +226,11 @@ module.exports = class HelpCommand extends Command {
                     ),
               inline: true,
             },
-            { name: 'Description', value: command.help.description, inline: false },
+            {
+              name: 'Description',
+              value: command.help.description,
+              inline: false,
+            },
           ],
           timestamp: new Date(),
           description: this.config.string[14],

@@ -39,7 +39,8 @@ module.exports = class StopCommand extends Command {
       description: 'Stop the current music',
       category: 'music',
       cooldown: 5,
-      utilisation: '{prefix}',
+      utilisation: '{prefix}stop',
+      string: []
     });
   }
   /**
@@ -70,7 +71,7 @@ module.exports = class StopCommand extends Command {
     client.player.stop(message);
 
     message.channel.send(
-        this.config.string[3].format(client.emotes.sucess)
+        this.config.string[3].format(client.emotes.success)
     );
   }
 };

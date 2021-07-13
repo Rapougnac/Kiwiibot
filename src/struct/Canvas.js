@@ -1,5 +1,3 @@
-const { createCanvas: _createCanvas } = require('canvas');
-
 module.exports = class Canvas {
   static greyscale(ctx, x, y, width, height) {
     const data = ctx.getImageData(x, y, width, height);
@@ -99,6 +97,34 @@ module.exports = class Canvas {
         if (words.length === 0) lines.push(line.trim());
       }
       return resolve(lines);
+    });
+  }
+  static streamToArray(stream) {
+    if (!stream.readable) return Promise.resolve([]);
+    return new Promise((resolve, reject) => {
+      const arr = [];
+      const onData = (data) => {
+        arr.push(data);
+      };
+      const onEnd = (err) => {
+        if (err) reject(err);
+        else resolve(arr);
+        cleanUp();
+      };
+      const onClose = () => {
+        resolve(arr);
+        cleanUp();
+      };
+      const cleanUp = () => {
+        stream.removeListener('data', onData);
+        stream.removeListener('end', onEnd);
+        stream.removeListener('error', onEnd);
+        stream.removeListener('close', onClose);
+      };
+      stream.on('data', onData);
+      stream.on('end', onEnd);
+      stream.on('error', onEnd);
+      stream.on('close', onClose);
     });
   }
 };

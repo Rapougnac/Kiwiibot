@@ -22,10 +22,6 @@
   "bugs": {
     "url": "https://github.com/Rapougnac/Kiwiibot/issues"
   },
-  "_moduleAliases": {
-    "@struct": "./src/struct",
-    "@Client": "./src/struct/Client"
-  },
   "homepage": "https://github.com/Rapougnac/Kiwiibot#readme",
   "dependencies": {
     "@discord-player/extractor": "^2.0.2",
@@ -37,6 +33,7 @@
     "amethyste-api": "^1.1.5",
     "ascii-table": "0.0.9",
     "axios": "^0.21.1",
+    "better-module-alias": "^1.1.0",
     "blueapi.js": "^0.0.4",
     "booru": "^2.4.0",
     "canvacord": "^5.1.0",
@@ -58,6 +55,7 @@
     "enmap": "^5.8.2",
     "eval-sanitizer": "^0.0.7",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.4.0",
     "figlet": "^1.5.0",
@@ -72,6 +70,7 @@
     "kitsu.js": "^2.0.0",
     "lowdb": "^1.0.0",
     "mathjs": "^9.3.0",
+    "memorystore": "^1.6.6",
     "merge-options": "^3.0.4",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
@@ -82,6 +81,8 @@
     "node-opus": "^0.3.3",
     "opusscript": "0.0.7",
     "parse-duration": "^0.4.4",
+    "passport": "^0.4.1",
+    "passport-discord": "^0.1.4",
     "path": "^0.12.7",
     "prebuild-install": "^6.1.1",
     "prism-media": "^1.2.9",

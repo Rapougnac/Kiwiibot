@@ -1,0 +1,91 @@
+<!-- <head>
+  <title>Kiwii</title>
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <section class="main">
+    <p>Commands of <%= client.user.username %> </p>
+    <% commands.forEach(({ name, value }) => { %>
+    <table style="width: 100%">
+      <h1 style="text-align: center"><% name %></h1>
+      <tr>
+        <th>Commands</th>
+        <th>Description</th>
+        <th>Usage</th>
+        <th>Aliases</th>
+      </tr>
+      <% value.forEach(({ name, description, aliases, utilisation }) => { %>
+      <tr>
+        <td><%= name %></td>
+        <td><% for( let index = 0; description.includes('`'); index++ ) { %>
+          <%= ( index & 1) ? description = description.replace('`', '</code>') : description = description.replace('`', '<code>'); %>
+        <% } %></td>
+        <td>
+          <%= typeof aliases === 'string' ? aliases : aliases.join(', ');%>
+        </td>
+        <td><%= utilisation.replace('{prefix}', client.prefix)%></td>
+      </tr>
+      <% }); %>
+    </table>
+    <% }); %>
+  </section>
+</body>
+<style>
+  :root {
+    font-family: 'Open Sans';
+    font-size: 16px;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0cm;
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    padding: 0cm;
+    margin: 0cm;
+    line-height: 1.5;
+    color: #606c71;
+  }
+
+  .main-content {
+    word-wrap: break-word;
+  }
+  @media only screen and (max-width: 600px) {
+    .main-content {
+      max-width: 64rem;
+      padding: 2rem 6rem;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    .main-content {
+      padding: 2rem 1rem;
+      font-size: 1rem;
+    }
+  }
+  .main-content h1, 
+  .main-content h2,
+  .main-content h3,
+  .main-content h4,
+  .main-content h5,
+  .main-content h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    color: #159957;
+  }
+  .main-content table th,
+  .main-content table td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ffffff;
+    
+  }
+</style> -->

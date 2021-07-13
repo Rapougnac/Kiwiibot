@@ -26,7 +26,7 @@ module.exports = class PlayCommand extends Command {
     try {
       if (!message.member.voice.channel)
         return message.channel.send(
-          this.config.string[0].format(client.emotes.error)
+          message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
         );
 
       if (
@@ -34,17 +34,17 @@ module.exports = class PlayCommand extends Command {
         message.member.voice.channel.id !== message.guild.me.voice.channel.id
       )
         return message.channel.send(
-          this.config.string[1].format(client.emotes.error)
+          message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
         );
 
       if (!args[0])
         return message.channel.send(
-          this.config.string[2].format(client.emotes.error)
+          message.guild.i18n.__mf("play.missing_title",{emote: client.emotes.error})
         );
 
       client.player.play(message, args.join(' '));
     } catch (e) {
-      message.channel.send(this.config.string[3].format(e));
+      message.channel.send(message.guild.i18n.__mf("play.error",{error: e}));
     }
   }
 };

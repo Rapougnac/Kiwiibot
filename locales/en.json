@@ -26,7 +26,7 @@
 		"no_permissions": "No permission required",
 		"cmd_usage": "Do {prefix}help [command] to get more information about it."
 	},
-	"setprefix":{
+	"setprefix": {
 		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
 		"missing_prefix": "Please specify a prefix!",
 		"prefix_length": "Error, my prefix cannot be longer than 5 characters!",
@@ -34,19 +34,19 @@
 		"updated_prefix": "My prefix has been updated to **{prefix}**",
 		"new_prefix": "Prefix in this server is now set to **{prefix}**"
 	},
-	"prefix-reset":{
+	"prefix-reset": {
 		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
 		"reset_prefix": "Are you sure you want to reset the prefix?",
 		"confirmation": "The prefix has been resetted to `{prefix}`",
 		"canceled": "Prefix reset has been canceled!"
 	},
-	"setlanguage":{
+	"setlanguage": {
 		"description": "",
 		"not_supported_language": "This language is not supported yet!",
 		"set_language": "Language has been setted!",
 		"database_error": "\\⚠️[DATABASE ERROR] The database responded with the following error: {error}"
 	},
-	"anime":{
+	"anime": {
 		"description": "Get informations about the specified anime",
 		"specify": "Please, specify an anime!",
 		"not_found": "No results was found for **{search}**!",
@@ -65,28 +65,28 @@
 		"choose": "Choose your anime between the displayed numbers",
 		"number_range": "Please insert a number between 1 and {number}"
 	},
-	"docs":{
+	"docs": {
 		"description": "Get the djs doc in an embed, you can specify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`",
 		"missing_query": "Please specify a query!",
 		"docs_fetch_error": "I couldn't fetch the docs!",
 		"valid_sources": "This doesn't seem to be a valid source, sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`"
 	},
-	"mdn":{
+	"mdn": {
 		"description": ""
 	},
-	"sendpins":{
+	"sendpins": {
 		"description": "Sends all pinned message(s)"
 	},
-	"tag":{
+	"tag": {
 		"description": "Search trough all the tags"
 	},
-	"3000y":{
+	"3000y": {
 		"description": "Sends you, or the specified member with the 3000y meme"
 	},
 	"fusion": {
 		"description": "Fusionnate your profile pictur with the specified member"
 	},
-	"approved":{
+	"approved": {
 		"description": "If your approuved that\\'s very cool"
 	},
 	"batslap": {
@@ -107,25 +107,25 @@
 	"challenger": {
 		"description": "A new foe has appared!"
 	},
-	"house":{
+	"house": {
 		"description": "Show your avatar with your discord house arround, beautiful isn\\'t it?"
 	},
-	"distort":{
+	"distort": {
 		"description": "Distort your profile profile picture"
 	},
-	"facebook":{
+	"facebook": {
 		"description": ""
 	},
-	"fire":{
+	"fire": {
 		"description": ""
 	},
-	"jail":{
+	"jail": {
 		"description": "Go to horny jail!"
 	},
-	"lookwhatkarenhave":{
+	"lookwhatkarenhave": {
 		"description": "Well, all is in the name, look what karen have"
 	},
-	"magik":{
+	"magik": {
 		"description": "You\\'ll be magik"
 	},
 	"moustache": {
@@ -137,10 +137,10 @@
 	"ps4": {
 		"description": "You, but in a ps4 game, cool no?"
 	},
-	"scary":{
+	"scary": {
 		"description": "Scare the little girl by your beautiful profile picture"
 	},
-	"symmetry":{
+	"symmetry": {
 		"description": "Symmetry yourself with the tags listed",
 		"error": "Error, you must be use tags listed here:",
 		"left-right": "The symmetry will be from the left to the right",
@@ -152,13 +152,130 @@
 		"bottom-left": "The symmetry will be from the bottom to the left",
 		"bottom-right": "The symmetry will be from the bottom to the right"
 	},
-	"thanos":{
+	"thanos": {
 		"description": ""
 	},
-	"vs":{
+	"vs": {
 		"description": "An epic combat against your opponent, or you if you have no friends"
 	},
-	"common":{
-		"wait": "**Please Wait...**"
+	"player": {
+		"events": {
+			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",
+			"channelEmpty": "{emote} - Music stopped as there is no more member in the voice channel!",
+			"PlayerError": {
+				"no_music": "{emote} - There is no music being played on this server !",
+				"no_voice_connection": "{emote} - You are not connected in any voice channel!",
+				"unable_join": "{emote} - I am not able to join your voice channel, please check my permissions!",
+				"error": "{emote} - Something went wrong ... Error: {error}"
+			},
+			"noResults": "{emote} - No results found on YouTube for {search}!",
+			"playlistAdd": "{emote} - {music} has been added to the queue (**{number}** songs)!",
+			"queueEnd": "{emote} - Music stopped as there is no more music in the queue!",
+			"searchCancel": "{emote} - You did not provide a valid response... Please send the command again!",
+			"searchInvalidResponse": "{emote} - You must send a valid number between **1** and **{number}**!",
+			"searchResults": "Here are your search results for: {search}",
+			"trackAdd": "{emote} - {music} has been added to the queue!",
+			"trackStart": "{emote} - Now playing {title} into {voice_channel}..."
+		},
+		"common": {
+			"not_in_channel": "{emote} - You're not in a voice channel!",
+			"not_in_same_channel": "{emote} - You are not in the same voice channel!",
+			"no_music_playing": "{emote} - No music currently playing!"
+		},
+		"event": {
+			"trackStart": "player.event.trackStart"
+		}
+	},
+	"back": {
+		"description": "Return to the previous track",
+		"msg": "{emote} - The current music has just been **backed** !"
+	},
+	"clear-queue": {
+		"description": "Clear the current queue",
+		"msg": "{emote} - The queue has just been **removed** !"
+	},
+	"filter": {
+		"description": "You can add or disable filters you can see all the filters by doing {prefix}filters",
+		"valid_filter": "{emote} - Please specify a valid filter to enable or disable!",
+		"not_existing_filter": "{emote} - This filter doesn't exist, try for example (8D, vibrato, pulsator...)!",
+		"adding_filter": "{emote} - I'm **adding** the filter to the music, please wait... Note: the longer the music is, the longer this will take.",
+		"removing_filter": "{emote} - I'm **disabling** the filter on the music, please wait... Note: the longer the music is playing, the longer this will take."
+	},
+	"loop": {
+		"description": "Enable or disable loop mode for the server (play the song again and again)",
+		"enabled": "{emote} - Loop mode **enabled**!",
+		"disabled": "{emote} - Loop mode **disabled**"
+	},
+	"lyrics": {
+		"description": "Searches for lyric info about a song from GeniuslLyrics if no query are provided.",
+		"not_found": "{emote} - {author} I couldn't find the lyrics for {music}"
+	},
+	"nowplaying": {
+		"description": "Get informations about the curent music",
+		"channel": "Channel",
+		"requested_by": "Requested by",
+		"from_playlist": "From playlist",
+		"views": "Views",
+		"duration": "Duration",
+		"filters_enabled": "Filters activated",
+		"paused": "Currently paused",
+		"progress_bar": "Progress bar"
+	},
+	"pause": {
+		"description": "Pause the current music",
+		"already_paused": "{emote} - The music has already been paused!",
+		"paused": "{emote} - Song {music} has been paused!"
+	},
+	"play": {
+		"description": "Play a music",
+		"missing_title": "{emote} - Please indicate the title of a song!",
+		"error": "Warning an error as occured\n{error}"
+	},
+	"queue": {
+		"description": "Get the queue of the bot",
+		"queue": "**Server queue - {guild_name} {emote}**\nCurrent: {title} | {author}\n\n",
+		"requested_by": "Requested by",
+		"number": "And **{number}** other songs...",
+		"number1": "In the playlist **{number}** song(s)..."
+	},
+	"repeat": {
+		"description": "Enable or disable repeat mode for the server (play the queue again and again)",
+		"enabled": "{emote} - Reapeat mode **enabled**!",
+		"disabled": "{emote} - Reapeat mode **disabled**"
+	},
+	"resume": {
+		"description": "Resume the paused music?",
+		"currently_playing": "{emote} - The music is already playing!",
+		"resumed": "Song {music} has been resumed!"
+	},
+	"": {
+		"description": "Shuffle the playlist",
+		"msg": "{emote} - Queue d **{number}** song(s) !"
+	},
+	"skip": {
+		"description": "Skip the current music",
+		"msg": "{emote} - The current music has just been **skipped**!"
+	},
+	"stop": {
+		"description": "Stop the current music",
+		"msg": "{emote} - Music **stopped** into this server!"
+	},
+	"spotifyinfos": {
+		"description": ""
+	},
+	"volume": {
+		"description": "Set the volume of the music",
+		"valid_number": "{emote} - Please enter a valid number (between 1 and 100)!",
+		"volume_set": "{emote} - Volume set to **{number}%**!"
+	},
+	"w-filters": {
+		"description": "List of all filters enabled or disabled",
+		"filters": "Filters",
+		"filters_list": "List of all filters enabled or disabled.\nUse `{prefix}filter [filter]` to add a filter to a song."
+	},
+	"common": {
+		"wait": "**Please Wait...**",
+		"yes": "Yes",
+		"no": "No"
 	}
 }

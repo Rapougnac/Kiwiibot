@@ -26,7 +26,7 @@ module.exports = class FilterCommand extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        this.config.string[0].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -34,17 +34,17 @@ module.exports = class FilterCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        this.config.string[1].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        this.config.string[2].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     if (!args[0])
       return message.channel.send(
-        this.config.string[3].format(client.emotes.error)
+        message.guild.i18n.__mf("filter.valid_filter",{emote: this.client.emotes.error})
       );
 
     const filterToUpdate = client.filters.find(
@@ -53,7 +53,7 @@ module.exports = class FilterCommand extends Command {
 
     if (!filterToUpdate)
       return message.channel.send(
-        this.config.string[4].format(client.emotes.error)
+        message.guild.i18n.__mf("filter.not_existing_filter",{emote: this.client.emotes.error})
       );
 
     const filtersUpdated = {};
@@ -68,11 +68,11 @@ module.exports = class FilterCommand extends Command {
 
     if (filtersUpdated[filterToUpdate])
       message.channel.send(
-        this.config.string[5].format(client.emotes.music)
+        message.guild.i18n.__mf("filter.adding_filter",{emote: this.client.emotes.music})
       );
     else
       message.channel.send(
-        this.config.string[6].format(client.emotes.music)
+        message.guild.i18n.__mf("filter.removing_filter",{emote: this.client.emotes.music})
       );
   }
 };

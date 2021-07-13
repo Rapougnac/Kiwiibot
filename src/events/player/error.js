@@ -1,28 +1,27 @@
-const { language } = require('../../../language');
 module.exports = (client, error, message) => {
   const { guild } = message;
   switch (error) {
     case 'NotPlaying': {
       message.channel.send(
-        language(guild, 'PlayerError')[0].format(client.emotes.error)
+        guild.i18n.__mf("player.events.PlayerError.no_music",{emote: client.emotes.error})
       );
       break;
     }
     case 'NotConnected': {
       message.channel.send(
-        language(guild, 'PlayerError')[1].format(client.emotes.error)
+        guild.i18n.__mf("player.events.PlayerError.no_voice_connection",{emote: client.emotes.error})
       );
       break;
     }
     case 'UnableToJoin': {
       message.channel.send(
-        language(guild, 'PlayerError')[2].format(client.emotes.error)
+        guild.i18n.__mf("player.events.PlayerError.unable_join",{emote: client.emotes.error})
       );
       break;
     }
     default: {
       message.channel.send(
-        language(guild, 'PlayerError')[2].format(client.emotes.error, error)
+        guild.i18n.__mf("player.events.PlayerError.error",{emote: client.emotes.error, error: error})
       );
     }
   }

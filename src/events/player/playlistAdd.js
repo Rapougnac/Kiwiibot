@@ -1,4 +1,4 @@
-const { language } = require('../../../language');
 module.exports = (client, message, playlist) => {
-    message.channel.send(language(message.guild, 'playlistAdd')[0].format(client.emotes.music, playlist.title, playlist.items.length));
+    const msg = message.guild.i18n.__mf("player.events.playlistAdd",{emote: client.emotes.music,music: playlist.title,number: playlist.items.length})
+    message.channel.send(msg);
 };

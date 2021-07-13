@@ -23,7 +23,7 @@ module.exports = class BackCommand extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        `${client.emotes.error} - You're not in a voice channel !`
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -31,18 +31,18 @@ module.exports = class BackCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        `${client.emotes.error} - You are not in the same voice channel !`
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        `${client.emotes.error} - No music currently playing !`
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     client.player.back(message);
 
     message.channel.send(
-      `${client.emotes.success} - The current music has just been **backed** !`
+      message.guild.i18n.__mf("back.msg",{emote: this.client.emotes.success})
     );
   }
 };

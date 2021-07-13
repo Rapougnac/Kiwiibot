@@ -1,4 +1,3 @@
-const { language } = require('../../../language')
 module.exports = (client, message, queue) => {
-    message.channel.send(language(message.guild, 'channelEmpty')[0].format(client.emotes.error));
+    message.channel.send(message.guild.i18n.__mf("player.events.channelEmpty"),{emote: client.emotes.error});
 };

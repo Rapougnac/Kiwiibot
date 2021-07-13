@@ -25,7 +25,7 @@ module.exports = class VolumeCommand extends Command {
     const string = this.config.string;
     if (!message.member.voice.channel)
       return message.channel.send(
-        string[0].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -33,17 +33,17 @@ module.exports = class VolumeCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        string[1].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        string[2].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     if (!args[0] || isNaN(args[0]))
       return message.channel.send(
-        string[3].format(client.emotes.error)
+        message.guild.i18n.__mf("volume.valid_number",{emote: client.emotes.error})
       );
 
     if (
@@ -51,13 +51,13 @@ module.exports = class VolumeCommand extends Command {
       Math.round(parseInt(args[0])) > 100
     )
       return message.channel.send(
-        string[3].format(client.emotes.error)
+        message.guild.i18n.__mf("volume.valid_number",{emote: client.emotes.error})
       );
 
     client.player.setVolume(message, args[0]);
 
     message.channel.send(
-      string[4].format(client.emotes.success, parseInt(args[0]))
+      message.guild.i18n.__mf("volume.volume_set",{emote: client.emotes.success,number: parseInt(args[0])})
     );
   }
 };

@@ -49,7 +49,7 @@ module.exports = class LoopCommand extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        this.config.string[0]
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -57,23 +57,23 @@ module.exports = class LoopCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        this.config.string[1].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        this.config.string[2].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     if (client.player.getQueue(message).repeatMode) {
       client.player.setRepeatMode(message, false);
       return message.channel.send(
-        this.config.string[3].format(client.emotes.success)
+        message.guild.i18n.__mf("loop.disabled",{emote: this.client.emotes.success})
       );
     } else {
       client.player.setRepeatMode(message, true);
       return message.channel.send(
-        this.config.string[4].format(client.emotes.success)
+        message.guild.i18n.__mf("loop.enabled",{emote: this.client.emotes.success})
       );
     }
   }

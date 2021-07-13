@@ -27,13 +27,13 @@ module.exports = class AnimeCommand extends Command {
     const kitsu = new Kitsu();
     const search = args.join(' ');
     if (!search) {
-      return message.channel.send(this.config.string[0]);
+      return message.channel.send(message.guild.i18n.__mf("anime.specify"));
     }
     kitsu
       .searchAnime(search)
       .then(async (result) => {
         if (result.length === 0) {
-          return message.channel.send(this.config.string[1].format(search));
+          return message.channel.send(message.guild.i18n.__mf("anime.not_found"),{search: search});
         }
         if (result.length > 2) {
           const x = dropRight(result, result.length - 20);
@@ -48,9 +48,9 @@ module.exports = class AnimeCommand extends Command {
           await message.channel.send({
             embed: {
               author: {
-                name: this.config.string[9],
+                name: message.guild.i18n.__mf("anime.stop_collect_msg"),
               },
-              title: this.config.string[14],
+              title: message.guild.i18n.__mf("anime.choose"),
               description: string,
               footer: {
                 text: `Requested by ${message.author.username}`,
@@ -89,7 +89,7 @@ module.exports = class AnimeCommand extends Command {
           let c;
           x.forEach((y, counter) => (c = counter + 1));
           if (!continued)
-            return message.channel.send(this.config.string[15].format(c));
+            return message.channel.send(message.guild.i18n.__mf("anime.number_range"),{number: c});
           else {
             const anime = x[number - 1];
             const embed = new MessageEmbed()
@@ -112,28 +112,28 @@ module.exports = class AnimeCommand extends Command {
 
                 .addField(
                   '❯\u2000 Informations',
-                  `•\u2000 **${this.config.string[2]}** ${
+                  `•\u2000 **${message.guild.i18n.__mf("anime.japanese_name")}** ${
                     anime.titles.romaji
-                  }\n•\u2000 **${this.config.string[3]}** ${
+                  }\n•\u2000 **${message.guild.i18n.__mf("anime.age")}** ${
                     anime.ageRatingGuide
                   }\n•\u2000 **NSFW:** ${
-                    anime.nsfw ? this.config.string[4] : this.config.string[5]
+                    anime.nsfw ? message.guild.i18n.__mf("anime.yes") : message.guild.i18n.__mf("anime.no")
                   }`,
                   true
                 )
                 .addField(
-                  `❯\u2000 ${this.config.string[10]}`,
-                  `•\u2000 **${this.config.string[6]}** ${anime.averageRating}\n•\u2000 **${this.config.string[7]}** ${anime.ratingRank}\n•\u2000 **${this.config.string[8]}** ${anime.popularityRank}`,
+                  `❯\u2000 ${message.guild.i18n.__mf("anime.stats")}`,
+                  `•\u2000 **${message.guild.i18n.__mf("anime.note")}** ${anime.averageRating}\n•\u2000 **${message.guild.i18n.__mf("anime.rank")}** ${anime.ratingRank}\n•\u2000 **${message.guild.i18n.__mf("anime.poularity")}** ${anime.popularityRank}`,
                   true
                 )
                 .addField(
                   '❯\u2000 Status',
                   `•\u2000 **Episodes:** ${
                     anime.episodeCount ? anime.episodeCount : 'N/A'
-                  }\n•\u2000 **${this.config.string[11]}:** ${
+                  }\n•\u2000 **${message.guild.i18n.__mf("anime.beginning")}:** ${
                     anime.startDate
-                  }\n•\u2000 **${this.config.string[12]}:** ${
-                    anime.endDate ? anime.endDate : this.config.string[13]
+                  }\n•\u2000 **${message.guild.i18n.__mf("anime.end")}:** ${
+                    anime.endDate ? anime.endDate : message.guild.i18n.__mf("anime.in_progress")
                   }`,
                   true
                 )
@@ -163,28 +163,28 @@ module.exports = class AnimeCommand extends Command {
               )
               .addField(
                 '❯\u2000 Informations',
-                `•\u2000 **${this.config.string[2]}** ${
+                `•\u2000 **${message.guild.i18n.__mf("anime.japanese_name")}** ${
                   anime.titles.romaji
-                }\n•\u2000 **${this.config.string[3]}** ${
+                }\n•\u2000 **${message.guild.i18n.__mf("anime.age")}** ${
                   anime.ageRatingGuide
                 }\n•\u2000 **NSFW:** ${
-                  anime.nsfw ? this.config.string[4] : this.config.string[5]
+                  anime.nsfw ? message.guild.i18n.__mf("anime.yes") : message.guild.i18n.__mf("anime.no")
                 }`,
                 true
               )
               .addField(
-                `❯\u2000 ${this.config.string[10]}`,
-                `•\u2000 **${this.config.string[6]}** ${anime.averageRating}\n•\u2000 **${this.config.string[7]}** ${anime.ratingRank}\n•\u2000 **${this.config.string[8]}** ${anime.popularityRank}`,
+                `❯\u2000 ${message.guild.i18n.__mf("anime.stats")}`,
+                `•\u2000 **${message.guild.i18n.__mf("anime.note")}** ${anime.averageRating}\n•\u2000 **${message.guild.i18n.__mf("anime.rank")}** ${anime.ratingRank}\n•\u2000 **${message.guild.i18n.__mf("anime.popularity")}** ${anime.popularityRank}`,
                 true
               )
               .addField(
                 '❯\u2000 Status',
                 `•\u2000 **Episodes:** ${
                   anime.episodeCount ? anime.episodeCount : 'N/A'
-                }\n•\u2000 **${this.config.string[11]}** ${
+                }\n•\u2000 **${message.guild.i18n.__mf("anime.beginning")}** ${
                   anime.startDate
-                }\n•\u2000 **${this.config.string[12]}** ${
-                  anime.endDate ? anime.endDate : this.config.string[13]
+                }\n•\u2000 **${message.guild.i18n.__mf("anime.end")}** ${
+                  anime.endDate ? anime.endDate : message.guild.i18n.__mf("anime.in_progress")
                 }`,
                 true
               )
@@ -195,7 +195,7 @@ module.exports = class AnimeCommand extends Command {
       })
       .catch((err) => {
         console.error(err.stack); //catching error
-        return message.channel.send(this.config.string[1].format(search));
+        return message.channel.send(message.guild.i18n.__mf("anime.not_found"),{search: search});
       });
   }
 };

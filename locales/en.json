@@ -45,5 +45,24 @@
 		"not_supported_language": "This language is not supported yet!",
 		"set_language": "Language has been setted!",
 		"database_error": "\\⚠️[DATABASE ERROR] The database responded with the following error: {error}"
+	},
+	"anime":{
+		"description": "Get informations about the specified anime",
+		"specify": "Please, specify an anime!",
+		"not_found": "No results was found for **{search}**!",
+		"japanese_name": "Name in japanese",
+		"age": "Public age",
+		"yes": "Yes",
+		"no": "No",
+		"note": "Global note",
+		"rank": "Ranking:",
+		"poularity": "Popularity:",
+		"stop_collect_msg": "The message will stop to collect messages in 60 seconds",
+		"stats": "Stats",
+		"beginning": "Beginning",
+		"end": "End",
+		"in_progress": "In progress...",
+		"choose": "Choose your anime between the displayed numbers",
+		"number_range": "Please insert a number between 1 and {number}"
 	}
 }

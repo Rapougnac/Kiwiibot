@@ -62,7 +62,7 @@ module.exports = class HelpCommand extends Command {
         )
         .setColor('ORANGE')
         .setTimestamp()
-        .setFooter(this.config.string[18].format(client.prefix));
+        .setFooter(message.guild.i18n.__mf(`help.cmd_usage`,{prefix: client.prefix}));
 
       message.channel.send(embed);
     } else {
@@ -77,66 +77,67 @@ module.exports = class HelpCommand extends Command {
 
       if (!command)
         return message.channel.send(
-          `\\${client.emotes.error} - ${this.config.string[0]}`
+          `\\${client.emotes.error} - ${message.guild.i18n.__mf('help.not_found')}`
         );
 
+      const description = message.guild.i18n.__mf(`${command.help.name}.description`);
       await message.channel.send({
         embed: {
           color: 'ORANGE',
-          author: { name: this.config.string[1] },
+          author: { name: message.guild.i18n.__mf('help.title')},
           fields: [
-            { name: this.config.string[2], value: command.help.name, inline: true },
+            { name: message.guild.i18n.__mf('help.name'), value: command.help.name, inline: true },
             {
-              name: this.config.string[3],
+              name: message.guild.i18n.__mf('help.category'),
               value: _.upperFirst(command.help.category),
               inline: true,
             },
             {
-              name: this.config.string[4],
+              name: message.guild.i18n.__mf('help.alias'),
               value:
                 command.config.aliases.length < 1
-                  ? this.config.string[5]
+                  ? message.guild.i18n.__mf('help.none_alias')
                   : command.config.aliases.join('\n'),
               inline: true,
             },
             {
-              name: this.config.string[8],
+              name: message.guild.i18n.__mf('help.usage'),
               value: command.help.utilisation.replace('{prefix}', client.prefix),
               inline: true,
             },
             {
               name: 'Cooldown',
               value: command.config.cooldown
-                ? `${command.config.cooldown} ${this.config.string[7]}`
-                : this.config.string[6],
+                ? `${command.config.cooldown} ${message.guild.i18n.__mf('help.seconds')}`
+                : message.guild.i18n.__mf('help.none_cooldown'),
               inline: true,
             },
             {
-              name: this.config.string[9],
+              name: message.guild.i18n.__mf('help.guild_only'),
               value: command.config.guildOnly
-                ? this.config.string[15]
-                : this.config.string[16],
+                ? message.guild.i18n.__mf('help.yes')
+                : message.guild.i18n.__mf('help.no'),
               inline: true,
             },
             {
-              name: this.config.string[10],
+              name: message.guild.i18n.__mf('help.admin_only'),
               value: command.config.adminOnly
-                ? this.config.string[15]
-                : this.config.string[16],
+                ? message.guild.i18n.__mf('help.yes')
+                : message.guild.i18n.__mf('help.no'),
               inline: true,
             },
             {
-              name: this.config.string[11],
+              name: message.guild.i18n.__mf('help.owner_only'),
               value: command.config.ownerOnly
-                ? this.config.string[15]
-                : this.config.string[16],
+                ? message.guild.i18n.__mf('help.yes')
+                : message.guild.i18n.__mf('help.no'),
               inline: true,
             },
             {
-              name: this.config.string[12],
+              name: message.guild.i18n.__mf('help.user_permissions'),
               value:
                 command.config.permissions.length === 0
-                  ? this.config.string[17]
+                  ? message.guild.i18n.__mf('help.no_permissions')
                   : command.config.permissions.map((x) =>
                       x
                         .toLowerCase()
@@ -148,10 +149,10 @@ module.exports = class HelpCommand extends Command {
               inline: true,
             },
             {
-              name: this.config.string[13],
+              name: message.guild.i18n.__mf('help.bot_permissions'),
               value:
                 command.config.clientPermissions.length === 0
-                  ? this.config.string[17]
+                  ? message.guild.i18n.__mf('help.no_permissions')
                   : command.config.clientPermissions.map((x) =>
                       x
                         .toLowerCase()
@@ -162,10 +163,10 @@ module.exports = class HelpCommand extends Command {
                     ),
               inline: true,
             },
-            { name: 'Description', value: command.help.description, inline: false },
+            { name: 'Description', value: description, inline: false },
           ],
           timestamp: new Date(),
-          description: this.config.string[14],
+          description: message.guild.i18n.__mf('help.information'),
         },
       });
     }

@@ -1,0 +1,32 @@
+{
+	"ping": {
+		"description": "Ping!",
+		"msg": "🏓 P{pong}ng! The ping is: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
+	},
+	"help": {
+		"title": "Help pannel",
+		"name": "Name",
+		"category": "Category",
+		"alias": "Aliase(s)",
+		"none_cooldown": "None",
+		"none_alias": "None",
+		"none": "None",
+		"seconds": "seconds",
+		"usage": "Usage",
+		"not_found": "I didn't find this command!",
+		"guild_only": "Command can only be used in servers",
+		"admin_only": "If the command require the `ADMINISTRATOR` permission",
+		"owner_only": "If the command can be used only by the owner",
+		"description": "Get the help command",
+		"user_permissions": "User's permissions",
+		"bot_permissions": "Bot's permissions",
+		"information": "Find information on the command provided.\nMandatory arguments `[]`, optional arguments `<>`.",
+		"yes": "Yes",
+		"no": "No",
+		"no_permissions": "No permission required",
+		"cmd_usage": "Do {prefix}help [command] to get more information about it."
+	},
+	"undefined": {
+		"description": "undefined.description"
+	}
+}

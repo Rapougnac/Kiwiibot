@@ -193,7 +193,11 @@
 		"on": "On",
 		"at": "at",
 		"static_emotes": "static emojis"
-	}
+	},
+	"uptime":{
+		"description": "Get the uptime of the bot",
+		"msg": "**{emote}** is since `{days} days` `{hours} hours` `{minutes} minutes` and `{seconds} seconds` online"
+	},
 	"player": {
 		"events": {
 			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",

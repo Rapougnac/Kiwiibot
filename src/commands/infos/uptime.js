@@ -27,9 +27,11 @@ module.exports = class UptimeCommand extends Command {
     const hours = this.client.utils.parseMs(client.uptime).hours;
     const days = this.client.utils.parseMs(client.uptime).days;
     this.inlineReply(
-      `${this.config.string[0].format(
-        client.user.username, days, hours, minutes, seconds
-      )}`
+      message.guild.i18n.__mf("uptime.msg",{
+        days: days, 
+        hours: hours,
+        minutes: minutes, 
+        seconds: seconds})
     );
   }
 };

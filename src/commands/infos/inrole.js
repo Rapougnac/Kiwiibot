@@ -32,7 +32,7 @@ module.exports = class InRoleCommand extends Command {
           r.name.toLowerCase().endsWith(args.join(' ').toLowerCase())
       );
     if (args.length <= 0) role = null;
-    if (!role) return this.inlineReply(this.config.string[1]);
+    if (!role) return this.inlineReply(message.guild.i18n.__mf('inrole.missing_role'));
     const memRole = message.guild.roles.cache
           .get(role.id)
           .members.map((m) =>`${m.user.tag}${(m.user.bot ? '[BOT]' : '')}`).join('\n')/*.sort((a, b) => a.localeCompare(b)).join(', ')*/
@@ -45,7 +45,7 @@ module.exports = class InRoleCommand extends Command {
           format: 'png',
         })
       )
-      .setTitle(this.config.string[0].format(role.name))
+      .setTitle(message.guild.i18n.__mf('inrole.dislay_role',{role_name: role.name}))
       .setColor(role.color)
       .setDescription(`\`\`\`css\n${memRole}\`\`\``);
     this.respond(embed);

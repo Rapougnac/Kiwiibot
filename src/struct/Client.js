@@ -8,7 +8,6 @@
  * @typedef {User|Snowflake|Message|GuildMember} UserResolvable
  */
 const { Client, Collection, ClientOptions } = require('discord.js');
-const { sep } = require('path');
 const Console = require('../util/console');
 const glob = require('glob');
 const { readdir, readdirSync } = require('fs');
@@ -22,6 +21,7 @@ const Util = require('./Util');
 const Command = require('./Command');
 const { Player } = require('discord-player');
 const ProcessEvent = require('../util/processEvents');
+const path = require('path');
 const RestManager = require('discord.js/src/rest/RESTManager');
 /**
  * Represents a discord client
@@ -161,55 +161,47 @@ class KiwiiClient extends Client {
    */
   loadCommands() {
     let files = glob.sync('src/commands' + '/**/*.js');
+    const exclude = this.config.discord.dev.exclude_cmd;
+    const include = this.config.discord.dev.include_cmd;
     if (this.config.discord.dev.active) {
-      if (this.config.discord.dev.include_cmd.length) {
-        for (const File of this.config.discord.dev.include_cmd) {
-          files = files.filter((file) => file.endsWith(File));
-        }
+      if (include.length) {
+        files = files.filter((file) => include.includes(path.parse(file).base));
       }
-      if (this.config.discord.dev.exclude_cmd.length) {
-        for (const File of this.config.discord.dev.exclude_cmd) {
-          files = files.filter((file) => !file.endsWith(File));
-        }
-      }
+      if (exclude.length) {
+        files = files.filter((file) => !exclude.includes(path.parse(file).base));
     }
     files.forEach((file) => {
       try {
+
         /**
          * @type {Command}
          */
-        const command = new (require(`${process.cwd()}${sep}${file}`))(this);
-        // let command;
-        // if (process.platform === 'win32')
-        //   command = new (require(`${process.cwd()}\\${file
-        //     .split('/')
-        //     .join('\\')}`))(this);
-        // else if (process.platform === 'linux')
-        //   command = new (require(`${process.cwd()}/${file}`))(this);
+        const file_path = `${process.cwd()}${path.sep}${file}`;
+        const command = new (require(file_path))(this);
+
         if (this.commands.has(command.help.name)) {
           console.error(
             new Error(`Command name duplicate: ${command.help.name}`).stack
           );
           return process.exit(1);
-        } else {
-          this.commands.set(command.help.name, command);
-          if (command.help.category === '' || !command.help.category)
-            command.help.category = 'unspecified';
-          //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
-          this.categories.add(command.help.category);
-          if (command.config.aliases) {
-            command.config.aliases.forEach((alias) => {
-              if (this.aliases.has(alias)) {
-                console.error(
-                  new Error(`Alias name duplicate: ${command.config.aliases}`)
-                    .stack
-                );
-                return process.exit(1);
-              } else {
-                this.aliases.set(alias, command);
-              }
-            });
-          }
+        }
+        this.commands.set(command.help.name, command);
+        if (command.help.category === '' || !command.help.category)
+          command.help.category = 'unspecified';
+        //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
+        this.categories.add(command.help.category);
+        if (command.config.aliases) {
+          command.config.aliases.forEach((alias) => {
+            if (this.aliases.has(alias)) {
+              console.error(
+                new Error(`Alias name duplicate: ${command.config.aliases}`)
+                  .stack
+              );
+              return process.exit(1);
+            } else {
+              this.aliases.set(alias, command);
+            }
+          });
         }
       } catch (error) {
         console.log(error);

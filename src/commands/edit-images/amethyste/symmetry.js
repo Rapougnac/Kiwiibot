@@ -99,7 +99,7 @@
 //           )
 //         )
 //           return message.channel.send(embederr);
-//         let m = await message.channel.send(this.config.string[0]);
+//         let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
 //         const buffer = await AmeAPI.generate('symmetry', {
 //           url: message.author.displayAvatarURL({ format: 'png', size: 2048 }),
 //           orientation: args[0],
@@ -121,7 +121,7 @@
 //           )
 //         )
 //           return message.channel.send(embederr);
-//         let m = await message.channel.send(this.config.string[0]);
+//         let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
 //         const buffer = await AmeAPI.generate('symmetry', {
 //           url: User.user.displayAvatarURL({ format: 'png', size: 2048 }),
 //           orientation: args[1],
@@ -241,7 +241,7 @@ module.exports = class SymmetryCommand extends Command {
           )
         )
           return message.channel.send(embederr);
-        let m = await message.channel.send(this.config.string[0]);
+        let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
         const buffer = await AmeAPI.generate('symmetry', {
           url: message.author.displayAvatarURL({ format: 'png', size: 2048 }),
           orientation: args[0],
@@ -264,7 +264,7 @@ module.exports = class SymmetryCommand extends Command {
           )
         )
           return message.channel.send(embederr);
-        let m = await message.channel.send(this.config.string[0]);
+        let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
         const buffer = await AmeAPI.generate('symmetry', {
           url: member.user.displayAvatarURL({ format: 'png', size: 2048 }),
           orientation: args[1],

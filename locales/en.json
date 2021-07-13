@@ -70,5 +70,86 @@
 		"missing_query": "Please specify a query!",
 		"docs_fetch_error": "I couldn't fetch the docs!",
 		"valid_sources": "This doesn't seem to be a valid source, sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`"
+	},
+	"mdn":{
+		"description": ""
+	},
+	"sendpins":{
+		"description": "Sends all pinned message(s)"
+	},
+	"tag":{
+		"description": "Search trough all the tags"
+	},
+	"3000y":{
+		"description": "Sends you, or the specified member with the 3000y meme"
+	},
+	"fusion": {
+		"description": "Fusionnate your profile pictur with the specified member"
+	},
+	"approved":{
+		"description": "If your approuved that\\'s very cool"
+	},
+	"batslap": {
+		"description": "Slap a user with the power of batman"
+	},
+	"beautiful": {
+		"description": "You\\'re very beautiful"
+	},
+	"blur": {
+		"description": "Blur your profile picture"
+	},
+	"blurple": {
+		"description": "Blur your profile picture, but with a beautiful blue filter"
+	},
+	"brazzers": {
+		"description": ""
+	},
+	"challenger": {
+		"description": "A new foe has appared!"
+	},
+	"house":{
+		"description": "Show your avatar with your discord house arround, beautiful isn\\'t it?"
+	},
+	"distort":{
+		"description": "Distort your profile profile picture"
+	},
+	"facebook":{
+		"description": ""
+	},
+	"fire":{
+		"description": ""
+	},
+	"jail":{
+		"description": "Go to horny jail!"
+	},
+	"lookwhatkarenhave":{
+		"description": "Well, all is in the name, look what karen have"
+	},
+	"magik":{
+		"description": "You\'ll be magik"
+	},
+	"moustache": {
+		"description": ""
+	},
+	"pixelize": {
+		"description": ""
+	},
+	"ps4": {
+		"description": "You, but in a ps4 game, cool no?"
+	},
+	"scary":{
+		"description": "Scare the little girl by your beautiful profile picture"
+	},
+	"symmetry":{
+		"description": "Symmetry yourself with the tags listed"
+	},
+	"thanos":{
+		"description": ""
+	},
+	"vs":{
+		"description": "An epic combat against your opponent, or you if you have no friends"
+	},
+	"common":{
+		"wait": "**Please Wait...**"
 	}
 }

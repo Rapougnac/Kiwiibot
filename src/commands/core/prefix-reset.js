@@ -25,7 +25,7 @@ module.exports = class PrefixResetCommand extends Command {
    * @param {String[]} args
    */
   async execute(client, message, args) {
-    message.channel.send(this.config.string[0]).then(async (msg) => {
+    message.channel.send(message.guild.i18n.__mf('prefix-reset.reset_prefix')).then(async (msg) => {
       const emoji = await confirmation(
         msg,
         message.author,
@@ -35,11 +35,11 @@ module.exports = class PrefixResetCommand extends Command {
       if (emoji === '✅') {
         msg.delete();
         await prefixSchema.findOneAndDelete({ GuildID: message.guild.id });
-        message.channel.send(this.config.string[1].format(client.prefix));
+        message.channel.send(message.guild.i18n.__mf('prefix-reset.confirmation'),{prefix: client.prefix});
       }
       if (emoji === '❌') {
         msg.delete();
-        return message.channel.send(this.config.string[2]);
+        return message.channel.send(message.guild.i18n.__mf('prefix-reset.confirmation'));
       }
     });
   }

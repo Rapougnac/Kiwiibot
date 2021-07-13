@@ -33,5 +33,11 @@
 		"database_error": "\\⚠️[DATABASE ERROR] The database responded with the following error: {error}",
 		"updated_prefix": "My prefix has been updated to **{prefix}**",
 		"new_prefix": "Prefix in this server is now set to **{prefix}**"
+	},
+	"prefix-reset":{
+		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
+		"reset_prefix": "Are you sure you want to reset the prefix?",
+		"confirmation": "The prefix has been resetted to `{prefix}`",
+		"canceled": "Prefix reset has been canceled!"
 	}
 }

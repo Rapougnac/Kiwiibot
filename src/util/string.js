@@ -102,16 +102,15 @@ function compactNum(number, maximumFractionDigits = 2) {
 
 /**
  * Joins array via oxford comma and append 'and' on last 2 items
- * @param {Array<*>} array the array to join
+ * @param {*[]} array the array to join
  * @returns {string} the joined array
  */
 function joinArray(array = []) {
   return list.format(array.map((x) => String(x)));
 }
-
 /**
  * Join array and add a limiter.
- * @param {Array<*>} array the array to join
+ * @param {*[]} array the array to join
  * @param {number} limit the maximum length of the string output
  * @param {string} connector similar to param of `array.join()`
  * @example joinArrayAndLimit([1,2,3,4,5,6,7,8,9,10,11])

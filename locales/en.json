@@ -126,7 +126,7 @@
 		"description": "Well, all is in the name, look what karen have"
 	},
 	"magik":{
-		"description": "You\'ll be magik"
+		"description": "You\\'ll be magik"
 	},
 	"moustache": {
 		"description": ""
@@ -141,7 +141,16 @@
 		"description": "Scare the little girl by your beautiful profile picture"
 	},
 	"symmetry":{
-		"description": "Symmetry yourself with the tags listed"
+		"description": "Symmetry yourself with the tags listed",
+		"error": "Error, you must be use tags listed here:",
+		"left-right": "The symmetry will be from the left to the right",
+		"right-left": "The symmetry will be from the right to the left",
+		"top-bottom": "The symmetry will be from the top to the bottom",
+		"bottom-top": "The symmetry will be from the bottom to the top",
+		"top-left": "The symmetry will be from the top to the left",
+		"top-right": "The symmetry will be from the top to the right",
+		"bottom-left": "The symmetry will be from the bottom to the left",
+		"bottom-right": "The symmetry will be from the bottom to the right"
 	},
 	"thanos":{
 		"description": ""

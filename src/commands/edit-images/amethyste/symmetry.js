@@ -162,49 +162,49 @@ module.exports = class SymmetryCommand extends Command {
     const AmeAPI = new AmeClient(client.config.amethyste.client);
     {
       const embederr = new MessageEmbed({
-        title: this.config.string[1],
+        title: message.guild.i18n.__mf("error"),
         color: 'RED',
         description:
           'Tags:\n_left-right_\n_right-left_\n_top-bottom_\n_bottom-top_\n_top-left_\n_top-right_\n_bottom-left_\n_bottom-right_',
         fields: [
           {
             name: 'left-right',
-            value: this.config.string[2],
+            value: message.guild.i18n.__mf("left-right"),
             inline: true,
           },
           {
             name: 'right-left',
-            value: this.config.string[3],
+            value: message.guild.i18n.__mf("right-left"),
             inline: true,
           },
           {
             name: 'top-bottom',
-            value: this.config.string[4],
+            value: message.guild.i18n.__mf("top-bottom"),
             inline: true,
           },
           {
             name: 'bottom-top',
-            value: this.config.string[5],
+            value: message.guild.i18n.__mf("bottom-top"),
             inline: true,
           },
           {
             name: 'top-left',
-            value: this.config.string[6],
+            value: message.guild.i18n.__mf("top-left"),
             inline: true,
           },
           {
             name: 'top-right',
-            value: this.config.string[7],
+            value: message.guild.i18n.__mf("top-right"),
             inline: true,
           },
           {
             name: 'bottom-left',
-            value: this.config.string[8],
+            value: message.guild.i18n.__mf("bottom-left"),
             inline: true,
           },
           {
             name: 'bottom-right',
-            value: this.config.string[9],
+            value: message.guild.i18n.__mf("bottom-right"),
             inline: true,
           },
         ],

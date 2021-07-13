@@ -34,11 +34,11 @@ module.exports = class DocsCommand extends Command {
       'collection',
     ];
     const query = args.join(' ').split(/ +--src/g)[0];
-    if (!query) return this.inlineReply(this.config.string[0]);
+    if (!query) return this.inlineReply(message.guild.i18n.__mf("docs.missing_query"));
     let source;
     if (message.content.includes('--src')) {
       source = args[args.length - 1];
-      if(sources.indexOf(source) === -1) return this.respond(this.config.string[2]);
+      if(sources.indexOf(source) === -1) return this.respond(message.guild.i18n.__mf("docs.valid_sources"));
       const url = `https://djsdocs.sorta.moe/v2/embed?src=${source}&q=${encodeURIComponent(
         query
       )}`;
@@ -46,7 +46,7 @@ module.exports = class DocsCommand extends Command {
         if (data) {
           message.channel.send({ embed: data });
         } else {
-          return message.channel.send(this.config.string[1]);
+          return message.channel.send(message.guild.i18n.__mf("docs.docs_fetch_error"));
         }
       });
     } else {
@@ -58,7 +58,7 @@ module.exports = class DocsCommand extends Command {
         if (data) {
           message.channel.send({ embed: data });
         } else {
-          return message.channel.send(this.config.string[1]);
+          return message.channel.send(message.guild.i18n.__mf("docs.docs_fetch_error"));
         }
       });
     }

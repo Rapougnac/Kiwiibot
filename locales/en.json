@@ -64,5 +64,11 @@
 		"in_progress": "In progress...",
 		"choose": "Choose your anime between the displayed numbers",
 		"number_range": "Please insert a number between 1 and {number}"
+	},
+	"docs":{
+		"description": "Get the djs doc in an embed, you can specify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`",
+		"missing_query": "Please specify a query!",
+		"docs_fetch_error": "I couldn't fetch the docs!",
+		"valid_sources": "This doesn't seem to be a valid source, sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`"
 	}
 }

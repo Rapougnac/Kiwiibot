@@ -26,7 +26,12 @@
 		"no_permissions": "No permission required",
 		"cmd_usage": "Do {prefix}help [command] to get more information about it."
 	},
-	"undefined": {
-		"description": "undefined.description"
+	"setprefix":{
+		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
+		"missing_prefix": "Please specify a prefix!",
+		"prefix_length": "Error, my prefix cannot be longer than 5 characters!",
+		"database_error": "\\⚠️[DATABASE ERROR] The database responded with the following error: {error}",
+		"updated_prefix": "My prefix has been updated to **{prefix}**",
+		"new_prefix": "Prefix in this server is now set to **{prefix}**"
 	}
 }

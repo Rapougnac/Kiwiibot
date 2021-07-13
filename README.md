@@ -32,7 +32,7 @@ Don't put the `[]` in the command prompt
 
 ## Usage
 
-Open configexample.json
+Open configexample.js
 And change the following values:
 
 ```js

@@ -8,7 +8,7 @@ module.exports = class SetLangCommand extends Command {
     super(client, {
       name: 'setlanguage',
       aliases: ['setlang'],
-      description: '',
+      description: 'Set the language of the bot',
       category: 'core',
       cooldown: 5,
       utilisation: '{prefix}setlang [language]',

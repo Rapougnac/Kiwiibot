@@ -1,14 +1,10 @@
-const {
-  Message,
-  MessageEmbed,
-  MessageAttachment,
-} = require('discord.js');
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
 const moment = require('moment');
 require('moment-duration-format');
 const languageSchema = require('../../models/languageSchema');
-const { convertUFB } = require('../../util/string')
+const { convertUFB } = require('../../util/string');
 module.exports = class UserInfoCommand extends Command {
   /**
    *@param {Client} client
@@ -78,6 +74,16 @@ module.exports = class UserInfoCommand extends Command {
       }
       if (member.premiumSinceTimestamp > 0) {
         userFlags.push('<:ServerBooster:850729871477833759>');
+      }
+      if (
+        (user.avatar && user.avatar.startsWith('a_')) ||
+        member.premiumSince ||
+        client.owners.includes(member.id)
+      ) {
+        userFlags.push('<:Discord_Nitro:859137224187707402>');
+      }
+      if(this.client.isOwner(user)) {
+        userFlags.push('<:Bot_Owner:864234649960972298>');
       }
       switch (status) {
         case 'dnd': {
@@ -212,9 +218,6 @@ module.exports = class UserInfoCommand extends Command {
         )
         .setFooter(`ID : ${member.id}`)
         .setColor(member.displayHexColor || 'GREY');
-        // if(member.id === mem.id) {
-        //   console.log(this.newPresence, this.oldPresence)
-        // }
       message.channel.send(embeduser);
     } else {
       this.inlineReply(this.config.string[21]);

@@ -1,5 +1,5 @@
 {
-  "languages": ["english", "french", "italian"],
+  "languages": ["english", "french"],
   "translations": {
     "ping": {
       "english": ["🏓 P{0}ng! The ping is: `{1}ms`\nHeartbeat: `{2}ms`"],
@@ -105,7 +105,7 @@
         "Member",
         "Name and discrim",
         "Nickname",
-        "Not set",
+        "[---](https://youtu.be/dQw4w9WgXcQ)",
         "Account creation date",
         "On",
         "at",
@@ -127,9 +127,9 @@
         "Bureau {0}",
         "Utilisateur {0}",
         "Membre",
-        "Nom et tag",
-        "Pseudo",
-        "Ne possède pas de nick",
+        "Pseudo et tag",
+        "Surnom",
+        "[---](https://youtu.be/dQw4w9WgXcQ)­­",
         "Date de création du compte",
         "Le",
         "à",
@@ -602,7 +602,8 @@
         "Yes",
         "No",
         "No permission required",
-        "Do {0}help [command] to get more information about it."
+        "Do {0}help [command] to get more information about it.",
+        "\nTo display the nsfw commands, do help in a nsfw channel."
       ],
       "french": [
         "Je n'ai pas trouvé cette commande !",
@@ -623,7 +624,8 @@
         "Oui",
         "Non",
         "Aucune permission requise",
-        "Faites {0}help [commande] pour avoir plus d'informations sur celle-ci."
+        "Faites {0}help [commande] pour avoir plus d'informations sur celle-ci.",
+        "\nPour afficher les commandes nsfw, faites help dans un channel nsfw."
       ]
     },
     "ERROR_MESSAGE": {
@@ -643,11 +645,11 @@
         ],
         ["**NSFW Command** - You can only use this command on a nsfw channel"],
         [
-          "**\\⚠️[Error] You don't have enough permissions** - ",
+          "**⚠️[Error] You don't have enough permissions** - ",
           "You need the following permission(s):\n\u2000\u2000- "
         ],
         [
-          "**\\⚠️[Error] I don't have enough permissions** - ",
+          "**⚠️[Error] I don't have enough permissions** - ",
           "I need the following permission(s):\n\u2000\u2000- "
         ],
         ["Command execution blocked!"],
@@ -667,11 +669,11 @@
           "**Commande NSFW** - Vous ne pouvez utiliser cette commande que sur un channel nsfw"
         ],
         [
-          "**\\⚠️- [Erreur] Vous n'avez pas assez de permissions** - ",
+          "**⚠️- [Erreur] Vous n'avez pas assez de permissions** - ",
           "Vous avez besoin de/des permission(s) suivante(s): \n\u2000\u2000- "
         ],
         [
-          "**\\⚠️- [Erreur] Je n'ai pas assez de permissions** - ",
+          "**⚠️- [Erreur] Je n'ai pas assez de permissions** - ",
           "J'ai besoin de/des permissions suivantes: \n\u2000\u2000- "
         ],
         ["L'exécution de la commande a été bloquée !"],

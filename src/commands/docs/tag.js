@@ -1,10 +1,11 @@
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
+const { stripIndents } = require('common-tags');
 module.exports = class TagCommand extends Command {
-   /** 
-    *@param {Client} client 
-    */ 
+  /**
+   *@param {Client} client
+   */
   constructor(client) {
     super(client, {
       name: 'tag',
@@ -15,13 +16,13 @@ module.exports = class TagCommand extends Command {
       utilisation: '{prefix}tag [tag] or {prefix}tag [category] <tag>',
     });
   }
-  /** 
-   * @param {Client} client 
-   * @param {Message} message 
-   * @param {String[]} args 
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
    */
   async execute(client, message, args) {
-     // This command is supposed to be for a specifical guild, unless you want to have fun with this command (•_•)
+    // This command is supposed to be for a specifical guild, unless you want to have fun with this command (•_•)
     if (!args[0])
       return message.channel.send({
         embed: {
@@ -31,7 +32,7 @@ module.exports = class TagCommand extends Command {
             icon_url: message.author.displayAvatarURL({ dynamic: true }),
           },
           description:
-            'Liste de toutes les catégories \n\n`fix`, `unexpected`, `==` alias `===`, `destructure`, `websocket` alias `ws`, `hyperlien` alias `hyperlink`, `purge`, `ping-command`, `intents`, `of-undefined` alias `of-null`, `collector`, `ask`, `swearwords`, `heroku`, `find`, `dashboard`, `avatar`, `bot`, `client`, `template-literal`, `embed`, `does-not-work` alias `dnw`',
+            'Liste de toutes les catégories \n\n`fix`, `unexpected`, `==` alias `===`, `destructure`, `websocket` alias `ws`, `hyperlien` alias `hyperlink`, `purge`, `ping-command`, `intents`, `of-undefined` alias `of-null`, `collector`, `ask`, `swearwords`, `heroku`, `find`, `dashboard`, `avatar`, `bot`, `client`, `template-literal`, `embed`, `does-not-work` alias `dnw`, `embed-limits`',
         },
       });
     switch (args[0]) {
@@ -144,7 +145,7 @@ module.exports = class TagCommand extends Command {
       }
       case 'intents': {
         return message.channel.send(
-          "Si votre bot ne répond pas aux évenements `guildMemberAdd` & `guildMemberRemove` ou bien qu'il ne détecte pas la presence des personnes c'est que vous n'avez pas activé vos intents de gateway\nVoilà comment les activer\nhttps://imgur.com/a/YDEZRIh\nhttps://cdn.discordapp.com/attachments/770686968816205885/813544147675775006/video0.mov"
+          "Si votre bot ne répond pas aux évenements `guildMemberAdd` & `guildMemberRemove` ou bien qu'il ne détecte pas la presence des personnes c'est que vous n'avez pas activé vos intents de gateway\nVoilà comment les activer\nhttps://imgur.com/a/YDEZRIh"
         );
       }
       case 'of-null':
@@ -190,24 +191,50 @@ module.exports = class TagCommand extends Command {
       }
       case 'avatar': {
         return message.channel.send(
-          "`[v12]``.displayAvatarURL`, `.avatarURL`, et `.iconURL` sont maintenant des méthodes qui autorisent les options d'url d'image\n```diff\n- user.avatarURL\n+ user.avatarURL()\n+ user.avatarURL({ dynamic : boolean, format : string, size : number })\n- guild. iconURL\n+ guild.iconURL()\n+ guild.iconURL({ dynamic : boolean, format : string, size : number })\n```\n<https://discord.js.org/#/docs/main/stable/typedef/ImageURLOptions>"
+          "`[v12]`  `.displayAvatarURL`, `.avatarURL`, et `.iconURL` sont maintenant des méthodes qui autorisent les options d'url d'image\n```diff\n- user.avatarURL\n+ user.avatarURL()\n+ user.avatarURL({ dynamic : boolean, format : string, size : number })\n- guild. iconURL\n+ guild.iconURL()\n+ guild.iconURL({ dynamic : boolean, format : string, size : number })\n```\n<https://discord.js.org/#/docs/main/stable/typedef/ImageURLOptions>"
         );
       }
       case 'bot': {
-        return message.channel.send('```js\nconst Discord = require(\'discord.js\');\nconst client = new Discord.Client();\nclient.on(\'ready\', () => {\n  console.log("Il fait beau dehors, n\'est-ce pas ?");\n});\nclient.login(\'votre token\');\n```')
+        return message.channel.send(
+          "```js\nconst Discord = require('discord.js');\nconst client = new Discord.Client();\nclient.on('ready', () => {\n  console.log(\"Il fait beau dehors, n'est-ce pas ?\");\n});\nclient.login('votre token');\n```"
+        );
       }
       case 'client': {
-        return message.channel.send('**Client** est le principal centre d\'interaction avec l\'API Discord, et le point de départ de tout bot.\n\nPour définir le client, utilisez:\n```js\nconst client = new Discord.Client();\n```\nNe créez pas un nouveau client pour chaque commande, événement ou autre, utilisez le même client pour tout.\nConsultez le guide pour plus d\'informations: <https://discordjs.guide/creating-your-bot/>')
+        return message.channel.send(
+          "**Client** est le principal centre d'interaction avec l'API Discord, et le point de départ de tout bot.\n\nPour définir le client, utilisez:\n```js\nconst client = new Discord.Client();\n```\nNe créez pas un nouveau client pour chaque commande, événement ou autre, utilisez le même client pour tout.\nConsultez le guide pour plus d'informations: <https://discordjs.guide/creating-your-bot/>"
+        );
       }
       case 'template-literal': {
-        return message.channel.send('Au lieu de faire: `let b = a + "some string";` utilisez les templates literals.\nComprendre les templates literals en JavaScript:\n<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>')
+        return message.channel.send(
+          'Au lieu de faire: `let b = a + "some string";` utilisez les templates literals.\nComprendre les templates literals en JavaScript:\n<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>'
+        );
       }
       case 'embed': {
-        return message.channel.send('Construction et envoi d\'embeds : <https://discordjs.guide/popular-topics/embeds.html>')
+        return message.channel.send(
+          "Construction et envoi d'embeds : <https://discordjs.guide/popular-topics/embeds.html>"
+        );
       }
       case 'dnw':
       case 'does-not-work': {
-        return message.channel.send('Pour vous aider, nous avons besoin de plus d\'informations:\n• Que tentez-vous de faire ?\n• Quel est votre code ? \n• Quelles sont les erreurs et les logs dont vous disposez ?')
+        return message.channel.send(
+          "Pour vous aider, nous avons besoin de plus d'informations:\n• Que tentez-vous de faire ?\n• Quel est votre code ? \n• Quelles sont les erreurs et les logs dont vous disposez ?"
+        );
+      }
+      case 'embed-limits': {
+        return message.channel.send(stripIndents`
+        \`\`\`
+        Limites de caractères des embeds:
+        Titre: 256
+        Nom de l'auteur: 256
+        Description: 4096
+        Titre du field: 256
+        Value du field: 1024
+        Footer: 2048
+        \`\`\`
+        • Fields: 25, embeds par message: 10
+        • Caractères dans tous les embeds d'un message: 6000
+        • <https://discord.com/developers/docs/resources/channel#embed-limits>
+        `);
       }
     }
   }

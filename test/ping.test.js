@@ -11,7 +11,7 @@ beforeStart(async () => {
             disableMentions: 'everyone', //disables, that the bot is able to send @everyone
         },
     });
-
+    this.client = client;
     const readyPromise = new Promise((resolve) => {
         client.once("ready", () => {
             resolve();
@@ -19,8 +19,8 @@ beforeStart(async () => {
     });
 
     //Client start
-    await client.start();
-    await client.login();
+    client.start();
+    client.login();
 
     // Wait the client to be ready
     await readyPromise;
@@ -35,5 +35,5 @@ group("main commands", () => {
 });
 
 afterAll(() => {
-    client.destroy();
+    this.client.destroy();
 });

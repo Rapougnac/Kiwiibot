@@ -23,11 +23,12 @@ module.exports = class Command {
    * @param {PermissionString} [options.clientPermissions] The client's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
    * @param {Number} [options.cooldown] The cooldown of the command, none if the cooldown was not specified
    * @param {String[]} [options.aliases] The aliases of the command, none if aliases was not specified
-   * @param {Boolean} [options.guildOnly] If the command can be used inside the guild only or not, `false` by default
-   * @param {Boolean} [options.adminOnly] If the command can be only used by user's who have the administrator permission, `false` by default
-   * @param {Boolean} [options.ownerOnly] If the command can only be executed by the owner of the bot, `false` by default
-   * @param {Boolean} [options.nsfw] If the command is nsfw or not, `false` by default
+   * @param {Boolean} [options.guildOnly=false] If the command can be used inside the guild only or not, `false` by default
+   * @param {Boolean} [options.adminOnly=false] If the command can be only used by user's who have the administrator permission, `false` by default
+   * @param {Boolean} [options.ownerOnly=false] If the command can only be executed by the owner of the bot, `false` by default
+   * @param {Boolean} [options.nsfw=false] If the command is nsfw or not, `false` by default
    * @param {String[]} [options.string] This is used to pass the translation
+   * @param {boolean} [options.hidden=false] Whether the command should be hidden from the help menu
    */
   constructor(client, options) {
     /**
@@ -36,10 +37,6 @@ module.exports = class Command {
      */
     this.client = client;
 
-    /**
-     * The properties of the command
-     * @type {Object}
-     */
     this.help = {
       /**
        * The name of the command
@@ -71,7 +68,7 @@ module.exports = class Command {
        * are the default one
        * @type {PermissionString}
        */
-      permissions: options.permissions/*.push('SEND_MESSAGES', 'VIEW_CHANNEL')*/ || ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+      permissions: options.permissions || ['SEND_MESSAGES', 'VIEW_CHANNEL'],
       /**
        * The client's permissions, if no permissions was provided
        * ```js
@@ -80,38 +77,35 @@ module.exports = class Command {
        * are the default one
        * @type {PermissionString}
        */
-      clientPermissions: options.clientPermissions/*.push('SEND_MESSAGES', 'VIEW_CHANNEL')*/ || [
-        'SEND_MESSAGES',
-        'VIEW_CHANNEL',
-      ],
+      clientPermissions: options.clientPermissions || ['SEND_MESSAGES', 'VIEW_CHANNEL'],
       /**
        * The cooldown of the command, none if the cooldown was not specified
-       * @type {Number}
+       * @type {number}
        */
       cooldown: options.cooldown * 1000 || -1,
       /**
        * The aliases of the command, none if aliases was not specified
-       * @type {String[]}
+       * @type {string[]}
        */
       aliases: options.aliases || [],
       /**
        * If the command can be used inside the guild only or not, `false` by default
-       * @type {Boolean}
+       * @type {boolean}
        */
       guildOnly: options.guildOnly || false,
       /**
        * If the command can be only used by user's who have the administrator permission, `false` by default
-       * @type {Boolean}
+       * @type {boolean}
        */
       adminOnly: options.adminOnly || false,
       /**
        * If the command can only be executed by the owner of the bot, `false` by default
-       * @type {Boolean}
+       * @type {boolean}
        */
       ownerOnly: options.ownerOnly || false,
       /**
        * If the command is nsfw or not, `false` by default
-       * @type {Boolean}
+       * @type {boolean}
        */
       nsfw: options.nsfw || false,
       /**
@@ -120,10 +114,10 @@ module.exports = class Command {
        */
       string: options.string,
       /**
-       * @private
-       * How many times the command has been used
+       * Whether the command should be hidden from the help menu
+       * @type {boolean}
        */
-      used: 0,
+      hidden: options.hidden || false,
     };
     /**
      * A set of the ids of the users on cooldown
@@ -131,22 +125,6 @@ module.exports = class Command {
      */
     this.cooldown = new Collection();
   }
-  // startCooldown(user, cmd) {
-  //   const now = Date.now(); //get the current time
-  //   const cooldownAmount = cmd.config.cooldown; //get the cooldownamount of the command, if there is no cooldown there will be automatically 1 sec cooldown, so you cannot spam it ^^
-  //   if (!this.cooldowns.has(user)) {
-  //     this.cooldowns.set(user, now);
-  //     setTimeout(() => this.cooldowns.delete(user), cooldownAmount); //set a timeout function with the cooldown, so it gets deleted later on again
-  //   } else {
-  //     const timestamps = this.cooldowns.get(user); //get the timestamp of the last used commands
-
-  //     //if the user is on cooldown
-  //     const expirationTime = timestamps + cooldownAmount; //get the amount of time he needs to wait until they can run the cmd again
-
-  //     this.now = now;
-  //     this.expirationTime = expirationTime;
-  //   }
-  // }
   /**
    * Set the message
    * @param {Message} message
@@ -316,6 +294,7 @@ module.exports = class Command {
    *
    * @param {String} message The message to pass in
    * @param {Object} [options] The options
+   * @returns {Promise<Message>}
    */
   async inlineReply(message, options = {}) {
     if (!options)
@@ -326,5 +305,7 @@ module.exports = class Command {
       };
     this.message.inlineReply(message, options);
   }
+  execute(client, message, args, fromPattern) {
+    throw new Error(`${this.help.name} doesn't have an execute() method.`);
+  }
 };
-

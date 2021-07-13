@@ -26,7 +26,7 @@ module.exports = class RoleInfoCommand extends Command {
       message.guild.roles.cache.get(args[0]) ||
       message.guild.roles.cache.find(
         (r) => r.name.toLowerCase().startsWith(args.join(' ').toLowerCase()) || r.name.toLowerCase().endsWith(args.join(' ').toLowerCase())
-      );
+      )|| message.guild.roles.cache.find(r => r.name.includes(args.join(' ')))
     if (args.length <= 0) role = null;
     if (!role) return message.channel.send(this.config.string[0]);
     let string = String();

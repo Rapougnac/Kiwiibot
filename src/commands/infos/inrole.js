@@ -30,7 +30,8 @@ module.exports = class InRoleCommand extends Command {
         (r) =>
           r.name.toLowerCase().startsWith(args.join(' ').toLowerCase()) ||
           r.name.toLowerCase().endsWith(args.join(' ').toLowerCase())
-      );
+      )
+      || message.guild.roles.cache.find(r => r.name.includes(args.join(' ')))
     if (args.length <= 0) role = null;
     if (!role) return this.inlineReply(this.config.string[1]);
     const memRole = message.guild.roles.cache

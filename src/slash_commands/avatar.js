@@ -1,5 +1,4 @@
 /**@type {import('../../types/index').SlashCommand} */
-const { language } = require('../../language');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'avatar',

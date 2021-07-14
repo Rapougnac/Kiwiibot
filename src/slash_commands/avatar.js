@@ -30,9 +30,9 @@ module.exports = {
     }
     if (guild) {
       const embed = new MessageEmbed()
-        .setAuthor(`${language(guild, 'avatar')[0].format(User.username)}`)
+        .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
         .setDescription(
-          `${language(guild, 'avatar')[1]}(${User.displayAvatarURL({
+          `${message.guild.i18n.__mf("avatar.msg")}(${User.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',
@@ -68,9 +68,9 @@ module.exports = {
       client.utils.reply(interaction, embed);
     } else {
       const embed = new MessageEmbed()
-        .setAuthor(`${language(guild, 'avatar')[0].format(User.username)}`)
+        .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
         .setDescription(
-          `${language(guild, 'avatar')[1]}(${User.displayAvatarURL({
+          `${message.guild.i18n.__mf("avatar.msg")}(${User.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',

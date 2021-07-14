@@ -49,7 +49,8 @@
 		"yes": "Yes",
 		"no": "No",
 		"no_permissions": "No permission required",
-		"cmd_usage": "Do {prefix}help [command] to get more information about it."
+		"cmd_usage": "Do {prefix}help [command] to get more information about it.",
+		"nsfw": "You can't show the help pannel if the command to display is nsfw and the channel is not."
 	},
 	"prefix-reset": {
 		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
@@ -319,7 +320,9 @@
 		"description": ""
 	},
 	"avatar": {
-		"description": ""
+		"description": "",
+		"avatar_of": "Avatar of {avatar}",
+		"msg": "If the image is not displayed, [click here]"
 	},
 	"calc": {
 		"description": ""

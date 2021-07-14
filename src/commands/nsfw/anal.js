@@ -14,7 +14,6 @@ module.exports = class AnalCommand extends Command {
       utilisation: '{prefix}anal',
       clientPermissions: ['EMBED_LINKS'],
       nsfw: true,
-      string: [],
     });
   }
   /**
@@ -29,7 +28,7 @@ module.exports = class AnalCommand extends Command {
     const embed = new MessageEmbed()
       .setColor('#202225')
       .setAuthor(
-        this.config.string[0].format(tag),
+        `${tag} here's a random anal image/gif`,
         author.displayAvatarURL({ dynamic: true, format: 'png', size: 512 }),
         null
       )

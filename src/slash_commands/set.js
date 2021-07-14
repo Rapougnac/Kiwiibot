@@ -95,7 +95,7 @@ module.exports = {
         } else {
           client.utils.reply(
             interaction,
-            "You can't set the prefix inside dm's! The prefix is `m?`"
+            `You can't set the prefix inside dm's! The prefix is \`${client.prefix}\``
           );
         }
         break;

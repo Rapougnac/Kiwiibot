@@ -47,6 +47,7 @@ module.exports = {
    * @param {*} args
    */
   async execute(interaction, client, args) {
+    console.log(interaction);
     const { guild_id } = interaction;
     const message = {
       guild: {},
@@ -102,9 +103,12 @@ module.exports = {
           if (
             (user.avatar && user.avatar.startsWith('a_')) ||
             member.premiumSince ||
-            client.owners.includes(member.id)
+            client.isOwner(member)
           ) {
             userFlags.push('<:Discord_Nitro:859137224187707402>');
+          }
+          if (client.isOwner(user)) {
+            userFlags.push('<:Bot_Owner:864234649960972298>');
           }
           switch (status) {
             case 'dnd': {
@@ -240,7 +244,7 @@ module.exports = {
           client.utils.reply(interaction, embeduser);
         } else {
           const guild = null;
-          const user = await client.users.fetch(interaction.member.user.id);
+          const user = await client.users.fetch(interaction.user.id);
           let lang = 'en';
           let status = user.presence.status;
           const userFlags = await user
@@ -269,6 +273,15 @@ module.exports = {
               device[0] = 'N/A';
               break;
             }
+          }
+          if (
+            (user.avatar && user.avatar.startsWith('a_')) ||
+            client.isOwner(user)
+          ) {
+            userFlags.push('<:Discord_Nitro:859137224187707402>');
+          }
+          if (client.isOwner(user)) {
+            userFlags.push('<:Bot_Owner:864234649960972298>');
           }
           switch (status) {
             case 'dnd': {

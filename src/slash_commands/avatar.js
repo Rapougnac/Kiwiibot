@@ -21,13 +21,12 @@ module.exports = {
   async execute(interaction, client, args) {
     let guild = client.guilds.cache.get(interaction.guild_id);
     let user = args?.user;
-    if (!user) user = interaction.member.user.id;
 
-    const User = await client.users.fetch(user);
+    
     if (guild) {
-      var member = guild.member(User);
-    }
-    if (guild) {
+      if (!user) user = interaction.member.user.id;
+      const User = await client.users.fetch(user);
+      const member = guild.member(User);
       const embed = new MessageEmbed()
         .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
         .setDescription(
@@ -66,6 +65,9 @@ module.exports = {
         .setColor(member.displayHexColor || 'GREY');
       client.utils.reply(interaction, embed);
     } else {
+      guild = null;
+      if(!user) user = interaction.user.id;
+      const User = await client.users.fetch(user)
       const embed = new MessageEmbed()
         .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
         .setDescription(

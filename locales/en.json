@@ -254,6 +254,72 @@
 	"tickle": {
 		"description": ""
 	},
+	"8ball": {
+		"description": ""
+	},
+	"ascii": {
+		"description": ""
+	},
+	"avatar": {
+		"description": ""
+	},
+	"calc": {
+		"description": ""
+	},
+	"changemymind": {
+		"description": ""
+	},
+	"clyde": {
+		"description": ""
+	},
+	"emoji": {
+		"description": ""
+	},
+	"firstmessage": {
+		"description": "Get the first message in the current channel"
+	},
+	"github": {
+		"description": "Github User Account Information!"
+	},
+	"hm": {
+		"description": "A hangman game"
+	},
+	"invert": {
+		"description": "Invert the colors on user avatar"
+	},
+	"meme": {
+		"description": ""
+	},
+	"phcomment": {
+		"description": "Write a comment in ph ( ͡• ͜ʖ ͡• )"
+	},
+	"record": {
+		"description": "Record in the voice channel"
+	},
+	"morse": {
+		"description": "Converts your message into morse code!"
+	},
+	"rip": {
+		"description": ""
+	},
+	"sexyrate": {
+		"description": ""
+	},
+	"stealemoji": {
+		"description": "Steal the provided emoji"
+	},
+	"trash": {
+		"description": ""
+	},
+	"trump": {
+		"description": ""
+	},
+	"weather": {
+		"description": ""
+	},
+	"youdied": {
+		"description": ""
+	},
 	"player": {
 		"events": {
 			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",

@@ -21,7 +21,7 @@ module.exports = async (client, message) => {
   if (bot && author.id !== client.config.discord.id_bot_test) return;
   const p = await prefix(message, client.config);
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
-    return message.channel.send(language(guild, 'MESSAGE_PREFIX').format(p));
+    return message.channel.send(message.guild.i18n.__mf("MESSAGE_PREFIX.msg"),{prefix: p});
   }
   if(message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if(message.content.match(/\(╯°□°）╯︵ ┻━┻/g)) return message.channel.send('┻━┻       (゜-゜)');

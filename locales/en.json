@@ -1,4 +1,7 @@
 {
+	"MESSAGE_PREFIX": {
+		"msg": "My actual prefix in the guild is `{prefix}`"
+	},
 	"anime": {
 		"description": "Get informations about the specified anime",
 		"specify": "Please, specify an anime!",

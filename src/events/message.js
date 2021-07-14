@@ -148,25 +148,11 @@ module.exports = async (client, message) => {
           }
 
           if (reasons.length > 0) {
-            const embed = new MessageEmbed()
-              .setAuthor(
-                client.user.tag,
-                client.user.displayAvatarURL({
-                  dynamic: true,
-                  format: 'png',
-                  size: 2048,
-                })
-              )
-              .setColor('RED')
-              .setDescription(
-                `\`\`\`diff\n-${
-                  language(guild, 'PERMS_MESSAGE')[6]
-                }\n\`\`\`\n\n` +
-                  `\`${language(guild, 'PERMS_MESSAGE')[7]}:\`\n\n${reasons
-                    .map((reason) => '• ' + reason)
-                    .join('\n')}`
-              );
-            return message.channel.send(embed);
+            return message.channel.send(
+              `\`\`\`diff\n-${language(guild, 'PERMS_MESSAGE')[6]}\n\`\`\`\n\n${
+                language(guild, 'PERMS_MESSAGE')[7]
+              }:\n${reasons.map((reason) => '• ' + reason).join('\n')}`
+            );
           }
         } else {
           if (command_to_execute.config.ownerOnly) {
@@ -180,25 +166,11 @@ module.exports = async (client, message) => {
             }
           }
           if (reasons.length > 0) {
-            const embed = new MessageEmbed()
-              .setAuthor(
-                client.user.tag,
-                client.user.displayAvatarURL({
-                  dynamic: true,
-                  format: 'png',
-                  size: 2048,
-                })
-              )
-              .setColor('RED')
-              .setDescription(
-                `\`\`\`diff\n-${
-                  language(guild, 'PERMS_MESSAGE')[6]
-                }\n\`\`\`\n\n` +
-                  `\`${language(guild, 'PERMS_MESSAGE')[7]}:\`\n\n${reasons
-                    .map((reason) => '• ' + reason)
-                    .join('\n')}`
-              );
-            return message.channel.send(embed);
+            return message.channel.send(
+              `\`\`\`diff\n-${language(guild, 'PERMS_MESSAGE')[6]}\n\`\`\`\n\n${
+                language(guild, 'PERMS_MESSAGE')[7]
+              }:\n${reasons.map((reason) => '• ' + reason).join('\n')}`
+            );
           }
         }
         command_to_execute.config.string = language(

@@ -2,48 +2,7 @@
 const { Message, UserFlags, BitField } = require('discord.js');
 const languageSchema = require('../models/languageSchema');
 /**@type {import('../../types').Intl.ListFormat} */
-/**
- * Check the lang of the list
- * @param {Message} message
- */
-const checkLang = async (message) => {
-  let lang;
-  if (message.guild) {
-    try {
-      await languageSchema.findOne(
-        {
-          _id: message.guild.id,
-        },
-        (err, data) => {
-          if (err) throw err;
-          if (!data)
-            data = new languageSchema({
-              _id: message.guild.id,
-              language: 'english',
-            });
-          lang = data.language;
-        }
-      );
-      if (!lang) lang = 'english';
-      switch (lang) {
-        case 'english': {
-          lang = 'en';
-          break;
-        }
-        case 'french': {
-          lang = 'fr';
-          break;
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    list = new Intl.ListFormat(lang);
-  } else {
-    lang = 'en';
-    list = new Intl.ListFormat(lang);
-  }
-};
+
 // All functions returned from this module will now be in string format
 
 /**
@@ -167,6 +126,5 @@ module.exports = {
   joinArray,
   joinArrayAndLimit,
   clean,
-  checkLang,
   convertUFB,
 };

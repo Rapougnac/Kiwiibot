@@ -1,4 +1,4 @@
-const { convertUFB, joinArray, checkLang } = require('../util/string');
+const { convertUFB, joinArray } = require('../util/string');
 const languageSchema = require('../models/languageSchema');
 const { MessageEmbed, Message, RoleManager } = require('discord.js');
 const moment = require('moment');
@@ -442,7 +442,7 @@ module.exports = {
                 .join(' | ') || '\u200b',
               false
             )
-            .setFooter(language(guild.i18n.__mf('serverinfo.id',{id: message.guild.id}))
+            .setFooter(guild.i18n.__mf('serverinfo.id',{id: message.guild.id}))
             .setThumbnail(guild.iconURL({ dynamic: true }));
           client.utils.reply(interaction, embedserv);
         } else {
@@ -455,7 +455,6 @@ module.exports = {
       }
       case 'role': {
         if (message.guild) {
-          await checkLang(message);
           const guild = client.guilds.cache.get(guild_id);
           const role = await new RoleManager(guild).fetch(
             interaction.data.options[0].options[0].value

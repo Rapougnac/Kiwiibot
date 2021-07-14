@@ -7,7 +7,6 @@ const {
 Client = require('../struct/Client'),
 Command = require('../struct/Command'),
 { prefix } = require('../util/prefix'),
-{ checkLang } = require('../util/string');
 /**
  * @param {Message} message
  * @param {Client} client

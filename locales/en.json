@@ -380,7 +380,14 @@
 		"description": "Ban the specified member"
 	},
 	"hackban": {
-		"description": "Hackban a member"
+		"description": "Hackban a member",
+		"missing_id": "Please give me a valid id!",
+		"wrong_id": "The id must be a number!",
+		"self_ban": "You can't ban yourself!",
+		"wrong_ban": "You can't ban me!",
+		"user_banned": "**{user}** has been hackbanned!",
+		"error": "Something went wrong: **{error}**",
+		"already_banned": "This user is already banned!"
 	},
 	"kick": {
 		"description": "Kick a person"

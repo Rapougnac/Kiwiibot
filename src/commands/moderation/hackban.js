@@ -69,15 +69,15 @@ module.exports = class HackBanCommand extends Command {
     const { guild } = message;
     let reason = args.slice(1).join(' ');
 
-    if (!userID) return message.channel.send(this.config.string[0]);
+    if (!userID) return message.channel.send(message.guild.i18n.__mf("hackban.missing_id"));
 
-    if (isNaN(userID)) return message.channel.send(this.config.string[1]);
+    if (isNaN(userID)) return message.channel.send(message.guild.i18n.__mf("hackban.wrong_id"));
 
     if (userID === message.author.id)
-      return message.channel.send(this.config.string[2]);
+      return message.channel.send(message.guild.i18n.__mf("hackban.self_ban"));
 
     if (userID === client.user.id)
-      return message.channel.send(this.config.string[3]);
+      return message.channel.send(message.guild.i18n.__mf("hackban.wrong_ban"));
 
     if (!reason) reason = 'No reason provided';
 
@@ -87,7 +87,7 @@ module.exports = class HackBanCommand extends Command {
         const banList = guild.fetchBans();
         const bannedUser = (await banList).get(user.id);
         if (bannedUser)
-          return message.inlineReply(this.config.string[6], {
+          return message.inlineReply(message.guild.i18n.__mf("hackban.already_banned"), {
             allowedMentions: {
               repliedUser: false,
             },
@@ -95,11 +95,11 @@ module.exports = class HackBanCommand extends Command {
         else {
           await message.guild.members.ban(user.id, { reason: reason });
 
-          return message.channel.send(this.config.string[4].format(user.tag));
+          return message.channel.send(message.guild.i18n.__mf("hackban.user_banned",{user: user.tag}));
         }
       })
       .catch((error) => {
-        return message.channel.send(this.config.string[5].format(error));
+        return message.channel.send(message.guild.i18n.__mf("hackban.error",{error: error}));
       });
   }
 };

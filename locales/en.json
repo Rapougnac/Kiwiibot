@@ -5,6 +5,18 @@
 	"ERROR_MESSAGE": {
 		"msg": "There was an error trying to execute that command!"
 	},
+	"PERMS_MESSAGE": {
+		"guild_only": "**Command is unavailable on DM** - This command can only be used inside servers.",
+		"dev_only": "**Limited to Devs** - This command can only be used by my developers.",
+		"admin_only": "**Limited to Admins** - This command can only be used by server administrators.",
+		"nsfw": "**NSFW Command** - You can only use this command on a nsfw channel",
+		"missing_permissions_you": "**⚠️[Error] You don't have enough permissions** -",
+		"missing_permissions1_you": "You need the following permission(s):\n\u2000\u2000-",
+		"missing_permissions_i": "**⚠️[Error] I don't have enough permissions** -",
+		"missing_permissions1_i": "I need the following permission(s):\n\u2000\u2000-",
+		"blocked_cmd": "Command execution blocked!",
+		"reason": "Reason(s)"
+	},
 	"anime": {
 		"description": "Get informations about the specified anime",
 		"specify": "Please, specify an anime!",
@@ -172,6 +184,19 @@
 	"ping": {
 		"description": "Ping!",
 		"msg": "🏓 P{pong}ng! The ping is: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
+	},
+	"roleinfo": {
+		"description": "Shows informations about the mentionned role",
+		"specify_role": "Please specify a role.",
+		"role": "Role",
+		"role_name": "Role name",
+		"who_own_it": "Members who own it",
+		"color": "Color",
+		"creation_date":"Creation date",
+		"on": "On",
+		"at": "at",
+		"hoisted": "Hoisted",
+		"mentionable": "Mentionable"
 	},
 	"serverinfo": {
 		"description": "",
@@ -700,6 +725,9 @@
 		"wait": "**Please Wait...**",
 		"yes": "Yes",
 		"no": "No",
-		"database_error":"\\⚠️[DATABASE ERROR] The database responded with the following error: {error}"
+		"database_error":"\\⚠️[DATABASE ERROR] The database responded with the following error: {error}",
+		"creation_date":"Creation date",
+		"on": "On",
+		"at": "at"
 	}
 }

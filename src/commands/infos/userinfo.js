@@ -95,7 +95,7 @@ module.exports = class UserInfoCommand extends Command {
           break;
         }
         case 'offline': {
-          status = message.guild.i18n.__mf("userinfo.oflline");
+          status = message.guild.i18n.__mf("userinfo.offline");
           break;
         }
         case 'idle': {
@@ -128,22 +128,13 @@ module.exports = class UserInfoCommand extends Command {
             if (!data)
               data = new languageSchema({
                 _id: message.guild.id,
-                language: 'english',
+                language: 'en',
               });
             lang = data.language;
           }
         );
-        if (!lang) lang = 'english';
-        switch (lang) {
-          case 'english': {
-            lang = 'en';
-            break;
-          }
-          case 'french': {
-            lang = 'fr-ch';
-            break;
-          }
-        }
+        if (!lang) lang = 'en';
+     
       } catch (e) {
         console.error(e);
       }

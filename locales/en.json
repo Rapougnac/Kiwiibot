@@ -2,6 +2,9 @@
 	"MESSAGE_PREFIX": {
 		"msg": "My actual prefix in the guild is `{prefix}`"
 	},
+	"ERROR_MESSAGE": {
+		"msg": "There was an error trying to execute that command!"
+	},
 	"anime": {
 		"description": "Get informations about the specified anime",
 		"specify": "Please, specify an anime!",
@@ -213,7 +216,7 @@
 		"member": "Member",
 		"name": "Name and discrim",
 		"nickname": "Nickname",
-		"not_set": "Not set",
+		"not_set": "[---](https://youtu.be/dQw4w9WgXcQ)",
 		"account_creation_date": "Account creation date",
 		"on": "On",
 		"at": "at",

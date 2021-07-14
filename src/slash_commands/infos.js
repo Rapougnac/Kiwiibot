@@ -109,19 +109,19 @@ module.exports = {
           }
           switch (status) {
             case 'dnd': {
-              status = language(guild, 'userinfo')[0];
+              status = guild.i18n.__mf("userinfo.dnd");
               break;
             }
             case 'online': {
-              status = language(guild, 'userinfo')[1];
+              status = guild.i18n.__mf("userinfo.online");
               break;
             }
             case 'offline': {
-              status = language(guild, 'userinfo')[2];
+              status = guild.i18n.__mf("userinfo.offline");
               break;
             }
             case 'idle': {
-              status = language(guild, 'userinfo')[3];
+              status = guild.i18n.__mf("userinfo.idle");
               break;
             }
           }
@@ -131,9 +131,7 @@ module.exports = {
               break;
             }
             case 'desktop': {
-              device[0] = language(guild, 'userinfo')[4].format(
-                client.config.clientMap.desktop
-              );
+              device[0] = guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop})
               break;
             }
             case 'mobile': {
@@ -152,28 +150,18 @@ module.exports = {
                 if (!data)
                   data = new languageSchema({
                     _id: guild.id,
-                    language: 'english',
+                    language: 'en',
                   });
                 lang = data.language;
               }
             );
-            if (!lang) lang = 'english';
-            switch (lang) {
-              case 'english': {
-                lang = 'en';
-                break;
-              }
-              case 'french': {
-                lang = 'fr-ch';
-                break;
-              }
-            }
+            if (!lang) lang = 'en'; 
           } catch (e) {
             console.error(e);
           }
           const embeduser = new MessageEmbed()
             .setAuthor(
-              language(guild, 'userinfo')[5].format(user.tag),
+              guild.i18n.__mf("userinfo.user",{tag: user.tag}),
               member.user.displayAvatarURL({
                 dynamic: true,
                 format: 'png',
@@ -182,20 +170,20 @@ module.exports = {
               'https://discord.com/'
             )
             .setDescription(userFlags.join(' '))
-            .addField(language(guild, 'userinfo')[6], member, true)
-            .addField(language(guild, 'userinfo')[7], user.tag, true)
+            .addField(guild.i18n.__mf("userinfo.member"), member, true)
+            .addField(guild.i18n.__mf("userinfo.name"), user.tag, true)
             .addField(
-              language(guild, 'userinfo')[8],
+              guild.i18n.__mf("userinfo.nickname"),
               member.nickname
                 ? `${member.nickname}`
-                : language(guild, 'userinfo')[9],
+                : message.guild.i18n.__mf("userinfo.not_set"),
               true
             )
             .addField(
-              language(guild, 'userinfo')[10],
+              guild.i18n.__mf("userinfo.account_creation_date"),
               moment(user.createdAt).format(
-                `[${language(guild, 'userinfo')[11]}] DD/MM/YYYY [${
-                  language(guild, 'userinfo')[12]
+                `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("userinfo.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(user.createdAt, 'DD/MM/YYYY')
@@ -204,10 +192,10 @@ module.exports = {
               true
             )
             .addField(
-              language(guild, 'userinfo')[14],
+              guild.i18n.__mf("userinfo.arrival_date"),
               moment(member.joinedAt).format(
-                `[${language(guild, 'userinfo')[11]}] DD/MM/YYYY [${
-                  language(guild, 'userinfo')[12]
+                `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("userinfo.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
@@ -216,32 +204,30 @@ module.exports = {
               true
             )
             .addField(
-              language(guild, 'userinfo')[15],
+              guild.i18n.__mf("userinfo.boost_start_date"),
               member.premiumSince
                 ? moment(member.premiumSince).format(
-                    `[${language(guild, 'userinfo')[11]}] DD/MM/YYYY [${
-                      language(guild, 'userinfo')[12]
+                    `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
+                      guild.i18n.__mf("userinfo.at")
                     }] HH:mm:ss`
                   ) +
                     `\n\`${moment(member.premiumSince, 'DD/MM/YYYY')
                       .locale(lang)
                       .fromNow()}\``
-                : language(guild, 'userinfo')[13],
+                : guild.i18n.__mf("userinfo.not_boosting"),
               true
             )
             .addField('Presence', status, true)
-            .addField(language(guild, 'userinfo')[16], device[0], true)
+            .addField(guild.i18n.__mf("userinfo.device"), device[0], true)
             .addField(
-              language(guild, 'userinfo')[17],
-              user.bot ? 'Bot' : language(guild, 'userinfo')[18],
+              guild.i18n.__mf("userinfo.type"),
+              user.bot ? 'Bot' : guild.i18n.__mf("userinfo.user2"),
               true
             )
             .addField(
-              language(guild, 'userinfo')[19].format(
-                member.roles.cache.size - 1
-              ),
+              guild.i18n.__mf("userinfo.roles",{role: member.roles.cache.size - 1}),
               member.roles.cache.size - 1 <= 0
-                ? language(guild, 'userinfo')[20]
+                ? message.guild.i18n.__mf("userinfo.no_roles")
                 : member.roles.cache
                     .filter((r) => r.id !== guild.id)
                     .sort((A, B) => B.rawPosition - A.rawPosition)
@@ -287,19 +273,19 @@ module.exports = {
           }
           switch (status) {
             case 'dnd': {
-              status = language(guild, 'userinfo')[0];
+              status = guild.i18n.__mf("userinfo.dnd");
               break;
             }
             case 'online': {
-              status = language(guild, 'userinfo')[1];
+              status = guild.i18n.__mf("userinfo.online");
               break;
             }
             case 'offline': {
-              status = language(guild, 'userinfo')[2];
+              status = guild.i18n.__mf("userinfo.offline");
               break;
             }
             case 'idle': {
-              status = language(guild, 'userinfo')[3];
+              status = guild.i18n.__mf("userinfo.idle");
               break;
             }
           }
@@ -309,9 +295,7 @@ module.exports = {
               break;
             }
             case 'desktop': {
-              device[0] = language(guild, 'userinfo')[4].format(
-                client.config.clientMap.desktop
-              );
+              device[0] = guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop});
               break;
             }
             case 'mobile': {
@@ -322,7 +306,7 @@ module.exports = {
 
           const embeduser = new MessageEmbed()
             .setAuthor(
-              language(guild, 'userinfo')[5].format(user.tag),
+              guild.i18n.__mf("userinfo.user",{tag: user.tag}),
               user.displayAvatarURL({
                 dynamic: true,
                 format: 'png',
@@ -331,13 +315,13 @@ module.exports = {
               'https://discord.com/'
             )
             .setDescription(userFlags.join(' '))
-            .addField(language(guild, 'userinfo')[6], `<@${user.id}>`, true)
-            .addField(language(guild, 'userinfo')[7], user.tag, true)
+            .addField(guild.i18n.__mf("userinfo.member"), `<@${user.id}>`, true)
+            .addField(guild.i18n.__mf("userinfo.name"), user.tag, true)
             .addField(
-              language(guild, 'userinfo')[10],
+              guild.i18n.__mf("userinfo.account_creation_date"),
               moment(user.createdAt).format(
-                `[${language(guild, 'userinfo')[11]}] DD/MM/YYYY [${
-                  language(guild, 'userinfo')[12]
+                `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("userinfo.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(user.createdAt, 'DD/MM/YYYY')
@@ -346,10 +330,10 @@ module.exports = {
               true
             )
             .addField('Presence', status, true)
-            .addField(language(guild, 'userinfo')[16], device[0], true)
+            .addField(guild.i18n.__mf("userinfo.device"), device[0], true)
             .addField(
-              language(guild, 'userinfo')[17],
-              user.bot ? 'Bot' : language(guild, 'userinfo')[18],
+              guild.i18n.__mf("userinfo.type"),
+              user.bot ? 'Bot' : guild.i18n.__mf("userinfo.user2"),
               true
             )
             .setThumbnail(user.displayAvatarURL({ dynamic: true, size: 4096 }))
@@ -372,87 +356,85 @@ module.exports = {
           const embedserv = new MessageEmbed()
             .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
             .addField(
-              language(guild, 'serverinfo')[7],
+              guild.i18n.__mf("serverinfo.owner"),
               `<@!${guild.ownerID}>\n(\`${guild.owner.user.tag}\`)`,
               true
             )
-            .addField(language(guild, 'serverinfo')[0], guild.name, true)
-            .addField(language(guild, 'serverinfo')[1], guild.region, true)
+            .addField(guild.i18n.__mf("serverinfor.name"), guild.name, true)
+            .addField(guild.i18n.__mf("serverinfor.region"), guild.region, true)
             .addField(
-              language(guild, 'serverinfo')[2],
+              guild.i18n.__mf("serverinfor.members"),
               `${guild.memberCount} ${
-                language(guild, 'serverinfo')[14]
+                guild.i18n.__mf('serverinfo.members2')
               }\n${humancount} ${
-                language(guild, 'serverinfo')[15]
-              }\n${botcount} ${language(guild, 'serverinfo')[16]}`,
+                guild.i18n.__mf('serverinfo.humans')
+              }\n${botcount} ${guild.i18n.__mf('serverinfo.bots')}`,
               true
             )
             .addField(
-              language(guild, 'serverinfo')[3],
+              guild.i18n.__mf('serverinfo.online_members'),
               guild.members.cache.filter(
                 ({ presence }) => presence.status !== 'offline'
               ).size,
               true
             )
             .addField(
-              language(guild, 'serverinfo')[4],
+              guild.i18n.__mf('serverinfo.channels'),
               `${guild.channels.cache.size} ${
-                language(guild, 'serverinfo')[17]
+                guild.i18n.__mf('serverinfo.channels2')
               }\n${
                 guild.channels.cache.filter(
                   (channel) => channel.type === 'text'
                 ).size
-              } ${language(guild, 'serverinfo')[18]}\n${
+              } ${guild.i18n.__mf('serverinfo.text_channels')}\n${
                 guild.channels.cache.filter(
                   (channel) => channel.type === 'voice'
                 ).size
-              } ${language(guild, 'serverinfo')[19]}\n${
+              } ${guild.i18n.__mf('serverinfo.voice_channels')}\n${
                 guild.channels.cache.filter(
                   (channel) => channel.type === 'category'
                 ).size
-              } ${language(guild, 'serverinfo')[20]}`,
+              } ${guild.i18n.__mf('serverinfo.category')}`,
               true
             )
             .addField(
-              language(guild, 'serverinfo')[5],
+              guild.i18n.__mf('serverinfo.emotes'),
               `${guild.emojis.cache.size} emojis\n${
                 guild.emojis.cache.filter((emoji) => !emoji.animated).size
-              } ${language(guild, 'serverinfo')[24]}\n${
+              } ${guild.i18n.__mf('serverinfo.static_emotes')}\n${
                 guild.emojis.cache.filter((emoji) => emoji.animated).size
-              } ${language(guild, 'serverinfo')[21]}`,
+              } ${message.guild.i18n.__mf('serverinfo.animated_emotes')}`,
               true
             )
             .addField(
-              language(guild, 'serverinfo')[8],
+              guild.i18n.__mf('serverinfo.creation_date'),
               moment(guild.createdAt).format(
-                `[${language(guild, 'serverinfo')[22]}] DD/MM/YYYY [${
-                  language(guild, 'serverinfo')[23]
+                `[${guild.i18n.__mf('serverinfo.on')}] DD/MM/YYYY [${
+                  guild.i18n.__mf('serverinfo.at')
                 }] HH:mm:ss`
               ),
               true
             )
             .addField(
-              language(guild, 'serverinfo')[9],
-              language(guild, 'serverinfo')[13].format(
-                guild.premiumTier,
-                guild.premiumSubscriptionCount
-              ),
+              guild.i18n.__mf('serverinfo.nitro'),
+              guild.i18n.__mf('serverinfo.tier',{
+                tier: message.guild.premiumTier,
+                boost_number: message.guild.premiumSubscriptionCount
+              }),
               true
             )
             .addField(
-              language(guild, 'serverinfo')[10],
+              guild.i18n.__mf('serverinfo.afk'),
               client.utils.format(afkTimeout),
               true
             )
             .addField(
-              language(guild, 'serverinfo')[11],
+              guild.i18n.__mf('serverinfo.verification_level'),
               client.config.verificationLVL[guild.verificationLevel],
               true
             )
             .addField(
-              language(guild, 'serverinfo')[6].format(
-                guild.roles.cache.size - 1
-              ),
+              guild.i18n.__mf('serverinfo.roles',{role: message.guild.roles.cache.size - 1}),
               guild.roles.cache
                 .filter((r) => r.id !== guild.id)
                 .sort((A, B) => B.rawPosition - A.rawPosition)
@@ -461,7 +443,7 @@ module.exports = {
                 .join(' | ') || '\u200b',
               false
             )
-            .setFooter(language(guild, 'serverinfo')[12].format(guild.id))
+            .setFooter(language(guild.i18n.__mf('serverinfo.id',{id: message.guild.id}))
             .setThumbnail(guild.iconURL({ dynamic: true }));
           client.utils.reply(interaction, embedserv);
         } else {

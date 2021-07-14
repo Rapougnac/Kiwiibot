@@ -126,7 +126,9 @@
 		"description": ""
 	},
 	"pixelize": {
-		"description": ""
+		"description": "",
+		"valid_number": "It doesn't seem to be valid number",
+		"insert_number": "Please, insert a valid number between 1 to 50"
 	},
 	"ps4": {
 		"description": "You, but in a ps4 game, cool no?"

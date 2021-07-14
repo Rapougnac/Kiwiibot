@@ -376,6 +376,30 @@
 	"youdied": {
 		"description": ""
 	},
+	"ban": {
+		"description": "Ban the specified member"
+	},
+	"hackban": {
+		"description": "Hackban a member"
+	},
+	"kick": {
+		"description": "Kick a person"
+	},
+	"nuke": {
+		"description": "Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)"
+	},
+	"purge": {
+		"description": ""
+	},
+	"setlogs": {
+		"description": "Set the logs in the mentionned channel"
+	},
+	"setmute": {
+		"description": "Set the mute role"
+	},
+	"slowmode": {
+		"description": ""
+	}
 	"player": {
 		"events": {
 			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",

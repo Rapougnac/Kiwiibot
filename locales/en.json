@@ -308,7 +308,9 @@
 		"description": ""
 	},
 	"8ball": {
-		"description": ""
+		"description": "",
+		"msg": "Please, indicate a question!",
+		"questions": "Yes\nNo\nMaybe\nObviously!\nNot sure\nNay\nOf course\nNEVER\nNo, cause I dont like you :)\nI dont know\nIt make sense\nYes that seems logical to me\nNo sorry, you are too ugly\nNo way\nIt is a possibility"
 	},
 	"ascii": {
 		"description": ""
@@ -320,7 +322,8 @@
 		"description": ""
 	},
 	"changemymind": {
-		"description": ""
+		"description": "",
+		"msg": "Please put a valid text!"
 	},
 	"clyde": {
 		"description": ""

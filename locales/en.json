@@ -657,7 +657,8 @@
 		"description": "Display the code of the specified command."
 	},
 	"dm": {
-		"description": ""
+		"description": "",
+		"mention": "Please mention a user to send a dm"
 	},
 	"eval": {
 		"description": "Execute some javascript code"

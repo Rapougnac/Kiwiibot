@@ -65,7 +65,7 @@ module.exports = class DMCommand extends Command {
       message.guild.members.cache.get(args[0])?.user;
 
     const str = args.slice(1).join(' ');
-    if (!user) return message.channel.send(this.config.string[0]);
+    if (!user) return message.channel.send(message.guild.i18n.__mf("dm.mention"));
     try {
       if (message.content.includes('-a')) {
         user.send(str.replace(/-a/g, ''));

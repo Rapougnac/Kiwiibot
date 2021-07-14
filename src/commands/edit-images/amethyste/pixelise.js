@@ -185,7 +185,7 @@ module.exports = {
           return message.channel.send(this.config.string[1]);
         if (number < 1) return message.channel.send(this.config.string[2]);
         if (number > 50) return message.channel.send(this.config.string[2]);
-        let m = await message.channel.send(this.config.string[0]);
+        let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
         const buffer = await AmeAPI.generate('pixelize', {
           url: User.user.displayAvatarURL({ format: 'png', size: 2048 }),
           pixelize: number,
@@ -342,10 +342,10 @@ module.exports = {
               (+[![]] + [])
           )(number)
         )
-          return message.channel.send(this.config.string[1]);
-        if (number < 1) return message.channel.send(this.config.string[2]);
-        if (number > 50) return message.channel.send(this.config.string[2]);
-        let m = await message.channel.send(this.config.string[0]);
+          return message.channel.send(message.guild.i18n.__mf("pixelize.valid_number"));
+        if (number < 1) return message.channel.send(message.guild.i18n.__mf("pixelize.insert_number"));
+        if (number > 50) return message.channel.send(message.guild.i18n.__mf("pixelize.insert_number"));
+        let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
         const buffer = await AmeAPI.generate('pixelize', {
           url: message.author.displayAvatarURL({ format: 'png', size: 2048 }),
           pixelize: number,

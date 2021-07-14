@@ -35,7 +35,7 @@
 //           r.displayName.toLowerCase().startsWith(args.join(' ').toLowerCase())
 //         ) ||
 //         message.member;
-//       let m = await message.channel.send(this.config.string[0]);
+//       let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
 //       const buffer = await AmeAPI.generate('3000years', {
 //         url: User.user.displayAvatarURL({ format: 'png', size: 2048 }),
 //       });
@@ -92,7 +92,7 @@ module.exports = class ThreeTousandYearsCommand extends Command {
           r.displayName.toLowerCase().endsWith(args.join(' ').toLowerCase())
       );
       if (args.length <= 0) member = message.member;
-      let m = await message.channel.send(this.config.string[0]);
+      let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
       const buffer = await AmeAPI.generate('3000years', {
         url: member.user.displayAvatarURL({ format: 'png', size: 2048 }),
       });
@@ -102,7 +102,7 @@ module.exports = class ThreeTousandYearsCommand extends Command {
       message.channel.stopTyping();
     } else {
       let member = message.author;
-      let m = await message.channel.send(this.config.string[0]);
+      let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
       const buffer = await AmeAPI.generate('3000years', {
         url: member.displayAvatarURL({ format: 'png', size: 2048 }),
       });

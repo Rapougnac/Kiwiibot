@@ -32,11 +32,11 @@ module.exports = {
         .catch(() => null);
 
       if (!data || data.error) {
-        return message.channel.send(
-          `\\❌ | ${message.author}, I couldn't find the lyrics for ${args.join(
-            ' '
-          )}!`
-        );
+        const msg = message.guild.i18n.__mf("lyrics.not_found",{
+          emote: client.emotes.error, 
+          author: message.author,
+          music: args.join(' ')});
+        return message.channel.send(msg);
       }
 
       if (data.lyrics.length < 2000) {
@@ -122,11 +122,11 @@ module.exports = {
         .catch(() => null);
 
       if (!data || data.error) {
-        return message.channel.send(
-          `\\❌ | ${message.author}, I couldn't find the lyrics for ${args.join(
-            ' '
-          )}!`
-        );
+        const msg = message.guild.i18n.__mf("lyrics.not_found",{
+          emote: client.emotes.error, 
+          author: message.author,
+          music: args.join(' ')});
+        return message.channel.send(msg);
       }
 
       if (data.lyrics.length < 2000) {

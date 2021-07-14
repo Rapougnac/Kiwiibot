@@ -2,7 +2,6 @@
 const { Track } = require('discord-player');
 const Client = require('../../struct/Client');
 const { Message } = require('discord.js');
-const { language } = require('../../../language');
 /**
  *
  * @param {Client} client
@@ -15,7 +14,7 @@ module.exports = (client, message, query, tracks) => {
     embed: {
       color: 'BLUE',
       author: {
-        name: language(message.guild, 'searchResults')[0].format(query),
+        name: message.guild.i18n.__mf("player.events.searchResults",{search: query}),
       },
       timestamp: new Date(),
       description: `${tracks

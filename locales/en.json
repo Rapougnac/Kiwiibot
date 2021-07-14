@@ -1,0 +1,733 @@
+{
+	"MESSAGE_PREFIX": {
+		"msg": "My actual prefix in the guild is `{prefix}`"
+	},
+	"ERROR_MESSAGE": {
+		"msg": "There was an error trying to execute that command!"
+	},
+	"PERMS_MESSAGE": {
+		"guild_only": "**Command is unavailable on DM** - This command can only be used inside servers.",
+		"dev_only": "**Limited to Devs** - This command can only be used by my developers.",
+		"admin_only": "**Limited to Admins** - This command can only be used by server administrators.",
+		"nsfw": "**NSFW Command** - You can only use this command on a nsfw channel",
+		"missing_permissions_you": "**⚠️[Error] You don't have enough permissions** -",
+		"missing_permissions1_you": "You need the following permission(s):\n\u2000\u2000-",
+		"missing_permissions_i": "**⚠️[Error] I don't have enough permissions** -",
+		"missing_permissions1_i": "I need the following permission(s):\n\u2000\u2000-",
+		"blocked_cmd": "Command execution blocked!",
+		"reason": "Reason(s)"
+	},
+	"anime": {
+		"description": "Get informations about the specified anime",
+		"specify": "Please, specify an anime!",
+		"not_found": "No results was found for **{search}**!",
+		"japanese_name": "Name in japanese",
+		"age": "Public age",
+		"yes": "Yes",
+		"no": "No",
+		"note": "Global note",
+		"rank": "Ranking:",
+		"poularity": "Popularity:",
+		"stop_collect_msg": "The message will stop to collect messages in 60 seconds",
+		"stats": "Stats",
+		"beginning": "Beginning",
+		"end": "End",
+		"in_progress": "In progress...",
+		"choose": "Choose your anime between the displayed numbers",
+		"number_range": "Please insert a number between 1 and {number}"
+	},
+	"setprefix": {
+		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
+		"missing_prefix": "Please specify a prefix!",
+		"prefix_length": "Error, my prefix cannot be longer than 5 characters!",
+		"updated_prefix": "My prefix has been updated to **{prefix}**",
+		"new_prefix": "Prefix in this server is now set to **{prefix}**"
+	},
+	"help": {
+		"title": "Help pannel",
+		"name": "Name",
+		"category": "Category",
+		"alias": "Aliase(s)",
+		"none_cooldown": "None",
+		"none_alias": "None",
+		"none": "None",
+		"seconds": "seconds",
+		"usage": "Usage",
+		"not_found": "I didn't find this command!",
+		"guild_only": "Command can only be used in servers",
+		"admin_only": "If the command require the `ADMINISTRATOR` permission",
+		"owner_only": "If the command can be used only by the owner",
+		"description": "Get the help command",
+		"user_permissions": "User's permissions",
+		"bot_permissions": "Bot's permissions",
+		"information": "Find information on the command provided.\nMandatory arguments `[]`, optional arguments `<>`.",
+		"yes": "Yes",
+		"no": "No",
+		"no_permissions": "No permission required",
+		"cmd_usage": "Do {prefix}help [command] to get more information about it.",
+		"nsfw": "You can't show the help pannel if the command to display is nsfw and the channel is not."
+	},
+	"prefix-reset": {
+		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
+		"reset_prefix": "Are you sure you want to reset the prefix?",
+		"confirmation": "The prefix has been resetted to `{prefix}`",
+		"canceled": "Prefix reset has been canceled!"
+	},
+	"setlanguage": {
+		"description": "",
+		"not_supported_language": "This language is not supported yet!",
+		"set_language": "Language has been setted!"
+	},
+	"docs": {
+		"description": "Get the djs doc in an embed, you can specify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`",
+		"missing_query": "Please specify a query!",
+		"docs_fetch_error": "I couldn't fetch the docs!",
+		"valid_sources": "This doesn't seem to be a valid source, sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`"
+	},
+	"mdn": {
+		"description": ""
+	},
+	"sendpins": {
+		"description": "Sends all pinned message(s)"
+	},
+	"tag": {
+		"description": "Search trough all the tags"
+	},
+	"3000y": {
+		"description": "Sends you, or the specified member with the 3000y meme"
+	},
+	"fusion": {
+		"description": "Fusionnate your profile pictur with the specified member"
+	},
+	"approved": {
+		"description": "If your approuved that\\'s very cool"
+	},
+	"batslap": {
+		"description": "Slap a user with the power of batman"
+	},
+	"beautiful": {
+		"description": "You\\'re very beautiful"
+	},
+	"blur": {
+		"description": "Blur your profile picture"
+	},
+	"blurple": {
+		"description": "Blur your profile picture, but with a beautiful blue filter"
+	},
+	"brazzers": {
+		"description": ""
+	},
+	"challenger": {
+		"description": "A new foe has appared!"
+	},
+	"house": {
+		"description": "Show your avatar with your discord house arround, beautiful isn\\'t it?"
+	},
+	"distort": {
+		"description": "Distort your profile profile picture"
+	},
+	"facebook": {
+		"description": ""
+	},
+	"fire": {
+		"description": ""
+	},
+	"jail": {
+		"description": "Go to horny jail!"
+	},
+	"lookwhatkarenhave": {
+		"description": "Well, all is in the name, look what karen have"
+	},
+	"magik": {
+		"description": "You\\'ll be magik"
+	},
+	"moustache": {
+		"description": ""
+	},
+	"pixelize": {
+		"description": "",
+		"valid_number": "It doesn't seem to be valid number",
+		"insert_number": "Please, insert a valid number between 1 to 50"
+	},
+	"ps4": {
+		"description": "You, but in a ps4 game, cool no?"
+	},
+	"scary": {
+		"description": "Scare the little girl by your beautiful profile picture"
+	},
+	"symmetry": {
+		"description": "Symmetry yourself with the tags listed",
+		"error": "Error, you must be use tags listed here:",
+		"left-right": "The symmetry will be from the left to the right",
+		"right-left": "The symmetry will be from the right to the left",
+		"top-bottom": "The symmetry will be from the top to the bottom",
+		"bottom-top": "The symmetry will be from the bottom to the top",
+		"top-left": "The symmetry will be from the top to the left",
+		"top-right": "The symmetry will be from the top to the right",
+		"bottom-left": "The symmetry will be from the bottom to the left",
+		"bottom-right": "The symmetry will be from the bottom to the right"
+	},
+	"thanos": {
+		"description": ""
+	},
+	"vs": {
+		"description": "An epic combat against your opponent, or you if you have no friends"
+	},
+	"inrole":{
+		"description": "Get all members with the specified role",
+		"dislay_role": "All members with the {role_name} role",
+		"missing_role": "Please specify a role."
+	},
+	"invitations":{
+		"description": "Get the the members who has invited the most people in the guild"
+	},
+	"ping": {
+		"description": "Ping!",
+		"msg": "🏓 P{pong}ng! The ping is: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
+	},
+	"roleinfo": {
+		"description": "Shows informations about the mentionned role",
+		"specify_role": "Please specify a role.",
+		"role": "Role",
+		"role_name": "Role name",
+		"who_own_it": "Members who own it",
+		"color": "Color",
+		"creation_date":"Creation date",
+		"on": "On",
+		"at": "at",
+		"hoisted": "Hoisted",
+		"mentionable": "Mentionable"
+	},
+	"serverinfo": {
+		"description": "",
+		"name": "Name",
+		"region": "Region",
+		"members": "Members",
+		"online_members": "Online members",
+		"channels": "channels",
+		"emotes": "Emojis",
+		"roles": "Roles [{role}]",
+		"owner": "Owner",
+		"creation_date": "Creation date",
+		"nitro": "Nitro boots",
+		"afk": "Afk timeout",
+		"verification_level": "Verification level",
+		"id": "ID: {id}",
+		"tier": "Tier : `{tier}`\nNumber of boosts: `{boost_number}`",
+		"members2": "members",
+		"humans": "humans",
+		"bots": "bots",
+		"channels2": "channels",
+		"text_channels": "test channels",
+		"voice_channels": "voice channels",
+		"category": "category",
+		"animated_emotes": "animated emojis",
+		"on": "On",
+		"at": "at",
+		"static_emotes": "static emojis"
+	},
+	"uptime": {
+		"description": "Get the uptime of the bot",
+		"msg": "**{emote}** is since `{days} days` `{hours} hours` `{minutes} minutes` and `{seconds} seconds` online"
+	},
+	"userinfo": {
+		"description": "Shows informations about you or a user",
+		"dnd": "Do Not Disturb <:dnd:838001604098654229>",
+		"online": "Online <:online:838001438972968990>",
+		"offline": "Offline <:offline:850733725704126474>",
+		"idle": "Idle <:idle:838003208588230706>",
+		"desktop":"Desktop {x}",
+		"user": "User {tag}",
+		"member": "Member",
+		"name": "Name and discrim",
+		"nickname": "Nickname",
+		"not_set": "[---](https://youtu.be/dQw4w9WgXcQ)",
+		"account_creation_date": "Account creation date",
+		"on": "On",
+		"at": "at",
+		"not_boosting": "Is not boosting",
+		"arrival_date": "Arrival date on the server",
+		"boost_start_date": "Boost start date",
+		"device": "Device",
+		"type": "Type",
+		"user2": "User",
+		"roles":"Roles [{role}]",
+		"no_roles": "There's no roles to display",
+		"cant_find_member": "I'm sorry, but I could't find this member, could you try again?"
+	},
+	"baka": {
+		"description": ""
+	},
+	"blush": {
+		"description": ""
+	},
+	"cry": {
+		"description": ""
+	},
+	"cuddle": {
+		"description": ""
+	},
+	"feed": {
+		"description": ""
+	},
+	"hug": {
+		"description": ""
+	},
+	"kiss": {
+		"description": ""
+	},
+	"pat": {
+		"description": ""
+	},
+	"poke": {
+		"description": ""
+	},
+	"slap": {
+		"description": ""
+	},
+	"tickle": {
+		"description": ""
+	},
+	"anime-avatar": {
+		"description": ""
+	},
+	"cat": {
+		"description": ""
+	},
+	"cattext": {
+		"description": ""
+	},
+	"dog": {
+		"description": ""
+	},
+	"fact": {
+		"description": ""
+	},
+	"foxgirl": {
+		"description": ""
+	},
+	"gecg": {
+		"description": ""
+	},
+	"goose": {
+		"description": ""
+	},
+	"holo": {
+		"description": ""
+	},
+	"lizard": {
+		"description": ""
+	},
+	"neko": {
+		"description": ""
+	},
+	"nekogif": {
+		"description": ""
+	},
+	"owofy": {
+		"description": ""
+	},
+	"smug": {
+		"description": ""
+	},
+	"spoiler": {
+		"description": ""
+	},
+	"waifu": {
+		"description": ""
+	},
+	"why": {
+		"description": ""
+	},
+	"8ball": {
+		"description": "",
+		"msg": "Please, indicate a question!",
+		"questions": "Yes\nNo\nMaybe\nObviously!\nNot sure\nNay\nOf course\nNEVER\nNo, cause I dont like you :)\nI dont know\nIt make sense\nYes that seems logical to me\nNo sorry, you are too ugly\nNo way\nIt is a possibility"
+	},
+	"ascii": {
+		"description": ""
+	},
+	"avatar": {
+		"description": "",
+		"avatar_of": "Avatar of {avatar}",
+		"msg": "If the image is not displayed, [click here]"
+	},
+	"calc": {
+		"description": ""
+	},
+	"changemymind": {
+		"description": "",
+		"msg": "Please put a valid text!"
+	},
+	"clyde": {
+		"description": ""
+	},
+	"emoji": {
+		"description": ""
+	},
+	"firstmessage": {
+		"description": "Get the first message in the current channel",
+		"first_message": "First message in: **{channel_name}**",
+		"content": "**Content:**",
+		"author": "**Author:**",
+		"msg_id": "**Message ID:**",
+		"created": "**Created at:**"
+	},
+	"github": {
+		"description": "Github User Account Information!"
+	},
+	"hm": {
+		"description": "A hangman game"
+	},
+	"invert": {
+		"description": "Invert the colors on user avatar"
+	},
+	"meme": {
+		"description": ""
+	},
+	"phcomment": {
+		"description": "Write a comment in ph ( ͡• ͜ʖ ͡• )"
+	},
+	"record": {
+		"description": "Record in the voice channel"
+	},
+	"morse": {
+		"description": "Converts your message into morse code!"
+	},
+	"rip": {
+		"description": ""
+	},
+	"sexyrate": {
+		"description": ""
+	},
+	"stealemoji": {
+		"description": "Steal the provided emoji"
+	},
+	"trash": {
+		"description": ""
+	},
+	"trump": {
+		"description": ""
+	},
+	"weather": {
+		"description": ""
+	},
+	"youdied": {
+		"description": ""
+	},
+	"ban": {
+		"description": "Ban the specified member"
+	},
+	"hackban": {
+		"description": "Hackban a member",
+		"missing_id": "Please give me a valid id!",
+		"wrong_id": "The id must be a number!",
+		"self_ban": "You can't ban yourself!",
+		"wrong_ban": "You can't ban me!",
+		"user_banned": "**{user}** has been hackbanned!",
+		"error": "Something went wrong: **{error}**",
+		"already_banned": "This user is already banned!"
+	},
+	"kick": {
+		"description": "Kick a person"
+	},
+	"nuke": {
+		"description": "Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)"
+	},
+	"purge": {
+		"description": ""
+	},
+	"setlogs": {
+		"description": "Set the logs in the mentionned channel"
+	},
+	"setmute": {
+		"description": "Set the mute role",
+		"missing_id": "Please, mention a role or give me it's id!"
+	},
+	"slowmode": {
+		"description": ""
+	},
+	"player": {
+		"events": {
+			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",
+			"channelEmpty": "{emote} - Music stopped as there is no more member in the voice channel!",
+			"PlayerError": {
+				"no_music": "{emote} - There is no music being played on this server !",
+				"no_voice_connection": "{emote} - You are not connected in any voice channel!",
+				"unable_join": "{emote} - I am not able to join your voice channel, please check my permissions!",
+				"error": "{emote} - Something went wrong ... Error: {error}"
+			},
+			"noResults": "{emote} - No results found on YouTube for {search}!",
+			"playlistAdd": "{emote} - {music} has been added to the queue (**{number}** songs)!",
+			"queueEnd": "{emote} - Music stopped as there is no more music in the queue!",
+			"searchCancel": "{emote} - You did not provide a valid response... Please send the command again!",
+			"searchInvalidResponse": "{emote} - You must send a valid number between **1** and **{number}**!",
+			"searchResults": "Here are your search results for: {search}",
+			"trackAdd": "{emote} - {music} has been added to the queue!",
+			"trackStart": "{emote} - Now playing {title} into {voice_channel}..."
+		},
+		"common": {
+			"not_in_channel": "{emote} - You're not in a voice channel!",
+			"not_in_same_channel": "{emote} - You are not in the same voice channel!",
+			"no_music_playing": "{emote} - No music currently playing!"
+		},
+		"event": {
+			"trackStart": "player.event.trackStart"
+		}
+	},
+	"back": {
+		"description": "Return to the previous track",
+		"msg": "{emote} - The current music has just been **backed** !"
+	},
+	"clear-queue": {
+		"description": "Clear the current queue",
+		"msg": "{emote} - The queue has just been **removed** !"
+	},
+	"filter": {
+		"description": "You can add or disable filters you can see all the filters by doing {prefix}filters",
+		"valid_filter": "{emote} - Please specify a valid filter to enable or disable!",
+		"not_existing_filter": "{emote} - This filter doesn't exist, try for example (8D, vibrato, pulsator...)!",
+		"adding_filter": "{emote} - I'm **adding** the filter to the music, please wait... Note: the longer the music is, the longer this will take.",
+		"removing_filter": "{emote} - I'm **disabling** the filter on the music, please wait... Note: the longer the music is playing, the longer this will take."
+	},
+	"loop": {
+		"description": "Enable or disable loop mode for the server (play the song again and again)",
+		"enabled": "{emote} - Loop mode **enabled**!",
+		"disabled": "{emote} - Loop mode **disabled**"
+	},
+	"lyrics": {
+		"description": "Searches for lyric info about a song from GeniuslLyrics if no query are provided.",
+		"not_found": "{emote} - {author} I couldn't find the lyrics for {music}"
+	},
+	"nowplaying": {
+		"description": "Get informations about the curent music",
+		"channel": "Channel",
+		"requested_by": "Requested by",
+		"from_playlist": "From playlist",
+		"views": "Views",
+		"duration": "Duration",
+		"filters_enabled": "Filters activated",
+		"paused": "Currently paused",
+		"progress_bar": "Progress bar"
+	},
+	"pause": {
+		"description": "Pause the current music",
+		"already_paused": "{emote} - The music has already been paused!",
+		"paused": "{emote} - Song {music} has been paused!"
+	},
+	"play": {
+		"description": "Play a music",
+		"missing_title": "{emote} - Please indicate the title of a song!",
+		"error": "Warning an error as occured\n{error}"
+	},
+	"queue": {
+		"description": "Get the queue of the bot",
+		"queue": "**Server queue - {guild_name} {emote}**\nCurrent: {title} | {author}\n\n",
+		"requested_by": "Requested by",
+		"number": "And **{number}** other songs...",
+		"number1": "In the playlist **{number}** song(s)..."
+	},
+	"repeat": {
+		"description": "Enable or disable repeat mode for the server (play the queue again and again)",
+		"enabled": "{emote} - Reapeat mode **enabled**!",
+		"disabled": "{emote} - Reapeat mode **disabled**"
+	},
+	"resume": {
+		"description": "Resume the paused music?",
+		"currently_playing": "{emote} - The music is already playing!",
+		"resumed": "Song {music} has been resumed!"
+	},
+	"shuffle": {
+		"description": "Shuffle the playlist",
+		"msg": "{emote} - Queue d **{number}** song(s) !"
+	},
+	"skip": {
+		"description": "Skip the current music",
+		"msg": "{emote} - The current music has just been **skipped**!"
+	},
+	"stop": {
+		"description": "Stop the current music",
+		"msg": "{emote} - Music **stopped** into this server!"
+	},
+	"spotifyinfos": {
+		"description": ""
+	},
+	"volume": {
+		"description": "Set the volume of the music",
+		"valid_number": "{emote} - Please enter a valid number (between 1 and 100)!",
+		"volume_set": "{emote} - Volume set to **{number}%**!"
+	},
+	"w-filters": {
+		"description": "List of all filters enabled or disabled",
+		"filters": "Filters",
+		"filters_list": "List of all filters enabled or disabled.\nUse `{prefix}filter [filter]` to add a filter to a song."
+	},
+	"anal":{
+		"description": "Returns an anal image/gif"
+	},
+	"ass": {
+		"description": "Returns an ass image"
+	},
+	"bdsm": {
+		"description": "Get a hentai pic of the bdsm tag"
+	},
+	"boobs": {
+		"description": "Get a pic boobs"
+	},
+	"cumart": {
+		"description": "Get a pic of cumart hentai"
+	},
+	"cumsluts": {
+		"description": "Get a random pic of cumsluts"
+	},
+	"cuni": {
+		"description": "Get a random pic of cunilingus"
+	},
+	"doujin": {
+		"description": "Get a random pic of a doujin page"
+	},
+	"feet": {
+		"description": "Get a random pic of a feet"
+	},
+	"feetgif": {
+		"description": "Get a random feet gif"
+	},
+	"femdom": {
+		"description": "Get a pic of femdom hentai"
+	},
+	"gasm": {
+		"description": "Get a random pic of an hentai orgasm"
+	},
+	"gifs": {
+		"description": "Get a random hentai gif"
+	},
+	"girlsolo": {
+		"description": "Get a random pic of a solo hentai girl"
+	},
+	"girlsologifs": {
+		"description": "Get a random gif of a solo hentai girl"
+	},
+	"glasses": {
+		"description": "Get a random pic of hentai girls with glasses"
+	},
+	"hentai": {
+		"description": "Get a random hentai picture"
+	},
+	"hentaigif": {
+		"description": ""
+	},
+	"keta": {
+		"description": ""
+	},
+	"kitsune": {
+		"description": ""
+	},
+	"lesbian": {
+		"description": "Get a random lesbian pic"
+	},
+	"maid": {
+		"description": "(Maids, Maid Uniforms, etc, you know what maids are :3)"
+	},
+	"masturbation": {
+		"description": ""
+	},
+	"netorare": {
+		"description": ""
+	},
+	"nsfwavatar": {
+		"description": ""
+	},
+	"nsfwneko": {
+		"description": ""
+	},
+	"nsfwnekogif": {
+		"description": ""
+	},
+	"orgy": {
+		"description": ""
+	},
+	"panties": {
+		"description": ""
+	},
+	"pussy": {
+		"description": ""
+	},
+	"pussyart": {
+		"description": ""
+	},
+	"pussywank": {
+		"description": ""
+	},
+	"r34": {
+		"description": "Scrap images from the r34 site"
+	},
+	"sauce": {
+		"description": ""
+	},
+	"school": {
+		"description": ""
+	},
+	"spank": {
+		"description": ""
+	},
+	"tentacles": {
+		"description": ""
+	},
+	"tighs": {
+		"description": ""
+	},
+	"tits": {
+		"description": ""
+	},
+	"trap": {
+		"description": ""
+	},
+	"uglybastard": {
+		"description": ""
+	},
+	"uniform": {
+		"description": ""
+	},
+	"wallpaper": {
+		"description": ""
+	},
+	"yaoi": {
+		"description": "Get a yaoi pic (✿◕‿◕✿)"
+	},
+	"yuri": {
+		"description": ""
+	},
+	"zetai": {
+		"description": ""
+	},
+	"code": {
+		"description": "Display the code of the specified command."
+	},
+	"dm": {
+		"description": "",
+		"mention": "Please mention a user to send a dm"
+	},
+	"eval": {
+		"description": "Execute some javascript code"
+	},
+	"invite": {
+		"description": "Invite of the bot"
+	},
+	"say": {
+		"description": ""
+	},
+	"serverlist": {
+		"description": "Show Bot Server List!",
+		"no_guild": "No Guild",
+		"members": "members"
+	},
+	"common": {
+		"wait": "**Please Wait...**",
+		"yes": "Yes",
+		"no": "No",
+		"database_error":"\\⚠️[DATABASE ERROR] The database responded with the following error: {error}",
+		"creation_date":"Creation date",
+		"on": "On",
+		"at": "at"
+	}
+}

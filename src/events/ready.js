@@ -1,7 +1,7 @@
 const consoleUtil = require(`../util/console`);
 const { performance } = require('perf_hooks');
 const bootTime = Math.round(performance.now());
-const { loadLanguages } = require('../../language');
+const { loadLanguages, loadPrefix } = require('../../load');
 const mongoose = require('mongoose');
 const Client = require('../struct/Client');
 require('moment-duration-format');
@@ -19,6 +19,13 @@ module.exports = async (client) => {
     .catch((err) => {
       console.log(err);
     });
+    loadPrefix(client)
+  .then(() => {
+    consoleUtil.success('Loaded prefix', 'LoadPrefix');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
   await loadSlashs(client).catch(console.error);
   //client.utils.deleteSlash('856985824235094026');
   //await getApp('692311924448297011', client).commands('847880341736783882').delete()
@@ -110,7 +117,7 @@ async function loadSlashs(client) {
     } else {
       client.api
         .applications(client.user.id)
-        .guilds('692311924448297011')
+        .guilds('680811865516933177')
         .commands.post({
           data: {
             name: command.name,
@@ -131,7 +138,7 @@ async function loadSlashs(client) {
     .commands.get();
   const guildCommands = await client.api
     .applications(client.user.id)
-    .guilds('692311924448297011')
+    .guilds('680811865516933177')
     .commands.get();
   globalCommands.forEach((globCmd) => {
     console.log(

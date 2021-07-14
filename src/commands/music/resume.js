@@ -44,7 +44,7 @@ module.exports = class ResumeCommand extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        this.config.string[0].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -52,21 +52,21 @@ module.exports = class ResumeCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        this.config.string[1].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        this.config.string[2].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message).paused)
       return message.channel.send(
-        this.config.string[3].format(client.emotes.error)
+        message.guild.i18n.__mf("resume.currently_playing",{emote: this.client.emotes.error})
       );
 
     client.player.resume(message);
-
-    message.channel.send(this.config.string[4].format(client.emotes.sucess));
+    const title = client.player.getQueue(message).title
+    message.channel.send(message.guild.i18n.__mf("resume.resumed",{music: title}));
   }
 };

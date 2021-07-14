@@ -1,6 +1,4 @@
-const { languages } = require('../../assets/json/langs.json');
 const languageSchema = require('../../models/languageSchema');
-const { setLanguage } = require('../../../language');
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 module.exports = class SetLangCommand extends Command {
@@ -25,11 +23,11 @@ module.exports = class SetLangCommand extends Command {
   async execute(client, message, [language]) {
     if (message.guild) {
       const targetedlanguage = language.toLowerCase();
-      if (!languages.includes(targetedlanguage)) {
-        return await message.channel.send(this.config.string[0]);
+      if (!message.guild.i18n.getLocales()) {
+        return await message.channel.send(message.guild.i18n.__mf("setlanguage.not_supported_language"));
       }
 
-      setLanguage(message.guild, targetedlanguage);
+      message.i18n.setLocale(targetedlanguage)
 
       try {
         await languageSchema
@@ -45,21 +43,11 @@ module.exports = class SetLangCommand extends Command {
               upsert: true,
             }
           )
-          .then(async () => {
-            switch (targetedlanguage) {
-              case 'english': {
-                return await this.inlineReply('Language has been setted!');
-              }
-              case 'french': {
-                return await this.inlineReply( 'La langue a bien été définie !');
-              }
-              case 'italian': {
-                return await this.inlineReply('La lingua è stata impostata!')
-              }
-            }
+          .then(async () => { 
+            return await this.inlineReply(message.i18n.__mf("setlanguage.set_language")); 
           });
       } catch (error) {
-        await message.channel.send(this.config.string[2].format(error.name));
+        await message.channel.send(message.guild.i18n.__mf("common.database_error"),{error: error.name});
       }
     } else {
       return message.channel.send(

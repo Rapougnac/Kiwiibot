@@ -43,7 +43,7 @@ module.exports = class SkipCommand extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        this.config.string[0].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -51,18 +51,18 @@ module.exports = class SkipCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        this.config.string[1].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        this.config.string[2].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     client.player.skip(message);
 
     message.channel.send(
-      this.config.string[3].format(client.emotes.success)
+      message.guild.i18n.__mf("skip.msg",{emote: client.emotes.success})
     );
   }
 };

@@ -1,5 +1,3 @@
-const { language } = require('../../../language')
 module.exports = (client, message, queue) => {
-    const { guild } = message;
-    message.channel.send(language(guild, 'botDisconnect')[0].format(client.emotes.error))
+    message.channel.send(message.guild.i18n.__mf("player.events.botDisconnect",{emote: client.emotes.error}));
 };

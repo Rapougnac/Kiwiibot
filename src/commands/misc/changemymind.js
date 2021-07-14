@@ -20,7 +20,7 @@ module.exports = {
    * @param {String[]} args
    */
   async execute(client, message, args) {
-    if (!args[0]) return message.channel.send(this.config.string[0]);
+    if (!args[0]) return message.channel.send(message.guild.i18n.__mf("changemymind.msg"));
 
     const text = args.join(' ');
 

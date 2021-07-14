@@ -25,13 +25,13 @@ module.exports = class SetPrefixCommand extends Command {
    */
   async execute(client, message, [prefix]) {
         if (!prefix) {
-      return message.channel.send(this.config.string[0]);
+      return message.channel.send(message.guild.i18n.__mf('setprefix.missing_prefix'));
     } else if (prefix.length > 5) {
-      return message.channel.send(this.config.string[1]);
+      return message.channel.send(message.guild.i18n.__mf('setprefix.prefix_length'));
     }
 
     PrefixSchema.findOne({ GuildID: message.guild.id }, async (err, data) => {
-      if (err) return message.channel.send(this.config.string[2].format(err.name));
+      if (err) return message.channel.send(message.guild.i18n.__mf('common.database_error'),{error: err.name});
       if (data) {
         await PrefixSchema.findOneAndDelete({ GuildID: message.guild.id });
         data = new PrefixSchema({
@@ -39,14 +39,15 @@ module.exports = class SetPrefixCommand extends Command {
           Prefix: prefix,
         });
         data.save();
-        message.channel.send(this.config.string[3].format(prefix));
+        message.channel.send(message.guild.i18n.__mf('setprefix.updated_prefix'),{prefix: prefix});
       } else {
         data = new PrefixSchema({
           GuildID: message.guild.id,
           Prefix: prefix,
         });
         data.save();
-        message.channel.send(this.config.string[4].format(prefix));
+        message.guild.prefix(prefix)
+        message.channel.send(message.guild.i18n.__mf('setprefix.new_prefix'),{prefix: prefix});
       }
     });
   }

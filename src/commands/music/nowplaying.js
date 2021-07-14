@@ -25,7 +25,7 @@ module.exports = class NowPlayingCommand extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        this.config.string[0].format(this.client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -33,12 +33,12 @@ module.exports = class NowPlayingCommand extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        this.config.string[1].format(this.client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        this.config.string[2].format(this.client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
 
     const track = client.player.nowPlaying(message);
@@ -57,22 +57,22 @@ module.exports = class NowPlayingCommand extends Command {
         color: 'RED',
         author: { name: track.title },
         fields: [
-          { name: this.config.string[3], value: track.author, inline: true },
+          { name: message.guild.i18n.__mf("nowplaying.channel"), value: track.author, inline: true },
           {
-            name: this.config.string[4],
+            name: message.guild.i18n.__mf("nowplaying.requested_by"),
             value: track.requestedBy.username,
             inline: true,
           },
           {
-            name: this.config.string[5],
-            value: track.fromPlaylist ? this.config.string[10] : this.config.string[11],
+            name: message.guild.i18n.__mf("nowplaying.from_playlist"),
+            value: track.fromPlaylist ? message.guild.i18n.__mf("common.yes") : message.guild.i18n.__mf("common.no"),
             inline: true,
           },
 
-          { name: this.config.string[6], value: track.views, inline: true },
-          { name: this.config.string[7], value: track.duration, inline: true },
+          { name: message.guild.i18n.__mf("nowplaying.views"), value: track.views, inline: true },
+          { name: message.guild.i18n.__mf("nowplaying.duration"), value: track.duration, inline: true },
           {
-            name: this.config.string[8],
+            name: message.guild.i18n.__mf("nowplaying.filters_enabled"),
             value: filters.length + '/' + client.filters.length,
             inline: true,
           },
@@ -88,13 +88,13 @@ module.exports = class NowPlayingCommand extends Command {
             inline: true,
           },
           {
-            name: this.config.string[9],
+            name: message.guild.i18n.__mf("nowplaying.paused"),
             value: client.player.getQueue(message).paused ? this.config.string[10] : this.config.string[11],
             inline: true,
           },
 
           {
-            name: this.config.string[12],
+            name: message.guild.i18n.__mf("nowplaying.progress_bar"),
             value: client.player.createProgressBar(message, {
               timecodes: true,
             }),

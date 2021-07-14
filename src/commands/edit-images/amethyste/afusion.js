@@ -44,7 +44,7 @@ module.exports = class AfusionCommand extends Command {
           r.displayName.toLowerCase().endsWith(args.join(' ').toLowerCase())
       );
     if (args.length <= 0) member = message.member;
-    let m = await message.channel.send(this.config.string[0]);
+    let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
     const buffer = await AmeAPI.generate('afusion', {
       url: member.user.displayAvatarURL({ format: 'png', size: 2048 }),
       avatar: message.author.displayAvatarURL({ format: 'png', size: 2048 }),

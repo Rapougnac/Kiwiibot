@@ -2,49 +2,7 @@
 const { Message, UserFlags, BitField } = require('discord.js');
 const languageSchema = require('../models/languageSchema');
 /**@type {import('../../types').Intl.ListFormat} */
-let list;
-/**
- * Check the lang of the list
- * @param {Message} message
- */
-const checkLang = async (message) => {
-  let lang;
-  if (message.guild) {
-    try {
-      await languageSchema.findOne(
-        {
-          _id: message.guild.id,
-        },
-        (err, data) => {
-          if (err) throw err;
-          if (!data)
-            data = new languageSchema({
-              _id: message.guild.id,
-              language: 'english',
-            });
-          lang = data.language;
-        }
-      );
-      if (!lang) lang = 'english';
-      switch (lang) {
-        case 'english': {
-          lang = 'en';
-          break;
-        }
-        case 'french': {
-          lang = 'fr';
-          break;
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    list = new Intl.ListFormat(lang);
-  } else {
-    lang = 'en';
-    list = new Intl.ListFormat(lang);
-  }
-};
+
 // All functions returned from this module will now be in string format
 
 /**
@@ -105,7 +63,8 @@ function compactNum(number, maximumFractionDigits = 2) {
  * @param {*[]} array the array to join
  * @returns {string} the joined array
  */
-function joinArray(array = []) {
+function joinArray(array = [], lang = 'en') {
+  let list = new Intl.ListFormat(lang);
   return list.format(array.map((x) => String(x)));
 }
 /**
@@ -167,6 +126,5 @@ module.exports = {
   joinArray,
   joinArrayAndLimit,
   clean,
-  checkLang,
   convertUFB,
 };

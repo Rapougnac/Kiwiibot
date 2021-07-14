@@ -47,9 +47,9 @@ module.exports = class AvatarCommand extends Command {
         );
       if (args.length <= 0) member = message.member;
       let embed = new MessageEmbed()
-        .setAuthor(`${this.config.string[0].format(member.user.username)}`)
+        .setAuthor(`${message.guild.i18n.__mf("avatar.avatar_of",{avatar: member.user.username})}`)
         .setDescription(
-          `${this.config.string[1]}(${member.user.displayAvatarURL({
+          `${message.guild.i18n.__mf("avatar.msg")}(${member.user.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',
@@ -86,9 +86,9 @@ module.exports = class AvatarCommand extends Command {
     } else {
       member = message.author;
       let embed = new MessageEmbed()
-        .setAuthor(`${this.config.string[0].format(member.username)}`)
+        .setAuthor(`${message.guild.i18n.__mf("avatar.avatar_of",{avatar: member.user.username})}`)
         .setDescription(
-          `${this.config.string[1]}(${member.displayAvatarURL({
+          `${message.guild.i18n.__mf("avatar.msg")}(${member.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',

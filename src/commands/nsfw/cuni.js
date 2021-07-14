@@ -11,7 +11,7 @@ module.exports = class CuniCommand extends Command {
     super(client, {
       name: 'cuni',
       aliases: [],
-      description: 'Get a random pic of cunilingus ',
+      description: 'Get a random pic of cunilingus',
       category: 'nsfw',
       cooldown: 5,
       utilisation: '{prefix}cuni',

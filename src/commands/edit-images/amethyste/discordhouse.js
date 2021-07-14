@@ -32,7 +32,7 @@ module.exports = {
             if(!flag[0]) return message.channel.send("You need to have a house!");
             const house = flag[0].replace('HOUSE_', "")
             let nameHouseAPI = house.slice(0, 1) + house.slice(1).toLowerCase()
-            let m = await message.channel.send(this.config.string[0]);
+            let m = await message.channel.send(message.guild.i18n.__mf("common.wait"));
             const buffer = await AmeAPI.generate("discordhouse", { url: User.user.displayAvatarURL({ format: "png", size: 2048 }), house: nameHouseAPI});
             const attachment = new MessageAttachment(buffer, "discordhouse.png");
             m.delete({ timeout: 3000 });

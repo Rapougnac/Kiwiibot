@@ -1,6 +1,5 @@
 /**@type {import('../../types/index').SlashCommand} */
 const { Permissions } = require('discord.js');
-const { setLanguage } = require('../../language');
 const languageSchema = require('../models/languageSchema');
 const prefixSchema = require('../models/PrefixSchema');
 module.exports = {
@@ -113,7 +112,10 @@ module.exports = {
             );
           const targetedlanguage = interaction.data.options[0].options[0].value;
           const guild = client.guilds.cache.get(interaction.guild_id);
-          setLanguage(guild, targetedlanguage);
+          if (!guild.i18n.getLocales()) {
+            return await message.channel.send(guild.i18n.__mf("setlanguage.not_supported_language"));
+          }
+          guild.i18n.setLocale(targetedlanguage);
           await languageSchema
             .findOneAndUpdate(
               {
@@ -128,26 +130,10 @@ module.exports = {
               }
             )
             .then(async () => {
-              switch (targetedlanguage) {
-                case 'english': {
-                  return await client.utils.reply(
-                    interaction,
-                    'Language has been setted!'
-                  );
-                }
-                case 'french': {
-                  return await client.utils.reply(
-                    interaction,
-                    'La langue a bien été définie !'
-                  );
-                }
-                // case 'italian': {
-                //   return await client.utils.reply(
-                //     interaction,
-                //     'La lingua è stata impostata!'
-                //   );
-                // }
-              }
+                return await client.utils.reply(
+                  interaction,
+                  message.i18n.__mf("setlanguage.set_language")
+                );
             });
         } else {
           client.utils.reply(interaction, 'You can\'t set the language inside dm\'s! The default language is `english`')

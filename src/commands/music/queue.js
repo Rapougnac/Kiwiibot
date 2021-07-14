@@ -58,7 +58,7 @@ module.exports = class Cmd extends Command {
   async execute(client, message, args) {
     if (!message.member.voice.channel)
       return message.channel.send(
-        this.config.string[0].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_channel",{emote: this.client.emotes.error})
       );
 
     if (
@@ -66,14 +66,14 @@ module.exports = class Cmd extends Command {
       message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return message.channel.send(
-        this.config.string[1].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.not_in_same_channel",{emote: this.client.emotes.error})
       );
 
     const queue = client.player.getQueue(message);
 
     if (!client.player.getQueue(message))
       return message.channel.send(
-        this.config.string[2].format(client.emotes.error)
+        message.guild.i18n.__mf("player.common.no_music_playing",{emote: this.client.emotes.error})
       );
     message.channel.send({
       embed: {
@@ -82,24 +82,24 @@ module.exports = class Cmd extends Command {
           icon_url: message.author.displayAvatarURL({ dynamic: true }),
         },
         description:
-          this.config.string[3].format(
-            message.guild.name,
-            client.emotes.queue,
-            queue.playing.title,
-            queue.playing.author
-          ) +
+          message.guild.i18n.__mf("queue.queue",{
+            guild_name: message.guild.name,
+            emote: client.emotes.queue,
+            title: queue.playing.title,
+            author: queue.playing.author
+          }) +
           (queue.tracks
             .map((track, i) => {
               return `**#${i + 1}** - ${track.title} | ${track.author} (${
-                this.config.string[4]
+                message.guild.i18n.__mf("queue.requested_by")
               } ${track.requestedBy.username})`;
             })
             .slice(0, 5)
             .join('\n') +
             `\n\n${
               queue.tracks.length > 5
-                ? this.config.string[5].format(queue.tracks.length - 5)
-                : this.config.string[6].format(queue.tracks.length)
+                ? message.guild.i18n.__mf("queue.number",{number:queue.tracks.length - 5})
+                : message.guild.i18n.__mf("queue.number1",{number:queue.tracks.length})
             }`),
       },
     });

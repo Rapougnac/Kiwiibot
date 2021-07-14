@@ -1,5 +1,4 @@
 /**@type {import('../../types/index').SlashCommand} */
-const { language } = require('../../language');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'avatar',
@@ -29,9 +28,9 @@ module.exports = {
       const User = await client.users.fetch(user);
       const member = guild.member(User);
       const embed = new MessageEmbed()
-        .setAuthor(`${language(guild, 'avatar')[0].format(User.username)}`)
+        .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
         .setDescription(
-          `${language(guild, 'avatar')[1]}(${User.displayAvatarURL({
+          `${message.guild.i18n.__mf("avatar.msg")}(${User.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',
@@ -70,9 +69,9 @@ module.exports = {
       if(!user) user = interaction.user.id;
       const User = await client.users.fetch(user)
       const embed = new MessageEmbed()
-        .setAuthor(`${language(guild, 'avatar')[0].format(User.username)}`)
+        .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
         .setDescription(
-          `${language(guild, 'avatar')[1]}(${User.displayAvatarURL({
+          `${message.guild.i18n.__mf("avatar.msg")}(${User.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',

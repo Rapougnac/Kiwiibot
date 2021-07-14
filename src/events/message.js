@@ -4,30 +4,38 @@ const {
     Message,
     MessageAttachment,
   } = require('discord.js'),
-  Client = require('../struct/Client'),
-  Command = require('../struct/Command'),
-  { prefix } = require('../util/prefix'),
-  { language } = require('../../language'),
-  { checkLang } = require('../util/string');
+Client = require('../struct/Client'),
+Command = require('../struct/Command')
 /**
  * @param {Message} message
  * @param {Client} client
  * @param {String[]} args
  */
 module.exports = async (client, message) => {
-  await checkLang(message);
   const { author, guild } = message;
   const { bot } = author;
+  let prefix = [client.prefix,'m?'];
+  if(message.channel.type === 'dm'){
+    prefix.pop();
+  }
   if (bot && author.id !== client.config.discord.id_bot_test) return;
-  const p = await prefix(message, client.config);
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
-    return message.channel.send(language(guild, 'MESSAGE_PREFIX').format(p));
+    return message.channel.send(message.guild.i18n.__mf("MESSAGE_PREFIX.msg"),{prefix: p});
   }
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))
     return message.channel.send('┻━┻       (゜-゜)');
-  if (!message.content.toLowerCase().startsWith(p)) return;
-  const args = message.content.slice(p.length).trim().split(/\s+/g);
+  // Check prefix
+  if(!prefix.some(prefix =>message.content.toLocaleLowerCase().startsWith(prefix))) return;
+  let index = 0;
+  // Find which prefix are used
+  for(let i=0;i < prefix.length; i++){
+    if(message.content.toLowerCase().startsWith(prefix[i])){
+      index = i;
+      break;
+    }
+  }
+  const args = message.content.slice(prefix[index].length).trim().split(/\s+/g);
   const command = args.shift().toLowerCase();
   if (!client.commands.has(command) && !client.aliases.has(command)) return;
   /**
@@ -40,22 +48,18 @@ module.exports = async (client, message) => {
   if (command_to_execute) {
     if (client.owners.includes(message.author.id)) {
       if (command_to_execute.config.string) {
-        command_to_execute.config.string = language(
-          guild,
-          command_to_execute.help.name
-        );
         try {
           command_to_execute.execute(client, message, args);
         } catch (error) {
           console.error(error);
-          message.reply(language(guild, 'ERROR_MESSAGE') + error.name);
+          message.reply(message.guild.i18n.__mf("ERROR_MESSAGE") + error.name);
         }
       } else {
         try {
           command_to_execute.execute(client, message, args);
         } catch (error) {
           console.error(error);
-          message.reply(language(guild, 'ERROR_MESSAGE') + error.name);
+          message.reply(message.guild.i18n.__mf("ERROR_MESSAGE") + error.name);
         }
       }
     } else {
@@ -63,24 +67,24 @@ module.exports = async (client, message) => {
         const reasons = [];
         if (message.channel.type === 'dm') {
           if (command_to_execute.config.guildOnly) {
-            reasons.push(language(guild, 'PERMS_MESSAGE')[0].join(' - '));
+            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.guild_only"));
           }
         }
 
         if (guild) {
           if (command_to_execute.config.ownerOnly) {
             if (!client.owners.includes(message.author.id)) {
-              reasons.push(language(guild, 'PERMS_MESSAGE')[1].join(' - '));
+              reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.dev_only"));
             }
           }
           if (command_to_execute.config.adminOnly) {
             if (!message.member.hasPermission('ADMINISTRATOR')) {
-              reasons.push(language(guild, 'PERMS_MESSAGE')[2].join(' - '));
+              reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.admin_only"));
             }
           }
           if (command_to_execute.config.nsfw) {
             if (!message.channel.nsfw) {
-              reasons.push(language(guild, 'PERMS_MESSAGE')[3].join(' - '));
+              reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.nsfw"));
             }
           }
           if (Array.isArray(command_to_execute.config.permissions)) {
@@ -91,8 +95,8 @@ module.exports = async (client, message) => {
             ) {
               reasons.push(
                 [
-                  language(guild, 'PERMS_MESSAGE')[4][0],
-                  language(guild, 'PERMS_MESSAGE')[4][1],
+                  message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions_you"),
+                  message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions1_you"),
                   Object.entries(
                     message.channel.permissionsFor(message.member).serialize()
                   )
@@ -122,8 +126,8 @@ module.exports = async (client, message) => {
             ) {
               reasons.push(
                 [
-                  language(guild, 'PERMS_MESSAGE')[5][0],
-                  language(guild, 'PERMS_MESSAGE')[5][1],
+                  message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions_i"),
+                  message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions1_i"),
                   Object.entries(
                     message.channel.permissionsFor(message.guild.me).serialize()
                   )
@@ -148,48 +152,72 @@ module.exports = async (client, message) => {
           }
 
           if (reasons.length > 0) {
-            return message.channel.send(
-              `\`\`\`diff\n-${language(guild, 'PERMS_MESSAGE')[6]}\n\`\`\`\n\n${
-                language(guild, 'PERMS_MESSAGE')[7]
-              }:\n${reasons.map((reason) => '• ' + reason).join('\n')}`
-            );
+            const embed = new MessageEmbed()
+              .setAuthor(
+                client.user.tag,
+                client.user.displayAvatarURL({
+                  dynamic: true,
+                  format: 'png',
+                  size: 2048,
+                })
+              )
+              .setColor('RED')
+              .setDescription(
+                `\`\`\`diff\n-${
+                  message.guild.i18n.__mf("PERMS_MESSAGE.blocked_cmd")
+                }\n\`\`\`\n\n` +
+                  `\`${message.guild.i18n.__mf("PERMS_MESSAGE.reason")}:\`\n\n${reasons
+                    .map((reason) => '• ' + reason)
+                    .join('\n')}`
+              );
+            return message.channel.send(embed);
           }
         } else {
           if (command_to_execute.config.ownerOnly) {
             if (!client.owners.includes(message.author.id)) {
-              reasons.push(language(guild, 'PERMS_MESSAGE')[1].join(' - '));
+              reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.dev_only"));
             }
           }
           if (command_to_execute.config.nsfw) {
             if (!message.channel.nsfw) {
-              reasons.push(language(guild, 'PERMS_MESSAGE')[3].join(' - '));
+              reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.nsfw"));
             }
           }
           if (reasons.length > 0) {
-            return message.channel.send(
-              `\`\`\`diff\n-${language(guild, 'PERMS_MESSAGE')[6]}\n\`\`\`\n\n${
-                language(guild, 'PERMS_MESSAGE')[7]
-              }:\n${reasons.map((reason) => '• ' + reason).join('\n')}`
-            );
+            const embed = new MessageEmbed()
+              .setAuthor(
+                client.user.tag,
+                client.user.displayAvatarURL({
+                  dynamic: true,
+                  format: 'png',
+                  size: 2048,
+                })
+              )
+              .setColor('RED')
+              .setDescription(
+                `\`\`\`diff\n-${
+                  message.guild.i18n.__mf("PERMS_MESSAGE.blocked_cmd")
+                }\n\`\`\`\n\n` +
+                  `\`${message.guild.i18n.__mf("PERMS_MESSAGE.reason")}:\`\n\n${reasons
+                    .map((reason) => '• ' + reason)
+                    .join('\n')}`
+              );
+            return message.channel.send(embed);
           }
         }
-        command_to_execute.config.string = language(
-          guild,
-          command_to_execute.help.name
-        );
 
         try {
           command_to_execute.execute(client, message, args);
         } catch (e) {
           console.error(e);
-          message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
+          message.reply(message.guild.i18n.__mf("ERROR_MESSAGE") + e.name);
         }
       } else {
         try {
           command_to_execute.execute(client, message, args);
         } catch (e) {
           console.error(e);
-          message.reply(language(guild, 'ERROR_MESSAGE') + e.name);
+          message.reply(message.guild.i18n.__mf("ERROR_MESSAGE") + e.name);
         }
       }
       //}

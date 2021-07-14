@@ -1,4 +1,4 @@
-const { language } = require('../../../language');
 module.exports = (client, message, queue, track) => {
-    message.channel.send(language(message.guild, 'trackAdd')[0].format(client.emotes.music, track.title));
+    const msg = message.guild.i18n.__mf("player.events.trackAdd",{emote: client.emotes.music, music: track.title});
+    message.channel.send(msg);
 };

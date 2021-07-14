@@ -42,7 +42,7 @@ module.exports = class HelpCommand extends Command {
                       ...client.commands
                         .filter((c) => c.help.category === val)
                         .map((value) => `\`${value.help.name}\``),
-                    ])}`
+                    ],message.guild.i18n.getLocale())}`
                 )
                 .join('\n\n')}`
             : `${[...client.categories]
@@ -56,7 +56,7 @@ module.exports = class HelpCommand extends Command {
                       ...client.commands
                         .filter((c) => c.help.category === val)
                         .map((value) => `\`${value.help.name}\``),
-                    ])}`
+                    ],message.guild.i18n.getLocale())}`
                 )
                 .join('\n\n')}`
         )

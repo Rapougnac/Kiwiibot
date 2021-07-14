@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const { Message, UserFlags, BitField } = require('discord.js');
 const languageSchema = require('../models/languageSchema');
-let list;
 /**
  * Check the lang of the list
  * @param {Message} message
@@ -102,7 +101,8 @@ function compactNum(number, maximumFractionDigits = 2) {
  * @param {array} array the array to join
  * @returns {string} the joined array
  */
-function joinArray(array = []) {
+function joinArray(array = [], lang = 'en') {
+  let list = new Intl.ListFormat(lang);
   return list.format(array.map((x) => String(x)));
 }
 

@@ -15,7 +15,6 @@ const {
  * @param {String[]} args
  */
 module.exports = async (client, message) => {
-  await checkLang(message);
   const { author, guild } = message;
   const { bot } = author;
   if (bot && author.id !== client.config.discord.id_bot_test) return;

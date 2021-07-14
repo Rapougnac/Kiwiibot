@@ -144,30 +144,30 @@ module.exports = class Command {
    * @param {Client} client
    * @returns {Promise<Message>}
    */
-  async checkPerms(message, cmd, language, client) {
+  async checkPerms(message, cmd, client) {
     const promise = new Promise((resolve) => {
       const { guild } = message;
       const reasons = [];
       if (message.channel.type === 'dm') {
         if (cmd.config.guildOnly) {
-          reasons.push(language(guild, 'PERMS_MESSAGE')[0].join(' - '));
+          reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.guild_only"));
         }
       }
 
       if (guild) {
         if (cmd.config.ownerOnly) {
           if (!client.owners.includes(message.author.id)) {
-            reasons.push(language(guild, 'PERMS_MESSAGE')[1].join(' - '));
+            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.dev_only"));
           }
         }
         if (cmd.config.adminOnly) {
           if (!message.member.hasPermission('ADMINISTRATOR')) {
-            reasons.push(language(guild, 'PERMS_MESSAGE')[2].join(' - '));
+            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.admin_only"));
           }
         }
         if (cmd.config.nsfw) {
           if (!message.channel.nsfw) {
-            reasons.push(language(guild, 'PERMS_MESSAGE')[3].join(' - '));
+            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.nsfw"));
           }
         }
         if (Array.isArray(cmd.config.permissions)) {
@@ -178,8 +178,8 @@ module.exports = class Command {
           ) {
             reasons.push(
               [
-                language(guild, 'PERMS_MESSAGE')[4][0],
-                language(guild, 'PERMS_MESSAGE')[4][1],
+                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions_you"),
+                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions1_you"),
                 Object.entries(
                   message.channel.permissionsFor(message.member).serialize()
                 )
@@ -205,8 +205,8 @@ module.exports = class Command {
           ) {
             reasons.push(
               [
-                language(guild, 'PERMS_MESSAGE')[5][0],
-                language(guild, 'PERMS_MESSAGE')[5][1],
+                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions_i"),
+                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions1_i"),
                 Object.entries(
                   message.channel.permissionsFor(message.guild.me).serialize()
                 )
@@ -241,9 +241,9 @@ module.exports = class Command {
             .setColor('RED')
             .setDescription(
               `\`\`\`diff\n-${
-                language(guild, 'PERMS_MESSAGE')[6]
+                message.guild.i18n.__mf("PERMS_MESSAGE.blocked_cmd")
               }\n\`\`\`\n\n` +
-                `\`${language(guild, 'PERMS_MESSAGE')[7]}:\`\n\n${reasons
+                `\`${message.guild.i18n.__mf("PERMS_MESSAGE.reason")}:\`\n\n${reasons
                   .map((reason) => '• ' + reason)
                   .join('\n')}`
             );
@@ -254,12 +254,12 @@ module.exports = class Command {
       } else {
         if (cmd.config.ownerOnly) {
           if (!client.owners.includes(message.author.id)) {
-            reasons.push(language(guild, 'PERMS_MESSAGE')[1].join(' - '));
+            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.dev_only"));
           }
         }
         if (cmd.config.nsfw) {
           if (!message.channel.nsfw) {
-            reasons.push(language(guild, 'PERMS_MESSAGE')[3].join(' - '));
+            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.nsfw"));
           }
         }
         if (reasons.length > 0) {
@@ -276,9 +276,9 @@ module.exports = class Command {
             .setColor('RED')
             .setDescription(
               `\`\`\`diff\n-${
-                language(guild, 'PERMS_MESSAGE')[6]
+                message.guild.i18n.__mf("PERMS_MESSAGE.blocked_cmd")
               }\n\`\`\`\n\n` +
-                `\`${language(guild, 'PERMS_MESSAGE')[7]}:\`\n\n${reasons
+                `\`${message.guild.i18n.__mf("PERMS_MESSAGE.reason")}:\`\n\n${reasons
                   .map((reason) => '• ' + reason)
                   .join('\n')}`
             );

@@ -11,7 +11,7 @@ module.exports = class FilterCommand extends Command {
       aliases: ['f'],
       description:
         'You can add or disable filters you can see all the filters by doing {prefix}filters',
-      category: '',
+      category: 'music',
       cooldown: 5,
       utilisation: '{prefix}filter [filter]',
       string: [],

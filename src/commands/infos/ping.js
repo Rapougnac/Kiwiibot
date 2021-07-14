@@ -10,13 +10,13 @@ module.exports = class PingCommand extends Command {
       cooldown: 120,
       utilisation: '{prefix}ping',
       string: [],
-      adminOnly: false,
+      adminOnly: true,
     });
   }
   /**
-   * 
-   * @param {Client} client 
-   * @param {*} message 
+   *
+   * @param {Client} client
+   * @param {*} message
    */
   async execute(client, message) {
     message.channel.startTyping();
@@ -39,9 +39,9 @@ module.exports = class PingCommand extends Command {
   }
 };
 
-const  formatNumber = (number, minimumFractionDigits = 0) => {
+const formatNumber = (number, minimumFractionDigits = 0) => {
   return Number.parseFloat(number).toLocaleString(undefined, {
     minimumFractionDigits,
     maximumFractionDigits: 2,
   });
-}
+};

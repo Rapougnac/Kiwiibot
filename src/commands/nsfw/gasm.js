@@ -24,12 +24,11 @@ module.exports = class GasmCommand extends Command {
    * @param {String[]} args
    */
   async execute(client, message, args) {
-    const self = this;
     const GIF = await neko.nsfw.gasm();
     const embed = new MessageEmbed()
       .setColor('#202225')
       .setAuthor(`${message.author.tag} here's a random orgasm image`, message.author.displayAvatarURL({ dynamic: true, size: 512, format: 'png' }))
       .setImage(GIF.url);
-    self.respond(embed)
+    this.respond(embed);
   }
 };

@@ -15,6 +15,7 @@ module.exports = class FeetCommand extends Command {
       category: 'nsfw',
       cooldown: 5,
       utilisation: '{prefix}feet',
+      nsfw: true,
     });
   }
   /**

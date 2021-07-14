@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 const { Message, UserFlags, BitField } = require('discord.js');
 const languageSchema = require('../models/languageSchema');
+/**@type {import('../../types').Intl.ListFormat} */
 /**
  * Check the lang of the list
  * @param {Message} message
@@ -23,6 +24,7 @@ const checkLang = async (message) => {
           lang = data.language;
         }
       );
+      if (!lang) lang = 'english';
       switch (lang) {
         case 'english': {
           lang = 'en';
@@ -73,13 +75,14 @@ function ordinalize(n = 0) {
 }
 
 /**
- * 
+ *
  * @param {number|string} number The number to separte
+ * @param {string} sep The searator of the numbers
  * @example separateNumbers(123456) will return `123'456`; separateNumbers(1234.567) will return `1'234.567`;
  * @returns {string} The numbers with quotation marks
  */
-function separateNumbers(number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+function separateNumbers(number, sep = "'") {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
 }
 /**
  * Converts a number to a stringified compact version
@@ -98,22 +101,21 @@ function compactNum(number, maximumFractionDigits = 2) {
 
 /**
  * Joins array via oxford comma and append 'and' on last 2 items
- * @param {array} array the array to join
+ * @param {*[]} array the array to join
  * @returns {string} the joined array
  */
 function joinArray(array = [], lang = 'en') {
   let list = new Intl.ListFormat(lang);
   return list.format(array.map((x) => String(x)));
 }
-
 /**
  * Join array and add a limiter.
- * @param {Array} array the array to join
+ * @param {*[]} array the array to join
  * @param {number} limit the maximum length of the string output
  * @param {string} connector similar to param of `array.join()`
- * @example joinArrayAndLimit([1,2,3,4,5,6,7,8,9,10,11]) will return  text: '1, 2, 3, 4', excess: 6
- * @returns {object.text} The joined array
- * @returns {object.excess} The number of elements not included on join
+ * @example joinArrayAndLimit([1,2,3,4,5,6,7,8,9,10,11])
+ * will return  text: '1, 2, 3, 4', excess: 6
+ * @returns {{text: string, excess: number}} The joined array
  * @note Will throw a typeerror array.reduce is not a function if param1 is not of type array.
  */
 function joinArrayAndLimit(array = [], limit = 1000, connector = '\n') {
@@ -166,5 +168,5 @@ module.exports = {
   joinArrayAndLimit,
   clean,
   checkLang,
-  convertUFB
+  convertUFB,
 };

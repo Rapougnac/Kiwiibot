@@ -1,8 +1,12 @@
-if (Number(process.version.slice(1).split('.')[0]) < 12)
-  throw new Error(
-    'Node 12.0.0 or higher is required. Update Node on your system.'
-  );
-
+/**@typedef {{clientOptions?: ClientOptions, config: NodeRequire, owners: string|string[], disabledEvents?: string[], prefix: string, testsGuild: string}} Options */
+/**
+ * Data that resolves to give a User object. This can be:
+ * * A User object
+ * * A Snowflake
+ * * A Message object (resolves to the message author)
+ * * A GuildMember object
+ * @typedef {User|Snowflake|Message|GuildMember} UserResolvable
+ */
 const { Client, Collection, ClientOptions } = require('discord.js');
 const Console = require('../util/console');
 const glob = require('glob');
@@ -15,10 +19,10 @@ table2.setHeading('PLayer events', 'Load status');
 const mongoose = require('mongoose');
 const Util = require('./Util');
 const Command = require('./Command');
-const { Player, } = require('discord-player');
+const { Player } = require('discord-player');
 const ProcessEvent = require('../util/processEvents');
-const Genius = require('genius-lyrics');
-
+const path = require('path');
+const RestManager = require('discord.js/src/rest/RESTManager');
 /**
  * Represents a discord client
  * @extends Client
@@ -26,19 +30,10 @@ const Genius = require('genius-lyrics');
 class KiwiiClient extends Client {
   /**
    *
-   * @param {Object} options The options passed trough the client
-   * @param {ClientOptions} options.clientOptions The client options used by discord.js itself
-   * @param {String} options.config The path to the config file
-   * @param {String|String[]} options.owners The owner(s) of the bot
-   * @param {String[]} [options.disabledEvents] Disabled events of this instance
-   * @param {String} options.prefix The prefix of the bot
+   * @param {Options} options The options passed trough the client
    */
   constructor(options) {
     super(options.clientOptions || {});
-
-    if (typeof options !== 'object') {
-      throw new TypeError('Options should be an `Object`');
-    }
 
     /**
      * * A collection of all the bot's commands
@@ -60,6 +55,11 @@ class KiwiiClient extends Client {
      * @type {SetConstructor}
      */
     this.categories = new Set();
+    /**
+     * A collection of all the slash bot's commands
+     * @type {Collection<string, import('../../types').Interaction>}
+     */
+    this.slashs = new Collection();
 
     /**
      * The manager of the `Util` class
@@ -70,12 +70,12 @@ class KiwiiClient extends Client {
     // Client variables
     /**
      * The bot configuration file, empty if no file was specified
-     * @type {String}
+     * @type {import('../../types').Config}
      */
     this.config = options.config ? options.config : {};
     /**
      * The bot owner(s)
-     * @type {String|String[]}
+     * @type {string|string[]}
      */
     this.owners = options.owners;
     /**
@@ -89,13 +89,12 @@ class KiwiiClient extends Client {
      */
     this.disabledEvents = options.disabledEvents;
 
+    this.rest = new RestManager(this);
+
     Console.success(
       `Client has been initialized, you're using ${process.version}`
     );
 
-    /**
-     * Function to format a string
-     */
     String.prototype.format = function () {
       let args = arguments;
       return this.replace(/{(\d+)}/g, (match, number) => {
@@ -135,10 +134,6 @@ class KiwiiClient extends Client {
       leaveOnEmptyCooldown: 5000,
     });
 
-    this.lyrics = new Genius.Client(
-      process.env.GENIUS_API_KEY || this.config.genius_lyrics.TOKEN
-    );
-
     /**
      * Get the emojis in config
      */
@@ -166,56 +161,49 @@ class KiwiiClient extends Client {
    */
   loadCommands() {
     let files = glob.sync('src/commands' + '/**/*.js');
+    const exclude = this.config.discord.dev.exclude_cmd;
+    const include = this.config.discord.dev.include_cmd;
     if (this.config.discord.dev.active) {
-      if (this.config.discord.dev.include_cmd.length) {
-        for (const File of this.config.discord.dev.include_cmd) {
-          files = files.filter((file) => file.endsWith(File));
-        }
+      if (include.length) {
+        files = files.filter((file) => include.includes(path.parse(file).base));
       }
-      if (this.config.discord.dev.exclude_cmd.length) {
-        for (const File of this.config.discord.dev.exclude_cmd) {
-          files = files.filter(
-            (file) => !file.endsWith(File)
-          );
-        }
+      if (exclude.length) {
+        files = files.filter(
+          (file) => !exclude.includes(path.parse(file).base)
+        );
       }
     }
     files.forEach((file) => {
       try {
+        const file_path = `${process.cwd()}${path.sep}${file}`;
         /**
          * @type {Command}
          */
-        let command;
-        if (process.platform === 'win32')
-          command = new (require(`${process.cwd()}\\${file
-            .split('/')
-            .join('\\')}`))(this);
-        else if (process.platform === 'linux')
-          command = new (require(`${process.cwd()}/${file}`))(this);
+        const command = new (require(file_path))(this);
+
         if (this.commands.has(command.help.name)) {
           console.error(
             new Error(`Command name duplicate: ${command.help.name}`).stack
           );
           return process.exit(1);
-        } else {
-          this.commands.set(command.help.name, command);
-          if (command.help.category === '' || !command.help.category)
-            command.help.category = 'unspecified';
-          //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
-          this.categories.add(command.help.category);
-          if (command.config.aliases) {
-            command.config.aliases.forEach((alias) => {
-              if (this.aliases.has(alias)) {
-                console.error(
-                  new Error(`Alias name duplicate: ${command.config.aliases}`)
-                    .stack
-                );
-                return process.exit(1);
-              } else {
-                this.aliases.set(alias, command);
-              }
-            });
-          }
+        }
+        this.commands.set(command.help.name, command);
+        if (command.help.category === '' || !command.help.category)
+          command.help.category = 'unspecified';
+        //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
+        this.categories.add(command.help.category);
+        if (command.config.aliases) {
+          command.config.aliases.forEach((alias) => {
+            if (this.aliases.has(alias)) {
+              console.error(
+                new Error(`Alias name duplicate: ${command.config.aliases}`)
+                  .stack
+              );
+              return process.exit(1);
+            } else {
+              this.aliases.set(alias, command);
+            }
+          });
         }
       } catch (error) {
         console.log(error);
@@ -257,15 +245,7 @@ class KiwiiClient extends Client {
    */
   mongoInit() {
     mongoose
-      .connect(this.config.database.URI, {
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        autoIndex: false,
-        connectTimeoutMS: 10000,
-        poolSize: 5,
-        family: 4,
-      })
+      .connect(this.config.database.URI, this.config.database.config)
       .then(() => {
         Console.success(`Connected to Mongodb`, 'Mongodb');
       })
@@ -334,7 +314,7 @@ class KiwiiClient extends Client {
   /**
    * Function to start the bot
    */
-  async start() {
+  start() {
     //Load the player events
     this.playerInit();
     //Load the events
@@ -351,6 +331,20 @@ class KiwiiClient extends Client {
         'Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!'
       );
     }
+  }
+  /**
+   * Checks whether a user is an owner of the bot (in {@link Options.owners})
+   * @param {UserResolvable} user - User to check for the ownership
+   * @returns {boolean}
+   */
+  isOwner(user) {
+    if (!this.owners) return false;
+    user = this.users.resolve(user);
+    if (!user) throw new RangeError('Unable to resolve the user.');
+    if (typeof this.owners === 'string') return user.id === this.owners;
+    if (this.owners instanceof Array) return this.owners.includes(user.id);
+    if (this.options.owner instanceof Set) return this.owners.has(user.id);
+    throw new RangeError('The client\'s "owner" option is an unknown value.');
   }
 }
 

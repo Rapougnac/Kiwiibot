@@ -25,12 +25,10 @@ function unhandledRejection([error, ...args], client) {
 
   if (!channel) {
     return Promise.resolve(console.log(error));
-  } else {
-    // Do nothing
   }
 
   return channel.send(
-    `\\🛠 ${error.name} caught!\n\`The ${timedate} at ${timehrs}\`\n\`\`\`xl\n${error.stack}\`\`\``
+    `\\🛠 ${error.name} caught!\n\`The ${timedate} at ${timehrs}\`\n\`\`\`xl\n${error.stack/*.split(process.cwd()).join('/home/container/').replaceAll('\\', '/')*/}\`\`\``
   );
 }
 
@@ -57,12 +55,9 @@ function uncaughtException([error, ...args], client) {
   ].join(':');
   if (!channel) {
     return Promise.resolve(console.log(error));
-  } else {
-    // do nothing
   }
-
   return channel.send(
-    `\\🛠 ${error.name} caught!\n\`At ${timedate} at ${timehrs}\`\n\`\`\`xl\n${error.stack}\`\`\``
+    `\\🛠 ${error.name} caught!\n\`At ${timedate} at ${timehrs}\`\n\`\`\`xl\n${error.stack/*.split(process.cwd()).join('/home/container/').replaceAll('\\', '/')*/}\`\`\``
   );
 }
 

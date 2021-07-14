@@ -35,6 +35,7 @@
 const { clean } = require('../../util/string');
 const util = require('util');
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
 module.exports = class EvalCommand extends Command {
@@ -49,6 +50,7 @@ module.exports = class EvalCommand extends Command {
       category: 'owner',
       cooldown: 5,
       utilisation: '{prefix}eval [code]',
+      ownerOnly: true,
     });
   }
   /**

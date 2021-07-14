@@ -8,7 +8,7 @@ module.exports = class FemDomCommand extends Command {
       name: 'femdom',
       aliases: [],
       description: 'Get a pic of femdom hentai',
-      category: 'infos',
+      category: 'nsfw',
       cooldown: 5,
       utilisation: '{prefix}femdom',
       nsfw: true,

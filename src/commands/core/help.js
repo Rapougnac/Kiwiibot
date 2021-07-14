@@ -3,6 +3,7 @@ const { joinArray } = require('../../util/string');
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
+const { clientMap } = require('../../../config');
 module.exports = class HelpCommand extends Command {
   /**
    *
@@ -15,7 +16,7 @@ module.exports = class HelpCommand extends Command {
       description: 'Get the help command',
       category: 'core',
       cooldown: 5,
-      utilisation: '{prefix}help <commandname>',
+      utilisation: '{prefix}help <command-name>',
       string: [],
       permissions: [],
       clientPermissions: ['EMBED_LINKS'],
@@ -28,6 +29,83 @@ module.exports = class HelpCommand extends Command {
    */
   async execute(client, message, args) {
     if (args.length > 2) return;
+    const fields = [];
+    if (message.channel.nsfw) {
+      for (const category of [...client.categories]) {
+        fields.push({
+          name: `${
+            client.commands.filter(
+              /**@param {Command} c */ (c) =>
+                c.help.category === category && !c.config.hidden
+            ).size
+              ? _.upperFirst(category.replace(/-/g, ' ')) +
+                ' ' +
+                '[' +
+                client.commands.filter(
+                  /**@param {Command} c */ (c) =>
+                    c.help.category === category && !c.config.hidden
+                ).size +
+                ']'
+              : ''
+          }`,
+          value: joinArray([
+            ...client.commands
+              .filter(
+                /**@param {Command} cmd */ (cmd) =>
+                  cmd.help.category === category && !cmd.config.hidden
+              )
+              .map((value) => `\`${value.help.name}\``),
+          ]),
+          inline: false,
+        });
+      }
+    } else {
+      for (const category of [...client.categories].remove('nsfw')) {
+        fields.push({
+          name: `${
+            client.commands.filter(
+              /**@param {Command} c */ (c) =>
+                c.help.category === category && !c.config.hidden
+            ).size
+              ? _.upperFirst(category.replace(/-/g, ' ')) +
+                ' ' +
+                '[' +
+                client.commands.filter(
+                  /**@param {Command} c */ (c) =>
+                    c.help.category === category && !c.config.hidden
+                ).size +
+                ']'
+              : ''
+          }`,
+          value: joinArray([
+            ...client.commands
+              .filter(
+                /**@param {Command} cmd */ (cmd) =>
+                  cmd.help.category === category && !cmd.config.hidden
+              )
+              .map((value) => `\`${value.help.name}\``),
+          ]),
+          inline: false,
+        });
+      }
+    }
+    if (
+      fields.some(
+        (x) => (x.name && x.value) || x.name || x.value === null || ''
+      )
+    ) {
+      for (let i = 0; i < fields.length; i++) {
+        if (
+          !(
+            (fields[i].name && fields[i].value) ||
+            fields[i].name ||
+            fields[i].value
+          )
+        ) {
+          delete fields[i];
+        }
+      }
+    }
     if (!args[0]) {
       const embed = new MessageEmbed()
         .setDescription(
@@ -74,7 +152,14 @@ module.exports = class HelpCommand extends Command {
         message.client.commands.find(
           (x) => x.aliases && x.aliases.includes(args.join(' ').toLowerCase())
         );
-
+      if (command.config.hidden) {
+        return message.channel.send(
+          `${client.emotes.error} - ${message.guild.i18n.__mf("help.not_found")}`
+        );
+      }
+      if(command.config.nsfw && !message.channel.nsfw) {
+        return message.channel.send(`${client.emotes.error} - ${message.guild.i18n.__mf("help.nsfw")}`)
+      }
       if (!command)
         return message.channel.send(
           `\\${client.emotes.error} - ${message.guild.i18n.__mf('help.not_found')}`

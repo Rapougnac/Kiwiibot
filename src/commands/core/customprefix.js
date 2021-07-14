@@ -31,7 +31,7 @@ module.exports = class SetPrefixCommand extends Command {
     }
 
     PrefixSchema.findOne({ GuildID: message.guild.id }, async (err, data) => {
-      if (err) return message.channel.send(message.guild.i18n.__mf('setprefix.database_error'),{error: err.name});
+      if (err) return message.channel.send(message.guild.i18n.__mf('common.database_error'),{error: err.name});
       if (data) {
         await PrefixSchema.findOneAndDelete({ GuildID: message.guild.id });
         data = new PrefixSchema({

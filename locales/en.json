@@ -22,7 +22,6 @@
 		"description": "Change the default prefix to the specified prefix, you can still use the default prefix",
 		"missing_prefix": "Please specify a prefix!",
 		"prefix_length": "Error, my prefix cannot be longer than 5 characters!",
-		"database_error": "\\⚠️[DATABASE ERROR] The database responded with the following error: {error}",
 		"updated_prefix": "My prefix has been updated to **{prefix}**",
 		"new_prefix": "Prefix in this server is now set to **{prefix}**"
 	},
@@ -58,8 +57,7 @@
 	"setlanguage": {
 		"description": "",
 		"not_supported_language": "This language is not supported yet!",
-		"set_language": "Language has been setted!",
-		"database_error": "\\⚠️[DATABASE ERROR] The database responded with the following error: {error}"
+		"set_language": "Language has been setted!"
 	},
 	"docs": {
 		"description": "Get the djs doc in an embed, you can specify the source by doing `--src {source}` (without the brackets) The sources are listed here: `stable`, `master`, `commando`, `rpc`, `akairo`, `akairo-master` and `collection`",
@@ -166,7 +164,7 @@
 		"description": "Ping!",
 		"msg": "🏓 P{pong}ng! The ping is: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
 	},
-	"serverinfo":{
+	"serverinfo": {
 		"description": "",
 		"name": "Name",
 		"region": "Region",
@@ -194,11 +192,11 @@
 		"at": "at",
 		"static_emotes": "static emojis"
 	},
-	"uptime":{
+	"uptime": {
 		"description": "Get the uptime of the bot",
 		"msg": "**{emote}** is since `{days} days` `{hours} hours` `{minutes} minutes` and `{seconds} seconds` online"
 	},
-	"userinfo":{
+	"userinfo": {
 		"description": "Shows informations about you or a user",
 		"dnd": "Do Not Disturb <:dnd:838001604098654229>",
 		"online": "Online <:online:838001438972968990>",
@@ -222,6 +220,39 @@
 		"roles":"Roles [{role}]",
 		"no_roles": "There's no roles to display",
 		"cant_find_member": "I'm sorry, but I could't find this member, could you try again?"
+	},
+	"baka": {
+		"description": ""
+	},
+	"blush": {
+		"description": ""
+	},
+	"cry": {
+		"description": ""
+	},
+	"cuddle": {
+		"description": ""
+	},
+	"feed": {
+		"description": ""
+	},
+	"hug": {
+		"description": ""
+	},
+	"kiss": {
+		"description": ""
+	},
+	"pat": {
+		"description": ""
+	},
+	"poke": {
+		"description": ""
+	},
+	"slap": {
+		"description": ""
+	},
+	"tickle": {
+		"description": ""
 	},
 	"player": {
 		"events": {
@@ -341,6 +372,7 @@
 	"common": {
 		"wait": "**Please Wait...**",
 		"yes": "Yes",
-		"no": "No"
+		"no": "No",
+		"database_error":"\\⚠️[DATABASE ERROR] The database responded with the following error: {error}"
 	}
 }

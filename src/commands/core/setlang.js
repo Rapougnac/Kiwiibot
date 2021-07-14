@@ -59,7 +59,7 @@ module.exports = class SetLangCommand extends Command {
             }
           });
       } catch (error) {
-        await message.channel.send(message.guild.i18n.__mf("setlanguage.database_error"),{error: error.name});
+        await message.channel.send(message.guild.i18n.__mf("common.database_error"),{error: error.name});
       }
     } else {
       return message.channel.send(

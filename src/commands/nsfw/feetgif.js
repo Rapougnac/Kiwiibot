@@ -1,6 +1,5 @@
 const nekoclient = require('nekos.life');
 const neko = new nekoclient();
-const { parse } = require('path')
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');

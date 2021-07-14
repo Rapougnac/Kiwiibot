@@ -395,7 +395,8 @@
 		"description": "Set the logs in the mentionned channel"
 	},
 	"setmute": {
-		"description": "Set the mute role"
+		"description": "Set the mute role",
+		"missing_id": "Please, mention a role or give me it's id!"
 	},
 	"slowmode": {
 		"description": ""

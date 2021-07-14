@@ -77,9 +77,9 @@ module.exports = class ServerInfoCommand extends Command {
         true
       )
       .addField(
-        message.guild.i18n.__mf('serverinfo.creation_date'),
+        message.guild.i18n.__mf('common.creation_date'),
         moment(message.guild.createdAt).format(
-          `[${message.guild.i18n.__mf('serverinfo.on')}] DD/MM/YYYY [${message.guild.i18n.__mf('serverinfo.at')}] HH:mm:ss`
+          `[${message.guild.i18n.__mf('common.on')}] DD/MM/YYYY [${message.guild.i18n.__mf('common.at')}] HH:mm:ss`
         ),
         true
       )

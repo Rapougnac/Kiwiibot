@@ -153,9 +153,9 @@ module.exports = class UserInfoCommand extends Command {
           true
         )
         .addField(
-          message.guild.i18n.__mf("userinfo.account_creation_date"),
+          message.guild.i18n.__mf("common.account_creation_date"),
           moment(member.user.createdAt).format(
-            `[${message.guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("userinfo.at")}] HH:mm:ss`
+            `[${message.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("common.at")}] HH:mm:ss`
           ) +
             `\n\`${moment(member.user.createdAt, 'DD/MM/YYYY')
               .locale(lang)
@@ -165,7 +165,7 @@ module.exports = class UserInfoCommand extends Command {
         .addField(
           message.guild.i18n.__mf("userinfo.arrival_date"),
           moment(member.joinedAt).format(
-            `[${message.guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("userinfo.at")}] HH:mm:ss`
+            `[${message.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("common.at")}] HH:mm:ss`
           ) +
             `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
               .locale(lang)
@@ -176,7 +176,7 @@ module.exports = class UserInfoCommand extends Command {
           message.guild.i18n.__mf("userinfo.boost_start_date"),
           member.premiumSince
             ? moment(member.premiumSince).format(
-                `[${message.guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("userinfo.at")}] HH:mm:ss`
+                `[${message.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("common.at")}] HH:mm:ss`
               ) +
                 `\n\`${moment(member.premiumSince, 'DD/MM/YYYY')
                   .locale(lang)

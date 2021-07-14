@@ -181,8 +181,8 @@ module.exports = {
             .addField(
               guild.i18n.__mf("userinfo.account_creation_date"),
               moment(user.createdAt).format(
-                `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("userinfo.at")
+                `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("common.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(user.createdAt, 'DD/MM/YYYY')
@@ -193,8 +193,8 @@ module.exports = {
             .addField(
               guild.i18n.__mf("userinfo.arrival_date"),
               moment(member.joinedAt).format(
-                `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("userinfo.at")
+                `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("common.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
@@ -206,8 +206,8 @@ module.exports = {
               guild.i18n.__mf("userinfo.boost_start_date"),
               member.premiumSince
                 ? moment(member.premiumSince).format(
-                    `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
-                      guild.i18n.__mf("userinfo.at")
+                    `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                      guild.i18n.__mf("common.at")
                     }] HH:mm:ss`
                   ) +
                     `\n\`${moment(member.premiumSince, 'DD/MM/YYYY')
@@ -319,8 +319,8 @@ module.exports = {
             .addField(
               guild.i18n.__mf("userinfo.account_creation_date"),
               moment(user.createdAt).format(
-                `[${guild.i18n.__mf("userinfo.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("userinfo.at")
+                `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("common.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(user.createdAt, 'DD/MM/YYYY')
@@ -406,10 +406,10 @@ module.exports = {
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.creation_date'),
+              guild.i18n.__mf('common.creation_date'),
               moment(guild.createdAt).format(
-                `[${guild.i18n.__mf('serverinfo.on')}] DD/MM/YYYY [${
-                  guild.i18n.__mf('serverinfo.at')
+                `[${guild.i18n.__mf('common.on')}] DD/MM/YYYY [${
+                  guild.i18n.__mf('common.at')
                 }] HH:mm:ss`
               ),
               true
@@ -472,31 +472,31 @@ module.exports = {
             .replace(/Guild/g, 'Server');
           const embed = new MessageEmbed()
             .setDescription('Permissions\n')
-            .addField(language(guild, 'roleinfo')[1], role, true)
-            .addField(language(guild, 'roleinfo')[2], role.name, true)
-            .addField(language(guild, 'roleinfo')[3], role.members.size, true)
-            .addField(language(guild, 'roleinfo')[4], role.hexColor, true)
+            .addField(guild.i18n.__mf("roleinfo.role"), role, true)
+            .addField(guild.i18n.__mf("roleinfo.role_name"), role.name, true)
+            .addField(guild.i18n.__mf("roleinfo.who_own_it"), role.members.size, true)
+            .addField(guild.i18n.__mf("roleinfo.color"), role.hexColor, true)
             .addField(
-              language(guild, 'roleinfo')[5],
+              guild.i18n.__mf("common.creation_date"),
               moment(role.createdAt).format(
-                `[${language(guild, 'roleinfo')[6]}] DD/MM/YYYY [${
-                  language(guild, 'roleinfo')[7]
+                `[${guild.i18n.__mf("roleinfo.on")}] DD/MM/YYYY [${
+                  guild.i18n.__mf("roleinfo.at")
                 }] HH:mm:ss`
               ),
               true
             )
             .addField(
-              language(guild, 'roleinfo')[8],
+              guild.i18n.__mf("roleinfo.hoisted"),
               role.hoist
-                ? language(guild, 'roleinfo')[9]
-                : language(guild, 'roleinfo')[10],
+                ? guild.i18n.__mf("common.yes")
+                : guild.i18n.__mf("common.no"),
               true
             )
             .addField(
-              language(guild, 'roleinfo')[11],
+              guild.i18n.__mf("roleinfo.mentionnable"),
               role.mentionable
-                ? language(guild, 'roleinfo')[9]
-                : language(guild, 'roleinfo')[10],
+                ? guild.i18n.__mf("common.yes")
+                : guild.i18n.__mf("common.no"),
               true
             )
             .addField('Permissions', permsArr)

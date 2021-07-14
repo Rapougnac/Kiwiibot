@@ -46,6 +46,7 @@ module.exports = class SetPrefixCommand extends Command {
           Prefix: prefix,
         });
         data.save();
+        message.guild.prefix(prefix)
         message.channel.send(message.guild.i18n.__mf('setprefix.new_prefix'),{prefix: prefix});
       }
     });

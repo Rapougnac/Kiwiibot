@@ -5,8 +5,7 @@ const {
     MessageAttachment,
   } = require('discord.js'),
 Client = require('../struct/Client'),
-Command = require('../struct/Command'),
-{ prefix } = require('../util/prefix'),
+Command = require('../struct/Command')
 /**
  * @param {Message} message
  * @param {Client} client
@@ -15,16 +14,28 @@ Command = require('../struct/Command'),
 module.exports = async (client, message) => {
   const { author, guild } = message;
   const { bot } = author;
+  let prefix = [client.prefix,'m?'];
+  if(message.channel.type === 'dm'){
+    prefix.pop();
+  }
   if (bot && author.id !== client.config.discord.id_bot_test) return;
-  const p = await prefix(message, client.config);
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
     return message.channel.send(message.guild.i18n.__mf("MESSAGE_PREFIX.msg"),{prefix: p});
   }
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))
     return message.channel.send('┻━┻       (゜-゜)');
-  if (!message.content.toLowerCase().startsWith(p)) return;
-  const args = message.content.slice(p.length).trim().split(/\s+/g);
+  // Check prefix
+  if(!prefix.some(prefix =>message.content.toLocaleLowerCase().startsWith(prefix))) return;
+  let index = 0;
+  // Find which prefix are used
+  for(let i=0;i < prefix.length; i++){
+    if(message.content.toLowerCase().startsWith(prefix[i])){
+      index = i;
+      break;
+    }
+  }
+  const args = message.content.slice(prefix[index].length).trim().split(/\s+/g);
   const command = args.shift().toLowerCase();
   if (!client.commands.has(command) && !client.aliases.has(command)) return;
   /**

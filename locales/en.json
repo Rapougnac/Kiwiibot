@@ -338,7 +338,12 @@
 		"description": ""
 	},
 	"firstmessage": {
-		"description": "Get the first message in the current channel"
+		"description": "Get the first message in the current channel",
+		"first_message": "First message in: **{channel_name}**",
+		"content": "**Content:**",
+		"author": "**Author:**",
+		"msg_id": "**Message ID:**",
+		"created": "**Created at:**"
 	},
 	"github": {
 		"description": "Github User Account Information!"

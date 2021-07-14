@@ -66,14 +66,14 @@ module.exports = class FirstMessageCommand extends Command {
     const msg = fetchMessages.first();
 
     const embed = new MessageEmbed()
-      .setTitle(this.config.string[0].format(message.channel.name))
+      .setTitle(message.guild.i18n.__mf("firstmessage.first_message",{channel_name: message.channel.name}))
       .setURL(msg.url)
       .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
-      .setDescription(this.config.string[1] + msg.content)
-      .addField(this.config.string[2], msg.author, true)
-      .addField(this.config.string[3], msg.id, true)
+      .setDescription(message.guild.i18n.__mf("firstmessage.content") + msg.content)
+      .addField(message.guild.i18n.__mf("firstmessage.author"), msg.author, true)
+      .addField(message.guild.i18n.__mf("firstmessage.msg_id"), msg.id, true)
       .addField(
-        this.config.string[4],
+        message.guild.i18n.__mf("firstmessage.created"),
         msg.createdAt.toLocaleDateString(),
         true
       );

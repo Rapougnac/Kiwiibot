@@ -1,4 +1,5 @@
 const languageSchema = require('./src/models/languageSchema');
+const PrefixSchema = require('./src/models/PrefixSchema');
 const Client = require('./src/struct/Client'),
 mongoose = require('mongoose');
 /**
@@ -25,4 +26,24 @@ const loadLanguages = async (client, mongoose) => {
   }
 };
 
-module.exports = { loadLanguages};
+const loadPrefix = async (client) => {
+  try {
+    for (const guild of client.guilds.cache) {
+      const guildID = guild[0];
+      await PrefixSchema.findOne(
+        { GuildID: guildID },
+        (err, data) => {
+          if(data !==null){
+            guild.prefix(data.Prefix);   
+          }
+        });
+    }
+  } catch (error) {
+    console.error(
+      `⚠️[DATABASE ERROR] The database responded with the following error: ${error.name}\n${error}`
+    );
+  }
+};
+
+
+module.exports = { loadLanguages, loadPrefix};

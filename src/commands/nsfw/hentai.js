@@ -15,6 +15,7 @@ module.exports = class HentaiCommand extends Command {
       category: 'nsfw',
       cooldown: 5,
       utilisation: '{prefix}hentai',
+      nsfw: true,
     });
   }
   /**

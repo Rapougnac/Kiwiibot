@@ -16,7 +16,7 @@ module.exports = class HelpCommand extends Command {
       description: 'Get the help command',
       category: 'core',
       cooldown: 5,
-      utilisation: '{prefix}help <commandname>',
+      utilisation: '{prefix}help <command-name>',
       string: [],
       permissions: [],
       clientPermissions: ['EMBED_LINKS'],
@@ -56,7 +56,7 @@ module.exports = class HelpCommand extends Command {
               )
               .map((value) => `\`${value.help.name}\``),
           ]),
-          inline: true,
+          inline: false,
         });
       }
     } else {
@@ -85,7 +85,7 @@ module.exports = class HelpCommand extends Command {
               )
               .map((value) => `\`${value.help.name}\``),
           ]),
-          inline: true,
+          inline: false,
         });
       }
     }
@@ -131,6 +131,9 @@ module.exports = class HelpCommand extends Command {
         return message.channel.send(
           `${client.emotes.error} - ${this.config.string[0]}`
         );
+      }
+      if(command.config.nsfw && !message.channel.nsfw) {
+        return message.channel.send(`${client.emotes.error} - ${this.config.string[20]}`)
       }
       if (!command)
         return message.channel.send(

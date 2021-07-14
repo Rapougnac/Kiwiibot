@@ -603,7 +603,8 @@
         "No",
         "No permission required",
         "Do {0}help [command] to get more information about it.",
-        "\nTo display the nsfw commands, do help in a nsfw channel."
+        "\nTo display the nsfw commands, do help in a nsfw channel.",
+        "You can't show the help pannel if the command to display is nsfw and the channel is not."
       ],
       "french": [
         "Je n'ai pas trouvé cette commande !",
@@ -625,7 +626,8 @@
         "Non",
         "Aucune permission requise",
         "Faites {0}help [commande] pour avoir plus d'informations sur celle-ci.",
-        "\nPour afficher les commandes nsfw, faites help dans un channel nsfw."
+        "\nPour afficher les commandes nsfw, faites help dans un channel nsfw.",
+        "Vous ne pouvez pas afficher le panneau d'aide sur une commande nsfw si le channel n'est pas marqué en tant que nsfw."
       ]
     },
     "ERROR_MESSAGE": {

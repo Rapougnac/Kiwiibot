@@ -1,5 +1,4 @@
 const { convertUFB, joinArray, checkLang } = require('../util/string');
-const { language } = require('../../language');
 const languageSchema = require('../models/languageSchema');
 const { MessageEmbed, Message, RoleManager } = require('discord.js');
 const moment = require('moment');

@@ -669,7 +669,9 @@
 		"description": ""
 	},
 	"serverlist": {
-		"description": "Show Bot Server List!"
+		"description": "Show Bot Server List!",
+		"no_guild": "No Guild",
+		"members": "members"
 	},
 	"common": {
 		"wait": "**Please Wait...**",

@@ -399,7 +399,7 @@
 	},
 	"slowmode": {
 		"description": ""
-	}
+	},
 	"player": {
 		"events": {
 			"botDisconnect": "{emote} - Music stopped as I have been disconnected from the channel!",
@@ -490,7 +490,7 @@
 		"currently_playing": "{emote} - The music is already playing!",
 		"resumed": "Song {music} has been resumed!"
 	},
-	"": {
+	"shuffle": {
 		"description": "Shuffle the playlist",
 		"msg": "{emote} - Queue d **{number}** song(s) !"
 	},
@@ -514,6 +514,162 @@
 		"description": "List of all filters enabled or disabled",
 		"filters": "Filters",
 		"filters_list": "List of all filters enabled or disabled.\nUse `{prefix}filter [filter]` to add a filter to a song."
+	},
+	"anal":{
+		"description": "Returns an anal image/gif"
+	},
+	"ass": {
+		"description": "Returns an ass image"
+	},
+	"bdsm": {
+		"description": "Get a hentai pic of the bdsm tag"
+	},
+	"boobs": {
+		"description": "Get a pic boobs"
+	},
+	"cumart": {
+		"description": "Get a pic of cumart hentai"
+	},
+	"cumsluts": {
+		"description": "Get a random pic of cumsluts"
+	},
+	"cuni": {
+		"description": "Get a random pic of cunilingus"
+	},
+	"doujin": {
+		"description": "Get a random pic of a doujin page"
+	},
+	"feet": {
+		"description": "Get a random pic of a feet"
+	},
+	"feetgif": {
+		"description": "Get a random feet gif"
+	},
+	"femdom": {
+		"description": "Get a pic of femdom hentai"
+	},
+	"gasm": {
+		"description": "Get a random pic of an hentai orgasm"
+	},
+	"gifs": {
+		"description": "Get a random hentai gif"
+	},
+	"girlsolo": {
+		"description": "Get a random pic of a solo hentai girl"
+	},
+	"girlsologifs": {
+		"description": "Get a random gif of a solo hentai girl"
+	},
+	"glasses": {
+		"description": "Get a random pic of hentai girls with glasses"
+	},
+	"hentai": {
+		"description": "Get a random hentai picture"
+	},
+	"hentaigif": {
+		"description": ""
+	},
+	"keta": {
+		"description": ""
+	},
+	"kitsune": {
+		"description": ""
+	},
+	"lesbian": {
+		"description": "Get a random lesbian pic"
+	},
+	"maid": {
+		"description": "(Maids, Maid Uniforms, etc, you know what maids are :3)"
+	},
+	"masturbation": {
+		"description": ""
+	},
+	"netorare": {
+		"description": ""
+	},
+	"nsfwavatar": {
+		"description": ""
+	},
+	"nsfwneko": {
+		"description": ""
+	},
+	"nsfwnekogif": {
+		"description": ""
+	},
+	"orgy": {
+		"description": ""
+	},
+	"panties": {
+		"description": ""
+	},
+	"pussy": {
+		"description": ""
+	},
+	"pussyart": {
+		"description": ""
+	},
+	"pussywank": {
+		"description": ""
+	},
+	"r34": {
+		"description": "Scrap images from the r34 site"
+	},
+	"sauce": {
+		"description": ""
+	},
+	"school": {
+		"description": ""
+	},
+	"spank": {
+		"description": ""
+	},
+	"tentacles": {
+		"description": ""
+	},
+	"tighs": {
+		"description": ""
+	},
+	"tits": {
+		"description": ""
+	},
+	"trap": {
+		"description": ""
+	},
+	"uglybastard": {
+		"description": ""
+	},
+	"uniform": {
+		"description": ""
+	},
+	"wallpaper": {
+		"description": ""
+	},
+	"yaoi": {
+		"description": "Get a yaoi pic (✿◕‿◕✿)"
+	},
+	"yuri": {
+		"description": ""
+	},
+	"zetai": {
+		"description": ""
+	},
+	"code": {
+		"description": "Display the code of the specified command."
+	},
+	"dm": {
+		"description": ""
+	},
+	"eval": {
+		"description": "Execute some javascript code"
+	},
+	"invite": {
+		"description": "Invite of the bot"
+	},
+	"say": {
+		"description": ""
+	},
+	"serverlist": {
+		"description": "Show Bot Server List!"
 	},
 	"common": {
 		"wait": "**Please Wait...**",

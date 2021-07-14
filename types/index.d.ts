@@ -87,8 +87,16 @@ type Member = {
     roles: Array<string>;
     user: User
 }
+type InteractionUser = {
+    avatar: string;
+    discriminator: string;
+    id: string;
+    public_flags: number;
+    username: string;
+}
 type Interaction = {
     member?: Member;
+    user?: InteractionUser;
     guild_id?: string;
     data: Data;
     token: string;

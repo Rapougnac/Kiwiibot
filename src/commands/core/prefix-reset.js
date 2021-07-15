@@ -35,7 +35,7 @@ module.exports = class PrefixResetCommand extends Command {
       if (emoji === '✅') {
         msg.delete();
         await prefixSchema.findOneAndDelete({ GuildID: message.guild.id });
-        message.channel.send(message.guild.i18n.__mf('prefix-reset.confirmation'),{prefix: client.prefix});
+        message.channel.send(message.guild.i18n.__mf('prefix-reset.confirmation',{prefix: client.prefix}));
       }
       if (emoji === '❌') {
         msg.delete();

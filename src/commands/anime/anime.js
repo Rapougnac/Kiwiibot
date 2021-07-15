@@ -33,7 +33,7 @@ module.exports = class AnimeCommand extends Command {
       .searchAnime(search)
       .then(async (result) => {
         if (result.length === 0) {
-          return message.channel.send(message.guild.i18n.__mf("anime.not_found"),{search: search});
+          return message.channel.send(message.guild.i18n.__mf("anime.not_found",{search: search}));
         }
         if (result.length > 2) {
           const x = dropRight(result, result.length - 20);
@@ -89,7 +89,7 @@ module.exports = class AnimeCommand extends Command {
           let c;
           x.forEach((y, counter) => (c = counter + 1));
           if (!continued)
-            return message.channel.send(message.guild.i18n.__mf("anime.number_range"),{number: c});
+            return message.channel.send(message.guild.i18n.__mf("anime.number_range",{number: c}));
           else {
             const anime = x[number - 1];
             const embed = new MessageEmbed()
@@ -117,7 +117,7 @@ module.exports = class AnimeCommand extends Command {
                   }\n•\u2000 **${message.guild.i18n.__mf("anime.age")}** ${
                     anime.ageRatingGuide
                   }\n•\u2000 **NSFW:** ${
-                    anime.nsfw ? message.guild.i18n.__mf("anime.yes") : message.guild.i18n.__mf("anime.no")
+                    anime.nsfw ? message.guild.i18n.__mf("common.yes") : message.guild.i18n.__mf("common.no")
                   }`,
                   true
                 )
@@ -195,7 +195,7 @@ module.exports = class AnimeCommand extends Command {
       })
       .catch((err) => {
         console.error(err.stack); //catching error
-        return message.channel.send(message.guild.i18n.__mf("anime.not_found"),{search: search});
+        return message.channel.send(message.guild.i18n.__mf("anime.not_found",{search: search}));
       });
   }
 };

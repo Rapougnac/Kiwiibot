@@ -31,7 +31,7 @@ module.exports = class SetPrefixCommand extends Command {
     }
 
     PrefixSchema.findOne({ GuildID: message.guild.id }, async (err, data) => {
-      if (err) return message.channel.send(message.guild.i18n.__mf('common.database_error'),{error: err.name});
+      if (err) return message.channel.send(message.guild.i18n.__mf('common.database_error',{error: err.name}));
       if (data) {
         await PrefixSchema.findOneAndDelete({ GuildID: message.guild.id });
         data = new PrefixSchema({
@@ -39,15 +39,16 @@ module.exports = class SetPrefixCommand extends Command {
           Prefix: prefix,
         });
         data.save();
-        message.channel.send(message.guild.i18n.__mf('setprefix.updated_prefix'),{prefix: prefix});
+        message.guild.prefix = prefix;
+        message.channel.send(message.guild.i18n.__mf('setprefix.updated_prefix',{prefix: prefix}));
       } else {
         data = new PrefixSchema({
           GuildID: message.guild.id,
           Prefix: prefix,
         });
         data.save();
-        message.guild.prefix(prefix)
-        message.channel.send(message.guild.i18n.__mf('setprefix.new_prefix'),{prefix: prefix});
+        message.guild.prefix = prefix;
+        message.channel.send(message.guild.i18n.__mf('setprefix.new_prefix',{prefix: prefix}));
       }
     });
   }

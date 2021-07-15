@@ -14,13 +14,13 @@ Command = require('../struct/Command')
 module.exports = async (client, message) => {
   const { author, guild } = message;
   const { bot } = author;
-  let prefix = [client.prefix,'m?'];
+  let prefix = [client.prefix,message.guild ? message.guild.prefix : null ];
   if(message.channel.type === 'dm'){
     prefix.pop();
   }
   if (bot && author.id !== client.config.discord.id_bot_test) return;
   if (message.content.startsWith(`<@!${client.user.id}>`)) {
-    return message.channel.send(message.guild.i18n.__mf("MESSAGE_PREFIX.msg"),{prefix: p});
+    return message.channel.send(message.guild.i18n.__mf("MESSAGE_PREFIX.msg",{prefix: p}));
   }
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))

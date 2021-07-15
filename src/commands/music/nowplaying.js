@@ -69,8 +69,8 @@ module.exports = class NowPlayingCommand extends Command {
             inline: true,
           },
 
-          { name: message.guild.i18n.__mf("nowplaying.views"), value: track.views, inline: true },
-          { name: message.guild.i18n.__mf("nowplaying.duration"), value: track.duration, inline: true },
+          { name: message.guild.i18n.__mf("nowplaying.views", {value: track.views, inline: true }),
+          { name: message.guild.i18n.__mf("nowplaying.duration", {value: track.duration, inline: true }),
           {
             name: message.guild.i18n.__mf("nowplaying.filters_enabled"),
             value: filters.length + '/' + client.filters.length,
@@ -84,12 +84,12 @@ module.exports = class NowPlayingCommand extends Command {
           },
           {
             name: 'Loop mode',
-            value: client.player.getQueue(message).repeatMode ? this.config.string[10] : this.config.string[11],
+            value: client.player.getQueue(message).repeatMode ? message.guild.i18n.__mf("common.yes")  : message.guild.i18n.__mf("common.no") ,
             inline: true,
           },
           {
             name: message.guild.i18n.__mf("nowplaying.paused"),
-            value: client.player.getQueue(message).paused ? this.config.string[10] : this.config.string[11],
+            value: client.player.getQueue(message).paused ? message.guild.i18n.__mf("common.yes") : message.guild.i18n.__mf("common.no") ,
             inline: true,
           },
 

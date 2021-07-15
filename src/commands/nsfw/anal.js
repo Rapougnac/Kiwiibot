@@ -29,7 +29,7 @@ module.exports = class AnalCommand extends Command {
     const embed = new MessageEmbed()
       .setColor('#202225')
       .setAuthor(
-        this.config.string[0].format(tag),
+        "",
         author.displayAvatarURL({ dynamic: true, format: 'png', size: 512 }),
         null
       )

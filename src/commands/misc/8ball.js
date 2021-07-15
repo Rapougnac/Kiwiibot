@@ -20,7 +20,7 @@ module.exports = class BallCommand extends Command {
    */
   async execute(client, message, args) {
     const question = args.join(' ');
-    if (!question) return message.channel.send(this.config.string[0]);
+    if (!question) return message.channel.send(message.guild.i18n.__mf("8ball.msg"));
 
     const replies = message.guild.i18n.__mf("8ball.questions").split("\n");
     //const replies = this.config.string[1]

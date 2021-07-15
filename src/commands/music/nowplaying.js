@@ -69,8 +69,8 @@ module.exports = class NowPlayingCommand extends Command {
             inline: true,
           },
 
-          { name: message.guild.i18n.__mf("nowplaying.views", {value: track.views, inline: true }),
-          { name: message.guild.i18n.__mf("nowplaying.duration", {value: track.duration, inline: true }),
+          { name: message.guild.i18n.__mf("nowplaying.views", {value: track.views, inline: true })},
+          { name: message.guild.i18n.__mf("nowplaying.duration", {value: track.duration, inline: true })},
           {
             name: message.guild.i18n.__mf("nowplaying.filters_enabled"),
             value: filters.length + '/' + client.filters.length,

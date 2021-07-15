@@ -22,7 +22,7 @@ module.exports = class AssCommand extends Command {
    */
   async execute(client, message, args) {
     const embed = new MessageEmbed()
-      .setAuthor(this.config.string[0].format(message.author.tag), message.author.displayAvatarURL({ dynamic: true, size: 512, format: 'png' }))
+      .setAuthor("", message.author.displayAvatarURL({ dynamic: true, size: 512, format: 'png' }))
       .setImage(await akaneko.nsfw.ass());
     message.channel.send(embed);
   }

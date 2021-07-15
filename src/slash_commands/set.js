@@ -112,7 +112,7 @@ module.exports = {
             );
           const targetedlanguage = interaction.data.options[0].options[0].value;
           const guild = client.guilds.cache.get(interaction.guild_id);
-          if (!guild.i18n.getLocales()) {
+          if (!guild.i18n.getLocales().includes(targetedlanguage)) {
             return await message.channel.send(guild.i18n.__mf("setlanguage.not_supported_language"));
           }
           guild.i18n.setLocale(targetedlanguage);

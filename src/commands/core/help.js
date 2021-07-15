@@ -200,22 +200,22 @@ module.exports = class HelpCommand extends Command {
             {
               name: message.guild.i18n.__mf('help.guild_only'),
               value: command.config.guildOnly
-                ? message.guild.i18n.__mf('help.yes')
-                : message.guild.i18n.__mf('help.no'),
+                ? message.guild.i18n.__mf('common.yes')
+                : message.guild.i18n.__mf('common.no'),
               inline: true,
             },
             {
               name: message.guild.i18n.__mf('help.admin_only'),
               value: command.config.adminOnly
-                ? message.guild.i18n.__mf('help.yes')
-                : message.guild.i18n.__mf('help.no'),
+                ? message.guild.i18n.__mf('common.yes')
+                : message.guild.i18n.__mf('common.no'),
               inline: true,
             },
             {
               name: message.guild.i18n.__mf('help.owner_only'),
               value: command.config.ownerOnly
-                ? message.guild.i18n.__mf('help.yes')
-                : message.guild.i18n.__mf('help.no'),
+                ? message.guild.i18n.__mf('common.yes')
+                : message.guild.i18n.__mf('common.no'),
               inline: true,
             },
             {

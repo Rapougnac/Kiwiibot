@@ -23,7 +23,7 @@ module.exports = class SetLangCommand extends Command {
   async execute(client, message, [language]) {
     if (message.guild) {
       const targetedlanguage = language.toLowerCase();
-      if (!message.guild.i18n.getLocales()) {
+      if (!message.guild.i18n.getLocales().includes(targetedlanguage)) {
         return await message.channel.send(message.guild.i18n.__mf("setlanguage.not_supported_language"));
       }
 
@@ -47,7 +47,7 @@ module.exports = class SetLangCommand extends Command {
             return await this.inlineReply(message.i18n.__mf("setlanguage.set_language")); 
           });
       } catch (error) {
-        await message.channel.send(message.guild.i18n.__mf("common.database_error"),{error: error.name});
+        await message.channel.send(message.guild.i18n.__mf("common.database_error",{error: error.name}));
       }
     } else {
       return message.channel.send(

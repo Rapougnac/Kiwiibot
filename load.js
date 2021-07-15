@@ -28,13 +28,14 @@ const loadLanguages = async (client, mongoose) => {
 
 const loadPrefix = async (client) => {
   try {
-    for (const guild of client.guilds.cache) {
+    for (let guild of client.guilds.cache) {
       const guildID = guild[0];
       await PrefixSchema.findOne(
         { GuildID: guildID },
         (err, data) => {
           if(data !==null){
-            guild.prefix(data.Prefix);   
+            guild[1].prefix = data.Prefix;
+            // guild[1].prefix(data.Prefix);   
           }
         });
     }

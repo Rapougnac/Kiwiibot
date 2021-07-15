@@ -15,9 +15,6 @@ class KiwiiGuild extends Guild{
 
         this.prefix = client.prefix; 
     } 
-    prefix(prefix) {
-        this.prefix = prefix;
-    }
 }
 
 Structures.extend("Guild", () => KiwiiGuild);

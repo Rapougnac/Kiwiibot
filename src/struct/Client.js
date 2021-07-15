@@ -95,13 +95,6 @@ class KiwiiClient extends Client {
       `Client has been initialized, you're using ${process.version}`
     );
 
-    String.prototype.format = function () {
-      let args = arguments;
-      return this.replace(/{(\d+)}/g, (match, number) => {
-        return typeof args[number] !== 'undefined' ? args[number] : match;
-      });
-    };
-
     Number.prototype.padLeft = function (base, chr) {
       var len = String(base || 10).length - String(this).length + 1;
       return len > 0 ? new Array(len).join(chr || '0') + this : this;

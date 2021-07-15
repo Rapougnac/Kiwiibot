@@ -14,7 +14,8 @@ module.exports = class TrumpCommand extends Command {
     super(client, {
       name: 'trump',
       aliases: ['illegal'],
-      description: 'Say everything to trump, verbs are: `is`, `are` & `am`, if no verb was provided, the default will be `is`',
+      description:
+        'Say everything to trump, verbs are: `is`, `are` & `am`, if no verb was provided, the default will be `is`',
       category: 'edit-images',
       cooldown: 5,
       utilisation: '{prefix}trump <verb> [text]',
@@ -27,6 +28,7 @@ module.exports = class TrumpCommand extends Command {
    */
   async execute(client, message, [verb, ...args]) {
     let text = args.join(' ');
+    if (text.length === 0) text = verb;
     if (text.length > 20)
       return message.inlineReply(
         'Please, insert a sentence that contains 20 characters or less.',
@@ -37,8 +39,11 @@ module.exports = class TrumpCommand extends Command {
         }
       );
     const arrVerbs = ['IS', 'ARE', 'AM'];
-    if (!arrVerbs.includes(verb.toUpperCase())) verb = 'IS';
-    if(verb.length > 3) verb = 'IS';
+    if (!arrVerbs.includes(verb.toUpperCase())) {
+      text = verb + ' ' + text;
+      verb = 'IS';
+    }
+    if (verb.length > 3) verb = 'IS';
     const encoder = new GifEncoder(262, 264);
     const stream = encoder.createReadStream();
     encoder.start();

@@ -16,7 +16,11 @@ module.exports = async (client, message) => {
   const { bot } = author;
   let prefix = [client.prefix, message.guild ? message.guild.prefix : null];
   if (bot && author.id !== client.config.discord.id_bot_test) return;
-  if(!message.guild) return message.inlineReply('I\'m sorry, but due to the translation system, I can\'t execute commands inside dm\'s')
+  if(!message.guild) return message.inlineReply('I\'m sorry, but due to the translation system, I can\'t execute commands inside dm\'s', {
+    allowedMentions: {
+      repliedUser: false,
+    }
+  })
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))
     return message.channel.send('┻━┻       (゜-゜)');

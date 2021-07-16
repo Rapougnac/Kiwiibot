@@ -6,8 +6,6 @@ const {
   } = require('discord.js'),
   Client = require('../struct/Client'),
   Command = require('../struct/Command');
-const { I18n } = require('i18n');
-const path = require('path');
 /**
  * @param {Message} message
  * @param {Client} client

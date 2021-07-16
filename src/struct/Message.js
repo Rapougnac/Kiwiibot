@@ -1,7 +1,4 @@
 const { APIMessage, Structures, Message } = require('discord.js');
-const { I18n } = require('i18n'),
-path = require('path'),
-KiwiiGuild = require('./Guild');
 class ExtAPIMessage extends APIMessage {
   resolveData() {
     if (this.data) return this;

@@ -1,1 +1,9 @@
-{}
+{
+	"ping": {
+		"description": "Ping!",
+		"msg": "🏓 P{pong}ng ! Le ping est de: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
+	},
+	"common": {
+		"database_error": "common.database_error"
+	}
+}

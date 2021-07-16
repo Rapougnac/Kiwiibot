@@ -1,4 +1,10 @@
-const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+/* eslint-disable no-unused-vars */
+const {
+  Message,
+  MessageEmbed,
+  MessageAttachment,
+  User,
+} = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
 const moment = require('moment');
@@ -48,6 +54,7 @@ module.exports = class UserInfoCommand extends Command {
     if (args.length <= 0) member = message.member;
     if (member) {
       const user = member.user;
+      const data = await this.client.fetchUserViaAPI(user);
       let status = user.presence.status;
       const userFlags = await user
         .fetchFlags()
@@ -78,28 +85,28 @@ module.exports = class UserInfoCommand extends Command {
       if (
         (user.avatar && user.avatar.startsWith('a_')) ||
         member.premiumSince ||
-        client.owners.includes(member.id)
+        data.data.banner
       ) {
         userFlags.push('<:Discord_Nitro:859137224187707402>');
       }
-      if(this.client.isOwner(user)) {
+      if (this.client.isOwner(user)) {
         userFlags.push('<:Bot_Owner:864234649960972298>');
       }
       switch (status) {
         case 'dnd': {
-          status = message.guild.i18n.__mf("userinfo.dnd");
+          status = message.guild.i18n.__mf('userinfo.dnd');
           break;
         }
         case 'online': {
-          status = message.guild.i18n.__mf("userinfo.online");
+          status = message.guild.i18n.__mf('userinfo.online');
           break;
         }
         case 'offline': {
-          status = message.guild.i18n.__mf("userinfo.offline");
+          status = message.guild.i18n.__mf('userinfo.offline');
           break;
         }
         case 'idle': {
-          status = message.guild.i18n.__mf("userinfo.idle");
+          status = message.guild.i18n.__mf('userinfo.idle');
           break;
         }
       }
@@ -109,7 +116,9 @@ module.exports = class UserInfoCommand extends Command {
           break;
         }
         case 'desktop': {
-          device[0] = message.guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop});
+          device[0] = message.guild.i18n.__mf('userinfo.desktop', {
+            x: client.config.clientMap.desktop,
+          });
           break;
         }
         case 'mobile': {
@@ -134,28 +143,35 @@ module.exports = class UserInfoCommand extends Command {
           }
         );
         if (!lang) lang = 'en';
-     
       } catch (e) {
         console.error(e);
       }
       const embeduser = new MessageEmbed()
         .setAuthor(
-          message.guild.i18n.__mf("userinfo.user",{tag: user.tag}),
+          message.guild.i18n.__mf('userinfo.user', { tag: user.tag }),
           user.displayAvatarURL({ dynamic: true, format: 'png', size: 512 }),
           'https://discord.com/'
         )
         .setDescription(userFlags.join(' '))
-        .addField(message.guild.i18n.__mf("userinfo.member"), member, true)
-        .addField(message.guild.i18n.__mf("userinfo.name"), member.user.tag, true)
+        .addField(message.guild.i18n.__mf('userinfo.member'), member, true)
         .addField(
-          message.guild.i18n.__mf("userinfo.nickname"),
-          member.nickname ? `${member.nickname}` : message.guild.i18n.__mf("userinfo.not_set"),
+          message.guild.i18n.__mf('userinfo.name'),
+          member.user.tag,
           true
         )
         .addField(
-          message.guild.i18n.__mf("common.account_creation_date"),
+          message.guild.i18n.__mf('userinfo.nickname'),
+          member.nickname
+            ? `${member.nickname}`
+            : message.guild.i18n.__mf('userinfo.not_set'),
+          true
+        )
+        .addField(
+          message.guild.i18n.__mf('common.creation_date'),
           moment(member.user.createdAt).format(
-            `[${message.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("common.at")}] HH:mm:ss`
+            `[${message.guild.i18n.__mf(
+              'common.on'
+            )}] DD/MM/YYYY [${message.guild.i18n.__mf('common.at')}] HH:mm:ss`
           ) +
             `\n\`${moment(member.user.createdAt, 'DD/MM/YYYY')
               .locale(lang)
@@ -163,9 +179,11 @@ module.exports = class UserInfoCommand extends Command {
           true
         )
         .addField(
-          message.guild.i18n.__mf("userinfo.arrival_date"),
+          message.guild.i18n.__mf('userinfo.arrival_date'),
           moment(member.joinedAt).format(
-            `[${message.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("common.at")}] HH:mm:ss`
+            `[${message.guild.i18n.__mf(
+              'common.on'
+            )}] DD/MM/YYYY [${message.guild.i18n.__mf('common.at')}] HH:mm:ss`
           ) +
             `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
               .locale(lang)
@@ -173,28 +191,34 @@ module.exports = class UserInfoCommand extends Command {
           true
         )
         .addField(
-          message.guild.i18n.__mf("userinfo.boost_start_date"),
+          message.guild.i18n.__mf('userinfo.boost_start_date'),
           member.premiumSince
             ? moment(member.premiumSince).format(
-                `[${message.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${message.guild.i18n.__mf("common.at")}] HH:mm:ss`
+                `[${message.guild.i18n.__mf(
+                  'common.on'
+                )}] DD/MM/YYYY [${message.guild.i18n.__mf(
+                  'common.at'
+                )}] HH:mm:ss`
               ) +
                 `\n\`${moment(member.premiumSince, 'DD/MM/YYYY')
                   .locale(lang)
                   .fromNow()}\``
-            : message.guild.i18n.__mf("userinfo.not_boosting"),
+            : message.guild.i18n.__mf('userinfo.not_boosting'),
           true
         )
         .addField('Presence', status, true)
-        .addField(message.guild.i18n.__mf("userinfo.device"), device[0], true)
+        .addField(message.guild.i18n.__mf('userinfo.device'), device[0], true)
         .addField(
-          message.guild.i18n.__mf("userinfo.type"),
-          member.user.bot ? 'Bot' : message.guild.i18n.__mf("userinfo.user2"),
+          message.guild.i18n.__mf('userinfo.type'),
+          member.user.bot ? 'Bot' : message.guild.i18n.__mf('userinfo.user2'),
           true
         )
         .addField(
-          message.guild.i18n.__mf("userinfo.roles",{role: member.roles.cache.size - 1}),
+          message.guild.i18n.__mf('userinfo.roles', {
+            role: member.roles.cache.size - 1,
+          }),
           member.roles.cache.size - 1 <= 0
-            ? message.guild.i18n.__mf("userinfo.no_roles")
+            ? message.guild.i18n.__mf('userinfo.no_roles')
             : member.roles.cache
                 .filter((r) => r.id !== message.guild.id)
                 .sort((A, B) => B.rawPosition - A.rawPosition)
@@ -203,13 +227,20 @@ module.exports = class UserInfoCommand extends Command {
                 .join(' | ') || '\u200b'
         )
         .setThumbnail(
-          member.user.displayAvatarURL({ dynamic: true, size: 4096 })
+          user.displayAvatarURL({
+            size: 4096,
+            format: 'png',
+            dynamic: true,
+          })
         )
         .setFooter(`ID : ${member.id}`)
         .setColor(member.displayHexColor || 'GREY');
+        if(data.data.banner) {
+          embeduser.setImage(user.displayUserBannerURL(data, user, { format: 'png', size: 4096, dynamic: true }))
+        }
       message.channel.send(embeduser);
     } else {
-      this.inlineReply(message.guild.i18n.__mf("userinfo.cant_find_member"));
+      this.inlineReply(message.guild.i18n.__mf('userinfo.cant_find_member'));
     }
   }
 };

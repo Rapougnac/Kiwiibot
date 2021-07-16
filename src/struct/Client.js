@@ -10,6 +10,7 @@
 const { Client, Collection, ClientOptions } = require('discord.js');
 const Console = require('../util/console');
 const glob = require('glob');
+const axios = require('axios');
 const { readdir, readdirSync } = require('fs');
 const ascii = require('ascii-table');
 let table = new ascii('Events');
@@ -238,7 +239,15 @@ class KiwiiClient extends Client {
    */
   mongoInit() {
     mongoose
-      .connect(this.config.database.URI, this.config.database.config)
+      .connect(this.config.database.URI, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        autoIndex: false,
+        useFindAndModify: false,
+        poolSize: 5,
+        connectTimeoutMS: 10000,
+        family: 4,
+      })
       .then(() => {
         Console.success(`Connected to Mongodb`, 'Mongodb');
       })
@@ -338,6 +347,24 @@ class KiwiiClient extends Client {
     if (this.owners instanceof Array) return this.owners.includes(user.id);
     if (this.options.owner instanceof Set) return this.owners.has(user.id);
     throw new RangeError('The client\'s "owner" option is an unknown value.');
+  }
+  /**
+   * Fetch the user via the api to get their properties.
+   * @param {UserResolvable} user - User to fetch via the api.
+   * @returns {Promise<object>}
+   */
+  async fetchUserViaAPI(user) {
+    user = this.users.resolve(user);
+    if (!user) throw new RangeError('Please, give me a valid user to resolve.');
+    const data = await axios.get(
+      `https://canary.discord.com/api/v9/users/${user.id}`,
+      {
+        headers: {
+          Authorization: `Bot ${this.client.token}`,
+        },
+      }
+    );
+    return data;
   }
 }
 

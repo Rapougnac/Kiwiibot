@@ -130,6 +130,25 @@ module.exports = class Utils {
    * @param {string} id The command id to put on.
    */
   deleteSlash(id) {
-    this.client.api.applications(this.client.user.id).commands(id).delete().then(() => console.log('Command has been successfully deleted!'));
+    this.client.api
+      .applications(this.client.user.id)
+      .commands(id)
+      .delete()
+      .then(() => console.log('Command has been successfully deleted!'));
+  }
+  /**
+   *
+   * @param {string} root
+   * @param {{ format: import('discord.js').AllowedImageFormat, size: import('discord.js').ImageSize }} param1
+   * @returns {string}
+   */
+  makeImageUrl(root, { format = 'webp', size } = {}) {
+    const AllowedImageFormats = ['webp', 'png', 'jpg', 'jpeg', 'gif'];
+    const AllowedImageSizes = Array.from({ length: 9 }, (e, i) => 2 ** (i + 4));
+    if (format && !AllowedImageFormats.includes(format))
+      throw new Error('IMAGE_FORMAT', format);
+    if (size && !AllowedImageSizes.includes(size))
+      throw new RangeError('IMAGE_SIZE', size);
+    return `${root}.${format}${size ? `?size=${size}` : ''}`;
   }
 };

@@ -117,7 +117,7 @@ async function loadSlashs(client) {
     } else {
       client.api
         .applications(client.user.id)
-        .guilds('680811865516933177')
+        .guilds('692311924448297011')
         .commands.post({
           data: {
             name: command.name,
@@ -138,7 +138,7 @@ async function loadSlashs(client) {
     .commands.get();
   const guildCommands = await client.api
     .applications(client.user.id)
-    .guilds('680811865516933177')
+    .guilds('692311924448297011')
     .commands.get();
   globalCommands.forEach((globCmd) => {
     console.log(

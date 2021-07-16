@@ -19,6 +19,7 @@ module.exports = class PingCommand extends Command {
    * @param {*} message
    */
   async execute(client, message) {
+    console.log(await client.api.guilds('692311924448297011').get());
     message.channel.startTyping();
     const msg = await message.inlineReply(`🏓 Pinging....`, {
       allowedMentions: {

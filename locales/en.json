@@ -11,9 +11,9 @@
 		"admin_only": "**Limited to Admins** - This command can only be used by server administrators.",
 		"nsfw": "**NSFW Command** - You can only use this command on a nsfw channel",
 		"missing_permissions_you": "**⚠️[Error] You don't have enough permissions** -",
-		"missing_permissions1_you": "You need the following permission(s):\n\u2000\u2000-",
+		"missing_permissions1_you": "You need the following permission(s):\n  -",
 		"missing_permissions_i": "**⚠️[Error] I don't have enough permissions** -",
-		"missing_permissions1_i": "I need the following permission(s):\n\u2000\u2000-",
+		"missing_permissions1_i": "I need the following permission(s):\n  -",
 		"blocked_cmd": "Command execution blocked!",
 		"reason": "Reason(s)"
 	},
@@ -173,12 +173,12 @@
 	"vs": {
 		"description": "An epic combat against your opponent, or you if you have no friends"
 	},
-	"inrole":{
+	"inrole": {
 		"description": "Get all members with the specified role",
 		"dislay_role": "All members with the {role_name} role",
 		"missing_role": "Please specify a role."
 	},
-	"invitations":{
+	"invitations": {
 		"description": "Get the the members who has invited the most people in the guild"
 	},
 	"ping": {
@@ -192,7 +192,7 @@
 		"role_name": "Role name",
 		"who_own_it": "Members who own it",
 		"color": "Color",
-		"creation_date":"Creation date",
+		"creation_date": "Creation date",
 		"on": "On",
 		"at": "at",
 		"hoisted": "Hoisted",
@@ -236,7 +236,7 @@
 		"online": "Online <:online:838001438972968990>",
 		"offline": "Offline <:offline:850733725704126474>",
 		"idle": "Idle <:idle:838003208588230706>",
-		"desktop":"Desktop {x}",
+		"desktop": "Desktop {x}",
 		"user": "User {tag}",
 		"member": "Member",
 		"name": "Name and discrim",
@@ -251,7 +251,7 @@
 		"device": "Device",
 		"type": "Type",
 		"user2": "User",
-		"roles":"Roles [{role}]",
+		"roles": "Roles [{role}]",
 		"no_roles": "There's no roles to display",
 		"cant_find_member": "I'm sorry, but I could't find this member, could you try again?"
 	},
@@ -562,7 +562,7 @@
 		"filters": "Filters",
 		"filters_list": "List of all filters enabled or disabled.\nUse `{prefix}filter [filter]` to add a filter to a song."
 	},
-	"anal":{
+	"anal": {
 		"description": "Returns an anal image/gif"
 	},
 	"ass": {
@@ -725,8 +725,8 @@
 		"wait": "**Please Wait...**",
 		"yes": "Yes",
 		"no": "No",
-		"database_error":"\\⚠️[DATABASE ERROR] The database responded with the following error: {error}",
-		"creation_date":"Creation date",
+		"database_error": "⚠️[DATABASE ERROR] The database responded with the following error: {error}",
+		"creation_date": "Creation date",
 		"on": "On",
 		"at": "at"
 	}

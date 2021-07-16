@@ -1,4 +1,7 @@
 const { APIMessage, Structures, Message } = require('discord.js');
+const { I18n } = require('i18n'),
+path = require('path'),
+KiwiiGuild = require('./Guild');
 class ExtAPIMessage extends APIMessage {
   resolveData() {
     if (this.data) return this;
@@ -20,6 +23,20 @@ class ExtAPIMessage extends APIMessage {
   }
 }
 class ExtMessage extends Message {
+  // constructor(client, data, channel) {
+  //   super(client, data, channel);
+  //   if(channel.type === 'dm') {
+  //     this.guild = {
+  //       i18n: new I18n({
+  //         locales: ['en', 'fr'],
+  //         directory: path.join(process.cwd(), 'locales'),
+  //         objectNotation: true,
+  //       }),
+  //     }
+  //     this.guild.i18n.setLocale('en');
+  //   }
+  // }
+  
   inlineReply(content, options) {
     return this.channel.send(
       ExtAPIMessage.create(this, content, options, {

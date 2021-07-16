@@ -27,7 +27,7 @@ module.exports = class SetLangCommand extends Command {
         return await message.channel.send(message.guild.i18n.__mf("setlanguage.not_supported_language"));
       }
 
-      message.i18n.setLocale(targetedlanguage)
+      message.guild.i18n.setLocale(targetedlanguage)
 
       try {
         await languageSchema

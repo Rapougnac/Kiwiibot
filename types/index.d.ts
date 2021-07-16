@@ -1,5 +1,6 @@
 import { User } from 'discord.js';
-import { Client, ClientOptions, Collection } from 'discord.js';
+import { Client, ClientOptions, Collection, ImageURLOptions, ImageSize, AllowedImageFormat } from 'discord.js';
+import { I18n } from 'i18n';
 
 
 
@@ -50,6 +51,14 @@ declare module "discord.js" {
         inlineReply(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
         inlineReply(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
         inlineReply(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
+    }
+
+    interface Guild {
+        i18n: I18n;
+    }
+    interface User {
+        BannerUser(userID: string, hash: string, format?: AllowedImageFormat, size: ImageSize, dynamic?: boolean, root?: string): string;
+        displayUserBannerURL(data: object, user: User, ImageURLOptions: ImageURLOptions & { dynamic?: boolean }): string;
     }
 }
 

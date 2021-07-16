@@ -12,9 +12,10 @@ class KiwiiGuild extends Guild {
       objectNotation: true,
     });
     this.i18n.setLocale('en');
-
     this.prefix = client.prefix;
   }
 }
 
 Structures.extend('Guild', () => KiwiiGuild);
+
+module.exports = KiwiiGuild;

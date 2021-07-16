@@ -76,13 +76,13 @@ database: {
 
 ## To do
 
-* [] Cooldown
+* [ ] Cooldown
 * [x] Aliases
 * [x] Check permissions
 * [x] Extend client to modify the discord Client
     * [x] Handle events, commands and mongoose in Client.js
 * [x] Create a class Command
-    * [] Passed permissions check trough the Command class
+    * [ ] Passed permissions check trough the Command class
 * [ ] Rpg system
   * [ ] Shop system
   * [ ] Battle system

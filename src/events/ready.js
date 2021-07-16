@@ -27,8 +27,7 @@ module.exports = async (client) => {
     console.log(err);
   });
   await loadSlashs(client).catch(console.error);
-  //client.utils.deleteSlash('856985824235094026');
-  //await getApp('692311924448297011', client).commands('847880341736783882').delete()
+ // client.api.applications(client.user.id).guilds('692311924448297011').commands('').delete();
   const statuses = [
     `Currently on ${client.guilds.cache.size} servers`,
     `Serving ${client.guilds.cache.reduce(
@@ -75,7 +74,7 @@ module.exports = async (client) => {
     `${client.user.username} is now Online! (Loaded in ${bootTime} ms)\n`,
     `${timedate} ${timehrs}`
   );
-  // ee
+  // express
   const app = express();
   const x = {
     guilds: client.guilds.cache.size,

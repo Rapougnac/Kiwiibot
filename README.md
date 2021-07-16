@@ -76,7 +76,7 @@ database: {
 
 ## To do
 
-* [x] Cooldown
+* [] Cooldown
 * [x] Aliases
 * [x] Check permissions
 * [x] Extend client to modify the discord Client

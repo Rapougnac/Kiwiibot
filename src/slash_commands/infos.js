@@ -241,117 +241,16 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setFooter(`ID : ${user.id}`)
             .setColor(member.displayHexColor || 'GREY');
+            const data = await client.fetchUserViaAPI(user);
+            if(data.data.banner) {
+              embeduser.setImage(user.displayUserBannerURL(data, user, { format: 'png', size: 4096, dynamic: true }))
+            }
           client.utils.reply(interaction, embeduser);
         } else {
-          const guild = null;
-          const user = await client.users.fetch(interaction.user.id);
-          let lang = 'en';
-          let status = user.presence.status;
-          const userFlags = await user
-            .fetchFlags()
-            .then((flags) => convertUFB(flags))
-            .then((flags) =>
-              flags.map(
-                (key) =>
-                  client.emojis.cache.find((x) => x.name === key)?.toString() ||
-                  key
-              )
-            )
-            .catch(console.error);
-          const Device = user.presence.clientStatus;
-          let device = Object.getOwnPropertyNames(Device || {});
-          switch (Device) {
-            case null: {
-              device[0] = 'N/A';
-              break;
-            }
-            case undefined: {
-              device[0] = 'N/A';
-              break;
-            }
-            case !Device: {
-              device[0] = 'N/A';
-              break;
-            }
-          }
-          if (
-            (user.avatar && user.avatar.startsWith('a_')) ||
-            client.isOwner(user)
-          ) {
-            userFlags.push('<:Discord_Nitro:859137224187707402>');
-          }
-          if (client.isOwner(user)) {
-            userFlags.push('<:Bot_Owner:864234649960972298>');
-          }
-          switch (status) {
-            case 'dnd': {
-              status = guild.i18n.__mf("userinfo.dnd");
-              break;
-            }
-            case 'online': {
-              status = guild.i18n.__mf("userinfo.online");
-              break;
-            }
-            case 'offline': {
-              status = guild.i18n.__mf("userinfo.offline");
-              break;
-            }
-            case 'idle': {
-              status = guild.i18n.__mf("userinfo.idle");
-              break;
-            }
-          }
-          switch (device[0]) {
-            case 'web': {
-              device[0] = 'Web ' + client.config.clientMap.web;
-              break;
-            }
-            case 'desktop': {
-              device[0] = guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop});
-              break;
-            }
-            case 'mobile': {
-              device[0] = 'Mobile ' + client.config.clientMap.mobile;
-              break;
-            }
-          }
-
-          const embeduser = new MessageEmbed()
-            .setAuthor(
-              guild.i18n.__mf("userinfo.user",{tag: user.tag}),
-              user.displayAvatarURL({
-                dynamic: true,
-                format: 'png',
-                size: 512,
-              }),
-              'https://discord.com/'
-            )
-            .setDescription(userFlags.join(' '))
-            .addField(guild.i18n.__mf("userinfo.member"), `<@${user.id}>`, true)
-            .addField(guild.i18n.__mf("userinfo.name"), user.tag, true)
-            .addField(
-              guild.i18n.__mf("userinfo.account_creation_date"),
-              moment(user.createdAt).format(
-                `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("common.at")
-                }] HH:mm:ss`
-              ) +
-                `\n\`${moment(user.createdAt, 'DD/MM/YYYY')
-                  .locale(lang)
-                  .fromNow()}\``,
-              true
-            )
-            .addField('Presence', status, true)
-            .addField(guild.i18n.__mf("userinfo.device"), device[0], true)
-            .addField(
-              guild.i18n.__mf("userinfo.type"),
-              user.bot ? 'Bot' : guild.i18n.__mf("userinfo.user2"),
-              true
-            )
-            .setThumbnail(user.displayAvatarURL({ dynamic: true, size: 4096 }))
-            .setFooter(`ID : ${user.id}`)
-            .setColor('GREY');
-          client.utils.reply(interaction, embeduser);
+          client.utils.reply(
+            interaction,
+            'This command can only be used inside guilds!'
+          );
         }
         break;
       }

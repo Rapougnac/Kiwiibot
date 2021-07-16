@@ -28,9 +28,9 @@ module.exports = {
       const User = await client.users.fetch(user);
       const member = guild.member(User);
       const embed = new MessageEmbed()
-        .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
+        .setAuthor(`Avatar of ${User.username}`)
         .setDescription(
-          `${message.guild.i18n.__mf("avatar.msg")}(${User.displayAvatarURL({
+          `If the image is not displayed, [click here](${User.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',
@@ -69,9 +69,9 @@ module.exports = {
       if(!user) user = interaction.user.id;
       const User = await client.users.fetch(user)
       const embed = new MessageEmbed()
-        .setAuthor(`${guild.i18n.__mf("avatar.avatar_of",{avatar: User.username})}`)
+        .setAuthor(`Avatar of ${User.username}`)
         .setDescription(
-          `${message.guild.i18n.__mf("avatar.msg")}(${User.displayAvatarURL({
+          `If the image is not displayed, [click here](${User.displayAvatarURL({
             size: 4096,
             dynamic: true,
             format: 'png',

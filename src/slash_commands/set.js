@@ -1,10 +1,10 @@
 /**@type {import('../../types/index').SlashCommand} */
 const { Permissions } = require('discord.js');
-const languageSchema = require('../models/languageSchema');
+// const languageSchema = require('../models/languageSchema');
 const prefixSchema = require('../models/PrefixSchema');
 module.exports = {
   name: 'set',
-  description: 'Set the prefix or the language',
+  description: 'Set the prefix of the bot',
   global: true,
   commandOptions: [
     {
@@ -20,29 +20,29 @@ module.exports = {
         },
       ],
     },
-    {
-      name: 'language',
-      description: 'Set the language of the bot',
-      type: 1,
-      options: [
-        {
-          name: 'language',
-          description: 'The language to set',
-          type: 3,
-          required: true,
-          choices: [
-            {
-              name: 'French',
-              value: 'french',
-            },
-            {
-              name: 'English',
-              value: 'english',
-            },
-          ],
-        },
-      ],
-    },
+    // {
+    //   name: 'language',
+    //   description: 'Set the language of the bot',
+    //   type: 1,
+    //   options: [
+    //     {
+    //       name: 'language',
+    //       description: 'The language to set',
+    //       type: 3,
+    //       required: true,
+    //       choices: [
+    //         {
+    //           name: 'French',
+    //           value: 'french',
+    //         },
+    //         {
+    //           name: 'English',
+    //           value: 'english',
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
   /**
    *
@@ -100,46 +100,46 @@ module.exports = {
         }
         break;
       }
-      case 'language': {
-        if (message.guild) {
-          const p = new Permissions(
-            Number(interaction.member.permissions)
-          ).toArray();
-          if (!p.includes('MANAGE_MESSAGES'))
-            return client.utils.replyEphemeral(
-              interaction,
-              'You need the `MANAGE_MESSAGES` permission'
-            );
-          const targetedlanguage = interaction.data.options[0].options[0].value;
-          const guild = client.guilds.cache.get(interaction.guild_id);
-          if (!guild.i18n.getLocales().includes(targetedlanguage)) {
-            return await message.channel.send(guild.i18n.__mf("setlanguage.not_supported_language"));
-          }
-          guild.i18n.setLocale(targetedlanguage);
-          await languageSchema
-            .findOneAndUpdate(
-              {
-                _id: guild.id,
-              },
-              {
-                _id: guild.id,
-                language: targetedlanguage,
-              },
-              {
-                upsert: true,
-              }
-            )
-            .then(async () => {
-                return await client.utils.reply(
-                  interaction,
-                  message.i18n.__mf("setlanguage.set_language")
-                );
-            });
-        } else {
-          client.utils.reply(interaction, 'You can\'t set the language inside dm\'s! The default language is `english`')
-        }
-        break;
-      }
+      // case 'language': {
+      //   if (message.guild) {
+      //     const p = new Permissions(
+      //       Number(interaction.member.permissions)
+      //     ).toArray();
+      //     if (!p.includes('MANAGE_MESSAGES'))
+      //       return client.utils.replyEphemeral(
+      //         interaction,
+      //         'You need the `MANAGE_MESSAGES` permission'
+      //       );
+      //     const targetedlanguage = interaction.data.options[0].options[0].value;
+      //     const guild = client.guilds.cache.get(interaction.guild_id);
+      //     if (!guild.i18n.getLocales().includes(targetedlanguage)) {
+      //       return await message.channel.send(guild.i18n.__mf("setlanguage.not_supported_language"));
+      //     }
+      //     guild.i18n.setLocale(targetedlanguage);
+      //     await languageSchema
+      //       .findOneAndUpdate(
+      //         {
+      //           _id: guild.id,
+      //         },
+      //         {
+      //           _id: guild.id,
+      //           language: targetedlanguage,
+      //         },
+      //         {
+      //           upsert: true,
+      //         }
+      //       )
+      //       .then(async () => {
+      //           return await client.utils.reply(
+      //             interaction,
+      //             message.i18n.__mf("setlanguage.set_language")
+      //           );
+      //       });
+      //   } else {
+      //     client.utils.reply(interaction, 'You can\'t set the language inside dm\'s! The default language is `english`')
+      //   }
+      //   break;
+      // }
     }
   },
 };

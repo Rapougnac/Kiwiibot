@@ -360,7 +360,7 @@ class KiwiiClient extends Client {
       `https://canary.discord.com/api/v9/users/${user.id}`,
       {
         headers: {
-          Authorization: `Bot ${this.client.token}`,
+          Authorization: `Bot ${this.token}`,
         },
       }
     );

@@ -5,6 +5,7 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
 const Client = require('./src/struct/Client'); // Extended Client
 require('./src/struct/Message'); // Extended Message
 require('./src/struct/Guild'); // Extended Guild
+require('./src/struct/User'); // Extended User
 const moment = require('moment');
 const client = new Client({
   prefix: 'n?', // Prefix of the bot

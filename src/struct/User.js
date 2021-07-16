@@ -20,7 +20,7 @@ class ExtendedUser extends User {
     root = 'https://cdn.discordapp.com'
   ) {
     if (dynamic) format = hash.startsWith('a_') ? 'gif' : format;
-    return this.client.makeImageUrl(`${root}/banners/${userID}/${hash}`, {
+    return this.client.utils.makeImageUrl(`${root}/banners/${userID}/${hash}`, {
       format,
       size,
     });
@@ -39,3 +39,5 @@ class ExtendedUser extends User {
 }
 
 Structures.extend('User', () => ExtendedUser);
+
+module.exports = ExtendedUser;

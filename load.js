@@ -35,7 +35,6 @@ const loadPrefix = async (client) => {
         (err, data) => {
           if(data !==null){
             guild[1].prefix = data.Prefix;
-            // guild[1].prefix(data.Prefix);   
           }
         });
     }

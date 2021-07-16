@@ -55,7 +55,7 @@ module.exports = class HelpCommand extends Command {
                   cmd.help.category === category && !cmd.config.hidden
               )
               .map((value) => `\`${value.help.name}\``),
-          ]),
+          ], message.guild.i18n.getLocale()),
           inline: false,
         });
       }
@@ -84,7 +84,7 @@ module.exports = class HelpCommand extends Command {
                   cmd.help.category === category && !cmd.config.hidden
               )
               .map((value) => `\`${value.help.name}\``),
-          ]),
+          ], message.guild.i18n.getLocale()),
           inline: false,
         });
       }
@@ -108,36 +108,7 @@ module.exports = class HelpCommand extends Command {
     }
     if (!args[0]) {
       const embed = new MessageEmbed()
-        .setDescription(
-          message.channel.nsfw
-            ? `${[...client.categories]
-                .map(
-                  (val) =>
-                    `**${_.upperFirst(val.replace(/-/g, ' '))}** [${
-                      client.commands.filter((c) => c.help.category === val)
-                        .size
-                    }]\n${joinArray([
-                      ...client.commands
-                        .filter((c) => c.help.category === val)
-                        .map((value) => `\`${value.help.name}\``),
-                    ],message.guild.i18n.getLocale())}`
-                )
-                .join('\n\n')}`
-            : `${[...client.categories]
-                .remove('nsfw')
-                .map(
-                  (val) =>
-                    `**${_.upperFirst(val.replace(/-/g, ' '))}** [${
-                      client.commands.filter((c) => c.help.category === val)
-                        .size
-                    }]\n${joinArray([
-                      ...client.commands
-                        .filter((c) => c.help.category === val)
-                        .map((value) => `\`${value.help.name}\``),
-                    ],message.guild.i18n.getLocale())}`
-                )
-                .join('\n\n')}`
-        )
+        .addFields(fields.sort((a, b) => a.name.localeCompare(b.name)))
         .setColor('ORANGE')
         .setTimestamp()
         .setFooter(message.guild.i18n.__mf(`help.cmd_usage`,{prefix: client.prefix}));

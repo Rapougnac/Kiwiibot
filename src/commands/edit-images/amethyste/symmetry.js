@@ -147,7 +147,7 @@ module.exports = class SymmetryCommand extends Command {
       name: 'symmetry',
       aliases: ['sym'],
       description: 'Symmetry yourself with the tags listed',
-      category: '',
+      category: 'image-manipulation',
       cooldown: 5,
       utilisation: '{prefix}',
       string: [],

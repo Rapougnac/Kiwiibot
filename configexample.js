@@ -1,4 +1,9 @@
+/**@type {import('./types').Config} */
 module.exports = {
+  domain: 'DOMAIN_HERE',
+  port: 'PORT_HERE',
+  usingCustomDomain: false,
+  clientSecret: 'CLIENT_SECRET_HERE',
   discord: {
     token: 'TOKEN_HERE', // (required)(https://discord.com/developers/applications)
     status: 'idle',
@@ -21,7 +26,7 @@ module.exports = {
   },
   amethyste: {
     client:
-      'AMETHYSTE_KEY_HERE', // (optional, but mostly of images manipulation won\'t work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token
+      'AMETHYSTE_KEY_HERE', // (optional, but mostly of images manipulation won't work)(https://api.amethyste.moe/) get one here, sign up and copy and paste your token
   },
   filters: [
     '8D',

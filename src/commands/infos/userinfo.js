@@ -236,7 +236,7 @@ module.exports = class UserInfoCommand extends Command {
         .setFooter(`ID : ${member.id}`)
         .setColor(member.displayHexColor || 'GREY');
         if(data.data.banner) {
-          embeduser.setImage(user.displayUserBannerURL(data, user, { format: 'png', size: 4096, dynamic: true }))
+          embeduser.setImage(await (user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true })))
         }
       message.channel.send(embeduser);
     } else {

@@ -42,27 +42,21 @@ module.exports = {
   ],
   /**
    *
-   * @param {import('../../types/index').Interaction} interaction
+   * @param {import('../struct/Interactions/CommandInteraction')} interaction
    * @param {import('../struct/Client')} client
    * @param {*} args
    */
-  async execute(interaction, client, args) {
-    console.log(interaction);
-    const { guild_id } = interaction;
-    const message = {
-      guild: {},
-    };
-    guild_id ? (message.guild = { id: guild_id }) : (message.guild = null);
-    switch (interaction.data.options[0].name) {
+  async execute(interaction, client, {user, role}) {
+
+    switch (interaction.options.getSubCommand()) {
       case 'user': {
-        if (message.guild) {
+        if (interaction.interaction.guild) {
           let User = interaction.data?.options[0].options
             ? interaction.data.options[0].options[0].value
             : null;
           if (!User) User = interaction.member.user.id;
-          const user = await client.users.fetch(User);
-          const guild = client.guilds.cache.get(guild_id);
-          const member = guild.member(user);
+          const user = client.users.resolve(User);
+          const member = interaction.interaction.guild.member(user);
           let status = member.user.presence.status;
           const userFlags = await user
             .fetchFlags()
@@ -91,7 +85,7 @@ module.exports = {
               break;
             }
           }
-          if (guild.ownerID === user.id) {
+          if (interaction.interaction.guild.ownerID === user.id) {
             userFlags.push('<:GUILD_OWNER:812992729797230592>');
           }
           if (member.hasPermission('ADMINISTRATOR')) {
@@ -112,19 +106,19 @@ module.exports = {
           }
           switch (status) {
             case 'dnd': {
-              status = guild.i18n.__mf("userinfo.dnd");
+              status = interaction.guild.i18n.__mf("userinfo.dnd");
               break;
             }
             case 'online': {
-              status = guild.i18n.__mf("userinfo.online");
+              status = interaction.guild.i18n.__mf("userinfo.online");
               break;
             }
             case 'offline': {
-              status = guild.i18n.__mf("userinfo.offline");
+              status = interaction.guild.i18n.__mf("userinfo.offline");
               break;
             }
             case 'idle': {
-              status = guild.i18n.__mf("userinfo.idle");
+              status = interaction.guild.i18n.__mf("userinfo.idle");
               break;
             }
           }
@@ -134,7 +128,7 @@ module.exports = {
               break;
             }
             case 'desktop': {
-              device[0] = guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop})
+              device[0] = interaction.guild.i18n.__mf("userinfo.desktop",{x: client.config.clientMap.desktop})
               break;
             }
             case 'mobile': {
@@ -146,13 +140,13 @@ module.exports = {
           try {
             await languageSchema.findOne(
               {
-                _id: guild.id,
+                _id: interaction.guild.id,
               },
               (err, data) => {
                 if (err) throw err;
                 if (!data)
                   data = new languageSchema({
-                    _id: guild.id,
+                    _id: interaction.guild.id,
                     language: 'en',
                   });
                 lang = data.language;
@@ -164,7 +158,7 @@ module.exports = {
           }
           const embeduser = new MessageEmbed()
             .setAuthor(
-              guild.i18n.__mf("userinfo.user",{tag: user.tag}),
+              interaction.guild.i18n.__mf("userinfo.user",{tag: user.tag}),
               member.user.displayAvatarURL({
                 dynamic: true,
                 format: 'png',
@@ -173,20 +167,20 @@ module.exports = {
               'https://discord.com/'
             )
             .setDescription(userFlags.join(' '))
-            .addField(guild.i18n.__mf("userinfo.member"), member, true)
-            .addField(guild.i18n.__mf("userinfo.name"), user.tag, true)
+            .addField(interaction.guild.i18n.__mf("userinfo.member"), member, true)
+            .addField(interaction.guild.i18n.__mf("userinfo.name"), user.tag, true)
             .addField(
-              guild.i18n.__mf("userinfo.nickname"),
+              interaction.guild.i18n.__mf("userinfo.nickname"),
               member.nickname
                 ? `${member.nickname}`
-                : message.guild.i18n.__mf("userinfo.not_set"),
+                : interaction.guild.i18n.__mf("userinfo.not_set"),
               true
             )
             .addField(
-              guild.i18n.__mf("userinfo.account_creation_date"),
+              interaction.guild.i18n.__mf("userinfo.account_creation_date"),
               moment(user.createdAt).format(
-                `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("common.at")
+                `[${interaction.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                  interaction.guild.i18n.__mf("common.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(user.createdAt, 'DD/MM/YYYY')
@@ -195,10 +189,10 @@ module.exports = {
               true
             )
             .addField(
-              guild.i18n.__mf("userinfo.arrival_date"),
+              interaction.guild.i18n.__mf("userinfo.arrival_date"),
               moment(member.joinedAt).format(
-                `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("common.at")
+                `[${interaction.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                  interaction.guild.i18n.__mf("common.at")
                 }] HH:mm:ss`
               ) +
                 `\n\`${moment(member.joinedAt, 'DD/MM/YYYY')
@@ -207,32 +201,32 @@ module.exports = {
               true
             )
             .addField(
-              guild.i18n.__mf("userinfo.boost_start_date"),
+              interaction.guild.i18n.__mf("userinfo.boost_start_date"),
               member.premiumSince
                 ? moment(member.premiumSince).format(
-                    `[${guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
-                      guild.i18n.__mf("common.at")
+                    `[${interaction.guild.i18n.__mf("common.on")}] DD/MM/YYYY [${
+                      interaction.guild.i18n.__mf("common.at")
                     }] HH:mm:ss`
                   ) +
                     `\n\`${moment(member.premiumSince, 'DD/MM/YYYY')
                       .locale(lang)
                       .fromNow()}\``
-                : guild.i18n.__mf("userinfo.not_boosting"),
+                : interaction.guild.i18n.__mf("userinfo.not_boosting"),
               true
             )
             .addField('Presence', status, true)
-            .addField(guild.i18n.__mf("userinfo.device"), device[0], true)
+            .addField(interaction.guild.i18n.__mf("userinfo.device"), device[0], true)
             .addField(
-              guild.i18n.__mf("userinfo.type"),
-              user.bot ? 'Bot' : guild.i18n.__mf("userinfo.user2"),
+              interaction.guild.i18n.__mf("userinfo.type"),
+              user.bot ? 'Bot' : interaction.guild.i18n.__mf("userinfo.user2"),
               true
             )
             .addField(
-              guild.i18n.__mf("userinfo.roles",{role: member.roles.cache.size - 1}),
+              interaction.guild.i18n.__mf("userinfo.roles",{role: member.roles.cache.size - 1}),
               member.roles.cache.size - 1 <= 0
-                ? message.guild.i18n.__mf("userinfo.no_roles")
+                ? interaction.guild.i18n.__mf("userinfo.no_roles")
                 : member.roles.cache
-                    .filter((r) => r.id !== guild.id)
+                    .filter((r) => r.id !== interaction.guild.id)
                     .sort((A, B) => B.rawPosition - A.rawPosition)
                     .map((x) => `${x}`)
                     .splice(0, 50)
@@ -243,7 +237,7 @@ module.exports = {
             .setColor(member.displayHexColor || 'GREY');
             const data = await client.fetchUserViaAPI(user);
             if(data.data.banner) {
-              embeduser.setImage(user.displayUserBannerURL(data, user, { format: 'png', size: 4096, dynamic: true }))
+              embeduser.setImage(await (user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true })))
             }
           client.utils.reply(interaction, embeduser);
         } else {
@@ -255,107 +249,106 @@ module.exports = {
         break;
       }
       case 'server': {
-        if (message.guild) {
-          const guild = client.guilds.cache.get(guild_id);
-          const { afkTimeout } = guild;
-          const botcount = guild.members.cache.filter(
+        if (interaction.guild) {
+          const { afkTimeout } = interaction.guild;
+          const botcount = interaction.guild.members.cache.filter(
             (member) => member.user.bot
           ).size;
-          const humancount = guild.members.cache.filter(
+          const humancount = interaction.guild.members.cache.filter(
             (member) => !member.user.bot
           ).size;
           const embedserv = new MessageEmbed()
-            .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
+            .setAuthor(interaction.guild.name, interaction.guild.iconURL({ dynamic: true }))
             .addField(
-              guild.i18n.__mf("serverinfo.owner"),
-              `<@!${guild.ownerID}>\n(\`${guild.owner.user.tag}\`)`,
+              interaction.guild.i18n.__mf("serverinfo.owner"),
+              `<@!${interaction.guild.ownerID}>\n(\`${interaction.guild.owner.user.tag}\`)`,
               true
             )
-            .addField(guild.i18n.__mf("serverinfor.name"), guild.name, true)
-            .addField(guild.i18n.__mf("serverinfor.region"), guild.region, true)
+            .addField(interaction.guild.i18n.__mf("serverinfor.name"), interaction.guild.name, true)
+            .addField(interaction.guild.i18n.__mf("serverinfor.region"), interaction.guild.region, true)
             .addField(
-              guild.i18n.__mf("serverinfor.members"),
-              `${guild.memberCount} ${
-                guild.i18n.__mf('serverinfo.members2')
+              interaction.guild.i18n.__mf("serverinfor.members"),
+              `${interaction.guild.memberCount} ${
+                interaction.guild.i18n.__mf('serverinfo.members2')
               }\n${humancount} ${
-                guild.i18n.__mf('serverinfo.humans')
-              }\n${botcount} ${guild.i18n.__mf('serverinfo.bots')}`,
+                interaction.guild.i18n.__mf('serverinfo.humans')
+              }\n${botcount} ${interaction.guild.i18n.__mf('serverinfo.bots')}`,
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.online_members'),
-              guild.members.cache.filter(
+              interaction.guild.i18n.__mf('serverinfo.online_members'),
+              interaction.guild.members.cache.filter(
                 ({ presence }) => presence.status !== 'offline'
               ).size,
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.channels'),
-              `${guild.channels.cache.size} ${
-                guild.i18n.__mf('serverinfo.channels2')
+              interaction.guild.i18n.__mf('serverinfo.channels'),
+              `${interaction.guild.channels.cache.size} ${
+                interaction.guild.i18n.__mf('serverinfo.channels2')
               }\n${
-                guild.channels.cache.filter(
+                interaction.guild.channels.cache.filter(
                   (channel) => channel.type === 'text'
                 ).size
-              } ${guild.i18n.__mf('serverinfo.text_channels')}\n${
-                guild.channels.cache.filter(
+              } ${interaction.guild.i18n.__mf('serverinfo.text_channels')}\n${
+                interaction.guild.channels.cache.filter(
                   (channel) => channel.type === 'voice'
                 ).size
-              } ${guild.i18n.__mf('serverinfo.voice_channels')}\n${
-                guild.channels.cache.filter(
+              } ${interaction.guild.i18n.__mf('serverinfo.voice_channels')}\n${
+                interaction.guild.channels.cache.filter(
                   (channel) => channel.type === 'category'
                 ).size
-              } ${guild.i18n.__mf('serverinfo.category')}`,
+              } ${interaction.guild.i18n.__mf('serverinfo.category')}`,
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.emotes'),
-              `${guild.emojis.cache.size} emojis\n${
-                guild.emojis.cache.filter((emoji) => !emoji.animated).size
-              } ${guild.i18n.__mf('serverinfo.static_emotes')}\n${
-                guild.emojis.cache.filter((emoji) => emoji.animated).size
-              } ${message.guild.i18n.__mf('serverinfo.animated_emotes')}`,
+              interaction.guild.i18n.__mf('serverinfo.emotes'),
+              `${interaction.guild.emojis.cache.size} emojis\n${
+                interaction.guild.emojis.cache.filter((emoji) => !emoji.animated).size
+              } ${interaction.guild.i18n.__mf('serverinfo.static_emotes')}\n${
+                interaction.guild.emojis.cache.filter((emoji) => emoji.animated).size
+              } ${interaction.guild.i18n.__mf('serverinfo.animated_emotes')}`,
               true
             )
             .addField(
-              guild.i18n.__mf('common.creation_date'),
-              moment(guild.createdAt).format(
-                `[${guild.i18n.__mf('common.on')}] DD/MM/YYYY [${
-                  guild.i18n.__mf('common.at')
+              interaction.guild.i18n.__mf('common.creation_date'),
+              moment(interaction.guild.createdAt).format(
+                `[${interaction.guild.i18n.__mf('common.on')}] DD/MM/YYYY [${
+                  interaction.guild.i18n.__mf('common.at')
                 }] HH:mm:ss`
               ),
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.nitro'),
-              guild.i18n.__mf('serverinfo.tier',{
-                tier: message.guild.premiumTier,
-                boost_number: message.guild.premiumSubscriptionCount
+              interaction.guild.i18n.__mf('serverinfo.nitro'),
+              interaction.guild.i18n.__mf('serverinfo.tier',{
+                tier: interaction.guild.premiumTier,
+                boost_number: interaction.guild.premiumSubscriptionCount
               }),
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.afk'),
+              interaction.guild.i18n.__mf('serverinfo.afk'),
               client.utils.format(afkTimeout),
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.verification_level'),
-              client.config.verificationLVL[guild.verificationLevel],
+              interaction.guild.i18n.__mf('serverinfo.verification_level'),
+              client.config.verificationLVL[interaction.guild.verificationLevel],
               true
             )
             .addField(
-              guild.i18n.__mf('serverinfo.roles',{role: message.guild.roles.cache.size - 1}),
-              guild.roles.cache
-                .filter((r) => r.id !== guild.id)
+              interaction.guild.i18n.__mf('serverinfo.roles',{role: interaction.guild.roles.cache.size - 1}),
+              interaction.guild.roles.cache
+                .filter((r) => r.id !== interaction.guild.id)
                 .sort((A, B) => B.rawPosition - A.rawPosition)
                 .map((x) => `${x}`)
                 .splice(0, 30)
                 .join(' | ') || '\u200b',
               false
             )
-            .setFooter(guild.i18n.__mf('serverinfo.id',{id: message.guild.id}))
-            .setThumbnail(guild.iconURL({ dynamic: true }));
+            .setFooter(interaction.guild.i18n.__mf('serverinfo.id',{id: interaction.guild.id}))
+            .setThumbnail(interaction.guild.iconURL({ dynamic: true }));
           client.utils.reply(interaction, embedserv);
         } else {
           client.utils.reply(
@@ -366,9 +359,8 @@ module.exports = {
         break;
       }
       case 'role': {
-        if (message.guild) {
-          const guild = client.guilds.cache.get(guild_id);
-          const role = await new RoleManager(guild).fetch(
+        if (interaction.guild) {
+          const role = await new RoleManager(interaction.guild).fetch(
             interaction.data.options[0].options[0].value
           );
           const permsArr = joinArray(
@@ -383,31 +375,31 @@ module.exports = {
             .replace(/Guild/g, 'Server');
           const embed = new MessageEmbed()
             .setDescription('Permissions\n')
-            .addField(guild.i18n.__mf("roleinfo.role"), role, true)
-            .addField(guild.i18n.__mf("roleinfo.role_name"), role.name, true)
-            .addField(guild.i18n.__mf("roleinfo.who_own_it"), role.members.size, true)
-            .addField(guild.i18n.__mf("roleinfo.color"), role.hexColor, true)
+            .addField(interaction.guild.i18n.__mf("roleinfo.role"), role, true)
+            .addField(interaction.guild.i18n.__mf("roleinfo.role_name"), role.name, true)
+            .addField(interaction.guild.i18n.__mf("roleinfo.who_own_it"), role.members.size, true)
+            .addField(interaction.guild.i18n.__mf("roleinfo.color"), role.hexColor, true)
             .addField(
-              guild.i18n.__mf("common.creation_date"),
+              interaction.guild.i18n.__mf("common.creation_date"),
               moment(role.createdAt).format(
-                `[${guild.i18n.__mf("roleinfo.on")}] DD/MM/YYYY [${
-                  guild.i18n.__mf("roleinfo.at")
+                `[${interaction.guild.i18n.__mf("roleinfo.on")}] DD/MM/YYYY [${
+                  interaction.guild.i18n.__mf("roleinfo.at")
                 }] HH:mm:ss`
               ),
               true
             )
             .addField(
-              guild.i18n.__mf("roleinfo.hoisted"),
+              interaction.guild.i18n.__mf("roleinfo.hoisted"),
               role.hoist
-                ? guild.i18n.__mf("common.yes")
-                : guild.i18n.__mf("common.no"),
+                ? interaction.guild.i18n.__mf("common.yes")
+                : interaction.guild.i18n.__mf("common.no"),
               true
             )
             .addField(
-              guild.i18n.__mf("roleinfo.mentionnable"),
+              interaction.guild.i18n.__mf("roleinfo.mentionnable"),
               role.mentionable
-                ? guild.i18n.__mf("common.yes")
-                : guild.i18n.__mf("common.no"),
+                ? interaction.guild.i18n.__mf("common.yes")
+                : interaction.guild.i18n.__mf("common.no"),
               true
             )
             .addField('Permissions', permsArr)
@@ -423,7 +415,7 @@ module.exports = {
         //   const djsMess = new Message(
         //     client,
         //     message,
-        //     client.channels.cache.get(message.channel_id)
+        //     client.channels.cache.get(channel_id)
         //   );
         //   console.log(djsMess)
         //     const message = await client.api

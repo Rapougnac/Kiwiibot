@@ -56,41 +56,36 @@ module.exports = {
   ],
   /**
    * u
-   * @param {import("../../types").Interaction} interaction The interaction
+   * @param {import('../struct/Interactions/CommandInteraction')} interaction The interaction
    * @param {import('../struct/Client')} client The client
    * @param {*} args Args
    */
-  async execute(interaction, client, args) {
-    let source;
-    const query = args?.query;
-    if (args?.source) source = args?.source;
-    else source = 'stable';
+  async execute(interaction, client, { query, target, source }) {
+    if (!source) source = 'stable';
     const url = `https://djsdocs.sorta.moe/v2/embed?src=${source}&q=${encodeURIComponent(
       query
     )}`;
     axios.get(url).then(({ data }) => {
       if (!data)
-        return client.utils.replyEphemeral(
-          interaction,
+        return interaction.send(
           stripIndent`
           \`❌ Error\` "${query}" was not found!
-          Try an another query !`
+          Try an another query !`,
+          {
+            ephemeral: true,
+          }
         );
       else {
-        if (args?.target) {
+        if (target) {
           const embed = new MessageEmbed(data);
-          client.utils
-            .reply(
-              interaction,
-              embed,
-              `Documentation suggestion for <@!${args?.target}>`
-            )
+          interaction
+            .send(embed, {
+              response: `Documentation suggestion for <@!${target}>`,
+            })
             .catch((e) => console.log(e.message));
         } else {
           const embed = new MessageEmbed(data);
-          client.utils
-            .reply(interaction, embed)
-            .catch((e) => console.log(e.message));
+          interaction.send(embed).catch((e) => console.error(e.message));
         }
       }
     });

@@ -116,7 +116,7 @@ module.exports = class Utils {
     if (typeof response === 'object') {
       data = await this.createAPIMessage(interaction, response, content);
     }
-    this.client.api
+    await this.client.api
       .interactions(interaction.id, interaction.token)
       .callback.post({
         data: {

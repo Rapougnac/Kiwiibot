@@ -30,11 +30,18 @@ class ExtendedUser extends User {
    * @param {object} data The data from the api
    * @param {User} user The user to pass in
    * @param {import('discord.js').ImageURLOptions & { dynamic?: boolean }} ImageURLOptions
-   * @returns {string} The url of the banner
+   * @returns {Promise<?string>} The url of the banner
    */
-   displayUserBannerURL(data, user, { format, size, dynamic }) {
-    if (!data.data.banner) return null;
-    return user.BannerUser(user.id, data.data.banner, format, size, dynamic);
+  async displayUserBannerURL({ format, size, dynamic } = {}) {
+    const userData = await this.client.fetchUserViaAPI(this.id);
+    if (!userData.data.banner) return null;
+    return this.BannerUser(
+      this.id,
+      userData.data.banner,
+      format,
+      size,
+      dynamic
+    );
   }
 }
 

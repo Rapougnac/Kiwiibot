@@ -1,9 +1,9 @@
-/**@type {import('../../types/index').SlashCommand} */
 const { MessageEmbed } = require('discord.js');
+/**@type {import('../../types/index').SlashCommand} */
 module.exports = {
   name: 'avatar',
   description: 'Get the avatar of you or the specified User',
-  global: true,
+  global: false,
   commandOptions: [
     {
       name: 'user',
@@ -14,18 +14,15 @@ module.exports = {
   ],
   /**
    *
-   * @param {import('../../types').Interaction} interaction
+   * @param {import('../struct/Interactions/CommandInteraction')} interaction
    * @param {import('../struct/Client')} client
-   * @param {*} args
+   * @param {object} args
    */
-  async execute(interaction, client, args) {
-    let guild = client.guilds.cache.get(interaction.guild_id);
-    let user = args?.user;
-
-    
+  async execute(interaction, client, { user }) {
+    const { guild } = interaction;
     if (guild) {
-      if (!user) user = interaction.member.user.id;
-      const User = await client.users.fetch(user);
+      if (!user) user = interaction.user.id;
+      const User = client.users.resolve(user);
       const member = guild.member(User);
       const embed = new MessageEmbed()
         .setAuthor(`Avatar of ${User.username}`)
@@ -63,11 +60,10 @@ module.exports = {
           })
         )
         .setColor(member.displayHexColor || 'GREY');
-      client.utils.reply(interaction, embed);
+      interaction.send(embed);
     } else {
-      guild = null;
-      if(!user) user = interaction.user.id;
-      const User = await client.users.fetch(user)
+      if (!user) user = interaction.user.id;
+      const User = client.users.resolve(user);
       const embed = new MessageEmbed()
         .setAuthor(`Avatar of ${User.username}`)
         .setDescription(
@@ -104,7 +100,7 @@ module.exports = {
           })
         )
         .setColor('GREY');
-      client.utils.reply(interaction, embed);
+      interaction.send(embed);
     }
   },
 };

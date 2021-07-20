@@ -7,6 +7,8 @@ require('./src/struct/Message'); // Extended Message
 require('./src/struct/Guild'); // Extended Guild
 require('./src/struct/User'); // Extended User
 const moment = require('moment');
+const CommandInteraction = require('./src/struct/Interactions/CommandInteraction');
+const Interaction = require('./src/struct/Interactions/Interaction');
 const client = new Client({
   prefix: 'n?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
@@ -33,18 +35,18 @@ client.listentoProcessEvents(['uncaughtException', 'unhandledRejection'], {
   nologs: false,
   logsonboth: true,
 });
-
 client.ws.on(
   'INTERACTION_CREATE',
-  /**@param {import('./types/index').Interaction} interaction */ async (
-    interaction
-  ) => {
-    const { data } = interaction;
-    const { options, name } = data;
+  /**@param {import('./types/index').Interaction} int */ async (int) => {
+    console.log(int);
+    let interaction = new Interaction(client, int);
+    if (interaction.type === 'APPLICATION_COMMAND')
+      interaction = new CommandInteraction(client, int);
+    const { commandName: name } = interaction;
     if (!client.slashs.has(name)) return;
     const args = {};
-    if (options) {
-      for (const option of options) {
+    if (interaction.options._options) {
+      for (const option of interaction.options._options) {
         const { name, value } = option;
         args[name] = value;
       }
@@ -57,10 +59,14 @@ client.ws.on(
       console.log(`${stack}\n`);
       client.utils
         .replyEphemeral(
-          interaction,
+          int,
           'Sorry, there was an error executing that command!'
         )
         .catch(console.error);
     }
   }
 );
+
+client.on('interaction', (int) => {
+  console.log(int);
+});

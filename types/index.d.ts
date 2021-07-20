@@ -22,7 +22,7 @@ declare module "discord.js" {
     }
     interface User {
         BannerUser(userID: string, hash: string, format?: AllowedImageFormat, size: ImageSize, dynamic?: boolean, root?: string): string;
-        displayUserBannerURL(data: object, user: User, ImageURLOptions: ImageURLOptions & { dynamic?: boolean }): string;
+        displayUserBannerURL(ImageURLOptions: ImageURLOptions & { dynamic?: boolean }): Promise<?string>;
     }
 }
 

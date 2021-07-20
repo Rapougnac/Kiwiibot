@@ -357,7 +357,7 @@ class KiwiiClient extends Client {
     user = this.users.resolve(user);
     if (!user) throw new RangeError('Please, give me a valid user to resolve.');
     const data = await axios.get(
-      `https://canary.discord.com/api/v9/users/${user.id}`,
+      `https://discord.com/api/v9/users/${user.id}`,
       {
         headers: {
           Authorization: `Bot ${this.token}`,

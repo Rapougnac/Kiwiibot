@@ -42,7 +42,7 @@ module.exports = class RuleThirtyFour extends Command {
             const embed = new MessageEmbed()
               .setAuthor(
                 'Rule34',
-                'https://gtswiki.gt-beginners.net/decal/png/04/87/77/6927195936641778704_1.png'
+                'https://gtswiki.gt-beginners.net/decal/png/04/87/77/6927195936641778704_1.png', image.fileUrl
               )
               .setDescription(
                 `・ Rating: \`${image.rating}\` (s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated' | Score: ${image.score})`
@@ -50,7 +50,6 @@ module.exports = class RuleThirtyFour extends Command {
               .setImage(image.fileUrl)
               .setColor('#FF0000')
               .setFooter(`Tags: ${image.tags.slice(',').join(' | ')}`)
-              .setURL(image.fileUrl);
             message.channel.send(embed);
           }
         })

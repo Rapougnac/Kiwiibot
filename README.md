@@ -19,9 +19,9 @@
 You have to install NodeJS and Git.
 Create a folder.
 Open Command Promt.
-Type in: cd The path to your new folder. (Example: C:\Users\User\Desktop\New folder)
+Type in: [cd The path to your new folder.] (Example: C:\Users\User\Desktop\New folder)
 Press enter.
-After that type in: git clone https://github.com/Rapougnac/Kiwiibot.git
+After that type in: [git clone https://github.com/Rapougnac/Kiwiibot.git] 
 Press enter.
 When you see all Github files in your folder you installed the bot succesfully.
 Once you've done that move into the folder, and type [npm install]

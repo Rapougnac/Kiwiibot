@@ -196,7 +196,8 @@
 		"on": "On",
 		"at": "at",
 		"hoisted": "Hoisted",
-		"mentionable": "Mentionable"
+		"mentionable": "Mentionable",
+		"mentionnable": "roleinfo.mentionnable"
 	},
 	"serverinfo": {
 		"description": "",
@@ -729,5 +730,10 @@
 		"creation_date": "Creation date",
 		"on": "On",
 		"at": "at"
+	},
+	"serverinfor": {
+		"name": "serverinfor.name",
+		"region": "serverinfor.region",
+		"members": "serverinfor.members"
 	}
 }

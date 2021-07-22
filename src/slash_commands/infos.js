@@ -4,9 +4,9 @@ const { MessageEmbed, Message, RoleManager } = require('discord.js');
 const moment = require('moment');
 /**@type {import('../../types/index').SlashCommand} */
 module.exports = {
-  name: 'info',
+  name: 'testt',
   description: 'Get infos about the server, a user, or a role.',
-  global: true,
+  global: false,
   commandOptions: [
     {
       name: 'user',
@@ -46,17 +46,17 @@ module.exports = {
    * @param {import('../struct/Client')} client
    * @param {*} args
    */
-  async execute(interaction, client, {user, role}) {
-
+  async execute(interaction, client, {role, user}) {
+    console.log(role);
+    console.log(user);
     switch (interaction.options.getSubCommand()) {
       case 'user': {
-        if (interaction.interaction.guild) {
-          let User = interaction.data?.options[0].options
-            ? interaction.data.options[0].options[0].value
-            : null;
-          if (!User) User = interaction.member.user.id;
-          const user = client.users.resolve(User);
-          const member = interaction.interaction.guild.member(user);
+        if (interaction.guild) {
+          let User = user
+            ? user
+            : interaction.member.user.id;
+          user = client.users.resolve(User);
+          const member = interaction.guild.member(user);
           let status = member.user.presence.status;
           const userFlags = await user
             .fetchFlags()
@@ -85,7 +85,7 @@ module.exports = {
               break;
             }
           }
-          if (interaction.interaction.guild.ownerID === user.id) {
+          if (interaction.guild.ownerID === user.id) {
             userFlags.push('<:GUILD_OWNER:812992729797230592>');
           }
           if (member.hasPermission('ADMINISTRATOR')) {
@@ -97,7 +97,7 @@ module.exports = {
           if (
             (user.avatar && user.avatar.startsWith('a_')) ||
             member.premiumSince ||
-            client.isOwner(member)
+            user.hasBanner()
           ) {
             userFlags.push('<:Discord_Nitro:859137224187707402>');
           }
@@ -235,16 +235,12 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setFooter(`ID : ${user.id}`)
             .setColor(member.displayHexColor || 'GREY');
-            const data = await client.fetchUserViaAPI(user);
-            if(data.data.banner) {
-              embeduser.setImage(await (user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true })))
+            if(user.hasBanner()) {
+              embeduser.setImage(user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true }));
             }
-          client.utils.reply(interaction, embeduser);
+          interaction.send(embeduser);
         } else {
-          client.utils.reply(
-            interaction,
-            'This command can only be used inside guilds!'
-          );
+          interaction.send("This command cannot be used in dms!");
         }
         break;
       }
@@ -349,20 +345,15 @@ module.exports = {
             )
             .setFooter(interaction.guild.i18n.__mf('serverinfo.id',{id: interaction.guild.id}))
             .setThumbnail(interaction.guild.iconURL({ dynamic: true }));
-          client.utils.reply(interaction, embedserv);
+          interaction.send(embedserv)
         } else {
-          client.utils.reply(
-            interaction,
-            'This command can only be used inside guilds!'
-          );
+          interaction.send("This command can only be used in guilds!");
         }
         break;
       }
       case 'role': {
         if (interaction.guild) {
-          const role = await new RoleManager(interaction.guild).fetch(
-            interaction.data.options[0].options[0].value
-          );
+          role = interaction.guild.roles.resolve(role);
           const permsArr = joinArray(
             role.permissions.toArray().map((perm) => `\`${perm}\``)
           );

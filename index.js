@@ -38,7 +38,6 @@ client.listentoProcessEvents(['uncaughtException', 'unhandledRejection'], {
 client.ws.on(
   'INTERACTION_CREATE',
   /**@param {import('./types/index').Interaction} int */ async (int) => {
-    console.log(int);
     let interaction = new Interaction(client, int);
     if (interaction.type === 'APPLICATION_COMMAND')
       interaction = new CommandInteraction(client, int);

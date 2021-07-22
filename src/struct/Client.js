@@ -23,7 +23,7 @@ const Command = require('./Command');
 const { Player } = require('discord-player');
 const ProcessEvent = require('../util/processEvents');
 const path = require('path');
-const RestManager = require('discord.js/src/rest/RESTManager');
+//const RestManager = require('discord.js/src/rest/RESTManager');
 /**
  * Represents a discord client
  * @extends Client
@@ -90,7 +90,7 @@ class KiwiiClient extends Client {
      */
     this.disabledEvents = options.disabledEvents;
 
-    this.rest = new RestManager(this);
+   // this.rest = new RestManager(this);
 
     Console.success(
       `Client has been initialized, you're using ${process.version}`

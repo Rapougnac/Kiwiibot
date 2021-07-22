@@ -54,7 +54,6 @@ module.exports = class UserInfoCommand extends Command {
     if (args.length <= 0) member = message.member;
     if (member) {
       const user = member.user;
-      const data = await this.client.fetchUserViaAPI(user);
       let status = user.presence.status;
       const userFlags = await user
         .fetchFlags()
@@ -85,7 +84,7 @@ module.exports = class UserInfoCommand extends Command {
       if (
         (user.avatar && user.avatar.startsWith('a_')) ||
         member.premiumSince ||
-        data.data.banner
+        user.hasBanner()
       ) {
         userFlags.push('<:Discord_Nitro:859137224187707402>');
       }
@@ -235,8 +234,8 @@ module.exports = class UserInfoCommand extends Command {
         )
         .setFooter(`ID : ${member.id}`)
         .setColor(member.displayHexColor || 'GREY');
-        if(data.data.banner) {
-          embeduser.setImage(await (user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true })))
+        if(user.hasBanner()) {
+          embeduser.setImage(user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true }))
         }
       message.channel.send(embeduser);
     } else {

@@ -80,6 +80,7 @@
     "nhentai-api": "^3.0.2",
     "node-fetch": "^2.6.1",
     "node-opus": "^0.3.3",
+    "npm": "^7.20.0",
     "opusscript": "0.0.7",
     "parse-duration": "^0.4.4",
     "passport": "^0.4.1",

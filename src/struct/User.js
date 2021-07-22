@@ -1,6 +1,21 @@
 const { Structures, User } = require('discord.js');
 
 class ExtendedUser extends User {
+  constructor(client, data) {
+    super(client, data);
+    (async () => {
+      const dat = await this.client.api.users(data.id).get();return dat;})().then(dat => {
+    if ('banner' in dat) {
+      /**
+       * The ID of the user's banner
+       * @type {?string}
+       */
+      this.banner = dat.banner;
+    } else if (typeof this.banner !== 'string') {
+      this.banner = null;
+    }});
+  }
+ 
   /**
    * Get the banner of the user
    * @param {string} userID The user id to pass in.
@@ -32,16 +47,20 @@ class ExtendedUser extends User {
    * @param {import('discord.js').ImageURLOptions & { dynamic?: boolean }} ImageURLOptions
    * @returns {Promise<?string>} The url of the banner
    */
-  async displayUserBannerURL({ format, size, dynamic } = {}) {
-    const userData = await this.client.fetchUserViaAPI(this.id);
-    if (!userData.data.banner) return null;
+  displayUserBannerURL({ format, size, dynamic } = {}) {
+    if(!this.banner) return null;
     return this.BannerUser(
       this.id,
-      userData.data.banner,
+      this.banner,
       format,
       size,
       dynamic
     );
+  }
+  
+  hasBanner() {
+    if(this.banner) return true;
+    else return false;
   }
 }
 

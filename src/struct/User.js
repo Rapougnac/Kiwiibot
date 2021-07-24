@@ -4,13 +4,13 @@ class ExtendedUser extends User {
   constructor(client, data) {
     super(client, data);
     (async () => {
-      const dat = await this.client.api.users(data.id).get();return dat;})().then(dat => {
-    if ('banner' in dat) {
+      const dat = await this.client.api.users(data.id).get();return dat;})().then(userData => {
+    if ('banner' in userData) {
       /**
        * The ID of the user's banner
        * @type {?string}
        */
-      this.banner = dat.banner;
+      this.banner = userData.banner;
     } else if (typeof this.banner !== 'string') {
       this.banner = null;
     }});

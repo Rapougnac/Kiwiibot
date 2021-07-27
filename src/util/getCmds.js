@@ -1,5 +1,6 @@
 const glob = require('glob');
 const Command = require('../struct/Command');
+const path = require('path');
 const getCommands = (client) => {
   let categs = [];
   const value = [];

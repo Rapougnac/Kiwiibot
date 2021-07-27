@@ -23,7 +23,7 @@ class ExtendedUser extends User {
    * Get the banner of the user
    * @param {string} userID The user id to pass in.
    * @param {string} hash The hash of the banner
-   * @param {import('discord.js').ImageURLOptions} format The format of the image
+   * @param {import('discord.js').ImageURLOptions} [format] The format of the image
    * @param {import('discord.js').ImageSize} size The size of the banner
    * @param {boolean} [dynamic] If avaliable and if true, the format will be .gif
    * @param {string} [root] The root url

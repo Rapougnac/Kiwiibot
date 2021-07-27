@@ -75,7 +75,7 @@ module.exports = class UserInfoCommand extends Command {
       if (message.guild.ownerID === user.id) {
         userFlags.push('<:GUILD_OWNER:812992729797230592>');
       }
-      if (message.member.hasPermission('ADMINISTRATOR')) {
+      if (member.hasPermission('ADMINISTRATOR')) {
         userFlags.push('<:ADMINISTRATOR:827241621270560788>');
       }
       if (member.premiumSinceTimestamp > 0) {
@@ -235,7 +235,7 @@ module.exports = class UserInfoCommand extends Command {
         .setFooter(`ID : ${member.id}`)
         .setColor(member.displayHexColor || 'GREY');
         if(user.hasBanner()) {
-          embeduser.setImage(user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true }))
+          embeduser.setImage(await user.displayUserBannerURL({ format: 'png', size: 4096, dynamic: true }))
         }
       message.channel.send(embeduser);
     } else {

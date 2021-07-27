@@ -1,6 +1,6 @@
 const Interaction = require('./Interaction');
 const { ApplicationCommandOptionTypes } = require('../../util/constants');
-const { APIMessage, Message } = require('discord.js');
+const { APIMessage, Message, MessageReaction } = require('discord.js');
 const CommandInteractionOptionResolver = require('./CommandInteractionOptionResolver');
 module.exports = class CommandInteraction extends Interaction {
   constructor(client, data) {
@@ -19,12 +19,17 @@ module.exports = class CommandInteraction extends Interaction {
     /**
      * The options passed in the command
      */
-    this.options = new CommandInteractionOptionResolver(this.client, data.data.options?.map(option => this.transformOption(option, data.data.resolved)))
+    this.options = new CommandInteractionOptionResolver(
+      this.client,
+      data.data.options?.map((option) =>
+        this.transformOption(option, data.data.resolved)
+      )
+    );
   }
   /**
    * Send
    * @param {string} content The content of the message to send
-   * @param {{ ephemeral?: boolean, response?: string }} options If the interaction should be ephemeral
+   * @param {{ ephemeral?: boolean, response?: string }} [options] If the interaction should be ephemeral
    */
   async send(content, options = { ephemeral: false }) {
     let data;
@@ -49,8 +54,8 @@ module.exports = class CommandInteraction extends Interaction {
   /**
    *
    * @param {string} content The content of the message
-   * @param {{response?: string}} options
-   * @returns {Promise<void>}
+   * @param {{response?: string}} [options]
+   * @returns {Promise<*>}
    */
   async edit(content, options = { response: '' }) {
     let data = {
@@ -65,6 +70,11 @@ module.exports = class CommandInteraction extends Interaction {
         data,
       });
   }
+  /**
+   * Delete the message
+   * @param {number} [timeout=0] The time to wait to delete the message from the interaction
+   * @returns {Promise<*>}
+   */
   async delete(timeout = 0) {
     if (timeout <= 0) {
       return await this.client.api
@@ -79,6 +89,11 @@ module.exports = class CommandInteraction extends Interaction {
       });
     }
   }
+  /**
+   * 
+   * @param {string} emoji The emoji to pass in, refers to {@link Message#react()}
+   * @returns {Promise<MessageReaction>}
+   */
   async react(emoji) {
     emoji = this.client.emojis.resolveIdentifier(emoji);
     if (!emoji) throw new TypeError('Invalid emoji.');
@@ -89,6 +104,12 @@ module.exports = class CommandInteraction extends Interaction {
     const message = new Message(this.client, msg, this.channel);
     return message.react(emoji);
   }
+  /**
+   * Transform the options of the CommandInteraction
+   * @param {object} option The options to pass in
+   * @param {obejct} resolved The resolved option
+   * @returns {{name: any, type: any}}
+   */
   transformOption(option, resolved) {
     const result = {
       name: option.name,
@@ -115,7 +136,11 @@ module.exports = class CommandInteraction extends Interaction {
           this.client.channels.add(channel, this.guild) ?? channel;
 
       const role = resolved.roles?.[option.value];
-      if (role) result.role = this.guild?.roles.add(role) ?? role;
+      if (role)
+        result.role =
+          this.guild?.roles.resolve(role.id) ??
+          this.guild?.roles.add(role) ??
+          role;
     }
 
     return result;

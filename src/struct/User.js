@@ -29,7 +29,7 @@ class ExtendedUser extends User {
    * @param {string} [root] The root url
    * @returns {string} The url of the banner
    */
-  BannerUser(
+  Banner(
     userID,
     hash,
     format = 'webp',
@@ -52,7 +52,7 @@ class ExtendedUser extends User {
    */
   displayUserBannerURL({ format, size, dynamic } = {}) {
     if (!this.banner) return null;
-    return this.BannerUser(this.id, this.banner, format, size, dynamic);
+    return this.Banner(this.id, this.banner, format, size, dynamic);
   }
 
   hasBanner() {

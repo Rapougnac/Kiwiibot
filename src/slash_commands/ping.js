@@ -7,23 +7,16 @@ module.exports = {
   global: true,
   /**
    *
-   * @param {import('../../types/index').Interaction} interaction
+   * @param {import('../struct/Interactions/CommandInteraction')} interaction
    * @param {Client} client
    */
   async execute(interaction, client) {
-    client.utils
-      .reply(
-        interaction,
+    interaction
+      .send(
         `🏓 P${'o'.repeat(
           Math.min(Math.round(client.ws.ping / 100), 1500)
         )}ng \n\`${client.ws.ping}ms\``
       )
-      .catch((e) => {
-        client.utils.replyEphemeral(
-          interaction,
-          'There was an error executing that command!'
-        );
-        console.error(e);
-      });
+      .catch(console.error);
   },
 };

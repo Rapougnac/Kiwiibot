@@ -3,7 +3,8 @@ const { BooruError, _sites } = require('booru');
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
-module.exports = class RuleThirtyFour extends Command {
+const { trimArray } = require('../../util/string');
+module.exports = class Rule34 extends Command {
   /**
    *@param {Client} client
    */
@@ -24,7 +25,7 @@ module.exports = class RuleThirtyFour extends Command {
    * @param {String[]} args
    */
   async execute(client, message, args) {
-    const query = args.join(' ');
+    const query = args.join(' ').toLowerCase();
     if (query) {
       booru
         .search('rule34', [query], { nsfw: true, limit: 1, random: true })
@@ -36,7 +37,7 @@ module.exports = class RuleThirtyFour extends Command {
             );
             msg.delete({ timeout: 5000 });
           }
-          if (query === 'LOLI'.toLowerCase())
+          if (query === 'loli' || query === 'shota' && !this.client.isOwner(message.author))
             return message.channel.send('Mommy I see a pedo');
           for (const image of images) {
             const embed = new MessageEmbed()
@@ -49,7 +50,7 @@ module.exports = class RuleThirtyFour extends Command {
               )
               .setImage(image.fileUrl)
               .setColor('#FF0000')
-              .setFooter(`Tags: ${image.tags.slice(',').join(' | ')}`)
+              .setFooter(`Tags: ${trimArray(image.tags, 2000).join(' | ')}`)
             message.channel.send(embed);
           }
         })
@@ -59,7 +60,7 @@ module.exports = class RuleThirtyFour extends Command {
               `No results found for **${query}**!` + err
             );
           } else {
-            return message.channel.send(`No results found for **${query}**!`);
+            return message.channel.send(`No results found for **${query}**!` + err);
           }
         });
     } else return message.channel.send('Please specify at least one tag');

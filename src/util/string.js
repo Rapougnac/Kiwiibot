@@ -118,6 +118,20 @@ function convertUFB(bitfield) {
   });
   return UFConvertResult;
 }
+/**
+ * Trim an array
+ * @param {*[]} array The array to pass in.
+ * @param {number} maxLength The max length of the array.
+ * @returns {*[]} The trimmed array.
+ */
+function trimArray(array, maxLength = 10) {
+  if (array.length > maxLength) {
+    const length = array.length - maxLength;
+    array = array.splice(0, maxLength);
+    array.push(`And ${length} more...`);
+  }
+  return array;
+}
 module.exports = {
   textTruncate,
   ordinalize,
@@ -127,4 +141,5 @@ module.exports = {
   joinArrayAndLimit,
   clean,
   convertUFB,
+  trimArray,
 };

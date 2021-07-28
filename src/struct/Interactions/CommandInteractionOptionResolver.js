@@ -35,6 +35,16 @@ module.exports = class CommandInteractionOptionResolver {
       this._subCommand = this._options[0].name;
       this._options = this._options[0].options ?? [];
     }
+
+    this.args = {};
+
+    if (this._options) {
+      for (const option of this._options) {
+        const { name } = option;
+        const value = option[name];
+        this.args[name] = value;
+      }
+    }
   }
 
   get(name, required = false) {

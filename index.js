@@ -37,35 +37,20 @@ client.listentoProcessEvents(['uncaughtException', 'unhandledRejection'], {
 });
 client.ws.on(
   'INTERACTION_CREATE',
-  /**@param {import('./types/index').Interaction} int */ async (int) => {
+  /**@param {import('./types/index').Interaction} int */ (int) => {
     let interaction = new Interaction(client, int);
-    if (interaction.type === 'APPLICATION_COMMAND')
-      interaction = new CommandInteraction(client, int);
-    const { commandName: name } = interaction;
-    if (!client.slashs.has(name)) return;
-    const args = {};
-    if (interaction.options._options) {
-      for (const option of interaction.options._options) {
-        const { name, value } = option;
-        args[name] = value;
+    if (interaction.type === 'APPLICATION_COMMAND') {
+      const interaction = new CommandInteraction(client, int);
+      const { commandName: name, options } = interaction;
+      const { args } = options;
+      if (!client.slashs.has(name)) return;
+      try {
+        client.slashs.get(name).execute(interaction, client, args);
+      } catch (e) {
+        const { message, stack } = e;
+        console.error(`Error from command ${name}: ${message}\n${stack}`);
+        interaction.send('Sorry, there was an error executing that command!');
       }
-    }
-    try {
-      client.slashs.get(name).execute(interaction, client, args);
-    } catch (e) {
-      const { message, stack } = e;
-      console.log(`Error from command ${name}: ${message}`);
-      console.log(`${stack}\n`);
-      client.utils
-        .replyEphemeral(
-          int,
-          'Sorry, there was an error executing that command!'
-        )
-        .catch(console.error);
     }
   }
 );
-
-client.on('interaction', (int) => {
-  console.log(int);
-});

@@ -53,5 +53,19 @@
 		"roles": "Rôles [{role}]",
 		"no_roles": "Il n'y a pas de rôles à afficher",
 		"user2": "Utilisateur"
+	},
+	"help": {
+		"title": "help.title",
+		"name": "help.name",
+		"category": "help.category",
+		"alias": "help.alias",
+		"usage": "help.usage",
+		"seconds": "help.seconds",
+		"guild_only": "help.guild_only",
+		"admin_only": "help.admin_only",
+		"owner_only": "help.owner_only",
+		"user_permissions": "help.user_permissions",
+		"bot_permissions": "help.bot_permissions",
+		"information": "help.information"
 	}
 }

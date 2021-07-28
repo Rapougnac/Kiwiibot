@@ -50,6 +50,7 @@ module.exports = class TrumpCommand extends Command {
     encoder.setRepeat(0);
     encoder.setDelay(100);
     encoder.setQuality(200);
+    loopFrames:
     for (const frame of frames) {
       const image = await loadImage(
         path.join(
@@ -66,7 +67,7 @@ module.exports = class TrumpCommand extends Command {
       ctx.drawImage(image, 0, 0);
       if (!frame.show) {
         encoder.addFrame(ctx);
-        continue;
+        continue loopFrames;
       }
       ctx.textBaseline = 'top';
       ctx.font = '20px Open Sans';

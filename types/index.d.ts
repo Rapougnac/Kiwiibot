@@ -19,10 +19,12 @@ declare module "discord.js" {
 
     interface Guild {
         i18n: I18n;
+        prefix: string;
     }
     interface User {
         BannerUser(userID: string, hash: string, format?: AllowedImageFormat, size: ImageSize, dynamic?: boolean, root?: string): string;
         displayUserBannerURL(ImageURLOptions: ImageURLOptions & { dynamic?: boolean }): ?string;
+        hasBanner(): boolean;
     }
 }
 

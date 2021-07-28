@@ -12,7 +12,7 @@ module.exports = class SetLangCommand extends Command {
       utilisation: '{prefix}setlang [language]',
       permissions: ['MANAGE_MESSAGES'],
       guildOnly: true,
-      string: [],
+      ownerOnly: true,
     });
   }
   /**

@@ -1,9 +1,57 @@
 {
+	"MESSAGE_PREFIX": {
+		"msg": "Mon prefix actuel dans le serveur est `{prefix}`"
+	},
 	"ping": {
 		"description": "Ping!",
 		"msg": "🏓 P{pong}ng ! Le ping est de: `{ping}ms`\nHeartbeat: `{heartbeat}ms`"
 	},
 	"common": {
-		"database_error": "common.database_error"
+		"database_error": "⚠️[ERREUR DE DATABASE] La database à renvoyé l'erreur suivante: {error}",
+		"creation_date": "Date de création",
+		"yes": "Oui",
+		"no": "Non",
+		"on": "Le",
+		"at": "à",
+		"wait": "**Veuillez patientez...**"
+	},
+	"setlanguage": {
+		"set_language": "La langue a bien été définie !"
+	},
+	"roleinfo": {
+		"description": "Montre des informations sur le rôle spécifié",
+		"specify_role": "Veuillez spécifez le rôle dont vous voulez voir les infos.",
+		"role": "Rôle",
+		"role_name": "Nom du rôle",
+		"who_own_it": "Membres le possédant",
+		"color": "Couleur",
+		"on": "Le",
+		"at": "à",
+		"hoisted": "Séparé des autres",
+		"mentionnable": "Mentionnable"
+	},
+	"userinfo": {
+		"description": "Montre des informations sur vous ou l'utilisateur spécifié",
+		"idle": "Inactif <:idle:838003208588230706>",
+		"dnd": "Ne Pas Déranger <:dnd:838001604098654229>",
+		"online": "En Ligne <:online:838001438972968990>",
+		"offline": "Hors-Ligne <:offline:850733725704126474>",
+		"desktop": "Bureau {x}",
+		"user": "Utilisateur {tag}",
+		"member": "Membre",
+		"name": "Nom",
+		"nickname": "Pseudo",
+		"not_set": "[---](https://youtu.be/dQw4w9WgXcQ)",
+		"on": "Le",
+		"at": "à",
+		"account_creation_date": "Date de création du compte",
+		"arrival_date": "Date d'arrivée sur le serveur",
+		"boost_start_date": "Date du début de boost du serveur",
+		"not_boosting": "Ne boost pas",
+		"device": "Plateforme",
+		"type": "Type d'utilisateur",
+		"roles": "Rôles [{role}]",
+		"no_roles": "Il n'y a pas de rôles à afficher",
+		"user2": "Utilisateur"
 	}
 }

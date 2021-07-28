@@ -1,6 +1,6 @@
 {
 	"MESSAGE_PREFIX": {
-		"msg": "My actual prefix in the guild is `{prefix}`"
+		"msg": "My actual prefix in the guild is `{prefix}`."
 	},
 	"ERROR_MESSAGE": {
 		"msg": "There was an error trying to execute that command!"
@@ -730,10 +730,5 @@
 		"creation_date": "Creation date",
 		"on": "On",
 		"at": "at"
-	},
-	"serverinfor": {
-		"name": "serverinfor.name",
-		"region": "serverinfor.region",
-		"members": "serverinfor.members"
 	}
 }

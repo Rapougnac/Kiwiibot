@@ -1,6 +1,14 @@
 const Interaction = require('./Interaction');
 const { ApplicationCommandOptionTypes } = require('../../util/constants');
-const { APIMessage, Message, MessageReaction } = require('discord.js');
+const {
+  APIMessage,
+  Message,
+  MessageReaction,
+  User,
+  GuildMember,
+  Channel,
+  Role,
+} = require('discord.js');
 const CommandInteractionOptionResolver = require('./CommandInteractionOptionResolver');
 module.exports = class CommandInteraction extends Interaction {
   constructor(client, data) {
@@ -30,6 +38,7 @@ module.exports = class CommandInteraction extends Interaction {
    * Send
    * @param {string} content The content of the message to send
    * @param {{ ephemeral?: boolean, response?: string }} [options] If the interaction should be ephemeral
+   * @returns {Promise<*>}
    */
   async send(content, options = { ephemeral: false }) {
     let data;
@@ -90,7 +99,7 @@ module.exports = class CommandInteraction extends Interaction {
     }
   }
   /**
-   * 
+   *
    * @param {string} emoji The emoji to pass in, refers to {@link Message#react()}
    * @returns {Promise<MessageReaction>}
    */
@@ -124,23 +133,38 @@ module.exports = class CommandInteraction extends Interaction {
 
     if (resolved) {
       const user = resolved.users?.[option.value];
-      if (user) result.user = this.client.users.add(user);
-
+      if (user) {
+        result.user = this.client.users.add(user);
+        if (!(result.user instanceof User))
+          result.user = this.client.users.resolve(user);
+      }
       const member = resolved.members?.[option.value];
-      if (member)
+      if (member) {
         result.member = this.guild?.members.add({ user, ...member }) ?? member;
-
+        if (!(result.member instanceof GuildMember))
+          result.member =
+            this.guild?.members.add({ user, ...member }) ?? member;
+      }
       const channel = resolved.channels?.[option.value];
-      if (channel)
+      if (channel) {
         result.channel =
           this.client.channels.add(channel, this.guild) ?? channel;
-
+        if (!(result.channel instanceof Channel))
+          result.channel =
+            this.client.channels.add(channel, this.guild) ?? channel;
+      }
       const role = resolved.roles?.[option.value];
-      if (role)
+      if (role) {
         result.role =
           this.guild?.roles.resolve(role.id) ??
           this.guild?.roles.add(role) ??
           role;
+        if (!(result.role instanceof Role))
+          result.role =
+            this.guild?.roles.resolve(role.id) ??
+            this.guild?.roles.add(role) ??
+            role;
+      }
     }
 
     return result;

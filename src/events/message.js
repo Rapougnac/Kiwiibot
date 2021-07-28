@@ -9,28 +9,17 @@ const {
 /**
  * @param {Message} message
  * @param {Client} client
- * @param {String[]} args
  */
 module.exports = async (client, message) => {
   const { author, guild } = message;
   const { bot } = author;
-  let prefix = [client.prefix, message.guild ? message.guild.prefix : null];
+  let prefix = [client.prefix, message.guild ? message.guild.prefix : null,  `<@!${client.user.id}>`];
   if (bot && author.id !== client.config.discord.id_bot_test) return;
-  if(!message.guild) return message.inlineReply('I\'m sorry, but due to the translation system, I can\'t execute commands inside dm\'s', {
-    allowedMentions: {
-      repliedUser: false,
-    }
-  })
+  if (!message.guild) return;
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))
     return message.channel.send('┻━┻       (゜-゜)');
   // Check prefix
-  if (
-    !prefix.some((prefix) =>
-      message.content.toLocaleLowerCase().startsWith(prefix)
-    )
-  )
-    return;
   let index;
   // Find which prefix are used
   for (let i = 0; i < prefix.length; i++) {
@@ -39,6 +28,8 @@ module.exports = async (client, message) => {
       break;
     }
   }
+  if(message.content.startsWith(`<@!${client.user.id}>`) && message.content.endsWith(`<@!${client.user.id}>`) && message.guild) return message.inlineReply(message.guild.i18n.__mf('MESSAGE_PREFIX.msg', { prefix: message.guild.prefix }))
+  if(!message.content.toLowerCase().startsWith(prefix[index])) return;
   const args = message.content.slice(prefix[index].length).trim().split(/\s+/g);
   const command = args.shift().toLowerCase();
   if (!client.commands.has(command) && !client.aliases.has(command)) return;

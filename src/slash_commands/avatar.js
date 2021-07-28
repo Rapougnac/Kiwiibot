@@ -1,4 +1,5 @@
-const { MessageEmbed } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const { MessageEmbed, User } = require('discord.js');
 /**@type {import('../../types/index').SlashCommand} */
 module.exports = {
   name: 'avatar',
@@ -16,7 +17,7 @@ module.exports = {
    *
    * @param {import('../struct/Interactions/CommandInteraction')} interaction
    * @param {import('../struct/Client')} client
-   * @param {object} args
+   * @param {{ user: User }} args
    */
   async execute(interaction, client, { user }) {
     const { guild } = interaction;

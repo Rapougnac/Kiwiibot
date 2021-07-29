@@ -2,6 +2,7 @@ const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 const Command = require('../../struct/Command');
+const { trimArray } = require('../../util/string')
 module.exports = class ServerInfoCommand extends Command {
   constructor(client) {
     super(client, {
@@ -99,11 +100,10 @@ module.exports = class ServerInfoCommand extends Command {
       )
       .addField(
         message.guild.i18n.__mf('serverinfo.roles',{role: message.guild.roles.cache.size - 1}),
-        message.guild.roles.cache
+        trimArray(message.guild.roles.cache
           .filter((r) => r.id !== message.guild.id)
           .sort((A, B) => B.rawPosition - A.rawPosition)
-          .map((x) => `${x}`)
-          .splice(0, 30)
+          .map((x) => `${x}`), 30)
           .join(' | ') || '\u200b',
         false
       )

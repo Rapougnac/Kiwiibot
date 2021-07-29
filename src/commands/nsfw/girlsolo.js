@@ -33,7 +33,8 @@ module.exports = class GirlSoloCommand extends Command {
           dynamic: true,
           size: 512,
           format: 'png',
-        })
+        }),
+        GIF.url
       )
       .setImage(GIF.url);
     message.channel.send(embed);

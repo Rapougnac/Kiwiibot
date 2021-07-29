@@ -1,23 +1,38 @@
+const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
+const Command = require('../../struct/Command');
+const Client = require('../../struct/Client');
 const akaneko = require('akaneko');
-const Discord = require('discord.js');
-
-module.exports = {
-  name: 'school',
-  aliases: [],
-  description: '',
-  category: 'nsfw',
-  utilisation: '{prefix}school',
+module.exports = class SchoolCommand extends Command {
+  /**
+   *@param {Client} client
+   */
+  constructor(client) {
+    super(client, {
+      name: 'school',
+      aliases: [],
+      description: '',
+      category: 'nsfw',
+      cooldown: 5,
+      utilisation: '{prefix}school',
+    });
+  }
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
   async execute(client, message, args) {
-    if (message.channel.nsfw) {
-      const emebed = new Discord.MessageEmbed()
-        .setTitle(`${message.author.tag} here some school uniforms :)`)
-        .setImage(await akaneko.nsfw.school());
-      message.channel.send(emebed);
-    } else {
-      let m = await message.channel.send(
-        '**Warning** this command cannot be used in non-nsfw channels!'
-      );
-      m.delete({ timeout: 10000 });
-    }
-  },
+    const emebed = new MessageEmbed()
+      .setAuthor(
+        `${message.author.tag} here some school uniforms :)`,
+        message.author.displayAvatarURL({
+          dynamic: true,
+          format: 'png',
+          size: 4096,
+        }),
+        akaneko.nsfw.school()
+      )
+      .setImage(akaneko.nsfw.school());
+    message.channel.send(emebed);
+  }
 };

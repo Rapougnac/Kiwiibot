@@ -60,6 +60,32 @@ module.exports = class CommandInteraction extends Interaction {
       },
     });
   }
+
+  /**
+   * Options for deferring the reply to an {@link Interaction}.
+   * @typedef {Object} InteractionDeferOptions
+   * @property {boolean} [ephemeral] Whether the reply should be ephemeral
+   * @property {boolean} [fetchReply] Whether to fetch the reply
+   */
+
+  /**
+   * Defers the reply to this interaction.
+   * @param {InteractionDeferOptions} [options]
+   * @returns {Promise<Message|void>}
+   */
+  async defer(options = {}) {
+    this.ephemeral = options.ephemeral ?? false;
+    await this.client.api.interactions(this.id, this.token).callback.post({
+      data: {
+        type: 5,
+        data: {
+          flags: options.ephemeral ? 1 << 6 : undefined,
+        },
+      },
+    });
+
+    return options.fetchReply ? await this.fetchReply() : undefined;
+  }
   /**
    *
    * @param {string} content The content of the message
@@ -112,6 +138,15 @@ module.exports = class CommandInteraction extends Interaction {
       .get();
     const message = new Message(this.client, msg, this.channel);
     return message.react(emoji);
+  }
+
+  async fetchReply() {
+    if (this.ephemeral) throw new Error('This interaction is ephemeral.');
+    const msg = await this.client.api
+      .webhooks(this.client.user.id, this.token)
+      .messages('@original')
+      .get();
+    return new Message(this.client, msg, this.channel);
   }
   /**
    * Transform the options of the CommandInteraction

@@ -1,5 +1,6 @@
 const Command = require('../../struct/Command');
 const Client = require('../../struct/Client');
+const { Message } = require('discord.js');
 module.exports = class PingCommand extends Command {
   constructor(client) {
     super(client, {
@@ -15,7 +16,7 @@ module.exports = class PingCommand extends Command {
   /**
    *
    * @param {Client} client
-   * @param {*} message
+   * @param {Message} message
    */
   async execute(client, message) {
     message.channel.startTyping();

@@ -1,7 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 const { Message, UserFlags, BitField } = require('discord.js');
-const languageSchema = require('../models/languageSchema');
-/**@type {import('../../types').Intl.ListFormat} */
 
 // All functions returned from this module will now be in string format
 

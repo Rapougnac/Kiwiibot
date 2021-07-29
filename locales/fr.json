@@ -66,6 +66,12 @@
 		"owner_only": "help.owner_only",
 		"user_permissions": "help.user_permissions",
 		"bot_permissions": "help.bot_permissions",
-		"information": "help.information"
+		"information": "help.information",
+		"cmd_usage": "help.cmd_usage"
+	},
+	"PERMS_MESSAGE": {
+		"admin_only": "PERMS_MESSAGE.admin_only",
+		"blocked_cmd": "PERMS_MESSAGE.blocked_cmd",
+		"reason": "PERMS_MESSAGE.reason"
 	}
 }

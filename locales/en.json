@@ -196,8 +196,7 @@
 		"on": "On",
 		"at": "at",
 		"hoisted": "Hoisted",
-		"mentionable": "Mentionable",
-		"mentionnable": "roleinfo.mentionnable"
+		"mentionable": "Mentionable"
 	},
 	"serverinfo": {
 		"description": "",
@@ -205,7 +204,7 @@
 		"region": "Region",
 		"members": "Members",
 		"online_members": "Online members",
-		"channels": "channels",
+		"channels": "Channels",
 		"emotes": "Emojis",
 		"roles": "Roles [{role}]",
 		"owner": "Owner",
@@ -215,17 +214,17 @@
 		"verification_level": "Verification level",
 		"id": "ID: {id}",
 		"tier": "Tier : `{tier}`\nNumber of boosts: `{boost_number}`",
-		"members2": "members",
-		"humans": "humans",
-		"bots": "bots",
-		"channels2": "channels",
-		"text_channels": "test channels",
-		"voice_channels": "voice channels",
+		"members2": "Members",
+		"humans": "Humans",
+		"bots": "Bots",
+		"channels2": "Channels",
+		"text_channels": "Text channel(s)",
+		"voice_channels": "Voice channel(s)",
 		"category": "category",
-		"animated_emotes": "animated emojis",
+		"animated_emotes": "Animated emoji(s)",
 		"on": "On",
 		"at": "at",
-		"static_emotes": "static emojis"
+		"static_emotes": "Static emoji(s)"
 	},
 	"uptime": {
 		"description": "Get the uptime of the bot",

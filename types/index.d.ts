@@ -108,13 +108,13 @@ type CommandOptions = {
     */
     type: number;
     required?: boolean;
-    choices: [
+    choices?: [
         {
             name: string;
             value: string;
         }
     ]
-    options: CommandOptions[];
+    options?: CommandOptions[];
 }
 
 type SlashCommand = {

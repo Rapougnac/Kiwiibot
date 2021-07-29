@@ -10,7 +10,6 @@ module.exports = class PingCommand extends Command {
       cooldown: 120,
       utilisation: '{prefix}ping',
       string: [],
-      adminOnly: true,
     });
   }
   /**

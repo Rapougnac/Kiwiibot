@@ -50,7 +50,7 @@ class ExtendedUser extends User {
    * @param {import('discord.js').ImageURLOptions & { dynamic?: boolean }} ImageURLOptions
    * @returns {?string} The url of the banner
    */
-  displayUserBannerURL({ format, size, dynamic } = {}) {
+  displayBannerURL({ format, size, dynamic } = {}) {
     if (!this.banner) return null;
     return this.Banner(this.id, this.banner, format, size, dynamic);
   }

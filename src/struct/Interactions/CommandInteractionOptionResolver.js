@@ -40,8 +40,8 @@ module.exports = class CommandInteractionOptionResolver {
 
     if (this._options) {
       for (const option of this._options) {
-        const { name } = option;
-        const value = option[name];
+        let { name, value } = option;
+        if(option.type !== 'STRING') value = option[name];
         this.args[name] = value;
       }
     }

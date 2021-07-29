@@ -39,7 +39,7 @@ client.ws.on(
   'INTERACTION_CREATE',
   /**@param {import('./types/index').Interaction} int */ (int) => {
     let interaction = new Interaction(client, int);
-    if (interaction.type === 'APPLICATION_COMMAND') {
+    if (interaction.isCommand()) {
       const interaction = new CommandInteraction(client, int);
       const { commandName: name, options } = interaction;
       const { args } = options;
@@ -49,7 +49,9 @@ client.ws.on(
       } catch (e) {
         const { message, stack } = e;
         console.error(`Error from command ${name}: ${message}\n${stack}`);
-        interaction.send('Sorry, there was an error executing that command!');
+        interaction.send('Sorry, there was an error executing that command!', {
+          ephemeral: true,
+        });
       }
     }
   }

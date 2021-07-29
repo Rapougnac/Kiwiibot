@@ -114,7 +114,7 @@ type CommandOptions = {
             value: string;
         }
     ]
-    options: CommandOptions
+    options: CommandOptions[];
 }
 
 type SlashCommand = {

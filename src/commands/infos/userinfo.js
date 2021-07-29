@@ -66,11 +66,33 @@ module.exports = class UserInfoCommand extends Command {
         )
         .catch(() => []);
       const Device = user.presence.clientStatus;
-      let device = Object.getOwnPropertyNames(Device || {});
-      switch (Device) {
-        default: {
-          device[0] = 'N/A';
-        }
+      let device = '';
+      if (Device) {
+        const platform = Object.keys(Device || null);
+        platform.forEach((dev) => {
+          switch (dev) {
+            case 'web': {
+              device += 'Web ' + client.config.clientMap.web + '\n';
+              break;
+            }
+            case 'desktop': {
+              device +=
+                message.guild.i18n.__mf('userinfo.desktop', {
+                  x: client.config.clientMap.desktop,
+                }) + '\n';
+              break;
+            }
+            case 'mobile': {
+              device += 'Mobile ' + client.config.clientMap.mobile + '\n';
+              break;
+            }
+            default: {
+              device = 'N/A';
+            }
+          }
+        });
+      } else {
+        device = 'N/A';
       }
       if (message.guild.ownerID === user.id) {
         userFlags.push('<:GUILD_OWNER:812992729797230592>');
@@ -106,22 +128,6 @@ module.exports = class UserInfoCommand extends Command {
         }
         case 'idle': {
           status = message.guild.i18n.__mf('userinfo.idle');
-          break;
-        }
-      }
-      switch (device[0]) {
-        case 'web': {
-          device[0] = 'Web ' + client.config.clientMap.web;
-          break;
-        }
-        case 'desktop': {
-          device[0] = message.guild.i18n.__mf('userinfo.desktop', {
-            x: client.config.clientMap.desktop,
-          });
-          break;
-        }
-        case 'mobile': {
-          device[0] = 'Mobile ' + client.config.clientMap.mobile;
           break;
         }
       }
@@ -206,7 +212,7 @@ module.exports = class UserInfoCommand extends Command {
           true
         )
         .addField('Presence', status, true)
-        .addField(message.guild.i18n.__mf('userinfo.device'), device[0], true)
+        .addField(message.guild.i18n.__mf('userinfo.device'), device, true)
         .addField(
           message.guild.i18n.__mf('userinfo.type'),
           member.user.bot ? 'Bot' : message.guild.i18n.__mf('userinfo.user2'),
@@ -234,9 +240,11 @@ module.exports = class UserInfoCommand extends Command {
         )
         .setFooter(`ID : ${member.id}`)
         .setColor(member.displayHexColor || 'GREY');
-        if(user.hasBanner()) {
-          embeduser.setImage(await user.displayBannerURL({ format: 'png', size: 4096, dynamic: true }))
-        }
+      if (user.hasBanner()) {
+        embeduser.setImage(
+          user.displayBannerURL({ format: 'png', size: 4096, dynamic: true })
+        );
+      }
       message.channel.send(embeduser);
     } else {
       this.inlineReply(message.guild.i18n.__mf('userinfo.cant_find_member'));

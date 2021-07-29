@@ -1,9 +1,9 @@
 const languageSchema = require('./src/models/languageSchema');
 const PrefixSchema = require('./src/models/PrefixSchema');
 const Client = require('./src/struct/Client'),
-mongoose = require('mongoose');
+  mongoose = require('mongoose');
 /**
- * @param {Client} client 
+ * @param {Client} client
  * @param {mongoose} mongoose
  * @returns {Promise<void>}
  */
@@ -28,15 +28,12 @@ const loadLanguages = async (client, mongoose) => {
 
 const loadPrefix = async (client) => {
   try {
-    for (let guild of client.guilds.cache) {
-      const guildID = guild[0];
-      await PrefixSchema.findOne(
-        { GuildID: guildID },
-        (err, data) => {
-          if(data !==null){
-            guild[1].prefix = data.Prefix;
-          }
-        });
+    for (const [guildID, guild] of client.guilds.cache) {
+      await PrefixSchema.findOne({ GuildID: guildID }, (err, data) => {
+        if (data !== null) {
+          guild.prefix = data.Prefix;
+        }
+      });
     }
   } catch (error) {
     console.error(
@@ -45,5 +42,4 @@ const loadPrefix = async (client) => {
   }
 };
 
-
-module.exports = { loadLanguages, loadPrefix};
+module.exports = { loadLanguages, loadPrefix };

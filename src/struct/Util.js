@@ -1,6 +1,7 @@
 const { APIMessage } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
 const Client = require('./Client');
+const path = require('path');
 module.exports = class Utils {
   /**
    * The client
@@ -21,12 +22,6 @@ module.exports = class Utils {
       .replace(/_/g, ' ')
       .replace(/Guild/g, 'Server')
       .replace(/Use Vad/g, 'Use Voice Activity');
-  }
-
-  formatArray(array, type = 'conjunction') {
-    return new Intl.ListFormat('en-US', { style: 'short', type: type }).format(
-      array
-    );
   }
 
   /**
@@ -150,5 +145,25 @@ module.exports = class Utils {
     if (size && !AllowedImageSizes.includes(size))
       throw new RangeError('IMAGE_SIZE', size);
     return `${root}.${format}${size ? `?size=${size}` : ''}`;
+  }
+  /**
+   * Check if the passed input is a class or not.
+   * @param {*} input The input to check
+   * @returns {boolean}
+   */
+  isClass(input) {
+    return (
+      typeof input === 'function' &&
+      typeof input.prototype === 'object' &&
+      input.toString().substring(0, 5) === 'class'
+    );
+  }
+  /**
+   * Remove duplicated values in an array.
+   * @param {*[]} array The array to pass in.
+   * @returns {*[]}
+   */
+  removeDuplicates(array) {
+    return [...new Set(array)];
   }
 };

@@ -14,20 +14,20 @@ module.exports = class Command {
 
   /**
    * @param {Client} client
-   * @param {Object} options
-   * @param {String} options.name The name of the command
-   * @param {String} [options.description] The description of the command
-   * @param {String} [options.utilisation] The usage of the command
-   * @param {String} [options.category] The category of the command
+   * @param {object} options
+   * @param {string} options.name The name of the command
+   * @param {string} [options.description] The description of the command
+   * @param {string} [options.utilisation] The usage of the command
+   * @param {string} [options.category] The category of the command
    * @param {PermissionString} [options.permissions] The user's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
    * @param {PermissionString} [options.clientPermissions] The client's permissions, if no permissions was provided `['SEND_MESSAGES', 'VIEW_CHANNEL']` are the default one.
-   * @param {Number} [options.cooldown] The cooldown of the command, none if the cooldown was not specified
-   * @param {String[]} [options.aliases] The aliases of the command, none if aliases was not specified
-   * @param {Boolean} [options.guildOnly=false] If the command can be used inside the guild only or not, `false` by default
-   * @param {Boolean} [options.adminOnly=false] If the command can be only used by user's who have the administrator permission, `false` by default
-   * @param {Boolean} [options.ownerOnly=false] If the command can only be executed by the owner of the bot, `false` by default
-   * @param {Boolean} [options.nsfw=false] If the command is nsfw or not, `false` by default
-   * @param {String[]} [options.string] This is used to pass the translation
+   * @param {number} [options.cooldown] The cooldown of the command, none if the cooldown was not specified
+   * @param {string[]} [options.aliases] The aliases of the command, none if aliases was not specified
+   * @param {boolean} [options.guildOnly=false] If the command can be used inside the guild only or not, `false` by default
+   * @param {boolean} [options.adminOnly=false] If the command can be only used by user's who have the administrator permission, `false` by default
+   * @param {boolean} [options.ownerOnly=false] If the command can only be executed by the owner of the bot, `false` by default
+   * @param {boolean} [options.nsfw=false] If the command is nsfw or not, `false` by default
+   * @param {string[]} [options.string] This is used to pass the translation
    * @param {boolean} [options.hidden=false] Whether the command should be hidden from the help menu
    */
   constructor(client, options) {
@@ -77,7 +77,10 @@ module.exports = class Command {
        * are the default one
        * @type {PermissionString}
        */
-      clientPermissions: options.clientPermissions || ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+      clientPermissions: options.clientPermissions || [
+        'SEND_MESSAGES',
+        'VIEW_CHANNEL',
+      ],
       /**
        * The cooldown of the command, none if the cooldown was not specified
        * @type {number}
@@ -150,24 +153,24 @@ module.exports = class Command {
       const reasons = [];
       if (message.channel.type === 'dm') {
         if (cmd.config.guildOnly) {
-          reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.guild_only"));
+          reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.guild_only'));
         }
       }
 
       if (guild) {
         if (cmd.config.ownerOnly) {
           if (!client.owners.includes(message.author.id)) {
-            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.dev_only"));
+            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.dev_only'));
           }
         }
         if (cmd.config.adminOnly) {
           if (!message.member.hasPermission('ADMINISTRATOR')) {
-            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.admin_only"));
+            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.admin_only'));
           }
         }
         if (cmd.config.nsfw) {
           if (!message.channel.nsfw) {
-            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.nsfw"));
+            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.nsfw'));
           }
         }
         if (Array.isArray(cmd.config.permissions)) {
@@ -178,8 +181,12 @@ module.exports = class Command {
           ) {
             reasons.push(
               [
-                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions_you"),
-                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions1_you"),
+                message.guild.i18n.__mf(
+                  'PERMS_MESSAGE.missing_permissions_you'
+                ),
+                message.guild.i18n.__mf(
+                  'PERMS_MESSAGE.missing_permissions1_you'
+                ),
                 Object.entries(
                   message.channel.permissionsFor(message.member).serialize()
                 )
@@ -205,8 +212,8 @@ module.exports = class Command {
           ) {
             reasons.push(
               [
-                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions_i"),
-                message.guild.i18n.__mf("PERMS_MESSAGE.missing_permissions1_i"),
+                message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions_i'),
+                message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions1_i'),
                 Object.entries(
                   message.channel.permissionsFor(message.guild.me).serialize()
                 )
@@ -240,12 +247,12 @@ module.exports = class Command {
             )
             .setColor('RED')
             .setDescription(
-              `\`\`\`diff\n-${
-                message.guild.i18n.__mf("PERMS_MESSAGE.blocked_cmd")
-              }\n\`\`\`\n\n` +
-                `\`${message.guild.i18n.__mf("PERMS_MESSAGE.reason")}:\`\n\n${reasons
-                  .map((reason) => '• ' + reason)
-                  .join('\n')}`
+              `\`\`\`diff\n-${message.guild.i18n.__mf(
+                'PERMS_MESSAGE.blocked_cmd'
+              )}\n\`\`\`\n\n` +
+                `\`${message.guild.i18n.__mf(
+                  'PERMS_MESSAGE.reason'
+                )}:\`\n\n${reasons.map((reason) => '• ' + reason).join('\n')}`
             );
           return message.channel.send(embed);
         } else {
@@ -254,12 +261,12 @@ module.exports = class Command {
       } else {
         if (cmd.config.ownerOnly) {
           if (!client.owners.includes(message.author.id)) {
-            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.dev_only"));
+            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.dev_only'));
           }
         }
         if (cmd.config.nsfw) {
           if (!message.channel.nsfw) {
-            reasons.push(message.guild.i18n.__mf("PERMS_MESSAGE.nsfw"));
+            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.nsfw'));
           }
         }
         if (reasons.length > 0) {
@@ -275,12 +282,12 @@ module.exports = class Command {
             )
             .setColor('RED')
             .setDescription(
-              `\`\`\`diff\n-${
-                message.guild.i18n.__mf("PERMS_MESSAGE.blocked_cmd")
-              }\n\`\`\`\n\n` +
-                `\`${message.guild.i18n.__mf("PERMS_MESSAGE.reason")}:\`\n\n${reasons
-                  .map((reason) => '• ' + reason)
-                  .join('\n')}`
+              `\`\`\`diff\n-${message.guild.i18n.__mf(
+                'PERMS_MESSAGE.blocked_cmd'
+              )}\n\`\`\`\n\n` +
+                `\`${message.guild.i18n.__mf(
+                  'PERMS_MESSAGE.reason'
+                )}:\`\n\n${reasons.map((reason) => '• ' + reason).join('\n')}`
             );
           return message.channel.send(embed);
         } else {
@@ -305,7 +312,7 @@ module.exports = class Command {
       };
     this.message.inlineReply(message, options);
   }
-  execute(client, message, args, fromPattern) {
+  execute() {
     throw new Error(`${this.help.name} doesn't have an execute() method.`);
   }
 };

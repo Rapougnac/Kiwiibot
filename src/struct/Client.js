@@ -173,39 +173,47 @@ class KiwiiClient extends Client {
         /**
          * @type {Command}
          */
-        const command = new (require(file_path))(this);
-
-        if (this.commands.has(command.help.name)) {
-          console.error(
-            new Error(`Command name duplicate: ${command.help.name}`).stack
-          );
-          return process.exit(1);
-        }
-        this.commands.set(command.help.name, command);
-        if (command.help.category === '' || !command.help.category)
-          command.help.category = 'unspecified';
-        //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
-        this.categories.add(command.help.category);
-        if (command.config.aliases) {
-          command.config.aliases.forEach((alias) => {
-            if (this.aliases.has(alias)) {
-              console.error(
-                new Error(`Alias name duplicate: ${command.config.aliases}`)
-                  .stack
-              );
-              return process.exit(1);
-            } else {
-              this.aliases.set(alias, command);
-            }
-          });
+        let command = require(file_path);
+        if (this.utils.isClass(command)) {
+          command = new (require(file_path))(this);
+          if (this.commands.has(command.help.name)) {
+            console.error(
+              new Error(`Command name duplicate: ${command.help.name}`).stack
+            );
+            return process.exit(1);
+          }
+          this.commands.set(command.help.name, command);
+          if (command.help.category === '' || !command.help.category)
+            command.help.category = 'unspecified';
+          //if(command.help.category.includes('-')) command.help.category.replace(/-/g, ' ')
+          this.categories.add(command.help.category);
+          if (command.config.aliases) {
+            command.config.aliases.forEach((alias) => {
+              if (this.aliases.has(alias)) {
+                console.error(
+                  new Error(`Alias name duplicate: ${command.config.aliases}`)
+                    .stack
+                );
+                return process.exit(1);
+              } else {
+                this.aliases.set(alias, command);
+              }
+            });
+          }
+        } else {
+          command = null;
         }
       } catch (error) {
         console.log(error);
       }
     });
-    setTimeout(function () {
-      Console.success(`Loaded ${files.length} commands`);
-    }, 1000);
+    setTimeout(
+      (commands) => {
+        Console.success(`Loaded ${commands} commands`);
+      },
+      1000,
+      this.commands.size
+    );
     return this;
   }
   /**
@@ -319,10 +327,8 @@ class KiwiiClient extends Client {
   start() {
     //Load the player events
     this.playerInit();
-    //Load the events
-    this.loadEvents();
-    //Load the commands
-    this.loadCommands();
+    //Load the events and commands
+    this.loadEvents().loadCommands();
 
     //Mongodb
     if (this.config.database.enable) {

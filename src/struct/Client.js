@@ -38,12 +38,12 @@ class KiwiiClient extends Client {
 
     /**
      * * A collection of all the bot's commands
-     * @type {Collection}
+     * @type {Collection<string, Command>}
      */
     this.commands = new Collection();
     /**
      * A collection of all the bot's command aliases
-     * @type {Collection}
+     * @type {Collection<string, string[]>}
      */
     this.aliases = new Collection();
     /**
@@ -90,7 +90,7 @@ class KiwiiClient extends Client {
      */
     this.disabledEvents = options.disabledEvents;
 
-   // this.rest = new RestManager(this);
+    // this.rest = new RestManager(this);
 
     Console.success(
       `Client has been initialized, you're using ${process.version}`

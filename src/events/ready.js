@@ -19,15 +19,16 @@ module.exports = async (client) => {
     .catch((err) => {
       console.log(err);
     });
-    loadPrefix(client)
-  .then(() => {
-    consoleUtil.success('Loaded prefix', 'LoadPrefix');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  loadPrefix(client)
+    .then(() => {
+      consoleUtil.success('Loaded prefix(es)', 'LoadPrefix');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   await loadSlashs(client).catch(console.error);
- // client.api.applications(client.user.id).guilds('692311924448297011').commands('').delete();
+  // client.api.applications(client.user.id).commands('').delete();
+  // client.api.applications(client.user.id).guilds('692311924448297011').commands('').delete();
   const statuses = [
     `Currently on ${client.guilds.cache.size} servers`,
     `Serving ${client.guilds.cache.reduce(
@@ -100,37 +101,42 @@ module.exports = async (client) => {
 };
 
 async function loadSlashs(client) {
-  const files = glob.sync('src/slash_commands' + '/**/*.js');
+  const files = glob.sync('src/slash_commands/**/*.js');
 
   files.forEach((file) => {
     /**@type {import('../../types').SlashCommand} */
-    const command = require(`${process.cwd()}/${file}`);
-    if (command.global === true) {
-      client.api.applications(client.user.id).commands.post({
-        data: {
-          name: command.name,
-          description: command.description,
-          options: command.commandOptions,
-        },
-      });
-    } else {
-      client.api
-        .applications(client.user.id)
-        .guilds('692311924448297011')
-        .commands.post({
+    let command = require(`${process.cwd()}/${file}`);
+    if (client.utils.isClass(command)) {
+      command = new (require(`${process.cwd()}/${file}`))(client);
+      if (command.global === true) {
+        client.api.applications(client.user.id).commands.post({
           data: {
             name: command.name,
             description: command.description,
             options: command.commandOptions,
           },
         });
+      } else {
+        client.api
+          .applications(client.user.id)
+          .guilds('692311924448297011')
+          .commands.post({
+            data: {
+              name: command.name,
+              description: command.description,
+              options: command.commandOptions,
+            },
+          });
+      }
+      client.slashs.set(command.name, command);
+      console.log(
+        `Command posted: ${command.name} from ${file} [${
+          command.global ? 'global' : 'guild'
+        }]`
+      );
+    } else {
+      command = null;
     }
-    client.slashs.set(command.name, command);
-    console.log(
-      `Command posted: ${command.name} from ${file} [${
-        command.global ? 'global' : 'guild'
-      }]`
-    );
   });
   const globalCommands = await client.api
     .applications(client.user.id)

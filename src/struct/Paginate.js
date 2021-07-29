@@ -140,6 +140,7 @@ module.exports = class Paginate{
   /**
   * Checks if there is a non message embed present in the array
   * @returns {?void}
+  * @private
   */
   _validate(){
     for (const el of this._array){

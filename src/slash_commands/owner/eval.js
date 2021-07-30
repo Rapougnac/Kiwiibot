@@ -12,7 +12,7 @@ module.exports = class EvalSlashCommand extends SlashCommand {
     super(client, {
       name: 'eval',
       description: 'Evaluates some javascript code',
-      global: true,
+      global: false,
       commandOptions: [
         {
           name: 'code',
@@ -35,7 +35,9 @@ module.exports = class EvalSlashCommand extends SlashCommand {
       });
     let res = eval(code);
     if (typeof res !== 'string') res = util.inspect(res);
-    res = textTruncate(res, 1500)
-    interaction.send(`\`\`\`js\n${clean(res)}\n\`\`\``);
+    interaction.defer({ fetchReply: true }).then((message) => {
+      message.channel.send(clean(res), { split: true, code: 'js' });
+      interaction.edit("­Here's the result of your evaluation!");
+    });
   }
 };

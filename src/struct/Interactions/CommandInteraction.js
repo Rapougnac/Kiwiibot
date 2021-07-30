@@ -205,9 +205,16 @@ module.exports = class CommandInteraction extends Interaction {
     return result;
   }
 };
-
-async function createAPIMessage(content, channel, response) {
-  const { data, files } = await APIMessage.create(channel, response, content)
+/**
+ * 
+ * @param {string} content The content of the message
+ * @param {Channel} channel The channel to send this message
+ * @param {?string} response The response  if there're embeds
+ * @param {import('discord.js').MessageOptions|import('discord.js').WebhookMessageOptions} options 
+ * @returns {Promise<{files: object[];}>}
+ */
+async function createAPIMessage(content, channel, response, options) {
+  const { data, files } = await APIMessage.create(channel, response, content, options)
     .resolveData()
     .resolveFiles();
   return { ...data, files };

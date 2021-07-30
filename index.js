@@ -2,15 +2,12 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
   throw new Error(
     'Node 12.0.0 or higher is required. Update Node on your system.'
   );
-const Client = require('./src/struct/Client'); // Extended Client
 require('./src/struct/Message'); // Extended Message
 require('./src/struct/Guild'); // Extended Guild
 require('./src/struct/User'); // Extended User
-const moment = require('moment');
-const CommandInteraction = require('./src/struct/Interactions/CommandInteraction');
-const Interaction = require('./src/struct/Interactions/Interaction');
+const { Interaction, CommandInteraction, Client } = require('./src/struct/main');
 const client = new Client({
-  prefix: 'n?', // Prefix of the bot
+  prefix: 'm?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
   owners: ['253554702858452992', '364062534975881218'], // Owner(s) of the bot
   config: require('./config.js'), //Path to the config.js file

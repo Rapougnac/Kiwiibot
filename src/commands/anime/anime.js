@@ -1,6 +1,5 @@
 const { Message, MessageEmbed, MessageAttachment } = require('discord.js');
-const Command = require('../../struct/Command');
-const Client = require('../../struct/Client');
+const { Command, Client } = require('../../struct/main');
 const Kitsu = require('kitsu.js');
 const { dropRight } = require('lodash');
 module.exports = class AnimeCommand extends Command {
@@ -25,15 +24,17 @@ module.exports = class AnimeCommand extends Command {
    */
   async execute(client, message, args) {
     const kitsu = new Kitsu();
-    const search = args.join(' ');
+    const search = args.join(' ').toLowerCase();
     if (!search) {
-      return message.channel.send(message.guild.i18n.__mf("anime.specify"));
+      return message.channel.send(message.guild.i18n.__mf('anime.specify'));
     }
     kitsu
       .searchAnime(search)
       .then(async (result) => {
         if (result.length === 0) {
-          return message.channel.send(message.guild.i18n.__mf("anime.not_found",{search: search}));
+          return message.channel.send(
+            message.guild.i18n.__mf('anime.not_found', { search: search })
+          );
         }
         if (result.length > 2) {
           const x = dropRight(result, result.length - 20);
@@ -48,9 +49,9 @@ module.exports = class AnimeCommand extends Command {
           await message.channel.send({
             embed: {
               author: {
-                name: message.guild.i18n.__mf("anime.stop_collect_msg"),
+                name: message.guild.i18n.__mf('anime.stop_collect_msg'),
               },
-              title: message.guild.i18n.__mf("anime.choose"),
+              title: message.guild.i18n.__mf('anime.choose'),
               description: string,
               footer: {
                 text: `Requested by ${message.author.username}`,
@@ -89,7 +90,9 @@ module.exports = class AnimeCommand extends Command {
           let c;
           x.forEach((y, counter) => (c = counter + 1));
           if (!continued)
-            return message.channel.send(message.guild.i18n.__mf("anime.number_range",{number: c}));
+            return message.channel.send(
+              message.guild.i18n.__mf('anime.number_range', { number: c })
+            );
           else {
             const anime = x[number - 1];
             const embed = new MessageEmbed()
@@ -112,28 +115,42 @@ module.exports = class AnimeCommand extends Command {
 
                 .addField(
                   '❯\u2000 Informations',
-                  `•\u2000 **${message.guild.i18n.__mf("anime.japanese_name")}** ${
+                  `•\u2000 **${message.guild.i18n.__mf(
+                    'anime.japanese_name'
+                  )}** ${
                     anime.titles.romaji
-                  }\n•\u2000 **${message.guild.i18n.__mf("anime.age")}** ${
+                  }\n•\u2000 **${message.guild.i18n.__mf('anime.age')}** ${
                     anime.ageRatingGuide
                   }\n•\u2000 **NSFW:** ${
-                    anime.nsfw ? message.guild.i18n.__mf("common.yes") : message.guild.i18n.__mf("common.no")
+                    anime.nsfw
+                      ? message.guild.i18n.__mf('common.yes')
+                      : message.guild.i18n.__mf('common.no')
                   }`,
                   true
                 )
                 .addField(
-                  `❯\u2000 ${message.guild.i18n.__mf("anime.stats")}`,
-                  `•\u2000 **${message.guild.i18n.__mf("anime.note")}** ${anime.averageRating}\n•\u2000 **${message.guild.i18n.__mf("anime.rank")}** ${anime.ratingRank}\n•\u2000 **${message.guild.i18n.__mf("anime.poularity")}** ${anime.popularityRank}`,
+                  `❯\u2000 ${message.guild.i18n.__mf('anime.stats')}`,
+                  `•\u2000 **${message.guild.i18n.__mf('anime.note')}** ${
+                    anime.averageRating
+                  }\n•\u2000 **${message.guild.i18n.__mf('anime.rank')}** ${
+                    anime.ratingRank
+                  }\n•\u2000 **${message.guild.i18n.__mf(
+                    'anime.poularity'
+                  )}** ${anime.popularityRank}`,
                   true
                 )
                 .addField(
                   '❯\u2000 Status',
                   `•\u2000 **Episodes:** ${
                     anime.episodeCount ? anime.episodeCount : 'N/A'
-                  }\n•\u2000 **${message.guild.i18n.__mf("anime.beginning")}:** ${
-                    anime.startDate
-                  }\n•\u2000 **${message.guild.i18n.__mf("anime.end")}:** ${
-                    anime.endDate ? anime.endDate : message.guild.i18n.__mf("anime.in_progress")
+                  }\n•\u2000 **${message.guild.i18n.__mf(
+                    'anime.beginning'
+                  )}:** ${anime.startDate}\n•\u2000 **${message.guild.i18n.__mf(
+                    'anime.end'
+                  )}:** ${
+                    anime.endDate
+                      ? anime.endDate
+                      : message.guild.i18n.__mf('anime.in_progress')
                   }`,
                   true
                 )
@@ -163,28 +180,40 @@ module.exports = class AnimeCommand extends Command {
               )
               .addField(
                 '❯\u2000 Informations',
-                `•\u2000 **${message.guild.i18n.__mf("anime.japanese_name")}** ${
+                `•\u2000 **${message.guild.i18n.__mf(
+                  'anime.japanese_name'
+                )}** ${
                   anime.titles.romaji
-                }\n•\u2000 **${message.guild.i18n.__mf("anime.age")}** ${
+                }\n•\u2000 **${message.guild.i18n.__mf('anime.age')}** ${
                   anime.ageRatingGuide
                 }\n•\u2000 **NSFW:** ${
-                  anime.nsfw ? message.guild.i18n.__mf("anime.yes") : message.guild.i18n.__mf("anime.no")
+                  anime.nsfw
+                    ? message.guild.i18n.__mf('anime.yes')
+                    : message.guild.i18n.__mf('anime.no')
                 }`,
                 true
               )
               .addField(
-                `❯\u2000 ${message.guild.i18n.__mf("anime.stats")}`,
-                `•\u2000 **${message.guild.i18n.__mf("anime.note")}** ${anime.averageRating}\n•\u2000 **${message.guild.i18n.__mf("anime.rank")}** ${anime.ratingRank}\n•\u2000 **${message.guild.i18n.__mf("anime.popularity")}** ${anime.popularityRank}`,
+                `❯\u2000 ${message.guild.i18n.__mf('anime.stats')}`,
+                `•\u2000 **${message.guild.i18n.__mf('anime.note')}** ${
+                  anime.averageRating
+                }\n•\u2000 **${message.guild.i18n.__mf('anime.rank')}** ${
+                  anime.ratingRank
+                }\n•\u2000 **${message.guild.i18n.__mf('anime.popularity')}** ${
+                  anime.popularityRank
+                }`,
                 true
               )
               .addField(
                 '❯\u2000 Status',
                 `•\u2000 **Episodes:** ${
                   anime.episodeCount ? anime.episodeCount : 'N/A'
-                }\n•\u2000 **${message.guild.i18n.__mf("anime.beginning")}** ${
+                }\n•\u2000 **${message.guild.i18n.__mf('anime.beginning')}** ${
                   anime.startDate
-                }\n•\u2000 **${message.guild.i18n.__mf("anime.end")}** ${
-                  anime.endDate ? anime.endDate : message.guild.i18n.__mf("anime.in_progress")
+                }\n•\u2000 **${message.guild.i18n.__mf('anime.end')}** ${
+                  anime.endDate
+                    ? anime.endDate
+                    : message.guild.i18n.__mf('anime.in_progress')
                 }`,
                 true
               )
@@ -195,7 +224,9 @@ module.exports = class AnimeCommand extends Command {
       })
       .catch((err) => {
         console.error(err.stack); //catching error
-        return message.channel.send(message.guild.i18n.__mf("anime.not_found",{search: search}));
+        return message.channel.send(
+          message.guild.i18n.__mf('anime.not_found', { search: search })
+        );
       });
   }
 };

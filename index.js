@@ -5,9 +5,13 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
 require('./src/struct/Message'); // Extended Message
 require('./src/struct/Guild'); // Extended Guild
 require('./src/struct/User'); // Extended User
-const { Interaction, CommandInteraction, Client } = require('./src/struct/main');
+const {
+  Interaction,
+  CommandInteraction,
+  Client,
+} = require('./src/struct/main');
 const client = new Client({
-  prefix: 'm?', // Prefix of the bot
+  prefix: 'n?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
   owners: ['253554702858452992', '364062534975881218'], // Owner(s) of the bot
   config: require('./config.js'), //Path to the config.js file

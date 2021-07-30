@@ -35,7 +35,7 @@ module.exports = class CommandInteraction extends Interaction {
     );
   }
   /**
-   * Send
+   * Send the content passed in.
    * @param {string} content The content of the message to send
    * @param {{ ephemeral?: boolean, response?: string }} [options] If the interaction should be ephemeral
    * @returns {Promise<*>}

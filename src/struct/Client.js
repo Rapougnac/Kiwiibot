@@ -7,7 +7,12 @@
  * * A GuildMember object
  * @typedef {User|Snowflake|Message|GuildMember} UserResolvable
  */
-const { Client, Collection, ClientOptions } = require('discord.js');
+const {
+  Client,
+  Collection,
+  ClientOptions,
+  ClientApplication,
+} = require('discord.js');
 const Console = require('../util/console');
 const glob = require('glob');
 const axios = require('axios');
@@ -137,6 +142,8 @@ class KiwiiClient extends Client {
      * Get the filters in config
      */
     this.filters = this.config.filters;
+
+    this.fetchApplication().then((app) => (this.application = app));
   }
   /**
    * Log the client in

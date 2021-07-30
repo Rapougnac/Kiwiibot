@@ -8,6 +8,7 @@ require('moment-duration-format');
 const glob = require('glob');
 const express = require('express');
 const { getCommands } = require('../util/getCmds');
+const path = require('path');
 /**
  * @param {Client} client
  */
@@ -99,16 +100,20 @@ module.exports = async (client) => {
   });
   app.listen(client.config.port);
 };
-
+/**
+ * Function to load slashs commands
+ * @param {Client} client The client
+ * @returns {Promise<void>}
+ */
 async function loadSlashs(client) {
   const files = glob.sync('src/slash_commands/**/*.js');
 
   files.forEach((file) => {
-    /**@type {import('../../types').SlashCommand} */
+    /**@type {import('../struct/SlashCommand')} */
     let command = require(`${process.cwd()}/${file}`);
     if (client.utils.isClass(command)) {
       command = new (require(`${process.cwd()}/${file}`))(client);
-      if (command.global === true) {
+      if (command.global) {
         client.api.applications(client.user.id).commands.post({
           data: {
             name: command.name,
@@ -119,7 +124,7 @@ async function loadSlashs(client) {
       } else {
         client.api
           .applications(client.user.id)
-          .guilds('692311924448297011')
+          .guilds('316999627066834945')
           .commands.post({
             data: {
               name: command.name,
@@ -130,7 +135,7 @@ async function loadSlashs(client) {
       }
       client.slashs.set(command.name, command);
       console.log(
-        `Command posted: ${command.name} from ${file} [${
+        `Command posted: ${command.name} from ${process.cwd() + path.sep + file} [${
           command.global ? 'global' : 'guild'
         }]`
       );
@@ -143,7 +148,7 @@ async function loadSlashs(client) {
     .commands.get();
   const guildCommands = await client.api
     .applications(client.user.id)
-    .guilds('692311924448297011')
+    .guilds('316999627066834945')
     .commands.get();
   globalCommands.forEach((globCmd) => {
     console.log(

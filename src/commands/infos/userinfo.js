@@ -11,6 +11,7 @@ const moment = require('moment');
 require('moment-duration-format');
 const languageSchema = require('../../models/languageSchema');
 const { convertUFB } = require('../../util/string');
+const _ = require('lodash');
 module.exports = class UserInfoCommand extends Command {
   /**
    *@param {Client} client
@@ -52,7 +53,16 @@ module.exports = class UserInfoCommand extends Command {
           r.displayName.toLowerCase().endsWith(args.join(' ').toLowerCase())
       );
     if (args.length <= 0) member = message.member;
+    //message.guild.members.cache.sweep((mem) => mem.id === message.member.id);
     if (member) {
+      //   for (const [id, mem] of message.guild.members.cache) {
+      //     // if (!(mem.id === message.member.id)) {
+      //     //   console.log('Hello');
+      //     // }
+      //     if(mem.nickname === member.nickname) {
+      //       return message.inlineReply('Multiples users has been found!')
+      //     }
+      //   }
       const user = member.user;
       let status = user.presence.status;
       const userFlags = await user
@@ -67,8 +77,8 @@ module.exports = class UserInfoCommand extends Command {
         .catch(() => []);
       const Device = user.presence.clientStatus;
       let device = '';
-      if (Device) {
-        const platform = Object.keys(Device || null);
+      if (!_.isEmpty(Device)) {
+        const platform = Object.keys(Device);
         platform.forEach((dev) => {
           switch (dev) {
             case 'web': {
@@ -92,7 +102,11 @@ module.exports = class UserInfoCommand extends Command {
           }
         });
       } else {
-        device = 'N/A';
+        if (member.user.bot) {
+          device = 'Web ' + client.config.clientMap.web + '\n';
+        } else {
+          device = 'N/A';
+        }
       }
       if (message.guild.ownerID === user.id) {
         userFlags.push('<:GUILD_OWNER:812992729797230592>');

@@ -12,7 +12,7 @@ module.exports = class EvalSlashCommand extends SlashCommand {
     super(client, {
       name: 'eval',
       description: 'Evaluates some javascript code',
-      global: false,
+      global: true,
       commandOptions: [
         {
           name: 'code',

@@ -16,7 +16,7 @@ module.exports = class AvatarSlashCommand extends SlashCommand {
     super(client, {
       name: 'avatar',
       description: 'Get the avatar of yourself or the specified user.',
-      global: false,
+      global: true,
       commandOptions: [
         {
           name: 'user',

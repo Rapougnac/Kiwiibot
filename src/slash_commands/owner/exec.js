@@ -12,7 +12,7 @@ module.exports = class SlashCmd extends SlashCommand {
     super(client, {
       name: 'exec',
       description: 'Execute commands in shell',
-      global: false,
+      global: true,
       commandOptions: [
         {
           name: 'command',

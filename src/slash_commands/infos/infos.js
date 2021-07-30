@@ -21,7 +21,7 @@ module.exports = class InfoSlash extends SlashCommand {
     super(client, {
       name: 'info',
       description: 'Get infos about a user, a role, or the server',
-      global: false,
+      global: true,
       commandOptions: [
         {
           name: 'user',

@@ -10,7 +10,7 @@ module.exports = class PingSlashCommand extends SlashCommand {
     super(client, {
       name: 'ping',
       description: 'Just a simple ping command',
-      global: false,
+      global: true,
     });
   }
   /**

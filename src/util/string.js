@@ -1,8 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const { Message, UserFlags, BitField } = require('discord.js');
 
-// All functions returned from this module will now be in string format
-
 /**
  * TextTruncate -> Shortens the string to desired length
  * @param {string} str the string to test with
@@ -34,26 +32,15 @@ function ordinalize(n = 0) {
 /**
  *
  * @param {number|string} number The number to separte
- * @param {string} sep The searator of the numbers
- * @example separateNumbers(123456) will return `123'456`; separateNumbers(1234.567) will return `1'234.567`;
+ * @param {string} [sep] The searator of the numbers
+ * @example separateNumbers(123456); // will return `123'456`;
+ * separateNumbers(1234.567); // will return `1'234.567`;
  * @returns {string} The numbers with quotation marks
  */
 function separateNumbers(number, sep = "'") {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-}
-/**
- * Converts a number to a stringified compact version
- * @param {number|string} number the Number to convert
- * @param {number} maximumFractionDigits the number of decimal places to include in result
- * @example compactNum(11235) will return `11.24K`; commatize(1234.567, 0) will return `1K`
- * @returns {string} compact version of the number
- * @note Maximum number for optimal usage is 10e13
- */
-function compactNum(number, maximumFractionDigits = 2) {
-  return Number(number || '').toLocaleString('en-US', {
-    notation: 'compact',
-    maximumFractionDigits,
-  });
+  return Number(number)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, sep);
 }
 
 /**
@@ -61,28 +48,33 @@ function compactNum(number, maximumFractionDigits = 2) {
  * @param {*[]} array the array to join
  * @returns {string} the joined array
  */
-function joinArray(array = [], lang = 'en') {
+function joinArray(array = [], lang = 'en-US') {
   let list = new Intl.ListFormat(lang);
   return list.format(array.map((x) => String(x)));
 }
 /**
  * Join array and add a limiter.
  * @param {*[]} array the array to join
- * @param {number} limit the maximum length of the string output
+ * @param {number|string} limit the maximum length of the string output
  * @param {string} connector similar to param of `array.join()`
- * @example joinArrayAndLimit([1,2,3,4,5,6,7,8,9,10,11])
- * will return  text: '1, 2, 3, 4', excess: 6
+ * @example joinArrayAndLimit([1,2,3,4,5,6,7,8,9,10,11], 5);
+ * //will return  text: '1, 2, 3, 4, 5', excess: 6
  * @returns {{text: string, excess: number}} The joined array
- * @note Will throw a typeerror array.reduce is not a function if param1 is not of type array.
  */
-function joinArrayAndLimit(array = [], limit = 1000, connector = '\n') {
-  return array.reduce(
-    (a, c, i) =>
-      a.text.length + String(c).length > limit
-        ? { text: a.text, excess: a.excess + 1 }
-        : { text: a.text + (i ? connector : '') + String(c), excess: a.excess },
-    { text: '', excess: 0 }
-  );
+function joinArrayAndLimit(array = [], limit = 1000, connector = ', ') {
+  if (!Array.isArray(array))
+    throw new TypeError(`An array was exepcted, recevied "${typeof array}"`);
+  limit = Number(limit);
+  if (isNaN(limit)) throw new Error(`${limit} is not a number.`);
+  if (array.length > limit) {
+    const excess = array.length - limit;
+    array = array.splice(0, limit);
+    const text = array.join(connector);
+    array = { text: text, excess: excess };
+  } else {
+    array = { text: array.join(connector), excess: 0 };
+  }
+  return array;
 }
 
 /**
@@ -98,11 +90,11 @@ function clean(text) {
 /**
  * Convert flags bitfield to string in array
  * @param {BitField} bitfield The bitfield to pass in
- * @returns {String[]} The array of the user flags
+ * @returns {string[]} The array of the user flags
  */
 function convertUFB(bitfield) {
   if (!bitfield) throw 'Missing Bitfield';
-  if (isNaN(bitfield)) throw `${bitfield} is not a number`;
+  if (isNaN(bitfield)) throw new TypeError(`${bitfield} is not a number`);
   let processConvert = bitfield;
   let UFConvertResult = [];
   const ACFlags = Object.entries(UserFlags.FLAGS).sort(function (a, b) {
@@ -117,16 +109,24 @@ function convertUFB(bitfield) {
   return UFConvertResult;
 }
 /**
+ * @typedef {{maxLength?: number; end?: string;}} TrimArrayOptions
+ * @param maxLength The length of the array
+ * @param end The end of the array
+ */
+
+/**
  * Trim an array
  * @param {*[]} array The array to pass in.
- * @param {number} maxLength The max length of the array.
+ * @param {TrimArrayOptions} options
  * @returns {*[]} The trimmed array.
  */
-function trimArray(array, maxLength = 10) {
+function trimArray(array, { maxLength = 10, end = 'And {length} more...' }) {
+  if (!Array.isArray(array))
+    throw new TypeError(`An array was expected, received "${typeof array}"`);
   if (array.length > maxLength) {
     const length = array.length - maxLength;
     array = array.splice(0, maxLength);
-    array.push(`And ${length} more...`);
+    array.push(end.match(/{length}/g) ? end.replace(/{length}/g, length) : end);
   }
   return array;
 }
@@ -134,7 +134,6 @@ module.exports = {
   textTruncate,
   ordinalize,
   separateNumbers,
-  compactNum,
   joinArray,
   joinArrayAndLimit,
   clean,

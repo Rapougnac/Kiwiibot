@@ -8,8 +8,9 @@ The translation system is broken \([thanks to this dumb pr](https://github.com/d
 
 And yeah, maybe I'll try a new library, but it will take a bunch of time
 
+> If you still want to clone this project, just do `npm install discord.js@12.5.3`
 
-~~# Table of contents~~
+# ~~Table of contents~~
 
 - ~~[Kiwiibot](#kiwiibot)~~
 - ~~[Installation](#install)~~

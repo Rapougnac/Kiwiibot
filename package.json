@@ -37,7 +37,7 @@
     "blueapi.js": "^0.0.4",
     "booru": "^2.4.0",
     "canvacord": "^5.1.0",
-    "canvas": "^2.7.0",
+    "canvas": "^2.8.0",
     "canvas-constructor": "^4.1.0",
     "capture-console": "^1.0.1",
     "cheerio": "^1.0.0-rc.5",

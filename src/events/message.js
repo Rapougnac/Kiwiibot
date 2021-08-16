@@ -14,7 +14,7 @@ module.exports = async (client, message) => {
   const { author, guild } = message;
   const { bot } = author;
   let prefix = [client.prefix, message.guild ? message.guild.prefix : null,  `<@!${client.user.id}>`];
-  if (bot && author.id !== client.config.discord.id_bot_test) return;
+  if (bot && author.id !== client.config.discord.id_bot_test || message.webhookID) return;
   if (!message.guild) return;
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))

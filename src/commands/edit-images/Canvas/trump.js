@@ -41,7 +41,7 @@ module.exports = class TrumpCommand extends Command {
 
     const arrVerbs = ['IS', 'ARE', 'AM'];
     if (!arrVerbs.includes(verb.toUpperCase())) {
-      args.length === 0 ? (text = ' ' + text) : (text = verb + ' ' + text);
+      args.length === 0 ? text : (text = verb + ' ' + text);
       verb = 'IS';
     }
     if (verb.length > 3) verb = 'IS';

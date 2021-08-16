@@ -320,6 +320,7 @@ class KiwiiClient extends Client {
           config.logsonboth &&
           typeof config.logsonboth === 'boolean'
         ) {
+          if(args[0].message === 'Unknown User') return;
           console.error(args[0].stack);
           return ProcessEvent(event, args, this);
         } else {

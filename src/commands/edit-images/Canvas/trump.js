@@ -38,6 +38,7 @@ module.exports = class TrumpCommand extends Command {
           },
         }
       );
+
     const arrVerbs = ['IS', 'ARE', 'AM'];
     if (!arrVerbs.includes(verb.toUpperCase())) {
       text = verb + ' ' + text;
@@ -50,8 +51,7 @@ module.exports = class TrumpCommand extends Command {
     encoder.setRepeat(0);
     encoder.setDelay(100);
     encoder.setQuality(200);
-    loopFrames:
-    for (const frame of frames) {
+    loopFrames: for (const frame of frames) {
       const image = await loadImage(
         path.join(
           process.cwd(),
@@ -82,6 +82,13 @@ module.exports = class TrumpCommand extends Command {
     }
     encoder.finish();
     const buffer = await Canvas.streamToArray(stream);
+    client.utils.loader.start({
+      length: 4,
+      time: 1250,
+      allowMessage: true,
+      message: message,
+      deleteMessage: true,
+    });
     return message.channel.send({
       files: [
         {

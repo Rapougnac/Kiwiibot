@@ -1,7 +1,7 @@
 const { APIMessage } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
 const Client = require('./Client');
-const path = require('path');
+const Loader = require('./LoadingBar');
 module.exports = class Utils {
   /**
    * The client
@@ -9,6 +9,7 @@ module.exports = class Utils {
    */
   constructor(client) {
     this.client = client;
+    this.loader = new Loader();
   }
 
   /**

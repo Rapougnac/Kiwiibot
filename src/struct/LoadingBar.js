@@ -45,7 +45,9 @@ module.exports = class LoadingBar {
         const Full = full.repeat(i);
         const left = length - i;
         const Empty = empty.repeat(left);
+        // Get the number to multiply after
         const nbr = length * (100 / length);
+        // Get the percentage with the constant nbr
         const percentage = (i * nbr) / length;
         // If this is the 1st time, send the message
         if (i === 0) {
@@ -63,7 +65,7 @@ module.exports = class LoadingBar {
             }%`
           );
         }
-
+        // If this is the end of the progress, and deleteMessage has been enabled, delete the message
         if (i === length && deleteMessage && allowMessage && message) {
           setTimeout(() => {
             message.delete();

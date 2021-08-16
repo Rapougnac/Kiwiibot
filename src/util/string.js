@@ -109,9 +109,9 @@ function convertUFB(bitfield) {
   return UFConvertResult;
 }
 /**
- * @typedef {{maxLength?: number; end?: string;}} TrimArrayOptions
- * @param maxLength The length of the array
- * @param end The end of the array
+ * @typedef {object} TrimArrayOptions
+ * @property {number} maxLength The length of the array
+ * @property {string} end The end of the array
  */
 
 /**

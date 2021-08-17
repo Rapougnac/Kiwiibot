@@ -14,7 +14,6 @@ module.exports = class CodeCommand extends Command {
       category: 'owner',
       cooldown: 5,
       utilisation: '{prefix}code [command]',
-      ownerOnly: true,
     });
   }
   /**

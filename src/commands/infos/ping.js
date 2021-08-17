@@ -26,10 +26,11 @@ module.exports = class PingCommand extends Command {
       },
     });
     const ping = msg.createdTimestamp - message.createdTimestamp;
-    const string = message.guild.i18n.__mf('ping.msg',{
+    const string = message.guild.i18n.__mf('ping.msg', {
       pong: 'o'.repeat(Math.min(Math.round(ping / 100), 1500)),
       ping: ping,
-      heartbeat: formatNumber(client.ws.ping)})
+      heartbeat: formatNumber(client.ws.ping),
+    });
     msg.edit(string, {
       allowedMentions: {
         repliedUser: false,

@@ -161,7 +161,7 @@ class KiwiiClient extends Client {
    * Load all commands in the specifed directory
    */
   loadCommands() {
-    let files = glob.sync('src/commands' + '/**/*.js');
+    let files = glob.sync('src/commands/**/*.js');
     const exclude = this.config.discord.dev.exclude_cmd;
     const include = this.config.discord.dev.include_cmd;
     if (this.config.discord.dev.active) {

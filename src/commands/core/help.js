@@ -48,14 +48,17 @@ module.exports = class HelpCommand extends Command {
                 ']'
               : ''
           }`,
-          value: joinArray([
-            ...client.commands
-              .filter(
-                /**@param {Command} cmd */ (cmd) =>
-                  cmd.help.category === category && !cmd.config.hidden
-              )
-              .map((value) => `\`${value.help.name}\``),
-          ], message.guild.i18n.getLocale()),
+          value: joinArray(
+            [
+              ...client.commands
+                .filter(
+                  /**@param {Command} cmd */ (cmd) =>
+                    cmd.help.category === category && !cmd.config.hidden
+                )
+                .map((value) => `\`${value.help.name}\``),
+            ],
+            message.guild.i18n.getLocale()
+          ),
           inline: false,
         });
       }
@@ -77,14 +80,17 @@ module.exports = class HelpCommand extends Command {
                 ']'
               : ''
           }`,
-          value: joinArray([
-            ...client.commands
-              .filter(
-                /**@param {Command} cmd */ (cmd) =>
-                  cmd.help.category === category && !cmd.config.hidden
-              )
-              .map((value) => `\`${value.help.name}\``),
-          ], message.guild.i18n.getLocale()),
+          value: joinArray(
+            [
+              ...client.commands
+                .filter(
+                  /**@param {Command} cmd */ (cmd) =>
+                    cmd.help.category === category && !cmd.config.hidden
+                )
+                .map((value) => `\`${value.help.name}\``),
+            ],
+            message.guild.i18n.getLocale()
+          ),
           inline: false,
         });
       }
@@ -111,7 +117,9 @@ module.exports = class HelpCommand extends Command {
         .addFields(fields.sort((a, b) => a.name.localeCompare(b.name)))
         .setColor('ORANGE')
         .setTimestamp()
-        .setFooter(message.guild.i18n.__mf(`help.cmd_usage`,{prefix: client.prefix}));
+        .setFooter(
+          message.guild.i18n.__mf(`help.cmd_usage`, { prefix: client.prefix })
+        );
 
       message.channel.send(embed);
     } else {
@@ -120,29 +128,39 @@ module.exports = class HelpCommand extends Command {
        */
       const command =
         message.client.commands.get(args.join(' ').toLowerCase()) ||
-        message.client.commands.find(
-          (x) => x.aliases && x.aliases.includes(args.join(' ').toLowerCase())
-        );
+        message.client.aliases.get(args.join(' ').toLowerCase());
       if (command.config.hidden) {
         return message.channel.send(
-          `${client.emotes.error} - ${message.guild.i18n.__mf("help.not_found")}`
+          `${client.emotes.error} - ${message.guild.i18n.__mf(
+            'help.not_found'
+          )}`
         );
       }
-      if(command.config.nsfw && !message.channel.nsfw) {
-        return message.channel.send(`${client.emotes.error} - ${message.guild.i18n.__mf("help.nsfw")}`)
+      if (command.config.nsfw && !message.channel.nsfw) {
+        return message.channel.send(
+          `${client.emotes.error} - ${message.guild.i18n.__mf('help.nsfw')}`
+        );
       }
       if (!command)
         return message.channel.send(
-          `\\${client.emotes.error} - ${message.guild.i18n.__mf('help.not_found')}`
+          `\\${client.emotes.error} - ${message.guild.i18n.__mf(
+            'help.not_found'
+          )}`
         );
 
-      const description = message.guild.i18n.__mf(`${command.help.name}.description`);
+      const description = message.guild.i18n.__mf(
+        `${command.help.name}.description`
+      );
       await message.channel.send({
         embed: {
           color: 'ORANGE',
-          author: { name: message.guild.i18n.__mf('help.title')},
+          author: { name: message.guild.i18n.__mf('help.title') },
           fields: [
-            { name: message.guild.i18n.__mf('help.name'), value: command.help.name, inline: true },
+            {
+              name: message.guild.i18n.__mf('help.name'),
+              value: command.help.name,
+              inline: true,
+            },
             {
               name: message.guild.i18n.__mf('help.category'),
               value: _.upperFirst(command.help.category),
@@ -158,13 +176,18 @@ module.exports = class HelpCommand extends Command {
             },
             {
               name: message.guild.i18n.__mf('help.usage'),
-              value: command.help.utilisation.replace('{prefix}', client.prefix),
+              value: command.help.utilisation.replace(
+                '{prefix}',
+                client.prefix
+              ),
               inline: true,
             },
             {
               name: 'Cooldown',
               value: command.config.cooldown
-                ? `${command.config.cooldown} ${message.guild.i18n.__mf('help.seconds')}`
+                ? `${command.config.cooldown} ${message.guild.i18n.__mf(
+                    'help.seconds'
+                  )}`
                 : message.guild.i18n.__mf('help.none_cooldown'),
               inline: true,
             },

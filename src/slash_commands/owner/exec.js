@@ -3,7 +3,6 @@ const {
   Message,
   MessageEmbed,
   MessageAttachment,
-  Util,
 } = require('discord.js');
 const CommandInteraction = require('../../struct/Interactions/CommandInteraction');
 const SlashCommand = require('../../struct/SlashCommand');

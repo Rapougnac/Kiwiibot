@@ -23,7 +23,7 @@ module.exports = async (client, message) => {
     message.webhookID
   )
     return;
-  if (!message.guild) return;
+  if (!guild) return;
   if (message.content.match(/n+o+ +u+/gi)) return message.channel.send('no u');
   if (message.content.match(/\(╯°□°）╯︵ ┻━┻/g))
     return message.channel.send('┻━┻       (゜-゜)');
@@ -39,7 +39,7 @@ module.exports = async (client, message) => {
   if (
     message.content.startsWith(`<@!${client.user.id}>`) &&
     message.content.endsWith(`<@!${client.user.id}>`) &&
-    message.guild
+    guild
   )
     return message.inlineReply(
       message.guild.i18n.__mf('MESSAGE_PREFIX.msg', {
@@ -58,12 +58,6 @@ module.exports = async (client, message) => {
   command_to_execute.setMessage(message);
   if (command_to_execute) {
     if (client.owners.includes(message.author.id)) {
-      try {
-        command_to_execute.execute(client, message, args);
-      } catch (error) {
-        console.error(error);
-        message.reply(message.guild.i18n.__mf('ERROR_MESSAGE') + error.name);
-      }
       try {
         command_to_execute.execute(client, message, args);
       } catch (error) {
@@ -177,6 +171,13 @@ module.exports = async (client, message) => {
               )}:\`\n\n${reasons.map((reason) => '• ' + reason).join('\n')}`
           );
         return message.channel.send(embed);
+      } else {
+        try {
+          command_to_execute.execute(client, message, args);
+        } catch (error) {
+          console.error(error);
+          message.reply(message.guild.i18n.__mf('ERROR_MESSAGE') + error.name);
+        }
       }
     }
   } else {

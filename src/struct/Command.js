@@ -129,6 +129,34 @@ module.exports = class Command {
     this.cooldown = new Collection();
   }
   /**
+   * Trace the command
+   * @private
+   */
+  trace({ command = this.help.name, dir = false } = {}) {
+    let files = glob.sync('./src/commands/**/*.js');
+    let Path;
+    const exclude = this.client.config.discord.dev.exclude_cmd;
+    const include = this.client.config.discord.dev.include_cmd;
+    if (this.client.config.discord.dev.active) {
+      if (include.length) {
+        files = files.filter((file) => include.includes(path.parse(file).base));
+      }
+      if (exclude.length) {
+        files = files.filter(
+          (file) => !exclude.includes(path.parse(file).base)
+        );
+      }
+    }
+    for (const file of files) {
+      const filePath = path.resolve(file);
+      const fileName = path.basename(filePath, path.extname(filePath));
+      const filePathDir = path.dirname(filePath);
+      if (fileName === command)
+        return dir ? (Path = filePathDir) : (Path = filePath);
+    }
+    return Path;
+  }
+  /**
    * Set the message
    * @param {Message} message
    */

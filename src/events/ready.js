@@ -135,7 +135,7 @@ async function loadSlashs(client) {
       }
       client.slashs.set(command.name, command);
       console.log(
-        `Command posted: ${command.name} from ${process.cwd() + path.sep + file} [${
+        `Command posted: ${command.name} from ${path.resolve(process.cwd() + path.sep + file)} [${
           command.global ? 'global' : 'guild'
         }]`
       );

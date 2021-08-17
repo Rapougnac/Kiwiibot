@@ -1,6 +1,8 @@
 /// <reference path="../../types/index.d.ts" />
 const Client = require('./Client');
 const { Collection, MessageEmbed, Message } = require('discord.js');
+const path = require('path');
+const glob = require('glob');
 /**
  * Represents a command
  */
@@ -156,6 +158,59 @@ module.exports = class Command {
     }
     return Path;
   }
+  /**
+   * Reload a command
+   * @param {string} [commandName] The command to reload
+   */
+  reload(commandName = this.help.name) {
+    if (
+      !(
+        this.client.commands.has(commandName) ||
+        this.client.aliases.has(commandName)
+      )
+    )
+      return this.message.inlineReply("This commmand dosen't exist !");
+    const cmdPath = this.trace({ command: commandName });
+    delete require.cache[require.resolve(cmdPath)];
+    this.client.commands.delete(commandName);
+    /**@type {this} */
+    const command = new (require(cmdPath))(this.client);
+    if (this.client.commands.has(command.help.name)) {
+      console.error(
+        new Error(`Command name duplicate: ${command.help.name}`).stack
+      );
+      return process.exit(1);
+    }
+    this.client.commands.set(commandName, command);
+    // if (command.config.aliases) {
+    //   command.config.aliases.forEach((alias) => {
+    //     if (this.client.aliases.has(alias)) {
+    //       console.error(
+    //         new Error(`Alias name duplicate: ${command.config.aliases}`).stack
+    //       );
+    //       return process.exit(1);
+    //     } else {
+    //       this.client.aliases.set(alias, command);
+    //     }
+    //   });
+    // }
+  }
+  /**
+   * Unload a command
+   * @param {string} [commandName] The command to unload
+   */
+  unload(commandName = this.help.name) {
+    const cmdPath = this.trace({ command: commandName });
+    delete require.cache[cmdPath];
+    this.client.commands.delete(commandName);
+  }
+
+  load(commandName) {
+    const cmdPath = this.trace({ command: commandName });
+    const command = new (require(cmdPath))(this.client);
+    this.client.commands.set(commandName, command);
+  }
+
   /**
    * Set the message
    * @param {Message} message

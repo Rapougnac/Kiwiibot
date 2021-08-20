@@ -295,6 +295,7 @@ class KiwiiClient extends Client {
       }
     }
     console.log(table2.toString());
+    return this;
   }
   /**
    * Listener for process events.

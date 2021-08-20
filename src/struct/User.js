@@ -28,15 +28,10 @@ class ExtendedUser extends User {
    * @param {boolean} [dynamic] If avaliable and if true, the format will be .gif
    * @param {string} [root] The root url
    * @returns {string} The url of the banner
+   * @private
    */
-  Banner(
-    userID,
-    hash,
-    format = 'webp',
-    size,
-    dynamic = false,
-    root = 'https://cdn.discordapp.com'
-  ) {
+  Banner(userID, hash, format = 'webp', size, dynamic = false) {
+    const root = 'https://cdn.discordapp.com';
     if (dynamic) format = hash.startsWith('a_') ? 'gif' : format;
     return this.client.utils.makeImageUrl(`${root}/banners/${userID}/${hash}`, {
       format,

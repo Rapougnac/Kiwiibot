@@ -354,6 +354,7 @@ class KiwiiClient extends Client {
         'Database is not enabled! Some commands may cause dysfunctions, please active it in the config.json!'
       );
     }
+    return this;
   }
   /**
    * Checks whether a user is an owner of the bot (in {@link Options.owners})

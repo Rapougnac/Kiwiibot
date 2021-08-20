@@ -31,6 +31,7 @@ module.exports = class Command {
    * @param {boolean} [options.nsfw=false] If the command is nsfw or not, `false` by default
    * @param {string[]} [options.string] This is used to pass the translation
    * @param {boolean} [options.hidden=false] Whether the command should be hidden from the help menu
+   * @param {RegExp[]} [options.patterns] Regex that trigger the command
    */
   constructor(client, options) {
     /**
@@ -129,6 +130,10 @@ module.exports = class Command {
      * @type {Collection}
      */
     this.cooldown = new Collection();
+    /**
+     * @type {RegExp[]}
+     */
+    this.patterns = options.patterns;
   }
   /**
    * Trace the command
@@ -222,164 +227,7 @@ module.exports = class Command {
   respond(message) {
     this.message.channel.send(message);
   }
-  /**
-   *
-   * @param {Message} message
-   * @param {Command} cmd
-   * @param {*} language
-   * @param {Client} client
-   * @returns {Promise<Message>}
-   */
-  async checkPerms(message, cmd, client) {
-    const promise = new Promise((resolve) => {
-      const { guild } = message;
-      const reasons = [];
-      if (message.channel.type === 'dm') {
-        if (cmd.config.guildOnly) {
-          reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.guild_only'));
-        }
-      }
-
-      if (guild) {
-        if (cmd.config.ownerOnly) {
-          if (!client.owners.includes(message.author.id)) {
-            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.dev_only'));
-          }
-        }
-        if (cmd.config.adminOnly) {
-          if (!message.member.hasPermission('ADMINISTRATOR')) {
-            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.admin_only'));
-          }
-        }
-        if (cmd.config.nsfw) {
-          if (!message.channel.nsfw) {
-            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.nsfw'));
-          }
-        }
-        if (Array.isArray(cmd.config.permissions)) {
-          if (
-            !message.channel
-              .permissionsFor(message.member)
-              .has(cmd.config.permissions)
-          ) {
-            reasons.push(
-              [
-                message.guild.i18n.__mf(
-                  'PERMS_MESSAGE.missing_permissions_you'
-                ),
-                message.guild.i18n.__mf(
-                  'PERMS_MESSAGE.missing_permissions1_you'
-                ),
-                Object.entries(
-                  message.channel.permissionsFor(message.member).serialize()
-                )
-                  .filter((p) => cmd.config.permissions.includes(p[0]) && !p[1])
-                  .flatMap((c) =>
-                    c[0]
-                      .toLowerCase()
-                      .replace(/(^|"|_)(\S)/g, (x) => x.toUpperCase())
-                      .replace(/_/g, ' ')
-                      .replace(/Guild/g, 'Server')
-                      .replace(/Use Vad/g, 'Use Voice Activity')
-                  )
-                  .join('\n\u2000\u2000- '),
-              ].join('')
-            );
-          }
-        }
-        if (Array.isArray(cmd.config.clientPermissions)) {
-          if (
-            !message.channel
-              .permissionsFor(message.guild.me)
-              .has(cmd.config.clientPermissions)
-          ) {
-            reasons.push(
-              [
-                message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions_i'),
-                message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions1_i'),
-                Object.entries(
-                  message.channel.permissionsFor(message.guild.me).serialize()
-                )
-                  .filter(
-                    (p) => cmd.config.clientPermissions.includes(p[0]) && !p[1]
-                  )
-                  .flatMap((c) =>
-                    c[0]
-                      .toLowerCase()
-                      .replace(/(^|"|_)(\S)/g, (x) => x.toUpperCase())
-                      .replace(/_/g, ' ')
-                      .replace(/Guild/g, 'Server')
-                      .replace(/Use VAD/g, 'Use Voice Activity')
-                  )
-                  .join('\n\u2000\u2000- '),
-              ].join('')
-            );
-          }
-        }
-
-        if (reasons.length > 0) {
-          resolve(false);
-          const embed = new MessageEmbed()
-            .setAuthor(
-              client.user.tag,
-              client.user.displayAvatarURL({
-                dynamic: true,
-                format: 'png',
-                size: 2048,
-              })
-            )
-            .setColor('RED')
-            .setDescription(
-              `\`\`\`diff\n-${message.guild.i18n.__mf(
-                'PERMS_MESSAGE.blocked_cmd'
-              )}\n\`\`\`\n\n` +
-                `\`${message.guild.i18n.__mf(
-                  'PERMS_MESSAGE.reason'
-                )}:\`\n\n${reasons.map((reason) => '• ' + reason).join('\n')}`
-            );
-          return message.channel.send(embed);
-        } else {
-          resolve(true);
-        }
-      } else {
-        if (cmd.config.ownerOnly) {
-          if (!client.owners.includes(message.author.id)) {
-            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.dev_only'));
-          }
-        }
-        if (cmd.config.nsfw) {
-          if (!message.channel.nsfw) {
-            reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.nsfw'));
-          }
-        }
-        if (reasons.length > 0) {
-          resolve(false);
-          const embed = new MessageEmbed()
-            .setAuthor(
-              client.user.tag,
-              client.user.displayAvatarURL({
-                dynamic: true,
-                format: 'png',
-                size: 2048,
-              })
-            )
-            .setColor('RED')
-            .setDescription(
-              `\`\`\`diff\n-${message.guild.i18n.__mf(
-                'PERMS_MESSAGE.blocked_cmd'
-              )}\n\`\`\`\n\n` +
-                `\`${message.guild.i18n.__mf(
-                  'PERMS_MESSAGE.reason'
-                )}:\`\n\n${reasons.map((reason) => '• ' + reason).join('\n')}`
-            );
-          return message.channel.send(embed);
-        } else {
-          resolve(true);
-        }
-      }
-    });
-    this.promise = promise;
-  }
+  
   /**
    *
    * @param {String} message The message to pass in

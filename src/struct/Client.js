@@ -341,10 +341,8 @@ class KiwiiClient extends Client {
    * Function to start the bot
    */
   start() {
-    //Load the player events
-    this.playerInit();
-    //Load the events and commands
-    this.loadEvents().loadCommands();
+    //Load the events, player events and commands
+    this.playerInit().loadEvents().loadCommands();
 
     //Mongodb
     if (this.config.database.enable) {

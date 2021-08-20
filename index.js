@@ -5,6 +5,7 @@ if (Number(process.version.slice(1).split('.')[0]) < 12)
 require('./src/struct/Message'); // Extended Message
 require('./src/struct/Guild'); // Extended Guild
 require('./src/struct/User'); // Extended User
+require('./src/struct/GuildMember'); // Extended GuildMember
 const {
   Interaction,
   CommandInteraction,

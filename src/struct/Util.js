@@ -1,4 +1,4 @@
-const { APIMessage } = require('discord.js');
+const { APIMessage, MessageEmbed } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
 const Client = require('./Client');
 const Loader = require('./LoadingBar');
@@ -166,5 +166,87 @@ module.exports = class Utils {
    */
   removeDuplicates(array) {
     return [...new Set(array)];
+  }
+
+  checkPermissions(message, command) {
+    const reasons = [];
+    if (message.channel.type === 'dm') {
+      if (command.config.guildOnly) {
+        reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.guild_only'));
+      }
+    }
+
+    if (command.config.ownerOnly) {
+      if (!message.client.isOwner(message.author)) {
+        reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.dev_only'));
+      }
+    }
+    if (command.config.adminOnly) {
+      if (!message.member.hasPermission('ADMINISTRATOR')) {
+        reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.admin_only'));
+      }
+    }
+    if (command.config.nsfw) {
+      if (!message.channel.nsfw) {
+        reasons.push(message.guild.i18n.__mf('PERMS_MESSAGE.nsfw'));
+      }
+    }
+    if (Array.isArray(command.config.permissions)) {
+      if (
+        !message.channel
+          .permissionsFor(message.member)
+          .has(command.config.permissions)
+      ) {
+        reasons.push(
+          [
+            message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions_you'),
+            message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions1_you'),
+            Object.entries(
+              message.channel.permissionsFor(message.member).serialize()
+            )
+              .filter((p) => command.config.permissions.includes(p[0]) && !p[1])
+              .flatMap((c) =>
+                c[0]
+                  .toLowerCase()
+                  .replace(/(^|"|_)(\S)/g, (x) => x.toUpperCase())
+                  .replace(/_/g, ' ')
+                  .replace(/Guild/g, 'Server')
+                  .replace(/Use Vad/g, 'Use Voice Activity')
+              )
+              .join('\n\u2000\u2000- '),
+          ].join('')
+        );
+      }
+    }
+    if (Array.isArray(command.config.clientPermissions)) {
+      if (
+        !message.channel
+          .permissionsFor(message.guild.me)
+          .has(command.config.clientPermissions)
+      ) {
+        reasons.push(
+          [
+            message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions_i'),
+            message.guild.i18n.__mf('PERMS_MESSAGE.missing_permissions1_i'),
+            Object.entries(
+              message.channel.permissionsFor(message.guild.me).serialize()
+            )
+              .filter(
+                (p) => command.config.clientPermissions.includes(p[0]) && !p[1]
+              )
+              .flatMap((c) =>
+                c[0]
+                  .toLowerCase()
+                  .replace(/(^|"|_)(\S)/g, (x) => x.toUpperCase())
+                  .replace(/_/g, ' ')
+                  .replace(/Guild/g, 'Server')
+                  .replace(/Use VAD/g, 'Use Voice Activity')
+              )
+              .join('\n\u2000\u2000- '),
+          ].join('')
+        );
+      }
+    }
+    return reasons;
   }
 };

@@ -3,28 +3,34 @@ import { Client, ClientOptions, Collection, ImageURLOptions, ImageSize, AllowedI
 import { I18n } from 'i18n';
 declare module "discord.js" {
     interface MessageMentionOptions {
-        repliedUser?: boolean;
+        public repliedUser?: boolean;
     }
 
     interface Message {
-        inlineReply(
-            content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions,
-        ): Promise<Message>;
-        inlineReply(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-        inlineReply(options: MessageOptions): Promise<Message | Message[]>;
-        inlineReply(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-        inlineReply(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-        inlineReply(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
+        public inlineReply(content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions,): Promise<Message>;
+        public inlineReply(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
+        public inlineReply(options: MessageOptions): Promise<Message | Message[]>;
+        public inlineReply(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
+        public inlineReply(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
+        public inlineReply(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
     }
 
     interface Guild {
-        i18n: I18n;
-        prefix: string;
+        public i18n: I18n;
+        public prefix: string;
     }
     interface User {
-        BannerUser(userID: string, hash: string, format?: AllowedImageFormat, size: ImageSize, dynamic?: boolean, root?: string): string;
-        displayBannerURL(ImageURLOptions: ImageURLOptions & { dynamic?: boolean }): ?string;
-        hasBanner(): boolean;
+        public banner: ?string;
+        private Banner(userID: string, hash: string, format?: AllowedImageFormat, size: ImageSize, dynamic?: boolean): string;
+        public displayBannerURL(ImageURLOptions: ImageURLOptions & { dynamic?: boolean }): ?string;
+        public hasBanner(): boolean;
+    }
+
+    interface GuildMember {
+        public avatar: ?string;
+        public avatarURL(options?: ImageURLOptions & { dynamic?: boolean }): ?string;
+        public displayAvatarURL(options?: ImageURLOptions & { dynamic?: boolean }): string;
+        private GuildMemberAvatar(guildId: string, memberId: string, hash: ?string, format?: AllowedImageFormat, size: ImageSize, dynamic?: boolean): ?string;
     }
 }
 

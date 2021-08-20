@@ -28,9 +28,7 @@ const client = new Client({
   },
 });
 //Client start
-client.start();
-//client initalization
-client.login();
+client.start().login();
 //console.log(client.guilds.cache.get('692311924448297011').ahshja());
 client.listentoProcessEvents(['uncaughtException', 'unhandledRejection'], {
   log_on_console: false,

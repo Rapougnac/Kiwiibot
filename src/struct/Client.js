@@ -25,6 +25,7 @@ table2.setHeading('PLayer events', 'Load status');
 const mongoose = require('mongoose');
 const Util = require('./Util');
 const Command = require('./Command');
+// eslint-disable-next-line no-unused-vars
 const Event = require('./Event');
 const SlashCommand = require('./SlashCommand');
 const { Player } = require('discord-player');

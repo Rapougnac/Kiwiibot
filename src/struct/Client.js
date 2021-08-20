@@ -25,6 +25,8 @@ table2.setHeading('PLayer events', 'Load status');
 const mongoose = require('mongoose');
 const Util = require('./Util');
 const Command = require('./Command');
+const Event = require('./Event');
+const SlashCommand = require('./SlashCommand');
 const { Player } = require('discord-player');
 const ProcessEvent = require('../util/processEvents');
 const path = require('path');
@@ -48,7 +50,7 @@ class KiwiiClient extends Client {
     this.commands = new Collection();
     /**
      * A collection of all the bot's command aliases
-     * @type {Collection<string, string[]>}
+     * @type {Collection<string, string>}
      */
     this.aliases = new Collection();
     /**
@@ -63,9 +65,15 @@ class KiwiiClient extends Client {
     this.categories = new Set();
     /**
      * A collection of all the slash bot's commands
-     * @type {Collection<string, import('../../types').Interaction>}
+     * @type {Collection<string, SlashCommand>}
      */
     this.slashs = new Collection();
+
+    /**
+     * A collection of all the events
+     * @type {Collection<string, Event>}
+     */
+    this.events = new Collection();
 
     /**
      * The manager of the `Util` class
@@ -236,13 +244,19 @@ class KiwiiClient extends Client {
       }
       files = files.filter((file) => file.endsWith('.js'));
       files.forEach((file) => {
-        const eventHandler = require(`../events/${file}`);
-        const eventName = file.split('.')[0];
-        this.on(eventName, (...args) => eventHandler(this, ...args));
-        if (eventName) {
-          table.addRow(eventName, 'Ready');
-        } else {
-          table.addRow(eventName, '\x1b[31mERR!\x1b[0m');
+        /**@type {Event} */
+        let event = require(`../events/${file}`);
+        if (this.utils.isClass(event)) {
+          event = new event(this);
+          this.events.set(event.name, event);
+          event.emitter[event.type](event.name, (...args) =>
+            event.execute(...args)
+          );
+          if (event.name) {
+            table.addRow(event.name, 'Ready');
+          } else {
+            table.addRow(event.name, '\x1b[31mERR!\x1b[0m');
+          }
         }
       });
       console.log(table.toString());
@@ -254,15 +268,7 @@ class KiwiiClient extends Client {
    */
   mongoInit() {
     mongoose
-      .connect(this.config.database.URI, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        autoIndex: false,
-        useFindAndModify: false,
-        poolSize: 5,
-        connectTimeoutMS: 10000,
-        family: 4,
-      })
+      .connect(this.config.database.URI, this.config.database.config)
       .then(() => {
         Console.success(`Connected to Mongodb`, 'Mongodb');
       })
@@ -320,7 +326,7 @@ class KiwiiClient extends Client {
           config.logsonboth &&
           typeof config.logsonboth === 'boolean'
         ) {
-          if(args[0].message === 'Unknown User') return;
+          if (args[0].message === 'Unknown User') return;
           console.error(args[0].stack);
           return ProcessEvent(event, args, this);
         } else {

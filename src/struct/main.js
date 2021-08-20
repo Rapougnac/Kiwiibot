@@ -6,6 +6,7 @@ const MessageEmbed = require('./MessageEmbed');
 const Paginate = require('./Paginate');
 const Interaction = require('./Interactions/Interaction');
 const CommandInteraction = require('./Interactions/CommandInteraction');
+const Event = require('./Event');
 
 module.exports = {
   Client: Client,
@@ -16,4 +17,5 @@ module.exports = {
   Paginate: Paginate,
   Interaction: Interaction,
   CommandInteraction: CommandInteraction,
+  Event: Event,
 };

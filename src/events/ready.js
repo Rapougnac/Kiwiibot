@@ -49,15 +49,14 @@ module.exports = class ReadyEvent extends Event {
     ];
     setInterval(async () => {
       const i = statuses[Math.floor(Math.random() * statuses.length)];
-      await this.client.user
+      this.client.user
         .setPresence({
-          activity: {
+          activities: [{
             name: `${this.client.prefix}help | ${i}`,
             type: 'PLAYING',
-          },
+          }],
           status: this.client.config.discord.status,
         })
-        .catch(console.error);
     }, 1e4);
 
     consoleUtil.success(

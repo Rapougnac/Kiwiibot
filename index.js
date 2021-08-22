@@ -11,6 +11,7 @@ const {
   CommandInteraction,
   Client,
 } = require('./src/struct/main');
+const { Intents } = require('discord.js');
 const client = new Client({
   prefix: 'n?', // Prefix of the bot
   defaultPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'], // Default permissions
@@ -23,6 +24,7 @@ const client = new Client({
     'presenceUpdate',
   ],
   clientOptions: {
+    intents: Intents.ALL,
     disableMentions: 'everyone', //disables, that the bot is able to send @everyone
     partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   },

@@ -157,8 +157,6 @@ class KiwiiClient extends Client {
      * Get the filters in config
      */
     this.filters = this.config.filters;
-
-    this.fetchApplication().then((app) => (this.application = app));
   }
   /**
    * Log the client in

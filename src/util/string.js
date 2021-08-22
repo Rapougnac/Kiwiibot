@@ -32,7 +32,7 @@ function ordinalize(n = 0) {
 /**
  *
  * @param {number|string} number The number to separte
- * @param {string} [sep] The searator of the numbers
+ * @param {string} [sep] The separator of the numbers
  * @example separateNumbers(123456); // will return `123'456`;
  * separateNumbers(1234.567); // will return `1'234.567`;
  * @returns {string} The numbers with quotation marks

@@ -1,4 +1,3 @@
-/**@typedef {{clientOptions?: ClientOptions, config: NodeRequire, owners: string|string[], disabledEvents?: string[], prefix: string, testsGuild: string}} Options */
 /**
  * Data that resolves to give a User object. This can be:
  * * A User object
@@ -33,17 +32,24 @@ const ProcessEvent = require('../util/processEvents');
 const path = require('path');
 //const RestManager = require('discord.js/src/rest/RESTManager');
 /**
+ * @typedef KiwiiClientOptions 
+ * @property {string} prefix The prefix of the bot 
+ * @property {NodeRequire} config The config file
+ * @property {ClientOptions} [clientOptions] The client options of discord.js
+ * @property {string[]} [disabledEvents] The events that should not be loaded
+ * @property {string|string[]} [owners] The owners of the bot
+ */
+/**
  * Represents a discord client
  * @extends Client
  */
 class KiwiiClient extends Client {
   /**
-   *
-   * @param {Options} options The options passed trough the client
+   * Kiwiiclient
+   * @param {KiwiiClientOptions} options The options passed trough the client
    */
   constructor(options) {
     super(options.clientOptions || {});
-
     /**
      * * A collection of all the bot's commands
      * @type {Collection<string, Command>}
@@ -356,7 +362,7 @@ class KiwiiClient extends Client {
     return this;
   }
   /**
-   * Checks whether a user is an owner of the bot (in {@link Options.owners})
+   * Checks whether a user is an owner of the bot (in {@link KiwiiClientOptions.owners})
    * @param {UserResolvable} user - User to check for the ownership
    * @returns {boolean}
    */

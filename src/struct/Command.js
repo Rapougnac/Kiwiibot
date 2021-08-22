@@ -178,7 +178,7 @@ module.exports = class Command {
     const cmdPath = this.trace({ command: commandName });
     delete require.cache[require.resolve(cmdPath)];
     this.client.commands.delete(commandName);
-    /**@type {this} */
+    /**@type {Command} */
     const command = new (require(cmdPath))(this.client);
     if (this.client.commands.has(command.help.name)) {
       console.error(
@@ -227,7 +227,7 @@ module.exports = class Command {
   respond(message) {
     this.message.channel.send(message);
   }
-  
+
   /**
    *
    * @param {String} message The message to pass in
